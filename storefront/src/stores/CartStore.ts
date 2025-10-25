@@ -1,14 +1,14 @@
 import { useLoaderStore } from '@/stores/LoaderStore'
-import type { HttpTypes } from '@medusajs/types'
+// import type { HttpTypes } from '@medusajs/types'
 import ApiService from '@/services/api/api'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
-  const cart = ref<HttpTypes.StoreCart | undefined>(undefined)
-  const shippingOptions = ref<HttpTypes.StoreCartShippingOption[] | undefined>(undefined)
-  const paymentOptions = ref<HttpTypes.StorePaymentProvider[] | undefined>(undefined)
-  const paymentCollection = ref<HttpTypes.StorePaymentSession | undefined>(undefined)
+  const cart = ref<undefined>(undefined)
+  const shippingOptions = ref<undefined>(undefined)
+  const paymentOptions = ref<undefined>(undefined)
+  const paymentCollection = ref<undefined>(undefined)
 
   const loaderStore = useLoaderStore()
 
@@ -39,7 +39,7 @@ export const useCartStore = defineStore('cart', () => {
     return dataCart
   }
 
-  const addToCart = async (variantId: string, quantity: number): Promise<HttpTypes.StoreCart> => {
+  const addToCart = async (variantId: string, quantity: number) => {
     if (!cart.value) {
       await refreshCart()
       throw new Error('Error initializing cart')
@@ -64,8 +64,8 @@ export const useCartStore = defineStore('cart', () => {
     updateData,
     shippingMethodData,
   }: {
-    updateData?: HttpTypes.StoreUpdateCart
-    shippingMethodData?: HttpTypes.StoreAddCartShippingMethods
+    updateData,
+    shippingMethodData
   }): Promise<void> => {
     console.log('updateData', updateData)
     console.log('cart.value', cart.value)
@@ -126,7 +126,7 @@ export const useCartStore = defineStore('cart', () => {
     localStorage.removeItem('cart_id')
   }
 
-  const removeItem = async (item: HttpTypes.StoreCartLineItem): Promise<void> => {
+  const removeItem = async (item): Promise<void> => {
     if (cart.value) {
       await ApiService.removeItem(cart.value.id, item, loaderStore.LOADER_KEYS.ADD_TO_CART)
 

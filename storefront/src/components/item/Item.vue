@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { useProductPrice } from '@/composables/useProductPrice'
-import { localePath } from '@/composables/localePath.ts'
-import { HttpTypes } from '@medusajs/types'
-import { useI18n } from 'vue-i18n'
+// import { useProductPrice } from '@/composables/useProductPrice'
+// import { localePath } from '@/composables/localePath.ts'
+// import { HttpTypes } from '@medusajs/types'
+// import { useI18n } from 'vue-i18n'
 
-const { getProductPrice } = useProductPrice()
-const { t } = useI18n()
+// const { getProductPrice } = useProductPrice()
+// const { t } = useI18n()
 
-const props = defineProps<{
-  item: HttpTypes.StoreProduct
-}>()
+// const props = defineProps<{
+//   item: HttpTypes.StoreProduct
+// }>()
 
-const { cheapestPrice } = getProductPrice({
-  product: props.item,
-})
+// const { cheapestPrice } = getProductPrice({
+//   product: props.item,
+// })
 </script>
 
 <template>
   <RouterLink
+  v-if="false"
     :to="localePath(`item/${item.handle}`)"
     class="item"
   >

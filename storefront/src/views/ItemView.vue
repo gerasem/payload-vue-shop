@@ -1,42 +1,42 @@
 <script setup lang="ts">
-import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
-import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
-import ProductActions from '@/components/item-view/ProductActions.vue'
-import Text2Columns from '@/components/content/Text2Columns.vue'
-import { useCategoryStore } from '@/stores/CategoryStore'
-import Gallery from '@/components/gallery/Gallery.vue'
-import { useLoaderStore } from '@/stores/LoaderStore'
-import Header from '@/components/content/Header.vue'
-import ApiService from '@/services/api/api'
-import { HttpTypes } from '@medusajs/types'
-import { watch, ref, computed } from 'vue'
-import { useSeoMeta } from '@unhead/vue'
-import { useRoute } from 'vue-router'
+// import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
+// import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
+// import ProductActions from '@/components/item-view/ProductActions.vue'
+// import Text2Columns from '@/components/content/Text2Columns.vue'
+// import { useCategoryStore } from '@/stores/CategoryStore'
+// import Gallery from '@/components/gallery/Gallery.vue'
+// import { useLoaderStore } from '@/stores/LoaderStore'
+// import Header from '@/components/content/Header.vue'
+// import ApiService from '@/services/api/api'
+// import { HttpTypes } from '@medusajs/types'
+// import { watch, ref, computed } from 'vue'
+// import { useSeoMeta } from '@unhead/vue'
+// import { useRoute } from 'vue-router'
 
-const categoryStore = useCategoryStore()
-const loaderStore = useLoaderStore()
+// const categoryStore = useCategoryStore()
+// const loaderStore = useLoaderStore()
 
-const item = ref<HttpTypes.StoreProduct | null>(null)
+// const item = ref<HttpTypes.StoreProduct | null>(null)
 
-const route = useRoute()
+// const route = useRoute()
 
-watch(
-  () => route.params.handle,
-  async (newHandle) => {
-    item.value = await ApiService.fetchItemByHandle(
-      newHandle as string,
-      loaderStore.LOADER_KEYS.ITEM,
-    )
-    if (item.value && item.value?.categories) {
-      categoryStore.setCurrentCategory(item.value?.categories[0]?.handle)
-    }
-  },
-  { immediate: true },
-)
+// watch(
+//   () => route.params.handle,
+//   async (newHandle) => {
+//     item.value = await ApiService.fetchItemByHandle(
+//       newHandle as string,
+//       loaderStore.LOADER_KEYS.ITEM,
+//     )
+//     if (item.value && item.value?.categories) {
+//       categoryStore.setCurrentCategory(item.value?.categories[0]?.handle)
+//     }
+//   },
+//   { immediate: true },
+// )
 
-useSeoMeta({
-  title: computed(() => item.value?.title),
-})
+// useSeoMeta({
+//   title: computed(() => item.value?.title),
+// })
 </script>
 
 <template>

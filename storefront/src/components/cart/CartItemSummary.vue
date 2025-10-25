@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { convertToLocale } from '@/utils/priceUtils'
-import { HttpTypes } from '@medusajs/types'
-import { computed } from 'vue'
+// import { convertToLocale } from '@/utils/priceUtils'
+// import { HttpTypes } from '@medusajs/types'
+// import { computed } from 'vue'
 
-const props = defineProps<{
-  item: HttpTypes.StoreCartLineItem
-}>()
+// const props = defineProps<{
+//   item: HttpTypes.StoreCartLineItem
+// }>()
 
-const totalPrice = computed(() => {
-  if (props.item.total) {
-    return props.item.total
-  }
-  return props.item.unit_price * (props.item.quantity || 1)
-})
+// const totalPrice = computed(() => {
+//   if (props.item.total) {
+//     return props.item.total
+//   }
+//   return props.item.unit_price * (props.item.quantity || 1)
+// })
 </script>
 
 <template>
-  <div class="cart__item is-flex">
+  <div v-if="false" class="cart__item is-flex">
     <div class="cart__image-container">
       <img
         :src="item.thumbnail"

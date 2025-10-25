@@ -3,7 +3,7 @@ import type { ICategory } from '@/interfaces/ICategory'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import type { IItem } from '@/interfaces/IItem'
 import ApiService from '@/services/api/api'
-import { HttpTypes } from '@medusajs/types'
+// import { HttpTypes } from '@medusajs/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 

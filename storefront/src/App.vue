@@ -9,7 +9,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <Loader />
-  <!-- <InformationBanner /> -->
+  <InformationBanner />
   <!-- <Navbar />
   <div id="content">
     <router-view v-slot="{ Component }">

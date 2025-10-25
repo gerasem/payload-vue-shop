@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import { useProductPrice } from '@/composables/useProductPrice'
-import type { HttpTypes } from '@medusajs/types'
-import { computed } from 'vue'
+// import { useProductPrice } from '@/composables/useProductPrice'
+// import type { HttpTypes } from '@medusajs/types'
+// import { computed } from 'vue'
 
-const props = defineProps<{
-  product: HttpTypes.StoreProduct
-  variant: HttpTypes.StoreProductVariant | undefined
-}>()
+// const props = defineProps<{
+//   product: HttpTypes.StoreProduct
+//   variant: HttpTypes.StoreProductVariant | undefined
+// }>()
 
-const { getProductPrice } = useProductPrice()
+// const { getProductPrice } = useProductPrice()
 
-const prices = computed(() =>
-  getProductPrice({
-    product: props.product,
-    variantId: props.variant?.id,
-  }),
-)
+// const prices = computed(() =>
+//   getProductPrice({
+//     product: props.product,
+//     variantId: props.variant?.id,
+//   }),
+// )
 
-const selectedPrice = computed(() =>
-  props.variant ? prices.value.variantPrice : prices.value.cheapestPrice,
-)
+// const selectedPrice = computed(() =>
+//   props.variant ? prices.value.variantPrice : prices.value.cheapestPrice,
+// )
 
-const showAvailableCount = computed(() => {
-  return props.variant?.inventory_quantity && props.variant?.inventory_quantity > 10
-    ? 'Available in lagre quantity'
-    : `Only ${props.variant?.inventory_quantity} items left in stock`
-})
+// const showAvailableCount = computed(() => {
+//   return props.variant?.inventory_quantity && props.variant?.inventory_quantity > 10
+//     ? 'Available in lagre quantity'
+//     : `Only ${props.variant?.inventory_quantity} items left in stock`
+// })
 </script>
 
 <template>
   <div
-    v-if="selectedPrice"
+    v-if="false || selectedPrice"
     class="is-flex item__price-container"
   >
     <h4

@@ -1,79 +1,79 @@
 <script setup lang="ts">
-import CartQuantity from '@/components/cart/CartQuantity.vue'
-import { localePath } from '@/composables/localePath'
-import { convertToLocale } from '@/utils/priceUtils'
-import Button from '@/components/form/Button.vue'
-import { useCartStore } from '@/stores/CartStore'
-import { HttpTypes } from '@medusajs/types'
-import { computed, ref, watch } from 'vue'
-import debounce from 'lodash.debounce'
+// import CartQuantity from '@/components/cart/CartQuantity.vue'
+// import { localePath } from '@/composables/localePath'
+// import { convertToLocale } from '@/utils/priceUtils'
+// import Button from '@/components/form/Button.vue'
+// import { useCartStore } from '@/stores/CartStore'
+// import { HttpTypes } from '@medusajs/types'
+// import { computed, ref, watch } from 'vue'
+// import debounce from 'lodash.debounce'
 
-const props = defineProps<{
-  item: HttpTypes.StoreCartLineItem
-}>()
+// const props = defineProps<{
+//   item: HttpTypes.StoreCartLineItem
+// }>()
 
-const cartStore = useCartStore()
+// const cartStore = useCartStore()
 
-const inventoryQuantityFromApi = ref<number | null>(null)
-const loadingQuantity = ref<boolean>(false)
-const loadingDelete = ref<boolean>(false)
+// const inventoryQuantityFromApi = ref<number | null>(null)
+// const loadingQuantity = ref<boolean>(false)
+// const loadingDelete = ref<boolean>(false)
 
-const quantity = defineModel<number>('quantity', { default: 1 })
-quantity.value = props.item.quantity
+// const quantity = defineModel<number>('quantity', { default: 1 })
+// quantity.value = props.item.quantity
 
-const deleteItem = async () => {
-  loadingDelete.value = true
-  await cartStore.removeItem(props.item)
-  loadingDelete.value = false
-}
+// const deleteItem = async () => {
+//   loadingDelete.value = true
+//   await cartStore.removeItem(props.item)
+//   loadingDelete.value = false
+// }
 
-const changeItemCount = async () => {
-  if (!quantityError.value && typeof quantity.value === 'number') {
-    loadingQuantity.value = true
-    await cartStore.updateItemQuantity(props.item.id, quantity.value)
-    loadingQuantity.value = false
-  }
+// const changeItemCount = async () => {
+//   if (!quantityError.value && typeof quantity.value === 'number') {
+//     loadingQuantity.value = true
+//     await cartStore.updateItemQuantity(props.item.id, quantity.value)
+//     loadingQuantity.value = false
+//   }
 
-  if (inventoryQuantityFromApi.value === null) {
-    inventoryQuantityFromApi.value = await cartStore.getItemQuantity(
-      props.item.product_id || '',
-      props.item.variant_id || '',
-    )
-  }
-}
+//   if (inventoryQuantityFromApi.value === null) {
+//     inventoryQuantityFromApi.value = await cartStore.getItemQuantity(
+//       props.item.product_id || '',
+//       props.item.variant_id || '',
+//     )
+//   }
+// }
 
-const inventoryQuantity = computed(() => {
-  if (inventoryQuantityFromApi.value !== null) {
-    return inventoryQuantityFromApi.value
-  }
-  return 1000
-})
+// const inventoryQuantity = computed(() => {
+//   if (inventoryQuantityFromApi.value !== null) {
+//     return inventoryQuantityFromApi.value
+//   }
+//   return 1000
+// })
 
-const quantityError = computed(() => {
-  if (props.item.variant?.allow_backorder || !props.item.variant?.manage_inventory) {
-    return false
-  }
+// const quantityError = computed(() => {
+//   if (props.item.variant?.allow_backorder || !props.item.variant?.manage_inventory) {
+//     return false
+//   }
 
-  return quantity?.value > inventoryQuantity.value
-})
+//   return quantity?.value > inventoryQuantity.value
+// })
 
-const totalPrice = computed(() => {
-  if (props.item.total) {
-    return props.item.total
-  }
-  return props.item.unit_price * (props.item.quantity || 1)
-})
-watch(
-  quantity,
-  debounce(() => {
-    console.log('changeItemCount debounce')
-    changeItemCount()
-  }, 500),
-)
+// const totalPrice = computed(() => {
+//   if (props.item.total) {
+//     return props.item.total
+//   }
+//   return props.item.unit_price * (props.item.quantity || 1)
+// })
+// watch(
+//   quantity,
+//   debounce(() => {
+//     console.log('changeItemCount debounce')
+//     changeItemCount()
+//   }, 500),
+// )
 </script>
 
 <template>
-  <div class="cart__item is-flex">
+  <div v-if="false" class="cart__item is-flex">
     <RouterLink :to="localePath(`item/${item.product_handle}`)">
       <div class="cart__image-container">
         <img

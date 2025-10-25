@@ -1,7 +1,7 @@
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
-import { sdk } from '@/services/medusa/config'
-import { HttpTypes } from '@medusajs/types'
+// import { sdk } from '@/services/medusa/config'
+// import { HttpTypes } from '@medusajs/types'
 
 const CART_FIELDS =
   '*items,+items.total,*region,*items.product,*items.variant,*items.thumbnail,*items.metadata,*promotions,+shipping_methods.name'
@@ -41,7 +41,7 @@ class ApiService {
     }
   }
 
-  static async fetchCategories(loaderKey: string): Promise<HttpTypes.StoreProductCategory[] | []> {
+  static async fetchCategories(loaderKey: string) {
     return this.handleRequest(
       async () => {
         const { product_categories } = await sdk.store.category.list()
@@ -59,7 +59,7 @@ class ApiService {
     categoryId: string,
     loaderKey: string,
     limit: number = 50,
-  ): Promise<HttpTypes.StoreProduct[] | []> {
+  ) {
     return this.handleRequest(
       async () => {
         const { products } = await sdk.store.product.list({
@@ -78,7 +78,7 @@ class ApiService {
   static async fetchItemByHandle(
     handle: string,
     loaderKey: string,
-  ): Promise<HttpTypes.StoreProduct> {
+  ) {
     return this.handleRequest(
       async () => {
         const { products } = await sdk.store.product.list({
@@ -93,7 +93,7 @@ class ApiService {
     )
   }
 
-  static async createCart(loaderKey: string): Promise<HttpTypes.StoreCart> {
+  static async createCart(loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.create({ region_id: this.regionId })
@@ -103,7 +103,7 @@ class ApiService {
     )
   }
 
-  static async retrieveCart(cartId: string, loaderKey: string): Promise<HttpTypes.StoreCart> {
+  static async retrieveCart(cartId: string, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.retrieve(cartId, {
@@ -117,9 +117,9 @@ class ApiService {
 
   static async updateCart(
     cartId: string,
-    data: HttpTypes.StoreUpdateCart,
+    data,
     loaderKey: string,
-  ): Promise<HttpTypes.StoreCart> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.update(cartId, data, {
@@ -135,7 +135,7 @@ class ApiService {
     cartId: string,
     data: { variant_id: string; quantity: number },
     loaderKey: string,
-  ): Promise<HttpTypes.StoreCart> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.createLineItem(cartId, data, {
@@ -152,7 +152,7 @@ class ApiService {
     itemId: string,
     data: { quantity: number },
     loaderKey: string,
-  ): Promise<HttpTypes.StoreCart> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.updateLineItem(cartId, itemId, data, {
@@ -166,9 +166,9 @@ class ApiService {
 
   static async addCartShippingMethod(
     cartId: string,
-    data: HttpTypes.StoreAddCartShippingMethods,
+    data,
     loaderKey: string,
-  ): Promise<HttpTypes.StoreCart> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.addShippingMethod(cartId, data)
@@ -203,7 +203,7 @@ class ApiService {
 
   static async removeItem(
     cartId: string,
-    item: HttpTypes.StoreCartLineItem,
+    item,
     loaderKey: string,
   ): Promise<void> {
     const toastStore = useToastStore()
@@ -225,7 +225,7 @@ class ApiService {
   static async fetchShippingOptions(
     cartId: string,
     loaderKey: string,
-  ): Promise<HttpTypes.StoreCartShippingOption[]> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { shipping_options } = await sdk.store.fulfillment.listCartOptions({
@@ -240,7 +240,7 @@ class ApiService {
   static async fetchPaymentOptions(
     regionId: string,
     loaderKey: string,
-  ): Promise<HttpTypes.StorePaymentProvider[]> {
+  ) {
     return ApiService.handleRequest(
       async () => {
         const { payment_providers } = await sdk.store.payment.listPaymentProviders({
@@ -253,8 +253,8 @@ class ApiService {
   }
 
   static async initiatePaymentSession(
-    cart: HttpTypes.StoreCart,
-    data: HttpTypes.StoreInitializePaymentSession,
+    cart,
+    data,
     loaderKey: string,
   ) {
     return ApiService.handleRequest(

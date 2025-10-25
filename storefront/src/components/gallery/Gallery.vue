@@ -1,45 +1,45 @@
 <script setup lang="ts">
-import PhotoSwipeLightbox from 'photoswipe/lightbox'
-import { HttpTypes } from '@medusajs/types'
-import 'photoswipe/style.css'
+// import PhotoSwipeLightbox from 'photoswipe/lightbox'
+// import { HttpTypes } from '@medusajs/types'
+// import 'photoswipe/style.css'
 
-const props = defineProps<{
-  item: HttpTypes.StoreProduct | null
-  loading: boolean
-}>()
+// const props = defineProps<{
+//   item: HttpTypes.StoreProduct | null
+//   loading: boolean
+// }>()
 
-const getImageSize = (url: string) => {
-  return new Promise((resolve) => {
-    const img = new Image()
-    img.src = url
-    img.onload = () => {
-      resolve({
-        src: url,
-        w: img.naturalWidth,
-        h: img.naturalHeight,
-      })
-    }
-  })
-}
+// const getImageSize = (url: string) => {
+//   return new Promise((resolve) => {
+//     const img = new Image()
+//     img.src = url
+//     img.onload = () => {
+//       resolve({
+//         src: url,
+//         w: img.naturalWidth,
+//         h: img.naturalHeight,
+//       })
+//     }
+//   })
+// }
 
-const openGallery = async (startIndex: number) => {
-  if (!props.item?.images) {
-    return
-  }
-  const items = await Promise.all(props.item.images.map((img) => getImageSize(img.url)))
+// const openGallery = async (startIndex: number) => {
+//   if (!props.item?.images) {
+//     return
+//   }
+//   const items = await Promise.all(props.item.images.map((img) => getImageSize(img.url)))
 
-  const lightbox = new PhotoSwipeLightbox({
-    dataSource: items,
-    pswpModule: () => import('photoswipe'),
-  })
+//   const lightbox = new PhotoSwipeLightbox({
+//     dataSource: items,
+//     pswpModule: () => import('photoswipe'),
+//   })
 
-  lightbox.init()
-  lightbox.loadAndOpen(startIndex)
-}
+//   lightbox.init()
+//   lightbox.loadAndOpen(startIndex)
+// }
 </script>
 
 <template>
-  <div
+  <div v-if="false"
     id="gallery"
     class="gallery__row"
     :class="{ 'gallery__row--one-image': item?.images?.length === 1 }"

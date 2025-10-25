@@ -1,12 +1,8 @@
 #ToDo
-[ ] edit .env file
-[ ] install dependencies
-[ ] search for payload plugin for VSCode
 [ ] read languages array in header storefront from payload config
 [ ] get Product type from backend and use it for HttpTypes.StoreProduct and HttpTypes.CartLineItem
 [ ] create collection MediaSvg for inline svgs
 [ ] delete services/medusa config.ts file and create payload config file for payload sdk
-[ ] replace all HttpTypes form medusa with any type to start storefront
 [ ] custom field in header for slogan
 [ ] header: get data from api
 [ ] test language change

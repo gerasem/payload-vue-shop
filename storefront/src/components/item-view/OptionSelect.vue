@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import Button from '@/components/form/Button.vue'
-import type { HttpTypes } from '@medusajs/types'
-import { computed } from 'vue'
+// import Button from '@/components/form/Button.vue'
+// import type { HttpTypes } from '@medusajs/types'
+// import { computed } from 'vue'
 
-const props = defineProps<{
-  option: HttpTypes.StoreProductOption
-  current: string | undefined
-  title: string
-  disabled?: boolean
-}>()
+// const props = defineProps<{
+//   option: HttpTypes.StoreProductOption
+//   current: string | undefined
+//   title: string
+//   disabled?: boolean
+// }>()
 
-const emit = defineEmits<{
-  (e: 'update-option', value: string): void
-}>()
+// const emit = defineEmits<{
+//   (e: 'update-option', value: string): void
+// }>()
 
-const filteredOptions = computed(() => (props.option.values ?? []).map((v) => v.value))
+// const filteredOptions = computed(() => (props.option.values ?? []).map((v) => v.value))
 
-const updateOption = (value: string) => {
-  emit('update-option', value)
-}
+// const updateOption = (value: string) => {
+//   emit('update-option', value)
+// }
 </script>
 
 <template>
-  <div class="field">
+  <div class="field" v-if="false">
     <label class="label is-small">{{ title }}</label>
     <div class="control buttons option-select__buttons are-small">
       <Button

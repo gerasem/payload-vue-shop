@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import Item from '@/components/item/Item.vue'
-import { HttpTypes } from '@medusajs/types'
+// import Item from '@/components/item/Item.vue'
+// import { HttpTypes } from '@medusajs/types'
 
-defineProps<{
-  items: HttpTypes.StoreProduct[]
-  loading: boolean
-}>()
+// defineProps<{
+//   items: HttpTypes.StoreProduct[]
+//   loading: boolean
+// }>()
 </script>
 
 <template>
-  <div class="columns is-mobile is-multiline is-3">
+  <div v-if="false" class="columns is-mobile is-multiline is-3">
     <div
       v-for="item in items"
       :key="item.id"
