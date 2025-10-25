@@ -1,0 +1,21 @@
+@use '../sass-utils/variables' as *;
+
+body {
+}
+
+h1 {
+  @media (max-width: $screen-sm-max) {
+  }
+}
+
+h2 {
+}
+
+h3 {
+}
+
+a {
+  &:hover,
+  &:focus {
+  }
+}

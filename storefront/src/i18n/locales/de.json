@@ -1,0 +1,9 @@
+{
+  "hello": "Hallo",
+  "contact": "Kontakt",
+  "cart": "Warenkorb",
+  "from": "Ab",
+  "field_required": "{field} is required",
+  "invalid_email": "Please enter a valid email address",
+  "min_length": "{field} must be at least {length} characters"
+}

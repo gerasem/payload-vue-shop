@@ -1,0 +1,41 @@
+{
+  "cSpell.enabled": true,
+  "cSpell.language": "en,ru,de",
+  "cSpell.words": [
+    "bulma",
+    "fullhd",
+    "has-text",
+    "is-active",
+    "is-danger",
+    "is-hidden",
+    "is-primary",
+    "typescript",
+    "vue"
+  ],
+  "cSpell.ignorePaths": ["node_modules/**", "dist/**", "build/**", "*.min.js", "*.min.css"],
+  "cSpell.languageSettings": [
+    {
+      "languageId": "vue,html,css,scss,typescript,javascript,json",
+      "patterns": [
+        {
+          "name": "CSS Classes in Attributes",
+          "pattern": "/\\b(class|className)=['\"][^'\"]*['\"]/g"
+        },
+        {
+          "name": "CSS Selectors",
+          "pattern": "/\\.[a-zA-Z0-9\\-]+/g"
+        },
+        {
+          "name": "Function and Variable Names",
+          "pattern": "/\\b[a-zA-Z0-9]+\\b/g"
+        },
+        {
+          "name": "Vue Component Tags",
+          "pattern": "/<[A-Z][a-zA-Z0-9]+(?:-[A-Z][a-zA-Z0-9]+)*>/g"
+        }
+      ]
+    }
+  ],
+  "cSpell.checkFileNames": true, 
+  "oxc.enable": true
+}

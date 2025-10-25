@@ -1,0 +1,10 @@
+@use 'bulma/sass/utilities/mixins';
+
+.overflow-hidden {
+  overflow-y: hidden;
+  max-height: 100vh;
+}
+
+.loading-spinner {
+  @include mixins.loader;
+}
