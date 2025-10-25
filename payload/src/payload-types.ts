@@ -76,6 +76,7 @@ export interface Config {
     pages: Page;
     categories: Category;
     media: Media;
+    'svg-media': SvgMedia;
     forms: Form;
     'form-submissions': FormSubmission;
     addresses: Address;
@@ -108,6 +109,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'svg-media': SvgMediaSelect<false> | SvgMediaSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
@@ -128,10 +130,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'information-banner': InformationBanner;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'information-banner': InformationBannerSelect<false> | InformationBannerSelect<true>;
   };
   locale: 'de' | 'en';
   user: User & {
@@ -1015,6 +1019,25 @@ export interface Address {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "svg-media".
+ */
+export interface SvgMedia {
+  id: number;
+  svgContent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -1052,6 +1075,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'svg-media';
+        value: number | SvgMedia;
       } | null)
     | ({
         relationTo: 'forms';
@@ -1352,6 +1379,24 @@ export interface CategoriesSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "svg-media_select".
+ */
+export interface SvgMediaSelect<T extends boolean = true> {
+  svgContent?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1802,6 +1847,22 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information-banner".
+ */
+export interface InformationBanner {
+  id: number;
+  items?:
+    | {
+        text?: string | null;
+        icon?: (number | null) | SvgMedia;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1840,6 +1901,22 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information-banner_select".
+ */
+export interface InformationBannerSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        text?: T;
+        icon?: T;
         id?: T;
       };
   updatedAt?: T;
