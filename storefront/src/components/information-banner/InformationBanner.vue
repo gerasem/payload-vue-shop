@@ -5,12 +5,13 @@ import { sanitizeSvg } from '@/utils/sanitizeSvg'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 
-const { t } = useI18n()
+const { locale } = useI18n()
+
 const contentStore = useContentStore()
 const loaderStore = useLoaderStore()
 
 onMounted(async () => {
-  await contentStore.getInformationBanner()
+  await contentStore.getInformationBanner(locale.value)
 })
 </script>
 
@@ -43,17 +44,17 @@ onMounted(async () => {
     align-content: center;
     color: $color-light-gray;
     font-size: 15px;
-    //position: relative;
+    position: relative;
 
-    /*&:after {
-      content: "";
-      background: linear-gradient(90deg, transparent 0, #FFF2EB 80%);
+    &:after {
+      content: '';
+      background: linear-gradient(90deg, transparent 0, darken($color-categories-background, 5%));
       width: 30px;
       height: 40px;
       position: absolute;
       right: 0;
       top: 0;
-    }*/
+    }
   }
 
   &__list-container {
@@ -79,6 +80,10 @@ onMounted(async () => {
     align-items: center;
     display: flex;
     gap: 7px;
+
+    span {
+      display: flex;
+    }
   }
 }
 </style>
