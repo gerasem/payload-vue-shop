@@ -5,6 +5,6 @@ export const init = async () => {
   const categoryStore = useCategoryStore()
   const cartStore = useCartStore()
 
-  await categoryStore.getCategories()
-  await cartStore.initializeCart()
+  // await categoryStore.getCategories()
+  // await cartStore.initializeCart()
 }

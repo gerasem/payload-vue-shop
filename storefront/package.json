@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^5.9.0",
+    "@payloadcms/sdk": "^3.61.1",
     "@unhead/vue": "^2.0.8",
     "@vueuse/core": "^13.1.0",
     "bulma": "^1.0.4",

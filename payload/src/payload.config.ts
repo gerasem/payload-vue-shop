@@ -103,5 +103,7 @@ export default buildConfig({
   localization: {
     locales: ['de', 'en'],
     defaultLocale: 'de',
+    fallback: true,
   },
+  cors: ['http://localhost:8000'],
 })

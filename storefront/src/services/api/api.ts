@@ -1,6 +1,6 @@
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
-// import { sdk } from '@/services/medusa/config'
+import { sdk } from './config'
 // import { HttpTypes } from '@medusajs/types'
 
 const CART_FIELDS =
@@ -41,6 +41,19 @@ class ApiService {
     }
   }
 
+  // payload
+  // todo fix locale
+  static fetchInformationBanner = (loaderKey: string) => {
+    return this.handleRequest(
+      async () => {
+        const { items } = await sdk.findGlobal({ slug: 'information-banner', locale: 'en' })
+        console.log('items', items)
+        return items
+      },
+      { loaderKey },
+    )
+  }
+
   static async fetchCategories(loaderKey: string) {
     return this.handleRequest(
       async () => {
@@ -55,11 +68,7 @@ class ApiService {
     )
   }
 
-  static async fetchItemsByCategory(
-    categoryId: string,
-    loaderKey: string,
-    limit: number = 50,
-  ) {
+  static async fetchItemsByCategory(categoryId: string, loaderKey: string, limit: number = 50) {
     return this.handleRequest(
       async () => {
         const { products } = await sdk.store.product.list({
@@ -75,10 +84,7 @@ class ApiService {
     )
   }
 
-  static async fetchItemByHandle(
-    handle: string,
-    loaderKey: string,
-  ) {
+  static async fetchItemByHandle(handle: string, loaderKey: string) {
     return this.handleRequest(
       async () => {
         const { products } = await sdk.store.product.list({
@@ -115,11 +121,7 @@ class ApiService {
     )
   }
 
-  static async updateCart(
-    cartId: string,
-    data,
-    loaderKey: string,
-  ) {
+  static async updateCart(cartId: string, data, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.update(cartId, data, {
@@ -164,11 +166,7 @@ class ApiService {
     )
   }
 
-  static async addCartShippingMethod(
-    cartId: string,
-    data,
-    loaderKey: string,
-  ) {
+  static async addCartShippingMethod(cartId: string, data, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { cart } = await sdk.store.cart.addShippingMethod(cartId, data)
@@ -201,11 +199,7 @@ class ApiService {
     )
   }
 
-  static async removeItem(
-    cartId: string,
-    item,
-    loaderKey: string,
-  ): Promise<void> {
+  static async removeItem(cartId: string, item, loaderKey: string): Promise<void> {
     const toastStore = useToastStore()
 
     return ApiService.handleRequest(
@@ -222,10 +216,7 @@ class ApiService {
     )
   }
 
-  static async fetchShippingOptions(
-    cartId: string,
-    loaderKey: string,
-  ) {
+  static async fetchShippingOptions(cartId: string, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { shipping_options } = await sdk.store.fulfillment.listCartOptions({
@@ -237,10 +228,7 @@ class ApiService {
     )
   }
 
-  static async fetchPaymentOptions(
-    regionId: string,
-    loaderKey: string,
-  ) {
+  static async fetchPaymentOptions(regionId: string, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { payment_providers } = await sdk.store.payment.listPaymentProviders({
@@ -252,11 +240,7 @@ class ApiService {
     )
   }
 
-  static async initiatePaymentSession(
-    cart,
-    data,
-    loaderKey: string,
-  ) {
+  static async initiatePaymentSession(cart, data, loaderKey: string) {
     return ApiService.handleRequest(
       async () => {
         const { payment_collection } = await sdk.store.payment.initiatePaymentSession(cart, data)
@@ -274,7 +258,7 @@ class ApiService {
     //   })
     //   .catch(medusaError)
   }
-  
+
   static async sendContactForm(): Promise<void> {
     const loaderStore = useLoaderStore()
 

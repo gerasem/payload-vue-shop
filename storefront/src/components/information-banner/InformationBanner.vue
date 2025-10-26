@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import Icon from '@/components/media/Icon.vue'
+import { useContentStore } from '@/stores/ContentStore'
+import { useLoaderStore } from '@/stores/LoaderStore'
 import { useI18n } from 'vue-i18n'
+import { onMounted } from 'vue'
 
 const { t } = useI18n()
+const contentStore = useContentStore()
+const loaderStore = useLoaderStore()
 
-const items = [
-  { icon: 'bag', text: 'Free Shipping' },
-  { icon: '', text: 'More than 50 items' },
-  { icon: '', text: 'Fast delivery' },
-]
+onMounted(() => {
+  contentStore.getInformationBanner(loaderStore.LOADER_KEYS.CATEGORIES)
+})
 </script>
 
 <template>
@@ -16,16 +18,15 @@ const items = [
     <div class="container is-fluid">
       <ul class="information-banner__list-container">
         <li
-          v-for="item in items"
+          v-for="item in contentStore.informationBanner"
           :key="item.text"
           class="information-banner__list-item"
         >
-          <Icon
+          <div
             v-if="item.icon"
-            :icon="item.icon"
-            :width="16"
-            :height="16"
-          />
+            v-html="item.icon.svgContent"
+          ></div>
+
           {{ t(item.text) }}
         </li>
       </ul>
