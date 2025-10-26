@@ -1,16 +1,15 @@
-import type { InformationBanner } from '@payload-types/payload-types'
+import { IInformationBanner } from '@/interfaces/IInformationBanner'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import ApiService from '@/services/api/api'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-
 export const useContentStore = defineStore('content', () => {
   const loaderStore = useLoaderStore()
 
-  const informationBanner = ref<InformationBanner['items'][] | []>([])
+  const informationBanner = ref<IInformationBanner | null>(null)
 
   const getInformationBanner = async () => {
-    if (informationBanner.value.length) {
+    if (informationBanner.value) {
       return
     }
 

@@ -1853,7 +1853,7 @@ export interface InformationBanner {
   id: number;
   items?:
     | {
-        text?: string | null;
+        text: string;
         icon?: (number | null) | SvgMedia;
         id?: string | null;
       }[]

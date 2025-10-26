@@ -1,7 +1,7 @@
+import { IInformationBanner } from '@/interfaces/IInformationBanner'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
 import { sdk } from './config'
-// import { HttpTypes } from '@medusajs/types'
 
 const CART_FIELDS =
   '*items,+items.total,*region,*items.product,*items.variant,*items.thumbnail,*items.metadata,*promotions,+shipping_methods.name'
@@ -43,12 +43,14 @@ class ApiService {
 
   // payload
   // todo fix locale
-  static fetchInformationBanner = (loaderKey: string) => {
+  static fetchInformationBanner = (
+    loaderKey: string,
+  ): Promise<IInformationBanner> => {
     return this.handleRequest(
       async () => {
         const { items } = await sdk.findGlobal({ slug: 'information-banner', locale: 'en' })
         console.log('items', items)
-        return items
+        return items || []
       },
       { loaderKey },
     )

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useContentStore } from '@/stores/ContentStore'
 import { useLoaderStore } from '@/stores/LoaderStore'
+import { sanitizeSvg } from '@/utils/sanitizeSvg'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 
@@ -8,8 +9,8 @@ const { t } = useI18n()
 const contentStore = useContentStore()
 const loaderStore = useLoaderStore()
 
-onMounted(() => {
-  contentStore.getInformationBanner(loaderStore.LOADER_KEYS.CATEGORIES)
+onMounted(async () => {
+  await contentStore.getInformationBanner()
 })
 </script>
 
@@ -19,15 +20,15 @@ onMounted(() => {
       <ul class="information-banner__list-container">
         <li
           v-for="item in contentStore.informationBanner"
-          :key="item.text"
+          :key="item.id ? item.id : item.text"
           class="information-banner__list-item"
         >
-          <div
-            v-if="item.icon"
-            v-html="item.icon.svgContent"
-          ></div>
+          <span
+            v-if="typeof item.icon === 'object' && item.icon?.svgContent"
+            v-html="sanitizeSvg(item.icon.svgContent)"
+          ></span>
 
-          {{ t(item.text) }}
+          {{ item.text }}
         </li>
       </ul>
     </div>

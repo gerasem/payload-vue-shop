@@ -16,7 +16,7 @@ export const InformationBanner: GlobalConfig = {
           name: 'text',
           type: 'text',
           label: 'Text',
-          required: false,
+          required: true,
           localized: true,
         },
         {
