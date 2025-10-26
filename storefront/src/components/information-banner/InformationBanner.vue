@@ -11,6 +11,7 @@ const contentStore = useContentStore()
 const loaderStore = useLoaderStore()
 
 onMounted(async () => {
+  console.log('locale.value', locale.value)
   await contentStore.getInformationBanner(locale.value)
 })
 </script>
