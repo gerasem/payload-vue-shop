@@ -1,4 +1,4 @@
-import { IInformationBanner } from '@/interfaces/IInformationBanner'
+import type { IInformationBanner } from '@/interfaces/IInformationBanner'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
 import { sdk } from './config'
