@@ -10,8 +10,8 @@ import { RouterView } from 'vue-router'
 <template>
   <Loader />
   <InformationBanner />
-  <!-- <Navbar />
-  <div id="content">
+  <Navbar />
+  <!-- <div id="content">
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" />

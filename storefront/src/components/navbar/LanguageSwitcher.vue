@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 
 const { locale, t } = useI18n()
 
-const supportedLocales: string[] = ['de', 'en']
+const supportedLocales: string[] = import.meta.env.VITE_LANGUAGES.split(',')
 </script>
 
 <template>
@@ -15,10 +15,16 @@ const supportedLocales: string[] = ['de', 'en']
       v-for="(lang, index) of supportedLocales"
       :key="lang"
     >
+      <span
+        v-if="locale === lang"
+        class="navbar__language navbar__language--current"
+        >{{ lang }}</span
+      >
+
       <a
-        :class="{ 'navbar__language--current': locale === lang }"
+        v-else
         class="navbar__language is-clickable"
-        :href="locale !== lang ? `/${lang}` : '#'"
+        :href="`/${lang}`"
         >{{ lang }}</a
       >
 

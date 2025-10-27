@@ -29,9 +29,6 @@ import { InformationBanner } from '@/globals/InformationBanner'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export const LANGUAGES = ['de', 'en']
-export const DEFAULT_LANGUAGE = 'de'
-
 export default buildConfig({
   admin: {
     components: {

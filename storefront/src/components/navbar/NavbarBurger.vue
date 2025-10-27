@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { useDevice } from '@/composables/useDevice'
 import { useRoute, useRouter } from 'vue-router'
+import { onMounted, watch } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
+const { isMobile } = useDevice()
 
 const props = defineProps<{
   mobileMenu: boolean
@@ -27,15 +29,7 @@ onMounted(() => {
   if (route.query?.menu === 'open') {
     router.replace({ query: {} })
   }
-  window.addEventListener('resize', handlerResize)
 })
-
-const handlerResize = () => {
-  if (props.mobileMenu && window.innerWidth >= 768) {
-    emit('toggleMenu')
-    router.replace({ query: {} })
-  }
-}
 
 watch(
   () => route.query.menu,
@@ -44,7 +38,12 @@ watch(
   },
 )
 
-onUnmounted(() => window.removeEventListener('resize', handlerResize))
+watch(isMobile, () => {
+  if (props.mobileMenu && !isMobile.value) {
+    emit('toggleMenu')
+    router.replace({ query: {} })
+  }
+})
 </script>
 
 <template>

@@ -1,10 +1,19 @@
-import { useWindowSize } from '@vueuse/core'
-import { computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 export function useDevice() {
-  const { width } = useWindowSize()
+  const isMobile = ref(window.innerWidth < 768);
 
-  const isMobile = computed(() => width.value < 768)
+  const updateIsMobile = () => {
+    isMobile.value = window.innerWidth < 768;
+  };
 
-  return { isMobile }
+  onMounted(() => {
+    window.addEventListener('resize', updateIsMobile);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', updateIsMobile);
+  });
+
+  return { isMobile };
 }

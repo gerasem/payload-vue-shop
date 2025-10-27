@@ -12,7 +12,7 @@ const router: Router = createRouter({
   },
   routes: [
     {
-      path: '/:locale(en|de)?',
+      path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
       component: RouterView,
       //beforeEnter: handleRouting,
       children: [
