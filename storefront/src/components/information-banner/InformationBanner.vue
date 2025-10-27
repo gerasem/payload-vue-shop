@@ -15,7 +15,17 @@ onMounted(async () => {
 <template>
   <header class="is-hidden-mobile information-banner__container">
     <div class="container is-fluid">
-      <ul class="information-banner__list-container">
+      <div
+        v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.INFORMATION_BANNER)"
+        class="skeleton-lines information-banner__lines"
+      >
+        <div class="information-banner__line"></div>
+      </div>
+      
+      <ul
+        v-else
+        class="information-banner__list-container"
+      >
         <li
           v-for="item in contentStore.informationBanner"
           :key="item.id ? item.id : item.text"
@@ -81,6 +91,15 @@ onMounted(async () => {
     span {
       display: flex;
     }
+  }
+
+  &__lines {
+    justify-self: center;
+    width: 30%;
+  }
+
+  &__line {
+    width: 100% !important;
   }
 }
 </style>
