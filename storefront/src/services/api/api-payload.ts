@@ -3,10 +3,9 @@ import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
 import { sdk } from './config'
 
-interface RequestOptions {
-  loaderKey: string
-  locale: string
-}
+const locale = localStorage.getItem('lang')
+
+console.log('USE LANG From LS', locale)
 
 async function handleRequest<T>(
   callback: () => Promise<T>,
@@ -39,17 +38,17 @@ async function handleRequest<T>(
   }
 }
 
-export async function fetchInformationBanner(options: RequestOptions): Promise<IInformationBanner> {
+export async function fetchInformationBanner(loaderKey: string): Promise<IInformationBanner> {
   return handleRequest(
     async () => {
       const { items } = await sdk.findGlobal({
         slug: 'information-banner',
-        locale: options.locale,
+        locale,
         depth: 1,
       })
       console.log('Fetched items:', items)
       return items || []
     },
-    { ...options },
+    { loaderKey },
   )
 }

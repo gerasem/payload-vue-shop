@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, type Router, RouterView } from 'vue-router'
-import { handleRouting } from './beforeEnter'
+//import { handleRouting } from './beforeEnter'
 import HomeView from '@/views/HomeView.vue'
 const router: Router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +14,7 @@ const router: Router = createRouter({
     {
       path: '/:locale(en|de)?',
       component: RouterView,
-      beforeEnter: handleRouting,
+      //beforeEnter: handleRouting,
       children: [
         {
           path: '',
@@ -74,6 +74,39 @@ const router: Router = createRouter({
       ],
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  console.log('Lang un url', to.params.locale)
+
+  const langInLS = localStorage.getItem('lang')
+  if (langInLS === to.params.locale || (langInLS && to.params.locale === '')) {
+    console.log('lang in ls, continue')
+    next()
+  } else {
+    if (to.params.locale && typeof to.params.locale === 'string') {
+      localStorage.setItem('lang', to.params.locale)
+    } else {
+      localStorage.setItem('lang', import.meta.env.VITE_DEFAULT_LANGUAGE)
+    }
+
+    console.log('SET LANG LS', langInLS)
+
+    next()
+  }
+
+  // const lang = localStorage.getItem('lang')
+
+  // const SUPPORTED_LANGUAGES = ['en', 'de']
+  // const DEFAULT_LANGUAGE = 'de'
+
+  // function normalizeLanguage(lang: string): string {
+  //   return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANGUAGE
+  // }
+
+  // function detectUserLanguage(): string {
+  //   return navigator.language.split('-')[0]
+  // }
 })
 
 // router.afterEach((to, from) => {

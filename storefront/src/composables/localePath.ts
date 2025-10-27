@@ -1,9 +1,10 @@
 import type { RouteLocationRaw } from 'vue-router'
-import i18n from '@/i18n'
 
 export const localePath = (path: string): RouteLocationRaw => {
+  const langInLS = localStorage.getItem('lang')
+
   if (path === '/') {
-    return `/${i18n.global.locale.value}`
+    return `/${langInLS}`
   }
-  return `/${i18n.global.locale.value}/${path}`
+  return `/${langInLS}/${path}`
 }

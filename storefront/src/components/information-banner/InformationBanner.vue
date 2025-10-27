@@ -2,17 +2,13 @@
 import { useContentStore } from '@/stores/ContentStore'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { sanitizeSvg } from '@/utils/sanitizeSvg'
-import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
-
-const { locale } = useI18n()
 
 const contentStore = useContentStore()
 const loaderStore = useLoaderStore()
 
 onMounted(async () => {
-  console.log('locale.value', locale.value)
-  await contentStore.getInformationBanner(locale.value)
+  await contentStore.getInformationBanner()
 })
 </script>
 
