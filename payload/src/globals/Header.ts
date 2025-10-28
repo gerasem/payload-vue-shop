@@ -19,11 +19,11 @@ export const Header: GlobalConfig = {
       name: 'slogan',
       type: 'text',
       localized: true,
-      required: true,
-      // label: {
-      //   en: 'Slogan',
-      //   de: 'Slogan',
-      // },
+      required: false,
+      label: {
+        en: 'Slogan',
+        de: 'Slogan',
+      },
     },
     {
       name: 'navItems',
