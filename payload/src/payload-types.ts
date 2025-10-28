@@ -1803,7 +1803,24 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  icon?: (number | null) | SvgMedia;
+  slogan: string;
   navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navButtons?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1866,7 +1883,23 @@ export interface InformationBanner {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  icon?: T;
+  slogan?: T;
   navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  navButtons?:
     | T
     | {
         link?:
