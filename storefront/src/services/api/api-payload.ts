@@ -1,12 +1,28 @@
 import type { IInformationBanner } from '@/interfaces/IInformationBanner'
+import { apolloClient } from '@/graphql/apollo-client'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import type { IHeader } from '@/interfaces/IHeader'
 import { useToastStore } from '@/stores/ToastStore'
+import type { DocumentNode } from 'graphql'
 import { sdk } from './config'
 
 const locale: string = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE
 
 console.log('USE LANG From LS', locale)
+
+export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
+  return handleRequest(
+    async () => {
+      const { data } = await apolloClient.query({
+        query,
+        fetchPolicy: 'cache-first',
+        variables: { locale },
+      })
+      return data
+    },
+    { loaderKey },
+  )
+}
 
 async function handleRequest<T>(
   callback: () => Promise<T>,
@@ -29,7 +45,7 @@ async function handleRequest<T>(
           label: 'Reload Page',
           onClick: () => window.location.reload(),
         },
-        10000,
+        1000,
       )
     }
 

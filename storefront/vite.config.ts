@@ -1,4 +1,5 @@
 import vueDevTools from 'vite-plugin-vue-devtools'
+import graphql from 'vite-plugin-graphql-loader'
 import svgLoader from 'vite-svg-loader'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
@@ -13,7 +14,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), vueDevTools(), svgLoader()],
+  plugins: [vue(), vueDevTools(), svgLoader(), graphql()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

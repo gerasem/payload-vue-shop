@@ -13,14 +13,18 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "gql:gen": "graphql-codegen"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.8",
     "@ark-ui/vue": "^5.9.0",
     "@payloadcms/sdk": "^3.61.1",
     "@unhead/vue": "^2.0.8",
     "bulma": "^1.0.4",
     "dompurify": "^3.3.0",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
     "lodash.debounce": "^4.0.8",
     "photoswipe": "^5.4.4",
     "pinia": "^3.0.2",
@@ -31,6 +35,9 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^6.0.1",
+    "@graphql-codegen/typescript": "^5.0.2",
+    "@graphql-codegen/typescript-operations": "^5.0.2",
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",
     "@types/lodash.debounce": "^4.0.9",
@@ -45,6 +52,7 @@
     "eslint": "^9.26.0",
     "eslint-plugin-cypress": "^4.3.0",
     "eslint-plugin-vue": "^10.1.0",
+    "graphql-codegen": "^0.4.0",
     "jsdom": "^26.1.0",
     "npm-run-all2": "^8.0.1",
     "prettier": "^3.5.3",
@@ -53,6 +61,7 @@
     "start-server-and-test": "^2.0.11",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
+    "vite-plugin-graphql-loader": "^4.0.4",
     "vite-plugin-vue-devtools": "^7.7.6",
     "vitest": "^3.1.3",
     "vue-tsc": "^2.2.10"
