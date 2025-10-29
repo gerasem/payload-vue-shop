@@ -103,4 +103,7 @@ export default buildConfig({
     fallback: true,
   },
   cors: ['http://localhost:8000'],
+  graphQL: {
+    schemaOutputFile: './src/generated-schema.graphql', // Файл со схемой для типов
+  },
 })

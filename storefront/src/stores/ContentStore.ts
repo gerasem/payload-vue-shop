@@ -1,6 +1,7 @@
+import { fetchHeader, fetchInformationBanner } from '@/services/api/api-payload'
 import type { IInformationBanner } from '@/interfaces/IInformationBanner'
-import { fetchInformationBanner } from '@/services/api/api-payload'
 import { useLoaderStore } from '@/stores/LoaderStore'
+import type { IHeader } from '@/interfaces/IHeader'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -8,6 +9,7 @@ export const useContentStore = defineStore('content', () => {
   const loaderStore = useLoaderStore()
 
   const informationBanner = ref<IInformationBanner | null>(null)
+  const header = ref<IHeader | null>(null)
 
   const getInformationBanner = async () => {
     if (informationBanner.value) {
@@ -18,5 +20,14 @@ export const useContentStore = defineStore('content', () => {
       loaderStore.LOADER_KEYS.INFORMATION_BANNER,
     )
   }
-  return { informationBanner, getInformationBanner }
+
+  const getHeader = async () => {
+    if (header.value) {
+      return
+    }
+
+    header.value = await fetchHeader(loaderStore.LOADER_KEYS.HEADER)
+  }
+
+  return { informationBanner, getInformationBanner, header, getHeader }
 })
