@@ -4,7 +4,10 @@ query InformationBanner($locale: LocaleInputType!) {
       text
       icon {
         id
-        svgContent
+        ... on SvgMedia {
+          id
+          svgContent
+        }
       }
     }
   }

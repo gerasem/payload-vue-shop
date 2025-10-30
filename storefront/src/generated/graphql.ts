@@ -26121,6 +26121,13 @@ export type VersionsVariants = {
   totalPages: Scalars['Int']['output'];
 };
 
+export type HeaderQueryVariables = Exact<{
+  locale: LocaleInputType;
+}>;
+
+
+export type HeaderQuery = { __typename?: 'Query', Header?: { __typename?: 'Header', slogan?: string | null, icon?: { __typename?: 'SvgMedia', id: number, svgContent?: string | null } | null, navItems?: Array<{ __typename?: 'Header_NavItems', link?: { __typename?: 'Header_NavItems_Link', label?: string | null, type?: Header_NavItems_Link_Type | null, url?: string | null, reference?: { __typename?: 'Header_NavItems_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null, navButtons?: Array<{ __typename?: 'Header_NavButtons', link?: { __typename?: 'Header_NavButtons_Link', label?: string | null, type?: Header_NavButtons_Link_Type | null, url?: string | null, reference?: { __typename?: 'Header_NavButtons_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+
 export type InformationBannerQueryVariables = Exact<{
   locale: LocaleInputType;
 }>;

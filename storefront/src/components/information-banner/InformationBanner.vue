@@ -8,7 +8,7 @@ const contentStore = useContentStore()
 const loaderStore = useLoaderStore()
 
 onMounted(async () => {
-  await contentStore.getInformationBanner()
+  await contentStore.fetchInformationBanner()
 })
 </script>
 

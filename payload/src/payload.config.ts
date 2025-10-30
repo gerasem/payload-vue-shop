@@ -102,8 +102,7 @@ export default buildConfig({
     defaultLocale: 'de',
     fallback: true,
   },
-  cors: ['http://localhost:8000'],
+  cors: ['http://localhost:8000', 'http://localhost:3000'],
   graphQL: {
-    schemaOutputFile: './src/generated-schema.graphql', // Файл со схемой для типов
   },
 })

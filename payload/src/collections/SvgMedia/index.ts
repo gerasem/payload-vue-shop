@@ -23,4 +23,7 @@ export const SvgMedia: CollectionConfig = {
   hooks: {
     afterRead: [getSvgContent],
   },
+  access: {
+    read: () => true,
+  },
 }

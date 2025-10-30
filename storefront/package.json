@@ -24,7 +24,6 @@
     "bulma": "^1.0.4",
     "dompurify": "^3.3.0",
     "graphql": "^16.11.0",
-    "graphql-tag": "^2.12.6",
     "lodash.debounce": "^4.0.8",
     "photoswipe": "^5.4.4",
     "pinia": "^3.0.2",

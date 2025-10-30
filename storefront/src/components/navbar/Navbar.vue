@@ -20,7 +20,7 @@ const toggleMenu = () => {
 }
 
 onMounted(async () => {
-  await contentStore.getHeader()
+  await contentStore.fetchHeader()
 })
 </script>
 

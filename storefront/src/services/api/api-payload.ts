@@ -11,13 +11,15 @@ const locale: string = localStorage.getItem('lang') || import.meta.env.VITE_DEFA
 console.log('USE LANG From LS', locale)
 
 export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
+  console.log('SENDING QUERY:', query.loc?.source.body)
   return handleRequest(
     async () => {
       const { data } = await apolloClient.query({
         query,
-        fetchPolicy: 'cache-first',
+        fetchPolicy: 'network-only',
         variables: { locale },
       })
+
       return data
     },
     { loaderKey },
@@ -55,20 +57,20 @@ async function handleRequest<T>(
   }
 }
 
-export async function fetchInformationBanner(loaderKey: string): Promise<IInformationBanner> {
-  return handleRequest(
-    async () => {
-      const { items } = await sdk.findGlobal({
-        slug: 'information-banner',
-        locale,
-        depth: 1,
-      })
-      console.log('Fetched items:', items)
-      return items || []
-    },
-    { loaderKey },
-  )
-}
+// export async function fetchInformationBanner(loaderKey: string): Promise<IInformationBanner> {
+//   return handleRequest(
+//     async () => {
+//       const { items } = await sdk.findGlobal({
+//         slug: 'information-banner',
+//         locale,
+//         depth: 1,
+//       })
+//       console.log('Fetched items:', items)
+//       return items || []
+//     },
+//     { loaderKey },
+//   )
+// }
 
 export async function fetchHeader(loaderKey: string): Promise<IHeader> {
   return handleRequest(
