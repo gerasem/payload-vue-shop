@@ -21,14 +21,14 @@ onMounted(async () => {
       >
         <div class="information-banner__line"></div>
       </div>
-      
+
       <ul
         v-else
         class="information-banner__list-container"
       >
         <li
-          v-for="item in contentStore.informationBanner"
-          :key="item.id ? item.id : item.text"
+          v-for="(item, index) in contentStore.informationBanner"
+          :key="item.id ?? index"
           class="information-banner__list-item"
         >
           <span

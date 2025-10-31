@@ -1,4 +1,3 @@
-import type { IInformationBanner } from '@/interfaces/IInformationBanner'
 import { apolloClient } from '@/graphql/apollo-client'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import type { IHeader } from '@/interfaces/IHeader'
@@ -11,12 +10,11 @@ const locale: string = localStorage.getItem('lang') || import.meta.env.VITE_DEFA
 console.log('USE LANG From LS', locale)
 
 export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
-  console.log('SENDING QUERY:', query.loc?.source.body)
   return handleRequest(
     async () => {
       const { data } = await apolloClient.query({
         query,
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'cache-first',
         variables: { locale },
       })
 

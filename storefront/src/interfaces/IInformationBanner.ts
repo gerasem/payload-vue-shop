@@ -1,3 +1,5 @@
-import type { InformationBanner } from '@payload-types/payload-types'
+import type { InformationBannerQuery } from '@/generated/graphql'
 
-export type IInformationBanner = NonNullable<InformationBanner['items']>
+export type IInformationBanner = NonNullable<
+  NonNullable<NonNullable<InformationBannerQuery['InformationBanner']>['items']>
+>[number]

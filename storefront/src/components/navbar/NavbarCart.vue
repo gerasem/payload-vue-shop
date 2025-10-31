@@ -10,7 +10,7 @@ const cartStore = useCartStore()
 const loaderStore = useLoaderStore()
 
 const countOfItems = computed(() => {
-  return cartStore.cart?.items?.length
+  return 0
 })
 </script>
 
@@ -27,7 +27,7 @@ const countOfItems = computed(() => {
     v-else
     class="navbar__icon-link"
     :to="localePath('cart')"
-    :title="convertToLocale({ amount: cartStore.cart?.total ?? 0 })"
+    title="0"
   >
     <Icon
       icon="bag"

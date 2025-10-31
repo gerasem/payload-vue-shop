@@ -37,11 +37,14 @@ onMounted(async () => {
           @toggleMenu="toggleMenu()"
         />
 
-        <NavbarLogo />
+        <NavbarLogo
+          :logo="contentStore.header?.icon ?? undefined"
+          :slogan="contentStore.header?.slogan"
+        />
       </div>
 
       <div class="navbar-start is-flex-grow-1 is-align-items-center is-hidden is-flex-tablet">
-        <NavbarMenu />
+        <NavbarMenu :links="contentStore.header?.navItems" />
       </div>
 
       <div class="navbar-end is-flex is-align-items-center">
@@ -50,7 +53,7 @@ onMounted(async () => {
         </div>
 
         <div class="navbar-item is-hidden is-flex-tablet">
-          <NavbarContact />
+          <NavbarContact :links="contentStore.header?.navButtons" />
         </div>
 
         <div class="navbar__icon-container navbar-item">

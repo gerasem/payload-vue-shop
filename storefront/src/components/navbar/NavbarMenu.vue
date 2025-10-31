@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { localePath } from '@/composables/localePath.ts'
-import { useI18n } from 'vue-i18n'
+import type { IHeaderLink } from '@/interfaces/IHeader'
 
-const { t } = useI18n()
-
-const links = [{ path: 'category', text: 'All Items' }]
+defineProps<{
+  links: IHeaderLink[] | undefined | null
+}>()
 </script>
 
 <template>
   <RouterLink
-    v-for="link in links"
-    :key="link.path"
+    v-for="(item, index) in links"
+    :key="item?.id || index"
     class="navbar-item button is-white"
-    :to="localePath(link.path)"
+    :to="
+      localePath(
+        item.link?.type === 'reference'
+          ? item.link.reference?.value?.slug || '#'
+          : item.link?.url || '#',
+      )
+    "
   >
-    {{ t(link.text) }}
+    {{ item.link?.label }}
   </RouterLink>
 </template>
 

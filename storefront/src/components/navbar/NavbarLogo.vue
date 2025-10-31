@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import type { IHeaderIcon } from '@/interfaces/IHeader.ts'
 import { localePath } from '@/composables/localePath.ts'
-import Image from '@/components/media/Image.vue'
-import { useI18n } from 'vue-i18n'
+import { sanitizeSvg } from '@/utils/sanitizeSvg'
 
-const { t } = useI18n()
+defineProps<{
+  logo?: IHeaderIcon
+  slogan: string | null | undefined
+}>()
 
 const handleLogoClick = () => {
   setTimeout(() => {
@@ -18,11 +21,17 @@ const handleLogoClick = () => {
     class="navbar-item is-flex is-flex-grow-1 navbar__logo"
     :to="localePath('')"
   >
-    <Image src="logo.svg" />
+    <span
+      v-if="typeof logo === 'object' && logo?.svgContent"
+      v-html="sanitizeSvg(logo.svgContent)"
+    ></span>
   </RouterLink>
 
-  <div class="navbar-item is-hidden-touch navbar__slogan">
-    {{ t('Demo project of an online store') }}
+  <div
+    v-if="slogan"
+    class="navbar-item is-hidden-touch navbar__slogan"
+  >
+    {{ slogan }}
   </div>
 </template>
 

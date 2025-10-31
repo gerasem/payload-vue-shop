@@ -1,13 +1,11 @@
 query InformationBanner($locale: LocaleInputType!) {
   InformationBanner(locale: $locale) {
     items {
+      id
       text
       icon {
         id
-        ... on SvgMedia {
-          id
-          svgContent
-        }
+        svgContent
       }
     }
   }
