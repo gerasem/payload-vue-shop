@@ -11,6 +11,7 @@ query Header($locale: LocaleInputType!) {
       link {
         label
         type
+        newTab
 
         reference {
           value {
@@ -30,7 +31,8 @@ query Header($locale: LocaleInputType!) {
       link {
         label
         type
-
+        newTab
+        
         reference {
           value {
             ... on Page {

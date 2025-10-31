@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IHeaderButton } from '@/interfaces/IHeader'
-import { localePath } from '@/composables/localePath.ts'
-
+import Link from '@/components/content/Link.vue'
 
 defineProps<{
   links: IHeaderButton[] | undefined | null
@@ -9,28 +8,15 @@ defineProps<{
 </script>
 
 <template>
-  <template
+  <Link
     v-for="(item, index) in links"
     :key="item?.id || index"
+    linkClass="contact button is-white"
+    :isExternal="item.link?.type === 'custom'"
+    :link="item"
   >
-    <RouterLink
-      v-if="item.link?.type === 'reference'"
-      class="contact button is-white"
-      :to="localePath(item.link.reference?.value?.slug)"
-    >
-      {{ item.link?.label }}
-    </RouterLink>
-
-    <a
-      v-else
-      class="contact button is-white"
-      :href="item.link?.url || '#'"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {{ item.link?.label }}
-    </a>
-  </template>
+    {{ item.link?.label }}
+  </Link>
 </template>
 
 <style lang="scss" scoped></style>

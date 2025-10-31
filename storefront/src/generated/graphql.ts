@@ -2935,7 +2935,7 @@ export type Category = {
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Int']['output'];
   slug: Scalars['String']['output'];
-  title: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -24188,7 +24188,7 @@ export type MutationCategoryInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   slug: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -26126,7 +26126,7 @@ export type HeaderQueryVariables = Exact<{
 }>;
 
 
-export type HeaderQuery = { __typename?: 'Query', Header?: { __typename?: 'Header', slogan?: string | null, icon?: { __typename?: 'SvgMedia', id: number, svgContent?: string | null } | null, navItems?: Array<{ __typename?: 'Header_NavItems', id?: string | null, link?: { __typename?: 'Header_NavItems_Link', label?: string | null, type?: Header_NavItems_Link_Type | null, url?: string | null, reference?: { __typename?: 'Header_NavItems_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null, navButtons?: Array<{ __typename?: 'Header_NavButtons', id?: string | null, link?: { __typename?: 'Header_NavButtons_Link', label?: string | null, type?: Header_NavButtons_Link_Type | null, url?: string | null, reference?: { __typename?: 'Header_NavButtons_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+export type HeaderQuery = { __typename?: 'Query', Header?: { __typename?: 'Header', slogan?: string | null, icon?: { __typename?: 'SvgMedia', id: number, svgContent?: string | null } | null, navItems?: Array<{ __typename?: 'Header_NavItems', id?: string | null, link?: { __typename?: 'Header_NavItems_Link', label?: string | null, type?: Header_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { __typename?: 'Header_NavItems_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null, navButtons?: Array<{ __typename?: 'Header_NavButtons', id?: string | null, link?: { __typename?: 'Header_NavButtons_Link', label?: string | null, type?: Header_NavButtons_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { __typename?: 'Header_NavButtons_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null } | null };
 
 export type InformationBannerQueryVariables = Exact<{
   locale: LocaleInputType;

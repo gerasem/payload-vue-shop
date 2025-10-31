@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { localePath } from '@/composables/localePath.ts'
 import type { IHeaderLink } from '@/interfaces/IHeader'
+import Link from '@/components/content/Link.vue'
 
 defineProps<{
   links: IHeaderLink[] | undefined | null
@@ -8,20 +8,15 @@ defineProps<{
 </script>
 
 <template>
-  <RouterLink
+  <Link
     v-for="(item, index) in links"
     :key="item?.id || index"
-    class="navbar-item button is-white"
-    :to="
-      localePath(
-        item.link?.type === 'reference'
-          ? item.link.reference?.value?.slug || '#'
-          : item.link?.url || '#',
-      )
-    "
+    linkClass="navbar-item button is-white"
+    :isExternal="item.link?.type === 'custom'"
+    :link="item"
   >
     {{ item.link?.label }}
-  </RouterLink>
+  </Link>
 </template>
 
 <style scoped lang="scss"></style>

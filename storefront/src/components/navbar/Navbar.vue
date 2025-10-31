@@ -68,14 +68,14 @@ onMounted(async () => {
           v-if="mobileMenu"
           class="navbar__mobile-menu"
         >
-          <NavbarMenu />
+          <NavbarMenu :links="contentStore.header?.navItems" />
 
           <div class="navbar-item">
             <LanguageSwitcher />
           </div>
 
           <div class="navbar-item">
-            <NavbarContact />
+            <NavbarContact :links="contentStore.header?.navButtons" />
           </div>
         </div>
       </Transition>

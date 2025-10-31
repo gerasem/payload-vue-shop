@@ -18,28 +18,28 @@ Welcome to the **Demo Online Store**! This project is a fast, sleek, and modern 
 
 To get started, follow these steps:
 
-1. **Install a Payload CMS**
+1. **Install a Payload CMS and Vue.js Storefront**
+
    ```bash
-   docker compose up -d
-   //cd /medusa
-   //chmod +x start.sh
-   //npm i 
-   //npm run docker:up
-   //docker compose logs -f
-   //docker compose run --rm medusa npx medusa user -e admin@example.com -p supersecret
+   cd /payload
+   rename .env.template file (DATABASE_URI, PAYLOAD_SECRET)
+   npm i
+
+   cd /storefront
+   rename .env.template file
+   npm run gql:gen
+   npm i
    ```
 
 2. **Run Payload CMS**
+
    ```bash
    cd payload
    npm run dev
-   //cd /medusa
-   //docker compose logs -f
    ```
 
-4. **Run frontend (vue app)**
-   add VITE_PUBLIC_MEDUSA_PUBLISHABLE_KEY in storeftont .env file (generate it in medusa admin panel)
-   add VITE_DEFAULT_REGION_ID in storeftont .env file
+3. **Run frontend (vue app)**
+
    ```bash
    cd /storefront
    npm run dev
@@ -52,5 +52,5 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ---
 
 ### Demo Online Store 🌟
-This is not a functional e-commerce platform but a demonstration project designed for learning and experimentation with modern web development technologies. Enjoy exploring and customizing it to fit your needs! 🚀🔥
 
+This is not a functional e-commerce platform but a demonstration project designed for learning and experimentation with modern web development technologies. Enjoy exploring and customizing it to fit your needs! 🚀🔥
