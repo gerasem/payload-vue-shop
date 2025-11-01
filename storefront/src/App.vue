@@ -17,8 +17,9 @@ import { RouterView } from 'vue-router'
         <component :is="Component" />
       </transition>
     </router-view>
-  </div>
-  <Footer /> -->
+  </div> -->
+
+  <Footer />
   <Toast />
 </template>
 

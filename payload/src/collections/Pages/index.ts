@@ -10,7 +10,6 @@ import { CallToAction } from '@/blocks/CallToAction/config'
 import { Content } from '@/blocks/Content/config'
 import { FormBlock } from '@/blocks/Form/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
-import { hero } from '@/fields/hero'
 import { slugField } from 'payload'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import {
@@ -21,6 +20,13 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage'
+
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -54,6 +60,7 @@ export const Pages: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'publishedOn',
@@ -79,10 +86,6 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
-          label: 'Hero',
-        },
-        {
           fields: [
             {
               name: 'layout',
@@ -97,7 +100,22 @@ export const Pages: CollectionConfig = {
                 Banner,
                 FormBlock,
               ],
-              required: true,
+              required: false,
+            },
+            {
+              name: 'richText',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    FixedToolbarFeature(),
+                    InlineToolbarFeature(),
+                  ]
+                },
+              }),
+              label: false,
             },
           ],
           label: 'Content',

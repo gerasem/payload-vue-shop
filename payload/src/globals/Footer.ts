@@ -17,6 +17,7 @@ export const Footer: GlobalConfig = {
         }),
       ],
       maxRows: 6,
+      localized: true,
     },
   ],
 }
