@@ -3140,16 +3140,236 @@ export enum FallbackLocaleInputType {
 
 export type Footer = {
   __typename?: 'Footer';
+  contactLink?: Maybe<Footer_ContactLink>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   navItems?: Maybe<Array<Footer_NavItems>>;
+  phone?: Maybe<Scalars['String']['output']>;
+  slogan?: Maybe<Scalars['String']['output']>;
+  socialLink?: Maybe<Footer_SocialLink>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type FooterDocAccessFields = {
   __typename?: 'FooterDocAccessFields';
+  contactLink?: Maybe<FooterDocAccessFields_ContactLink>;
   createdAt?: Maybe<FooterDocAccessFields_CreatedAt>;
   navItems?: Maybe<FooterDocAccessFields_NavItems>;
+  phone?: Maybe<FooterDocAccessFields_Phone>;
+  slogan?: Maybe<FooterDocAccessFields_Slogan>;
+  socialLink?: Maybe<FooterDocAccessFields_SocialLink>;
   updatedAt?: Maybe<FooterDocAccessFields_UpdatedAt>;
+};
+
+export type FooterDocAccessFields_ContactLink = {
+  __typename?: 'FooterDocAccessFields_contactLink';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Delete>;
+  fields?: Maybe<FooterDocAccessFields_ContactLink_Fields>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Fields = {
+  __typename?: 'FooterDocAccessFields_contactLink_Fields';
+  link?: Maybe<FooterDocAccessFields_ContactLink_Link>;
+};
+
+export type FooterDocAccessFields_ContactLink_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link = {
+  __typename?: 'FooterDocAccessFields_contactLink_link';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_Delete>;
+  fields?: Maybe<FooterDocAccessFields_ContactLink_Link_Fields>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Fields = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_Fields';
+  label?: Maybe<FooterDocAccessFields_ContactLink_Link_Label>;
+  newTab?: Maybe<FooterDocAccessFields_ContactLink_Link_NewTab>;
+  reference?: Maybe<FooterDocAccessFields_ContactLink_Link_Reference>;
+  type?: Maybe<FooterDocAccessFields_ContactLink_Link_Type>;
+  url?: Maybe<FooterDocAccessFields_ContactLink_Link_Url>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Label = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_label';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_Label_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_Label_Delete>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_Label_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_Label_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Label_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_label_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Label_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_label_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Label_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_label_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Label_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_label_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_NewTab = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_newTab';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_NewTab_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_NewTab_Delete>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_NewTab_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_NewTab_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_NewTab_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_newTab_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_NewTab_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_newTab_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_NewTab_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_newTab_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_NewTab_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_newTab_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Reference = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_reference';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_Reference_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_Reference_Delete>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_Reference_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_Reference_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Reference_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_reference_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Reference_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_reference_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Reference_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_reference_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Reference_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_reference_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Type = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_type';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_Type_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_Type_Delete>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_Type_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_Type_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Type_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_type_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Type_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_type_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Type_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_type_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Type_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_type_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Url = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_url';
+  create?: Maybe<FooterDocAccessFields_ContactLink_Link_Url_Create>;
+  delete?: Maybe<FooterDocAccessFields_ContactLink_Link_Url_Delete>;
+  read?: Maybe<FooterDocAccessFields_ContactLink_Link_Url_Read>;
+  update?: Maybe<FooterDocAccessFields_ContactLink_Link_Url_Update>;
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Url_Create = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Url_Delete = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Url_Read = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_ContactLink_Link_Url_Update = {
+  __typename?: 'FooterDocAccessFields_contactLink_link_url_Update';
+  permission: Scalars['Boolean']['output'];
 };
 
 export type FooterDocAccessFields_CreatedAt = {
@@ -3421,6 +3641,274 @@ export type FooterDocAccessFields_NavItems_Link_Url_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type FooterDocAccessFields_Phone = {
+  __typename?: 'FooterDocAccessFields_phone';
+  create?: Maybe<FooterDocAccessFields_Phone_Create>;
+  delete?: Maybe<FooterDocAccessFields_Phone_Delete>;
+  read?: Maybe<FooterDocAccessFields_Phone_Read>;
+  update?: Maybe<FooterDocAccessFields_Phone_Update>;
+};
+
+export type FooterDocAccessFields_Phone_Create = {
+  __typename?: 'FooterDocAccessFields_phone_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Phone_Delete = {
+  __typename?: 'FooterDocAccessFields_phone_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Phone_Read = {
+  __typename?: 'FooterDocAccessFields_phone_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Phone_Update = {
+  __typename?: 'FooterDocAccessFields_phone_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Slogan = {
+  __typename?: 'FooterDocAccessFields_slogan';
+  create?: Maybe<FooterDocAccessFields_Slogan_Create>;
+  delete?: Maybe<FooterDocAccessFields_Slogan_Delete>;
+  read?: Maybe<FooterDocAccessFields_Slogan_Read>;
+  update?: Maybe<FooterDocAccessFields_Slogan_Update>;
+};
+
+export type FooterDocAccessFields_Slogan_Create = {
+  __typename?: 'FooterDocAccessFields_slogan_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Slogan_Delete = {
+  __typename?: 'FooterDocAccessFields_slogan_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Slogan_Read = {
+  __typename?: 'FooterDocAccessFields_slogan_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_Slogan_Update = {
+  __typename?: 'FooterDocAccessFields_slogan_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink = {
+  __typename?: 'FooterDocAccessFields_socialLink';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Delete>;
+  fields?: Maybe<FooterDocAccessFields_SocialLink_Fields>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Fields = {
+  __typename?: 'FooterDocAccessFields_socialLink_Fields';
+  link?: Maybe<FooterDocAccessFields_SocialLink_Link>;
+};
+
+export type FooterDocAccessFields_SocialLink_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link = {
+  __typename?: 'FooterDocAccessFields_socialLink_link';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_Delete>;
+  fields?: Maybe<FooterDocAccessFields_SocialLink_Link_Fields>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Fields = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_Fields';
+  label?: Maybe<FooterDocAccessFields_SocialLink_Link_Label>;
+  newTab?: Maybe<FooterDocAccessFields_SocialLink_Link_NewTab>;
+  reference?: Maybe<FooterDocAccessFields_SocialLink_Link_Reference>;
+  type?: Maybe<FooterDocAccessFields_SocialLink_Link_Type>;
+  url?: Maybe<FooterDocAccessFields_SocialLink_Link_Url>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Label = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_label';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_Label_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_Label_Delete>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_Label_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_Label_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Label_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_label_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Label_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_label_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Label_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_label_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Label_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_label_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_NewTab = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_newTab';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_NewTab_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_NewTab_Delete>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_NewTab_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_NewTab_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_NewTab_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_newTab_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_NewTab_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_newTab_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_NewTab_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_newTab_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_NewTab_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_newTab_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Reference = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_reference';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_Reference_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_Reference_Delete>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_Reference_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_Reference_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Reference_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_reference_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Reference_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_reference_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Reference_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_reference_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Reference_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_reference_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Type = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_type';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_Type_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_Type_Delete>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_Type_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_Type_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Type_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_type_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Type_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_type_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Type_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_type_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Type_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_type_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Url = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_url';
+  create?: Maybe<FooterDocAccessFields_SocialLink_Link_Url_Create>;
+  delete?: Maybe<FooterDocAccessFields_SocialLink_Link_Url_Delete>;
+  read?: Maybe<FooterDocAccessFields_SocialLink_Link_Url_Read>;
+  update?: Maybe<FooterDocAccessFields_SocialLink_Link_Url_Update>;
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Url_Create = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Url_Delete = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Url_Read = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterDocAccessFields_SocialLink_Link_Url_Update = {
+  __typename?: 'FooterDocAccessFields_socialLink_link_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type FooterDocAccessFields_UpdatedAt = {
   __typename?: 'FooterDocAccessFields_updatedAt';
   create?: Maybe<FooterDocAccessFields_UpdatedAt_Create>;
@@ -3451,9 +3939,225 @@ export type FooterDocAccessFields_UpdatedAt_Update = {
 
 export type FooterFields = {
   __typename?: 'FooterFields';
+  contactLink?: Maybe<FooterFields_ContactLink>;
   createdAt?: Maybe<FooterFields_CreatedAt>;
   navItems?: Maybe<FooterFields_NavItems>;
+  phone?: Maybe<FooterFields_Phone>;
+  slogan?: Maybe<FooterFields_Slogan>;
+  socialLink?: Maybe<FooterFields_SocialLink>;
   updatedAt?: Maybe<FooterFields_UpdatedAt>;
+};
+
+export type FooterFields_ContactLink = {
+  __typename?: 'FooterFields_contactLink';
+  create?: Maybe<FooterFields_ContactLink_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Delete>;
+  fields?: Maybe<FooterFields_ContactLink_Fields>;
+  read?: Maybe<FooterFields_ContactLink_Read>;
+  update?: Maybe<FooterFields_ContactLink_Update>;
+};
+
+export type FooterFields_ContactLink_Create = {
+  __typename?: 'FooterFields_contactLink_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Delete = {
+  __typename?: 'FooterFields_contactLink_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Fields = {
+  __typename?: 'FooterFields_contactLink_Fields';
+  link?: Maybe<FooterFields_ContactLink_Link>;
+};
+
+export type FooterFields_ContactLink_Read = {
+  __typename?: 'FooterFields_contactLink_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Update = {
+  __typename?: 'FooterFields_contactLink_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link = {
+  __typename?: 'FooterFields_contactLink_link';
+  create?: Maybe<FooterFields_ContactLink_Link_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_Delete>;
+  fields?: Maybe<FooterFields_ContactLink_Link_Fields>;
+  read?: Maybe<FooterFields_ContactLink_Link_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_Update>;
+};
+
+export type FooterFields_ContactLink_Link_Create = {
+  __typename?: 'FooterFields_contactLink_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Delete = {
+  __typename?: 'FooterFields_contactLink_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Fields = {
+  __typename?: 'FooterFields_contactLink_link_Fields';
+  label?: Maybe<FooterFields_ContactLink_Link_Label>;
+  newTab?: Maybe<FooterFields_ContactLink_Link_NewTab>;
+  reference?: Maybe<FooterFields_ContactLink_Link_Reference>;
+  type?: Maybe<FooterFields_ContactLink_Link_Type>;
+  url?: Maybe<FooterFields_ContactLink_Link_Url>;
+};
+
+export type FooterFields_ContactLink_Link_Read = {
+  __typename?: 'FooterFields_contactLink_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Update = {
+  __typename?: 'FooterFields_contactLink_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Label = {
+  __typename?: 'FooterFields_contactLink_link_label';
+  create?: Maybe<FooterFields_ContactLink_Link_Label_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_Label_Delete>;
+  read?: Maybe<FooterFields_ContactLink_Link_Label_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_Label_Update>;
+};
+
+export type FooterFields_ContactLink_Link_Label_Create = {
+  __typename?: 'FooterFields_contactLink_link_label_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Label_Delete = {
+  __typename?: 'FooterFields_contactLink_link_label_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Label_Read = {
+  __typename?: 'FooterFields_contactLink_link_label_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Label_Update = {
+  __typename?: 'FooterFields_contactLink_link_label_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_NewTab = {
+  __typename?: 'FooterFields_contactLink_link_newTab';
+  create?: Maybe<FooterFields_ContactLink_Link_NewTab_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_NewTab_Delete>;
+  read?: Maybe<FooterFields_ContactLink_Link_NewTab_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_NewTab_Update>;
+};
+
+export type FooterFields_ContactLink_Link_NewTab_Create = {
+  __typename?: 'FooterFields_contactLink_link_newTab_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_NewTab_Delete = {
+  __typename?: 'FooterFields_contactLink_link_newTab_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_NewTab_Read = {
+  __typename?: 'FooterFields_contactLink_link_newTab_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_NewTab_Update = {
+  __typename?: 'FooterFields_contactLink_link_newTab_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Reference = {
+  __typename?: 'FooterFields_contactLink_link_reference';
+  create?: Maybe<FooterFields_ContactLink_Link_Reference_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_Reference_Delete>;
+  read?: Maybe<FooterFields_ContactLink_Link_Reference_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_Reference_Update>;
+};
+
+export type FooterFields_ContactLink_Link_Reference_Create = {
+  __typename?: 'FooterFields_contactLink_link_reference_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Reference_Delete = {
+  __typename?: 'FooterFields_contactLink_link_reference_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Reference_Read = {
+  __typename?: 'FooterFields_contactLink_link_reference_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Reference_Update = {
+  __typename?: 'FooterFields_contactLink_link_reference_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Type = {
+  __typename?: 'FooterFields_contactLink_link_type';
+  create?: Maybe<FooterFields_ContactLink_Link_Type_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_Type_Delete>;
+  read?: Maybe<FooterFields_ContactLink_Link_Type_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_Type_Update>;
+};
+
+export type FooterFields_ContactLink_Link_Type_Create = {
+  __typename?: 'FooterFields_contactLink_link_type_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Type_Delete = {
+  __typename?: 'FooterFields_contactLink_link_type_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Type_Read = {
+  __typename?: 'FooterFields_contactLink_link_type_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Type_Update = {
+  __typename?: 'FooterFields_contactLink_link_type_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Url = {
+  __typename?: 'FooterFields_contactLink_link_url';
+  create?: Maybe<FooterFields_ContactLink_Link_Url_Create>;
+  delete?: Maybe<FooterFields_ContactLink_Link_Url_Delete>;
+  read?: Maybe<FooterFields_ContactLink_Link_Url_Read>;
+  update?: Maybe<FooterFields_ContactLink_Link_Url_Update>;
+};
+
+export type FooterFields_ContactLink_Link_Url_Create = {
+  __typename?: 'FooterFields_contactLink_link_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Url_Delete = {
+  __typename?: 'FooterFields_contactLink_link_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Url_Read = {
+  __typename?: 'FooterFields_contactLink_link_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_ContactLink_Link_Url_Update = {
+  __typename?: 'FooterFields_contactLink_link_url_Update';
+  permission: Scalars['Boolean']['output'];
 };
 
 export type FooterFields_CreatedAt = {
@@ -3725,6 +4429,274 @@ export type FooterFields_NavItems_Link_Url_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type FooterFields_Phone = {
+  __typename?: 'FooterFields_phone';
+  create?: Maybe<FooterFields_Phone_Create>;
+  delete?: Maybe<FooterFields_Phone_Delete>;
+  read?: Maybe<FooterFields_Phone_Read>;
+  update?: Maybe<FooterFields_Phone_Update>;
+};
+
+export type FooterFields_Phone_Create = {
+  __typename?: 'FooterFields_phone_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Phone_Delete = {
+  __typename?: 'FooterFields_phone_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Phone_Read = {
+  __typename?: 'FooterFields_phone_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Phone_Update = {
+  __typename?: 'FooterFields_phone_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Slogan = {
+  __typename?: 'FooterFields_slogan';
+  create?: Maybe<FooterFields_Slogan_Create>;
+  delete?: Maybe<FooterFields_Slogan_Delete>;
+  read?: Maybe<FooterFields_Slogan_Read>;
+  update?: Maybe<FooterFields_Slogan_Update>;
+};
+
+export type FooterFields_Slogan_Create = {
+  __typename?: 'FooterFields_slogan_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Slogan_Delete = {
+  __typename?: 'FooterFields_slogan_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Slogan_Read = {
+  __typename?: 'FooterFields_slogan_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_Slogan_Update = {
+  __typename?: 'FooterFields_slogan_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink = {
+  __typename?: 'FooterFields_socialLink';
+  create?: Maybe<FooterFields_SocialLink_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Delete>;
+  fields?: Maybe<FooterFields_SocialLink_Fields>;
+  read?: Maybe<FooterFields_SocialLink_Read>;
+  update?: Maybe<FooterFields_SocialLink_Update>;
+};
+
+export type FooterFields_SocialLink_Create = {
+  __typename?: 'FooterFields_socialLink_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Delete = {
+  __typename?: 'FooterFields_socialLink_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Fields = {
+  __typename?: 'FooterFields_socialLink_Fields';
+  link?: Maybe<FooterFields_SocialLink_Link>;
+};
+
+export type FooterFields_SocialLink_Read = {
+  __typename?: 'FooterFields_socialLink_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Update = {
+  __typename?: 'FooterFields_socialLink_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link = {
+  __typename?: 'FooterFields_socialLink_link';
+  create?: Maybe<FooterFields_SocialLink_Link_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_Delete>;
+  fields?: Maybe<FooterFields_SocialLink_Link_Fields>;
+  read?: Maybe<FooterFields_SocialLink_Link_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_Update>;
+};
+
+export type FooterFields_SocialLink_Link_Create = {
+  __typename?: 'FooterFields_socialLink_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Delete = {
+  __typename?: 'FooterFields_socialLink_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Fields = {
+  __typename?: 'FooterFields_socialLink_link_Fields';
+  label?: Maybe<FooterFields_SocialLink_Link_Label>;
+  newTab?: Maybe<FooterFields_SocialLink_Link_NewTab>;
+  reference?: Maybe<FooterFields_SocialLink_Link_Reference>;
+  type?: Maybe<FooterFields_SocialLink_Link_Type>;
+  url?: Maybe<FooterFields_SocialLink_Link_Url>;
+};
+
+export type FooterFields_SocialLink_Link_Read = {
+  __typename?: 'FooterFields_socialLink_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Update = {
+  __typename?: 'FooterFields_socialLink_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Label = {
+  __typename?: 'FooterFields_socialLink_link_label';
+  create?: Maybe<FooterFields_SocialLink_Link_Label_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_Label_Delete>;
+  read?: Maybe<FooterFields_SocialLink_Link_Label_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_Label_Update>;
+};
+
+export type FooterFields_SocialLink_Link_Label_Create = {
+  __typename?: 'FooterFields_socialLink_link_label_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Label_Delete = {
+  __typename?: 'FooterFields_socialLink_link_label_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Label_Read = {
+  __typename?: 'FooterFields_socialLink_link_label_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Label_Update = {
+  __typename?: 'FooterFields_socialLink_link_label_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_NewTab = {
+  __typename?: 'FooterFields_socialLink_link_newTab';
+  create?: Maybe<FooterFields_SocialLink_Link_NewTab_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_NewTab_Delete>;
+  read?: Maybe<FooterFields_SocialLink_Link_NewTab_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_NewTab_Update>;
+};
+
+export type FooterFields_SocialLink_Link_NewTab_Create = {
+  __typename?: 'FooterFields_socialLink_link_newTab_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_NewTab_Delete = {
+  __typename?: 'FooterFields_socialLink_link_newTab_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_NewTab_Read = {
+  __typename?: 'FooterFields_socialLink_link_newTab_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_NewTab_Update = {
+  __typename?: 'FooterFields_socialLink_link_newTab_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Reference = {
+  __typename?: 'FooterFields_socialLink_link_reference';
+  create?: Maybe<FooterFields_SocialLink_Link_Reference_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_Reference_Delete>;
+  read?: Maybe<FooterFields_SocialLink_Link_Reference_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_Reference_Update>;
+};
+
+export type FooterFields_SocialLink_Link_Reference_Create = {
+  __typename?: 'FooterFields_socialLink_link_reference_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Reference_Delete = {
+  __typename?: 'FooterFields_socialLink_link_reference_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Reference_Read = {
+  __typename?: 'FooterFields_socialLink_link_reference_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Reference_Update = {
+  __typename?: 'FooterFields_socialLink_link_reference_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Type = {
+  __typename?: 'FooterFields_socialLink_link_type';
+  create?: Maybe<FooterFields_SocialLink_Link_Type_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_Type_Delete>;
+  read?: Maybe<FooterFields_SocialLink_Link_Type_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_Type_Update>;
+};
+
+export type FooterFields_SocialLink_Link_Type_Create = {
+  __typename?: 'FooterFields_socialLink_link_type_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Type_Delete = {
+  __typename?: 'FooterFields_socialLink_link_type_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Type_Read = {
+  __typename?: 'FooterFields_socialLink_link_type_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Type_Update = {
+  __typename?: 'FooterFields_socialLink_link_type_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Url = {
+  __typename?: 'FooterFields_socialLink_link_url';
+  create?: Maybe<FooterFields_SocialLink_Link_Url_Create>;
+  delete?: Maybe<FooterFields_SocialLink_Link_Url_Delete>;
+  read?: Maybe<FooterFields_SocialLink_Link_Url_Read>;
+  update?: Maybe<FooterFields_SocialLink_Link_Url_Update>;
+};
+
+export type FooterFields_SocialLink_Link_Url_Create = {
+  __typename?: 'FooterFields_socialLink_link_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Url_Delete = {
+  __typename?: 'FooterFields_socialLink_link_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Url_Read = {
+  __typename?: 'FooterFields_socialLink_link_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type FooterFields_SocialLink_Link_Url_Update = {
+  __typename?: 'FooterFields_socialLink_link_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type FooterFields_UpdatedAt = {
   __typename?: 'FooterFields_updatedAt';
   create?: Maybe<FooterFields_UpdatedAt_Create>;
@@ -3777,6 +4749,53 @@ export type FooterUpdateDocAccess = {
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
+export type Footer_ContactLink = {
+  __typename?: 'Footer_ContactLink';
+  link?: Maybe<Footer_ContactLink_Link>;
+};
+
+export type Footer_ContactLink_Link = {
+  __typename?: 'Footer_ContactLink_Link';
+  label?: Maybe<Scalars['String']['output']>;
+  newTab?: Maybe<Scalars['Boolean']['output']>;
+  reference?: Maybe<Footer_ContactLink_Link_Reference_Relationship>;
+  type?: Maybe<Footer_ContactLink_Link_Type>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Footer_ContactLink_LinkReferenceArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  locale?: InputMaybe<LocaleInputType>;
+};
+
+export type Footer_ContactLink_Link_Reference = Page;
+
+export type Footer_ContactLink_Link_ReferenceRelationshipInput = {
+  relationTo?: InputMaybe<Footer_ContactLink_Link_ReferenceRelationshipInputRelationTo>;
+  value?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+export enum Footer_ContactLink_Link_ReferenceRelationshipInputRelationTo {
+  Pages = 'pages'
+}
+
+export enum Footer_ContactLink_Link_Reference_RelationTo {
+  Pages = 'pages'
+}
+
+export type Footer_ContactLink_Link_Reference_Relationship = {
+  __typename?: 'Footer_ContactLink_Link_Reference_Relationship';
+  relationTo?: Maybe<Footer_ContactLink_Link_Reference_RelationTo>;
+  value?: Maybe<Footer_ContactLink_Link_Reference>;
+};
+
+export enum Footer_ContactLink_Link_Type {
+  Custom = 'custom',
+  Reference = 'reference'
+}
+
 export type Footer_NavItems = {
   __typename?: 'Footer_NavItems';
   id?: Maybe<Scalars['String']['output']>;
@@ -3821,6 +4840,53 @@ export type Footer_NavItems_Link_Reference_Relationship = {
 };
 
 export enum Footer_NavItems_Link_Type {
+  Custom = 'custom',
+  Reference = 'reference'
+}
+
+export type Footer_SocialLink = {
+  __typename?: 'Footer_SocialLink';
+  link?: Maybe<Footer_SocialLink_Link>;
+};
+
+export type Footer_SocialLink_Link = {
+  __typename?: 'Footer_SocialLink_Link';
+  label?: Maybe<Scalars['String']['output']>;
+  newTab?: Maybe<Scalars['Boolean']['output']>;
+  reference?: Maybe<Footer_SocialLink_Link_Reference_Relationship>;
+  type?: Maybe<Footer_SocialLink_Link_Type>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Footer_SocialLink_LinkReferenceArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  locale?: InputMaybe<LocaleInputType>;
+};
+
+export type Footer_SocialLink_Link_Reference = Page;
+
+export type Footer_SocialLink_Link_ReferenceRelationshipInput = {
+  relationTo?: InputMaybe<Footer_SocialLink_Link_ReferenceRelationshipInputRelationTo>;
+  value?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+export enum Footer_SocialLink_Link_ReferenceRelationshipInputRelationTo {
+  Pages = 'pages'
+}
+
+export enum Footer_SocialLink_Link_Reference_RelationTo {
+  Pages = 'pages'
+}
+
+export type Footer_SocialLink_Link_Reference_Relationship = {
+  __typename?: 'Footer_SocialLink_Link_Reference_Relationship';
+  relationTo?: Maybe<Footer_SocialLink_Link_Reference_RelationTo>;
+  value?: Maybe<Footer_SocialLink_Link_Reference>;
+};
+
+export enum Footer_SocialLink_Link_Type {
   Custom = 'custom',
   Reference = 'reference'
 }
@@ -11337,36 +12403,20 @@ export type Page = {
   _status?: Maybe<Page__Status>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
-  hero?: Maybe<Page_Hero>;
   id: Scalars['Int']['output'];
-  layout: Array<Page_Layout>;
+  layout?: Maybe<Array<Page_Layout>>;
   meta?: Maybe<Page_Meta>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
+  richText?: Maybe<Scalars['JSON']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type PageUpdate_Hero_Links_Link_ReferenceRelationshipInput = {
-  relationTo?: InputMaybe<PageUpdate_Hero_Links_Link_ReferenceRelationshipInputRelationTo>;
-  value?: InputMaybe<Scalars['JSON']['input']>;
+
+export type PageRichTextArgs = {
+  depth?: InputMaybe<Scalars['Int']['input']>;
 };
-
-export enum PageUpdate_Hero_Links_Link_ReferenceRelationshipInputRelationTo {
-  Pages = 'pages'
-}
-
-export enum PageUpdate_Hero_Links_Link_Appearance_MutationInput {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export enum PageUpdate_Hero_Type_MutationInput {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
-}
 
 export enum PageUpdate__Status_MutationInput {
   Draft = 'draft',
@@ -11398,85 +12448,19 @@ export type PageVersion_Version = {
   _status?: Maybe<PageVersion_Version__Status>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
-  hero?: Maybe<PageVersion_Version_Hero>;
-  layout: Array<PageVersion_Version_Layout>;
+  layout?: Maybe<Array<PageVersion_Version_Layout>>;
   meta?: Maybe<PageVersion_Version_Meta>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
+  richText?: Maybe<Scalars['JSON']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type PageVersion_Version_Hero = {
-  __typename?: 'PageVersion_Version_Hero';
-  links?: Maybe<Array<PageVersion_Version_Hero_Links>>;
-  media?: Maybe<Media>;
-  richText?: Maybe<Scalars['JSON']['output']>;
-  type?: Maybe<PageVersion_Version_Hero_Type>;
-};
 
-
-export type PageVersion_Version_HeroMediaArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PageVersion_Version_HeroRichTextArgs = {
+export type PageVersion_VersionRichTextArgs = {
   depth?: InputMaybe<Scalars['Int']['input']>;
 };
-
-export type PageVersion_Version_Hero_Links = {
-  __typename?: 'PageVersion_Version_Hero_Links';
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<PageVersion_Version_Hero_Links_Link>;
-};
-
-export type PageVersion_Version_Hero_Links_Link = {
-  __typename?: 'PageVersion_Version_Hero_Links_Link';
-  appearance?: Maybe<PageVersion_Version_Hero_Links_Link_Appearance>;
-  label?: Maybe<Scalars['String']['output']>;
-  newTab?: Maybe<Scalars['Boolean']['output']>;
-  reference?: Maybe<PageVersion_Version_Hero_Links_Link_Reference_Relationship>;
-  type?: Maybe<PageVersion_Version_Hero_Links_Link_Type>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type PageVersion_Version_Hero_Links_LinkReferenceArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export type PageVersion_Version_Hero_Links_Link_Reference = Page;
-
-export enum PageVersion_Version_Hero_Links_Link_Reference_RelationTo {
-  Pages = 'pages'
-}
-
-export type PageVersion_Version_Hero_Links_Link_Reference_Relationship = {
-  __typename?: 'PageVersion_Version_Hero_Links_Link_Reference_Relationship';
-  relationTo?: Maybe<PageVersion_Version_Hero_Links_Link_Reference_RelationTo>;
-  value?: Maybe<PageVersion_Version_Hero_Links_Link_Reference>;
-};
-
-export enum PageVersion_Version_Hero_Links_Link_Appearance {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export enum PageVersion_Version_Hero_Links_Link_Type {
-  Custom = 'custom',
-  Reference = 'reference'
-}
-
-export enum PageVersion_Version_Hero_Type {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
-}
 
 export type PageVersion_Version_Layout = ArchiveBlock | BannerBlock | CallToActionBlock | CarouselBlock | ContentBlock | FormBlock | MediaBlock | ThreeItemGridBlock;
 
@@ -11501,98 +12485,6 @@ export enum PageVersion_Version__Status {
 export enum PageVersion_PublishedLocale {
   De = 'de',
   En = 'en'
-}
-
-export type Page_Hero = {
-  __typename?: 'Page_Hero';
-  links?: Maybe<Array<Page_Hero_Links>>;
-  media?: Maybe<Media>;
-  richText?: Maybe<Scalars['JSON']['output']>;
-  type?: Maybe<Page_Hero_Type>;
-};
-
-
-export type Page_HeroMediaArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type Page_HeroRichTextArgs = {
-  depth?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type Page_Hero_Links = {
-  __typename?: 'Page_Hero_Links';
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Page_Hero_Links_Link>;
-};
-
-export type Page_Hero_Links_Link = {
-  __typename?: 'Page_Hero_Links_Link';
-  appearance?: Maybe<Page_Hero_Links_Link_Appearance>;
-  label?: Maybe<Scalars['String']['output']>;
-  newTab?: Maybe<Scalars['Boolean']['output']>;
-  reference?: Maybe<Page_Hero_Links_Link_Reference_Relationship>;
-  type?: Maybe<Page_Hero_Links_Link_Type>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type Page_Hero_Links_LinkReferenceArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export type Page_Hero_Links_Link_Reference = Page;
-
-export type Page_Hero_Links_Link_ReferenceRelationshipInput = {
-  relationTo?: InputMaybe<Page_Hero_Links_Link_ReferenceRelationshipInputRelationTo>;
-  value?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export enum Page_Hero_Links_Link_ReferenceRelationshipInputRelationTo {
-  Pages = 'pages'
-}
-
-export enum Page_Hero_Links_Link_Reference_RelationTo {
-  Pages = 'pages'
-}
-
-export type Page_Hero_Links_Link_Reference_Relationship = {
-  __typename?: 'Page_Hero_Links_Link_Reference_Relationship';
-  relationTo?: Maybe<Page_Hero_Links_Link_Reference_RelationTo>;
-  value?: Maybe<Page_Hero_Links_Link_Reference>;
-};
-
-export enum Page_Hero_Links_Link_Appearance {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export enum Page_Hero_Links_Link_Appearance_MutationInput {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export enum Page_Hero_Links_Link_Type {
-  Custom = 'custom',
-  Reference = 'reference'
-}
-
-export enum Page_Hero_Type {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
-}
-
-export enum Page_Hero_Type_MutationInput {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
 }
 
 export type Page_Layout = ArchiveBlock | BannerBlock | CallToActionBlock | CarouselBlock | ContentBlock | FormBlock | MediaBlock | ThreeItemGridBlock;
@@ -11651,110 +12543,6 @@ export type Page_GenerateSlug_Operator = {
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type Page_Hero__Links__Id_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export enum Page_Hero__Links__Link__Appearance_Input {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export type Page_Hero__Links__Link__Appearance_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Page_Hero__Links__Link__Appearance_Input>>>;
-  equals?: InputMaybe<Page_Hero__Links__Link__Appearance_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Page_Hero__Links__Link__Appearance_Input>>>;
-  not_equals?: InputMaybe<Page_Hero__Links__Link__Appearance_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<Page_Hero__Links__Link__Appearance_Input>>>;
-};
-
-export type Page_Hero__Links__Link__Label_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Page_Hero__Links__Link__NewTab_Operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type Page_Hero__Links__Link__Reference_Relation = {
-  relationTo?: InputMaybe<Page_Hero__Links__Link__Reference_Relation_RelationTo>;
-  value?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export enum Page_Hero__Links__Link__Reference_Relation_RelationTo {
-  Pages = 'pages'
-}
-
-export enum Page_Hero__Links__Link__Type_Input {
-  Custom = 'custom',
-  Reference = 'reference'
-}
-
-export type Page_Hero__Links__Link__Type_Operator = {
-  contains?: InputMaybe<Page_Hero__Links__Link__Type_Input>;
-  equals?: InputMaybe<Page_Hero__Links__Link__Type_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Page_Hero__Links__Link__Type_Input>;
-  not_equals?: InputMaybe<Page_Hero__Links__Link__Type_Input>;
-};
-
-export type Page_Hero__Links__Link__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Page_Hero__Media_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Page_Hero__RichText_Operator = {
-  contains?: InputMaybe<Scalars['JSON']['input']>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['JSON']['input']>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export enum Page_Hero__Type_Input {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
-}
-
-export type Page_Hero__Type_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Page_Hero__Type_Input>>>;
-  equals?: InputMaybe<Page_Hero__Type_Input>;
-  in?: InputMaybe<Array<InputMaybe<Page_Hero__Type_Input>>>;
-  not_equals?: InputMaybe<Page_Hero__Type_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<Page_Hero__Type_Input>>>;
-};
-
 export type Page_Id_Operator = {
   equals?: InputMaybe<Scalars['Int']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -11804,6 +12592,14 @@ export type Page_PublishedOn_Operator = {
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type Page_RichText_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type Page_Slug_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -11841,21 +12637,12 @@ export type Page_Where = {
   _status?: InputMaybe<Page__Status_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
-  hero__links__id?: InputMaybe<Page_Hero__Links__Id_Operator>;
-  hero__links__link__appearance?: InputMaybe<Page_Hero__Links__Link__Appearance_Operator>;
-  hero__links__link__label?: InputMaybe<Page_Hero__Links__Link__Label_Operator>;
-  hero__links__link__newTab?: InputMaybe<Page_Hero__Links__Link__NewTab_Operator>;
-  hero__links__link__reference?: InputMaybe<Page_Hero__Links__Link__Reference_Relation>;
-  hero__links__link__type?: InputMaybe<Page_Hero__Links__Link__Type_Operator>;
-  hero__links__link__url?: InputMaybe<Page_Hero__Links__Link__Url_Operator>;
-  hero__media?: InputMaybe<Page_Hero__Media_Operator>;
-  hero__richText?: InputMaybe<Page_Hero__RichText_Operator>;
-  hero__type?: InputMaybe<Page_Hero__Type_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
+  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -11867,21 +12654,12 @@ export type Page_Where_And = {
   _status?: InputMaybe<Page__Status_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
-  hero__links__id?: InputMaybe<Page_Hero__Links__Id_Operator>;
-  hero__links__link__appearance?: InputMaybe<Page_Hero__Links__Link__Appearance_Operator>;
-  hero__links__link__label?: InputMaybe<Page_Hero__Links__Link__Label_Operator>;
-  hero__links__link__newTab?: InputMaybe<Page_Hero__Links__Link__NewTab_Operator>;
-  hero__links__link__reference?: InputMaybe<Page_Hero__Links__Link__Reference_Relation>;
-  hero__links__link__type?: InputMaybe<Page_Hero__Links__Link__Type_Operator>;
-  hero__links__link__url?: InputMaybe<Page_Hero__Links__Link__Url_Operator>;
-  hero__media?: InputMaybe<Page_Hero__Media_Operator>;
-  hero__richText?: InputMaybe<Page_Hero__RichText_Operator>;
-  hero__type?: InputMaybe<Page_Hero__Type_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
+  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -11893,21 +12671,12 @@ export type Page_Where_Or = {
   _status?: InputMaybe<Page__Status_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
-  hero__links__id?: InputMaybe<Page_Hero__Links__Id_Operator>;
-  hero__links__link__appearance?: InputMaybe<Page_Hero__Links__Link__Appearance_Operator>;
-  hero__links__link__label?: InputMaybe<Page_Hero__Links__Link__Label_Operator>;
-  hero__links__link__newTab?: InputMaybe<Page_Hero__Links__Link__NewTab_Operator>;
-  hero__links__link__reference?: InputMaybe<Page_Hero__Links__Link__Reference_Relation>;
-  hero__links__link__type?: InputMaybe<Page_Hero__Links__Link__Type_Operator>;
-  hero__links__link__url?: InputMaybe<Page_Hero__Links__Link__Url_Operator>;
-  hero__media?: InputMaybe<Page_Hero__Media_Operator>;
-  hero__richText?: InputMaybe<Page_Hero__RichText_Operator>;
-  hero__type?: InputMaybe<Page_Hero__Type_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
+  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -11957,10 +12726,10 @@ export type PagesDocAccessFields = {
   _status?: Maybe<PagesDocAccessFields__Status>;
   createdAt?: Maybe<PagesDocAccessFields_CreatedAt>;
   generateSlug?: Maybe<PagesDocAccessFields_GenerateSlug>;
-  hero?: Maybe<PagesDocAccessFields_Hero>;
   layout?: Maybe<PagesDocAccessFields_Layout>;
   meta?: Maybe<PagesDocAccessFields_Meta>;
   publishedOn?: Maybe<PagesDocAccessFields_PublishedOn>;
+  richText?: Maybe<PagesDocAccessFields_RichText>;
   slug?: Maybe<PagesDocAccessFields_Slug>;
   title?: Maybe<PagesDocAccessFields_Title>;
   updatedAt?: Maybe<PagesDocAccessFields_UpdatedAt>;
@@ -12047,397 +12816,6 @@ export type PagesDocAccessFields_GenerateSlug_Read = {
 
 export type PagesDocAccessFields_GenerateSlug_Update = {
   __typename?: 'PagesDocAccessFields_generateSlug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero = {
-  __typename?: 'PagesDocAccessFields_hero';
-  create?: Maybe<PagesDocAccessFields_Hero_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Delete>;
-  fields?: Maybe<PagesDocAccessFields_Hero_Fields>;
-  read?: Maybe<PagesDocAccessFields_Hero_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Create = {
-  __typename?: 'PagesDocAccessFields_hero_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Fields = {
-  __typename?: 'PagesDocAccessFields_hero_Fields';
-  links?: Maybe<PagesDocAccessFields_Hero_Links>;
-  media?: Maybe<PagesDocAccessFields_Hero_Media>;
-  richText?: Maybe<PagesDocAccessFields_Hero_RichText>;
-  type?: Maybe<PagesDocAccessFields_Hero_Type>;
-};
-
-export type PagesDocAccessFields_Hero_Read = {
-  __typename?: 'PagesDocAccessFields_hero_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Update = {
-  __typename?: 'PagesDocAccessFields_hero_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links = {
-  __typename?: 'PagesDocAccessFields_hero_links';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Delete>;
-  fields?: Maybe<PagesDocAccessFields_Hero_Links_Fields>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Fields = {
-  __typename?: 'PagesDocAccessFields_hero_links_Fields';
-  id?: Maybe<PagesDocAccessFields_Hero_Links_Id>;
-  link?: Maybe<PagesDocAccessFields_Hero_Links_Link>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Id = {
-  __typename?: 'PagesDocAccessFields_hero_links_id';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Id_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Id_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Id_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Id_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Id_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_id_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Id_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_id_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Id_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_id_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Id_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_id_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link = {
-  __typename?: 'PagesDocAccessFields_hero_links_link';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Delete>;
-  fields?: Maybe<PagesDocAccessFields_Hero_Links_Link_Fields>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Fields = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_Fields';
-  appearance?: Maybe<PagesDocAccessFields_Hero_Links_Link_Appearance>;
-  label?: Maybe<PagesDocAccessFields_Hero_Links_Link_Label>;
-  newTab?: Maybe<PagesDocAccessFields_Hero_Links_Link_NewTab>;
-  reference?: Maybe<PagesDocAccessFields_Hero_Links_Link_Reference>;
-  type?: Maybe<PagesDocAccessFields_Hero_Links_Link_Type>;
-  url?: Maybe<PagesDocAccessFields_Hero_Links_Link_Url>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Appearance = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_appearance';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Appearance_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Appearance_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Appearance_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Appearance_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Appearance_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_appearance_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Appearance_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_appearance_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Appearance_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_appearance_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Appearance_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_appearance_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Label = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_label';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Label_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Label_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Label_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Label_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Label_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_label_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Label_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_label_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Label_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_label_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Label_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_label_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_NewTab = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_newTab';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_NewTab_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_NewTab_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_NewTab_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_NewTab_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_NewTab_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_newTab_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_NewTab_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_newTab_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_NewTab_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_newTab_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_NewTab_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_newTab_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Reference = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_reference';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Reference_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Reference_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Reference_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Reference_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Reference_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_reference_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Reference_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_reference_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Reference_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_reference_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Reference_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_reference_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Type = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_type';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Type_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Type_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Type_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Type_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Type_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_type_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Type_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_type_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Type_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_type_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Type_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_type_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Url = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_url';
-  create?: Maybe<PagesDocAccessFields_Hero_Links_Link_Url_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Links_Link_Url_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Links_Link_Url_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Links_Link_Url_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Url_Create = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_url_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Url_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_url_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Url_Read = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_url_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Links_Link_Url_Update = {
-  __typename?: 'PagesDocAccessFields_hero_links_link_url_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Media = {
-  __typename?: 'PagesDocAccessFields_hero_media';
-  create?: Maybe<PagesDocAccessFields_Hero_Media_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Media_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Media_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Media_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Media_Create = {
-  __typename?: 'PagesDocAccessFields_hero_media_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Media_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_media_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Media_Read = {
-  __typename?: 'PagesDocAccessFields_hero_media_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Media_Update = {
-  __typename?: 'PagesDocAccessFields_hero_media_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_RichText = {
-  __typename?: 'PagesDocAccessFields_hero_richText';
-  create?: Maybe<PagesDocAccessFields_Hero_RichText_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_RichText_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_RichText_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_RichText_Update>;
-};
-
-export type PagesDocAccessFields_Hero_RichText_Create = {
-  __typename?: 'PagesDocAccessFields_hero_richText_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_RichText_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_richText_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_RichText_Read = {
-  __typename?: 'PagesDocAccessFields_hero_richText_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_RichText_Update = {
-  __typename?: 'PagesDocAccessFields_hero_richText_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Type = {
-  __typename?: 'PagesDocAccessFields_hero_type';
-  create?: Maybe<PagesDocAccessFields_Hero_Type_Create>;
-  delete?: Maybe<PagesDocAccessFields_Hero_Type_Delete>;
-  read?: Maybe<PagesDocAccessFields_Hero_Type_Read>;
-  update?: Maybe<PagesDocAccessFields_Hero_Type_Update>;
-};
-
-export type PagesDocAccessFields_Hero_Type_Create = {
-  __typename?: 'PagesDocAccessFields_hero_type_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Type_Delete = {
-  __typename?: 'PagesDocAccessFields_hero_type_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Type_Read = {
-  __typename?: 'PagesDocAccessFields_hero_type_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_Hero_Type_Update = {
-  __typename?: 'PagesDocAccessFields_hero_type_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -12588,6 +12966,34 @@ export type PagesDocAccessFields_PublishedOn_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type PagesDocAccessFields_RichText = {
+  __typename?: 'PagesDocAccessFields_richText';
+  create?: Maybe<PagesDocAccessFields_RichText_Create>;
+  delete?: Maybe<PagesDocAccessFields_RichText_Delete>;
+  read?: Maybe<PagesDocAccessFields_RichText_Read>;
+  update?: Maybe<PagesDocAccessFields_RichText_Update>;
+};
+
+export type PagesDocAccessFields_RichText_Create = {
+  __typename?: 'PagesDocAccessFields_richText_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_RichText_Delete = {
+  __typename?: 'PagesDocAccessFields_richText_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_RichText_Read = {
+  __typename?: 'PagesDocAccessFields_richText_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_RichText_Update = {
+  __typename?: 'PagesDocAccessFields_richText_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type PagesDocAccessFields_Slug = {
   __typename?: 'PagesDocAccessFields_slug';
   create?: Maybe<PagesDocAccessFields_Slug_Create>;
@@ -12677,10 +13083,10 @@ export type PagesFields = {
   _status?: Maybe<PagesFields__Status>;
   createdAt?: Maybe<PagesFields_CreatedAt>;
   generateSlug?: Maybe<PagesFields_GenerateSlug>;
-  hero?: Maybe<PagesFields_Hero>;
   layout?: Maybe<PagesFields_Layout>;
   meta?: Maybe<PagesFields_Meta>;
   publishedOn?: Maybe<PagesFields_PublishedOn>;
+  richText?: Maybe<PagesFields_RichText>;
   slug?: Maybe<PagesFields_Slug>;
   title?: Maybe<PagesFields_Title>;
   updatedAt?: Maybe<PagesFields_UpdatedAt>;
@@ -12767,397 +13173,6 @@ export type PagesFields_GenerateSlug_Read = {
 
 export type PagesFields_GenerateSlug_Update = {
   __typename?: 'PagesFields_generateSlug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero = {
-  __typename?: 'PagesFields_hero';
-  create?: Maybe<PagesFields_Hero_Create>;
-  delete?: Maybe<PagesFields_Hero_Delete>;
-  fields?: Maybe<PagesFields_Hero_Fields>;
-  read?: Maybe<PagesFields_Hero_Read>;
-  update?: Maybe<PagesFields_Hero_Update>;
-};
-
-export type PagesFields_Hero_Create = {
-  __typename?: 'PagesFields_hero_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Delete = {
-  __typename?: 'PagesFields_hero_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Fields = {
-  __typename?: 'PagesFields_hero_Fields';
-  links?: Maybe<PagesFields_Hero_Links>;
-  media?: Maybe<PagesFields_Hero_Media>;
-  richText?: Maybe<PagesFields_Hero_RichText>;
-  type?: Maybe<PagesFields_Hero_Type>;
-};
-
-export type PagesFields_Hero_Read = {
-  __typename?: 'PagesFields_hero_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Update = {
-  __typename?: 'PagesFields_hero_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links = {
-  __typename?: 'PagesFields_hero_links';
-  create?: Maybe<PagesFields_Hero_Links_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Delete>;
-  fields?: Maybe<PagesFields_Hero_Links_Fields>;
-  read?: Maybe<PagesFields_Hero_Links_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Update>;
-};
-
-export type PagesFields_Hero_Links_Create = {
-  __typename?: 'PagesFields_hero_links_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Delete = {
-  __typename?: 'PagesFields_hero_links_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Fields = {
-  __typename?: 'PagesFields_hero_links_Fields';
-  id?: Maybe<PagesFields_Hero_Links_Id>;
-  link?: Maybe<PagesFields_Hero_Links_Link>;
-};
-
-export type PagesFields_Hero_Links_Read = {
-  __typename?: 'PagesFields_hero_links_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Update = {
-  __typename?: 'PagesFields_hero_links_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Id = {
-  __typename?: 'PagesFields_hero_links_id';
-  create?: Maybe<PagesFields_Hero_Links_Id_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Id_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Id_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Id_Update>;
-};
-
-export type PagesFields_Hero_Links_Id_Create = {
-  __typename?: 'PagesFields_hero_links_id_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Id_Delete = {
-  __typename?: 'PagesFields_hero_links_id_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Id_Read = {
-  __typename?: 'PagesFields_hero_links_id_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Id_Update = {
-  __typename?: 'PagesFields_hero_links_id_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link = {
-  __typename?: 'PagesFields_hero_links_link';
-  create?: Maybe<PagesFields_Hero_Links_Link_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Delete>;
-  fields?: Maybe<PagesFields_Hero_Links_Link_Fields>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Create = {
-  __typename?: 'PagesFields_hero_links_link_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Delete = {
-  __typename?: 'PagesFields_hero_links_link_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Fields = {
-  __typename?: 'PagesFields_hero_links_link_Fields';
-  appearance?: Maybe<PagesFields_Hero_Links_Link_Appearance>;
-  label?: Maybe<PagesFields_Hero_Links_Link_Label>;
-  newTab?: Maybe<PagesFields_Hero_Links_Link_NewTab>;
-  reference?: Maybe<PagesFields_Hero_Links_Link_Reference>;
-  type?: Maybe<PagesFields_Hero_Links_Link_Type>;
-  url?: Maybe<PagesFields_Hero_Links_Link_Url>;
-};
-
-export type PagesFields_Hero_Links_Link_Read = {
-  __typename?: 'PagesFields_hero_links_link_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Update = {
-  __typename?: 'PagesFields_hero_links_link_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Appearance = {
-  __typename?: 'PagesFields_hero_links_link_appearance';
-  create?: Maybe<PagesFields_Hero_Links_Link_Appearance_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Appearance_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Appearance_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Appearance_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Appearance_Create = {
-  __typename?: 'PagesFields_hero_links_link_appearance_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Appearance_Delete = {
-  __typename?: 'PagesFields_hero_links_link_appearance_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Appearance_Read = {
-  __typename?: 'PagesFields_hero_links_link_appearance_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Appearance_Update = {
-  __typename?: 'PagesFields_hero_links_link_appearance_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Label = {
-  __typename?: 'PagesFields_hero_links_link_label';
-  create?: Maybe<PagesFields_Hero_Links_Link_Label_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Label_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Label_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Label_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Label_Create = {
-  __typename?: 'PagesFields_hero_links_link_label_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Label_Delete = {
-  __typename?: 'PagesFields_hero_links_link_label_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Label_Read = {
-  __typename?: 'PagesFields_hero_links_link_label_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Label_Update = {
-  __typename?: 'PagesFields_hero_links_link_label_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_NewTab = {
-  __typename?: 'PagesFields_hero_links_link_newTab';
-  create?: Maybe<PagesFields_Hero_Links_Link_NewTab_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_NewTab_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_NewTab_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_NewTab_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_NewTab_Create = {
-  __typename?: 'PagesFields_hero_links_link_newTab_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_NewTab_Delete = {
-  __typename?: 'PagesFields_hero_links_link_newTab_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_NewTab_Read = {
-  __typename?: 'PagesFields_hero_links_link_newTab_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_NewTab_Update = {
-  __typename?: 'PagesFields_hero_links_link_newTab_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Reference = {
-  __typename?: 'PagesFields_hero_links_link_reference';
-  create?: Maybe<PagesFields_Hero_Links_Link_Reference_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Reference_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Reference_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Reference_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Reference_Create = {
-  __typename?: 'PagesFields_hero_links_link_reference_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Reference_Delete = {
-  __typename?: 'PagesFields_hero_links_link_reference_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Reference_Read = {
-  __typename?: 'PagesFields_hero_links_link_reference_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Reference_Update = {
-  __typename?: 'PagesFields_hero_links_link_reference_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Type = {
-  __typename?: 'PagesFields_hero_links_link_type';
-  create?: Maybe<PagesFields_Hero_Links_Link_Type_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Type_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Type_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Type_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Type_Create = {
-  __typename?: 'PagesFields_hero_links_link_type_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Type_Delete = {
-  __typename?: 'PagesFields_hero_links_link_type_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Type_Read = {
-  __typename?: 'PagesFields_hero_links_link_type_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Type_Update = {
-  __typename?: 'PagesFields_hero_links_link_type_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Url = {
-  __typename?: 'PagesFields_hero_links_link_url';
-  create?: Maybe<PagesFields_Hero_Links_Link_Url_Create>;
-  delete?: Maybe<PagesFields_Hero_Links_Link_Url_Delete>;
-  read?: Maybe<PagesFields_Hero_Links_Link_Url_Read>;
-  update?: Maybe<PagesFields_Hero_Links_Link_Url_Update>;
-};
-
-export type PagesFields_Hero_Links_Link_Url_Create = {
-  __typename?: 'PagesFields_hero_links_link_url_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Url_Delete = {
-  __typename?: 'PagesFields_hero_links_link_url_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Url_Read = {
-  __typename?: 'PagesFields_hero_links_link_url_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Links_Link_Url_Update = {
-  __typename?: 'PagesFields_hero_links_link_url_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Media = {
-  __typename?: 'PagesFields_hero_media';
-  create?: Maybe<PagesFields_Hero_Media_Create>;
-  delete?: Maybe<PagesFields_Hero_Media_Delete>;
-  read?: Maybe<PagesFields_Hero_Media_Read>;
-  update?: Maybe<PagesFields_Hero_Media_Update>;
-};
-
-export type PagesFields_Hero_Media_Create = {
-  __typename?: 'PagesFields_hero_media_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Media_Delete = {
-  __typename?: 'PagesFields_hero_media_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Media_Read = {
-  __typename?: 'PagesFields_hero_media_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Media_Update = {
-  __typename?: 'PagesFields_hero_media_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_RichText = {
-  __typename?: 'PagesFields_hero_richText';
-  create?: Maybe<PagesFields_Hero_RichText_Create>;
-  delete?: Maybe<PagesFields_Hero_RichText_Delete>;
-  read?: Maybe<PagesFields_Hero_RichText_Read>;
-  update?: Maybe<PagesFields_Hero_RichText_Update>;
-};
-
-export type PagesFields_Hero_RichText_Create = {
-  __typename?: 'PagesFields_hero_richText_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_RichText_Delete = {
-  __typename?: 'PagesFields_hero_richText_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_RichText_Read = {
-  __typename?: 'PagesFields_hero_richText_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_RichText_Update = {
-  __typename?: 'PagesFields_hero_richText_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Type = {
-  __typename?: 'PagesFields_hero_type';
-  create?: Maybe<PagesFields_Hero_Type_Create>;
-  delete?: Maybe<PagesFields_Hero_Type_Delete>;
-  read?: Maybe<PagesFields_Hero_Type_Read>;
-  update?: Maybe<PagesFields_Hero_Type_Update>;
-};
-
-export type PagesFields_Hero_Type_Create = {
-  __typename?: 'PagesFields_hero_type_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Type_Delete = {
-  __typename?: 'PagesFields_hero_type_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Type_Read = {
-  __typename?: 'PagesFields_hero_type_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_Hero_Type_Update = {
-  __typename?: 'PagesFields_hero_type_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -13305,6 +13320,34 @@ export type PagesFields_PublishedOn_Read = {
 
 export type PagesFields_PublishedOn_Update = {
   __typename?: 'PagesFields_publishedOn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_RichText = {
+  __typename?: 'PagesFields_richText';
+  create?: Maybe<PagesFields_RichText_Create>;
+  delete?: Maybe<PagesFields_RichText_Delete>;
+  read?: Maybe<PagesFields_RichText_Read>;
+  update?: Maybe<PagesFields_RichText_Update>;
+};
+
+export type PagesFields_RichText_Create = {
+  __typename?: 'PagesFields_richText_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_RichText_Delete = {
+  __typename?: 'PagesFields_richText_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_RichText_Read = {
+  __typename?: 'PagesFields_richText_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_RichText_Update = {
+  __typename?: 'PagesFields_richText_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -24201,9 +24244,25 @@ export type MutationCategoryUpdateInput = {
 };
 
 export type MutationFooterInput = {
+  contactLink?: InputMaybe<MutationFooter_ContactLinkInput>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   navItems?: InputMaybe<Array<InputMaybe<MutationFooter_NavItemsInput>>>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  slogan?: InputMaybe<Scalars['String']['input']>;
+  socialLink?: InputMaybe<MutationFooter_SocialLinkInput>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationFooter_ContactLinkInput = {
+  link?: InputMaybe<MutationFooter_ContactLink_LinkInput>;
+};
+
+export type MutationFooter_ContactLink_LinkInput = {
+  label: Scalars['String']['input'];
+  newTab?: InputMaybe<Scalars['Boolean']['input']>;
+  reference?: InputMaybe<Footer_ContactLink_Link_ReferenceRelationshipInput>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationFooter_NavItemsInput = {
@@ -24215,6 +24274,18 @@ export type MutationFooter_NavItems_LinkInput = {
   label: Scalars['String']['input'];
   newTab?: InputMaybe<Scalars['Boolean']['input']>;
   reference?: InputMaybe<Footer_NavItems_Link_ReferenceRelationshipInput>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationFooter_SocialLinkInput = {
+  link?: InputMaybe<MutationFooter_SocialLink_LinkInput>;
+};
+
+export type MutationFooter_SocialLink_LinkInput = {
+  label: Scalars['String']['input'];
+  newTab?: InputMaybe<Scalars['Boolean']['input']>;
+  reference?: InputMaybe<Footer_SocialLink_Link_ReferenceRelationshipInput>;
   type?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
 };
@@ -24450,12 +24521,12 @@ export type MutationPageInput = {
   _status?: InputMaybe<Page__Status_MutationInput>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
-  hero: MutationPage_HeroInput;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPage_MetaInput>;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
+  richText?: InputMaybe<Scalars['JSON']['input']>;
   slug: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -24463,61 +24534,19 @@ export type MutationPageUpdateInput = {
   _status?: InputMaybe<PageUpdate__Status_MutationInput>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
-  hero: MutationPageUpdate_HeroInput;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPageUpdate_MetaInput>;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
+  richText?: InputMaybe<Scalars['JSON']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type MutationPageUpdate_HeroInput = {
-  links?: InputMaybe<Array<InputMaybe<MutationPageUpdate_Hero_LinksInput>>>;
-  media?: InputMaybe<Scalars['Int']['input']>;
-  richText?: InputMaybe<Scalars['JSON']['input']>;
-  type: PageUpdate_Hero_Type_MutationInput;
-};
-
-export type MutationPageUpdate_Hero_LinksInput = {
-  id?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<MutationPageUpdate_Hero_Links_LinkInput>;
-};
-
-export type MutationPageUpdate_Hero_Links_LinkInput = {
-  appearance?: InputMaybe<PageUpdate_Hero_Links_Link_Appearance_MutationInput>;
-  label: Scalars['String']['input'];
-  newTab?: InputMaybe<Scalars['Boolean']['input']>;
-  reference?: InputMaybe<PageUpdate_Hero_Links_Link_ReferenceRelationshipInput>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationPageUpdate_MetaInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type MutationPage_HeroInput = {
-  links?: InputMaybe<Array<InputMaybe<MutationPage_Hero_LinksInput>>>;
-  media?: InputMaybe<Scalars['Int']['input']>;
-  richText?: InputMaybe<Scalars['JSON']['input']>;
-  type: Page_Hero_Type_MutationInput;
-};
-
-export type MutationPage_Hero_LinksInput = {
-  id?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<MutationPage_Hero_Links_LinkInput>;
-};
-
-export type MutationPage_Hero_Links_LinkInput = {
-  appearance?: InputMaybe<Page_Hero_Links_Link_Appearance_MutationInput>;
-  label: Scalars['String']['input'];
-  newTab?: InputMaybe<Scalars['Boolean']['input']>;
-  reference?: InputMaybe<Page_Hero_Links_Link_ReferenceRelationshipInput>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationPage_MetaInput = {
@@ -25190,110 +25219,6 @@ export type VersionsPage_Version__GenerateSlug_Operator = {
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type VersionsPage_Version__Hero__Links__Id_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export enum VersionsPage_Version__Hero__Links__Link__Appearance_Input {
-  Default = 'default',
-  Outline = 'outline'
-}
-
-export type VersionsPage_Version__Hero__Links__Link__Appearance_Operator = {
-  all?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Input>>>;
-  equals?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Input>>>;
-  not_equals?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Input>>>;
-};
-
-export type VersionsPage_Version__Hero__Links__Link__Label_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type VersionsPage_Version__Hero__Links__Link__NewTab_Operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type VersionsPage_Version__Hero__Links__Link__Reference_Relation = {
-  relationTo?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Reference_Relation_RelationTo>;
-  value?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export enum VersionsPage_Version__Hero__Links__Link__Reference_Relation_RelationTo {
-  Pages = 'pages'
-}
-
-export enum VersionsPage_Version__Hero__Links__Link__Type_Input {
-  Custom = 'custom',
-  Reference = 'reference'
-}
-
-export type VersionsPage_Version__Hero__Links__Link__Type_Operator = {
-  contains?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Input>;
-  equals?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Input>;
-  not_equals?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Input>;
-};
-
-export type VersionsPage_Version__Hero__Links__Link__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type VersionsPage_Version__Hero__Media_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type VersionsPage_Version__Hero__RichText_Operator = {
-  contains?: InputMaybe<Scalars['JSON']['input']>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['JSON']['input']>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export enum VersionsPage_Version__Hero__Type_Input {
-  HighImpact = 'highImpact',
-  LowImpact = 'lowImpact',
-  MediumImpact = 'mediumImpact',
-  None = 'none'
-}
-
-export type VersionsPage_Version__Hero__Type_Operator = {
-  all?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Type_Input>>>;
-  equals?: InputMaybe<VersionsPage_Version__Hero__Type_Input>;
-  in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Type_Input>>>;
-  not_equals?: InputMaybe<VersionsPage_Version__Hero__Type_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__Hero__Type_Input>>>;
-};
-
 export type VersionsPage_Version__Meta__Description_Operator = {
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -25331,6 +25256,14 @@ export type VersionsPage_Version__PublishedOn_Operator = {
   less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
   like?: InputMaybe<Scalars['DateTime']['input']>;
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type VersionsPage_Version__RichText_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type VersionsPage_Version__Slug_Operator = {
@@ -25378,20 +25311,11 @@ export type VersionsPage_Where = {
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
-  version__hero__links__id?: InputMaybe<VersionsPage_Version__Hero__Links__Id_Operator>;
-  version__hero__links__link__appearance?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Operator>;
-  version__hero__links__link__label?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Label_Operator>;
-  version__hero__links__link__newTab?: InputMaybe<VersionsPage_Version__Hero__Links__Link__NewTab_Operator>;
-  version__hero__links__link__reference?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Reference_Relation>;
-  version__hero__links__link__type?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Operator>;
-  version__hero__links__link__url?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Url_Operator>;
-  version__hero__media?: InputMaybe<VersionsPage_Version__Hero__Media_Operator>;
-  version__hero__richText?: InputMaybe<VersionsPage_Version__Hero__RichText_Operator>;
-  version__hero__type?: InputMaybe<VersionsPage_Version__Hero__Type_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
+  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -25411,20 +25335,11 @@ export type VersionsPage_Where_And = {
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
-  version__hero__links__id?: InputMaybe<VersionsPage_Version__Hero__Links__Id_Operator>;
-  version__hero__links__link__appearance?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Operator>;
-  version__hero__links__link__label?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Label_Operator>;
-  version__hero__links__link__newTab?: InputMaybe<VersionsPage_Version__Hero__Links__Link__NewTab_Operator>;
-  version__hero__links__link__reference?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Reference_Relation>;
-  version__hero__links__link__type?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Operator>;
-  version__hero__links__link__url?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Url_Operator>;
-  version__hero__media?: InputMaybe<VersionsPage_Version__Hero__Media_Operator>;
-  version__hero__richText?: InputMaybe<VersionsPage_Version__Hero__RichText_Operator>;
-  version__hero__type?: InputMaybe<VersionsPage_Version__Hero__Type_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
+  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -25444,20 +25359,11 @@ export type VersionsPage_Where_Or = {
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
-  version__hero__links__id?: InputMaybe<VersionsPage_Version__Hero__Links__Id_Operator>;
-  version__hero__links__link__appearance?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Appearance_Operator>;
-  version__hero__links__link__label?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Label_Operator>;
-  version__hero__links__link__newTab?: InputMaybe<VersionsPage_Version__Hero__Links__Link__NewTab_Operator>;
-  version__hero__links__link__reference?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Reference_Relation>;
-  version__hero__links__link__type?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Type_Operator>;
-  version__hero__links__link__url?: InputMaybe<VersionsPage_Version__Hero__Links__Link__Url_Operator>;
-  version__hero__media?: InputMaybe<VersionsPage_Version__Hero__Media_Operator>;
-  version__hero__richText?: InputMaybe<VersionsPage_Version__Hero__RichText_Operator>;
-  version__hero__type?: InputMaybe<VersionsPage_Version__Hero__Type_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
+  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -26120,6 +26026,13 @@ export type VersionsVariants = {
   totalDocs: Scalars['Int']['output'];
   totalPages: Scalars['Int']['output'];
 };
+
+export type FooterQueryVariables = Exact<{
+  locale: LocaleInputType;
+}>;
+
+
+export type FooterQuery = { __typename?: 'Query', Footer?: { __typename?: 'Footer', slogan?: string | null, phone?: string | null, contactLink?: { __typename?: 'Footer_ContactLink', link?: { __typename?: 'Footer_ContactLink_Link', label?: string | null, type?: Footer_ContactLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { __typename?: 'Footer_ContactLink_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null } | null, socialLink?: { __typename?: 'Footer_SocialLink', link?: { __typename?: 'Footer_SocialLink_Link', label?: string | null, type?: Footer_SocialLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { __typename?: 'Footer_SocialLink_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null } | null, navItems?: Array<{ __typename?: 'Footer_NavItems', id?: string | null, link?: { __typename?: 'Footer_NavItems_Link', label?: string | null, type?: Footer_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { __typename?: 'Footer_NavItems_Link_Reference_Relationship', value?: { __typename?: 'Page', id: number, slug?: string | null } | null } | null } | null }> | null } | null };
 
 export type HeaderQueryVariables = Exact<{
   locale: LocaleInputType;

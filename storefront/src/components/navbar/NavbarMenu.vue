@@ -13,7 +13,7 @@ defineProps<{
     :key="item?.id || index"
     linkClass="navbar-item button is-white"
     :isExternal="item.link?.type === 'custom'"
-    :link="item"
+    :link="item?.link"
   >
     {{ item.link?.label }}
   </Link>

@@ -1,0 +1,61 @@
+query Footer($locale: LocaleInputType!) {
+  Footer(locale: $locale) {
+    slogan
+    phone
+
+    contactLink {
+      link {
+        label
+        type
+        newTab
+
+        reference {
+          value {
+            ... on Page {
+              id
+              slug
+            }
+          }
+        }
+        url
+      }
+    }
+
+    socialLink {
+      link {
+        label
+        type
+        newTab
+
+        reference {
+          value {
+            ... on Page {
+              id
+              slug
+            }
+          }
+        }
+        url
+      }
+    }
+
+    navItems {
+      id
+      link {
+        label
+        type
+        newTab
+
+        reference {
+          value {
+            ... on Page {
+              id
+              slug
+            }
+          }
+        }
+        url
+      }
+    }
+  }
+}

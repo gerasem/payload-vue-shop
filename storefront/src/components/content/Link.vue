@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { IHeaderLink, IHeaderButton } from '@/interfaces/IHeader'
 import { localePath } from '@/composables/localePath.ts'
+import type { ILink } from '@/interfaces/ILink'
 
 defineProps<{
   isExternal?: boolean
-  link: IHeaderLink | IHeaderButton | undefined | null
+  link: ILink | undefined
   linkClass: string
 }>()
 </script>
@@ -12,9 +12,9 @@ defineProps<{
 <template>
   <a
     v-if="isExternal"
-    :href="link?.link?.url ?? '#'"
+    :href="link?.url ?? '#'"
     :class="linkClass"
-    :target="link?.link?.newTab ? '_blank' : '_self'"
+    :target="link?.newTab ? '_blank' : '_self'"
     rel="noopener noreferrer"
   >
     <slot />
@@ -22,9 +22,9 @@ defineProps<{
 
   <RouterLink
     v-else
-    :to="localePath(link?.link?.reference?.value?.slug)"
+    :to="localePath(link?.reference?.value?.slug)"
     :class="linkClass"
-    :target="link?.link?.newTab ? '_blank' : '_self'"
+    :target="link?.newTab ? '_blank' : '_self'"
   >
     <slot />
   </RouterLink>
