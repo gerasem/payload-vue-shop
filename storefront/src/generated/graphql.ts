@@ -2610,7 +2610,9 @@ export type CategoriesDeleteDocAccess = {
 export type CategoriesDocAccessFields = {
   __typename?: 'CategoriesDocAccessFields';
   createdAt?: Maybe<CategoriesDocAccessFields_CreatedAt>;
+  description?: Maybe<CategoriesDocAccessFields_Description>;
   generateSlug?: Maybe<CategoriesDocAccessFields_GenerateSlug>;
+  image?: Maybe<CategoriesDocAccessFields_Image>;
   slug?: Maybe<CategoriesDocAccessFields_Slug>;
   title?: Maybe<CategoriesDocAccessFields_Title>;
   updatedAt?: Maybe<CategoriesDocAccessFields_UpdatedAt>;
@@ -2644,6 +2646,34 @@ export type CategoriesDocAccessFields_CreatedAt_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type CategoriesDocAccessFields_Description = {
+  __typename?: 'CategoriesDocAccessFields_description';
+  create?: Maybe<CategoriesDocAccessFields_Description_Create>;
+  delete?: Maybe<CategoriesDocAccessFields_Description_Delete>;
+  read?: Maybe<CategoriesDocAccessFields_Description_Read>;
+  update?: Maybe<CategoriesDocAccessFields_Description_Update>;
+};
+
+export type CategoriesDocAccessFields_Description_Create = {
+  __typename?: 'CategoriesDocAccessFields_description_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Description_Delete = {
+  __typename?: 'CategoriesDocAccessFields_description_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Description_Read = {
+  __typename?: 'CategoriesDocAccessFields_description_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Description_Update = {
+  __typename?: 'CategoriesDocAccessFields_description_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type CategoriesDocAccessFields_GenerateSlug = {
   __typename?: 'CategoriesDocAccessFields_generateSlug';
   create?: Maybe<CategoriesDocAccessFields_GenerateSlug_Create>;
@@ -2669,6 +2699,34 @@ export type CategoriesDocAccessFields_GenerateSlug_Read = {
 
 export type CategoriesDocAccessFields_GenerateSlug_Update = {
   __typename?: 'CategoriesDocAccessFields_generateSlug_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Image = {
+  __typename?: 'CategoriesDocAccessFields_image';
+  create?: Maybe<CategoriesDocAccessFields_Image_Create>;
+  delete?: Maybe<CategoriesDocAccessFields_Image_Delete>;
+  read?: Maybe<CategoriesDocAccessFields_Image_Read>;
+  update?: Maybe<CategoriesDocAccessFields_Image_Update>;
+};
+
+export type CategoriesDocAccessFields_Image_Create = {
+  __typename?: 'CategoriesDocAccessFields_image_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Image_Delete = {
+  __typename?: 'CategoriesDocAccessFields_image_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Image_Read = {
+  __typename?: 'CategoriesDocAccessFields_image_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Image_Update = {
+  __typename?: 'CategoriesDocAccessFields_image_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -2759,7 +2817,9 @@ export type CategoriesDocAccessFields_UpdatedAt_Update = {
 export type CategoriesFields = {
   __typename?: 'CategoriesFields';
   createdAt?: Maybe<CategoriesFields_CreatedAt>;
+  description?: Maybe<CategoriesFields_Description>;
   generateSlug?: Maybe<CategoriesFields_GenerateSlug>;
+  image?: Maybe<CategoriesFields_Image>;
   slug?: Maybe<CategoriesFields_Slug>;
   title?: Maybe<CategoriesFields_Title>;
   updatedAt?: Maybe<CategoriesFields_UpdatedAt>;
@@ -2793,6 +2853,34 @@ export type CategoriesFields_CreatedAt_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type CategoriesFields_Description = {
+  __typename?: 'CategoriesFields_description';
+  create?: Maybe<CategoriesFields_Description_Create>;
+  delete?: Maybe<CategoriesFields_Description_Delete>;
+  read?: Maybe<CategoriesFields_Description_Read>;
+  update?: Maybe<CategoriesFields_Description_Update>;
+};
+
+export type CategoriesFields_Description_Create = {
+  __typename?: 'CategoriesFields_description_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Description_Delete = {
+  __typename?: 'CategoriesFields_description_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Description_Read = {
+  __typename?: 'CategoriesFields_description_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Description_Update = {
+  __typename?: 'CategoriesFields_description_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type CategoriesFields_GenerateSlug = {
   __typename?: 'CategoriesFields_generateSlug';
   create?: Maybe<CategoriesFields_GenerateSlug_Create>;
@@ -2818,6 +2906,34 @@ export type CategoriesFields_GenerateSlug_Read = {
 
 export type CategoriesFields_GenerateSlug_Update = {
   __typename?: 'CategoriesFields_generateSlug_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Image = {
+  __typename?: 'CategoriesFields_image';
+  create?: Maybe<CategoriesFields_Image_Create>;
+  delete?: Maybe<CategoriesFields_Image_Delete>;
+  read?: Maybe<CategoriesFields_Image_Read>;
+  update?: Maybe<CategoriesFields_Image_Update>;
+};
+
+export type CategoriesFields_Image_Create = {
+  __typename?: 'CategoriesFields_image_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Image_Delete = {
+  __typename?: 'CategoriesFields_image_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Image_Read = {
+  __typename?: 'CategoriesFields_image_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Image_Update = {
+  __typename?: 'CategoriesFields_image_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -2932,11 +3048,24 @@ export type CategoriesUpdateDocAccess = {
 export type Category = {
   __typename?: 'Category';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['JSON']['output']>;
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Int']['output'];
+  image: Media;
   slug: Scalars['String']['output'];
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type CategoryDescriptionArgs = {
+  depth?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CategoryImageArgs = {
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  locale?: InputMaybe<LocaleInputType>;
 };
 
 export type Category_CreatedAt_Operator = {
@@ -2948,6 +3077,14 @@ export type Category_CreatedAt_Operator = {
   less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
   like?: InputMaybe<Scalars['DateTime']['input']>;
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Category_Description_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type Category_GenerateSlug_Operator = {
@@ -2964,6 +3101,14 @@ export type Category_Id_Operator = {
   less_than?: InputMaybe<Scalars['Int']['input']>;
   less_than_equal?: InputMaybe<Scalars['Int']['input']>;
   not_equals?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Category_Image_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
 export type Category_Slug_Operator = {
@@ -3001,8 +3146,10 @@ export type Category_Where = {
   AND?: InputMaybe<Array<InputMaybe<Category_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Category_Where_Or>>>;
   createdAt?: InputMaybe<Category_CreatedAt_Operator>;
+  description?: InputMaybe<Category_Description_Operator>;
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
+  image?: InputMaybe<Category_Image_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -3012,8 +3159,10 @@ export type Category_Where_And = {
   AND?: InputMaybe<Array<InputMaybe<Category_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Category_Where_Or>>>;
   createdAt?: InputMaybe<Category_CreatedAt_Operator>;
+  description?: InputMaybe<Category_Description_Operator>;
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
+  image?: InputMaybe<Category_Image_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -3023,8 +3172,10 @@ export type Category_Where_Or = {
   AND?: InputMaybe<Array<InputMaybe<Category_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Category_Where_Or>>>;
   createdAt?: InputMaybe<Category_CreatedAt_Operator>;
+  description?: InputMaybe<Category_Description_Operator>;
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
+  image?: InputMaybe<Category_Image_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -24229,7 +24380,9 @@ export type MutationCart_ItemsInput = {
 
 export type MutationCategoryInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['JSON']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
+  image?: InputMaybe<Scalars['Int']['input']>;
   slug: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -24237,7 +24390,9 @@ export type MutationCategoryInput = {
 
 export type MutationCategoryUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['JSON']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
+  image?: InputMaybe<Scalars['Int']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;

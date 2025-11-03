@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import sharp from 'sharp'
 
 import {
   BoldFeature,
@@ -96,13 +97,12 @@ export default buildConfig({
   // Sharp is now an optional dependency -
   // if you want to resize images, crop, set focal point, etc.
   // make sure to install it and pass it to the config.
-  // sharp,
+  sharp,
   localization: {
     locales: ['de', 'en'],
     defaultLocale: 'de',
     fallback: true,
   },
   cors: ['http://localhost:8000', 'http://localhost:3000'],
-  graphQL: {
-  },
+  graphQL: {},
 })
