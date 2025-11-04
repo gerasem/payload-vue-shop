@@ -1,0 +1,26 @@
+query Categories($locale: LocaleInputType!) {
+  Categories(locale: $locale) {
+    docs {
+      id
+      title
+      slug
+      image {
+        id
+        alt
+        url
+        filename
+        width
+        height
+        sizes {
+          categoryPreview {
+            url
+            width
+            height
+            mimeType
+            filename
+          }
+        }
+      }
+    }
+  }
+}

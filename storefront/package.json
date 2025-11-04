@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^6.0.1",
+    "@graphql-codegen/introspection": "^5.0.0",
     "@graphql-codegen/typescript": "^5.0.2",
     "@graphql-codegen/typescript-operations": "^5.0.2",
     "@tsconfig/node22": "^22.0.1",

@@ -4,12 +4,25 @@ import ApiService from '@/services/api/api'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import type { CategoriesQuery } from '@/generated/graphql'
+import { gqlRequest } from '@/services/api/api-payload'
+
+import CATEGORIES_QUERY from '@/graphql/categories.gql'
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref<ICategory[]>([])
   const currentCategory = ref<ICategory | null>(null)
   const router = useRouter()
   const loaderStore = useLoaderStore()
+
+  const fetchCategories = async (): Promise<void> => {
+    if (categories.value.length) {
+      return
+    }
+    const data = await gqlRequest<CategoriesQuery>(CATEGORIES_QUERY, loaderStore.LOADER_KEYS.CATEGORIES)
+    categories.value = data?.Categories?.docs ?? []
+    console.log('fetched categories:', data)
+  }
 
   const getCategories = async () => {
     if (categories.value.length) {
@@ -29,5 +42,5 @@ export const useCategoryStore = defineStore('category', () => {
     }
   }
 
-  return { categories, getCategories, currentCategory, setCurrentCategory }
+  return { categories, getCategories, currentCategory, setCurrentCategory, fetchCategories }
 })

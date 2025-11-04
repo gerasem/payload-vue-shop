@@ -1,6 +1,6 @@
 import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
 // import { loadLocaleMessages } from '@/i18n/translation'
-//import { init } from '@/utils/initialize'
+import { init } from '@/utils/initialize'
 
 // const SUPPORTED_LANGUAGES = ['en', 'de']
 // const DEFAULT_LANGUAGE = 'de'
@@ -12,7 +12,7 @@ export async function handleRouting(
 ): Promise<void> {
   console.log('before enter')
   // load categories, region and some necessary data from api
-  //init().catch((error) => console.error('Initialization error:', error))
+  init().catch((error) => console.error('Initialization error:', error))
 
   // const lang = to.params.locale || detectUserLanguage()
   // const normalizedLang = normalizeLanguage(lang as string)

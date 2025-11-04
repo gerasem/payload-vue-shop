@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, type Router, RouterView } from 'vue-router'
-//import { handleRouting } from './beforeEnter'
+import { handleRouting } from './beforeEnter'
 import HomeView from '@/views/HomeView.vue'
 const router: Router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +14,7 @@ const router: Router = createRouter({
     {
       path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
       component: RouterView,
-      //beforeEnter: handleRouting,
+      beforeEnter: handleRouting,
       children: [
         {
           path: '',

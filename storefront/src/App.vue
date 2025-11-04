@@ -12,12 +12,7 @@ import { RouterView } from 'vue-router'
   <InformationBanner />
   <Navbar />
   <div id="content">
-    <!-- todo check transition -->
-    <router-view v-slot="{ Component }">
-      <transition name="fade">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <router-view />
   </div>
 
   <Footer />

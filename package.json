@@ -1,5 +1,0 @@
-{
-  "name": "payload-vue-shop",
-  "private": true,
-  "workspaces": ["payload", "storefront"]
-}

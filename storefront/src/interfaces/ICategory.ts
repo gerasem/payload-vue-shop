@@ -1,5 +1,3 @@
-import { HttpTypes } from '@medusajs/types'
+import type { CategoriesQuery } from '@/generated/graphql'
 
-export interface ICategory extends HttpTypes.StoreProductCategory {
-  image?: string
-}
+export type ICategory = NonNullable<NonNullable<CategoriesQuery['Categories']>['docs']>[number]
