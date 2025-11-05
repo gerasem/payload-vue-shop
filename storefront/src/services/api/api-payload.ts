@@ -5,11 +5,17 @@ import { useToastStore } from '@/stores/ToastStore'
 import type { DocumentNode } from 'graphql'
 // import { sdk } from './config'
 
-const locale: string = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE
+let locale: string = ''
 
-console.log('USE LANG From LS', locale)
+if (typeof window !== 'undefined') {
+  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE
+} else {
+  locale = import.meta.env.VITE_DEFAULT_LANGUAGE
+}
 
-// todo refactor this both functions 
+//console.log('USE LANG From LS', locale)
+
+// todo refactor this both functions
 export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
   return handleRequest(
     async () => {

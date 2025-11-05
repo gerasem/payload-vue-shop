@@ -3,6 +3,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import svgLoader from 'vite-svg-loader'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import { ViteSSG } from 'vite-ssg'
 import path from 'path'
 
 // https://vite.dev/config/
@@ -27,5 +28,9 @@ export default defineConfig({
     watch: {
       ignored: ['!../payload/src/payload-types.ts'],
     },
+  },
+  ssgOptions: {
+    script: 'async',
+    formatting: 'minify',
   },
 })
