@@ -103,6 +103,6 @@ export default buildConfig({
     defaultLocale: 'de',
     fallback: true,
   },
-  cors: ['http://localhost:8000', 'http://localhost:3000'],
+  cors: ['http://localhost:8000', 'http://localhost:3000', 'http://localhost:4173'],
   graphQL: {},
 })

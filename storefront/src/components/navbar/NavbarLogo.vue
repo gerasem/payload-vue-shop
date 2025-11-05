@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IHeaderIcon } from '@/interfaces/IHeader.ts'
 import { localePath } from '@/composables/localePath.ts'
-import { sanitizeSvg } from '@/utils/sanitizeSvg'
 
 defineProps<{
   logo?: IHeaderIcon
@@ -23,7 +22,7 @@ const handleLogoClick = () => {
   >
     <span
       v-if="typeof logo === 'object' && logo?.svgContent"
-      v-html="sanitizeSvg(logo.svgContent)"
+      v-html="logo.svgContent"
     ></span>
   </RouterLink>
 

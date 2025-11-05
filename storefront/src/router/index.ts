@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { handleRouting } from './beforeEnter'
 import HomeView from '@/views/HomeView.vue'
 import { RouterView } from 'vue-router'
 
@@ -8,7 +9,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
     component: RouterView,
-    // beforeEnter: handleRouting,
+    beforeEnter: handleRouting,
     children: [
       {
         path: '',

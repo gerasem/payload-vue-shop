@@ -48,5 +48,20 @@ export const useContentStore = defineStore('content', () => {
     footer.value = data?.Footer ?? null
   }
 
-  return { informationBanner, fetchInformationBanner, header, fetchHeader, footer, fetchFooter }
+  const hydrate = (data: { informationBanner: any[] }) => {
+    console.log('DATA IN HYDRATE:', data)
+    if (data?.informationBanner) {
+      informationBanner.value = data.informationBanner
+    }
+  }
+
+  return {
+    informationBanner,
+    fetchInformationBanner,
+    header,
+    fetchHeader,
+    footer,
+    fetchFooter,
+    hydrate,
+  }
 })

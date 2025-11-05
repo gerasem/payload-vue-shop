@@ -8,12 +8,12 @@ import type { DocumentNode } from 'graphql'
 let locale: string = ''
 
 if (typeof window !== 'undefined') {
-  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE
+  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
 } else {
   locale = import.meta.env.VITE_DEFAULT_LANGUAGE
 }
 
-//console.log('USE LANG From LS', locale)
+console.log('USE LANG From LS', locale)
 
 // todo refactor this both functions
 export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
