@@ -14,7 +14,7 @@
     "format": "prettier --write src/",
     "gql:gen": "graphql-codegen",
     "build": "vite-ssg build",
-    "preview": "vite preview --outDir dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@apollo/client": "^4.0.8",

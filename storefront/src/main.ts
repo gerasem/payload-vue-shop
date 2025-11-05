@@ -6,30 +6,42 @@ import { ViteSSG } from 'vite-ssg'
 import routes from './router'
 import App from './App.vue'
 
-const i18n = createI18n({
-  locale: import.meta.env.VITE_DEFAULT_LANGUAGE,
-  fallbackLocale: 'en',
-  legacy: false,
-  fallbackWarn: false,
-  missingWarn: false,
-})
+export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient }) => {
+  const defaultLang = import.meta.env.VITE_DEFAULT_LANGUAGE || 'de'
 
-export const createApp = ViteSSG(App, { routes }, ({ app, router, isClient }) => {
-  // app.use(createPinia())
-  // app.use(router)
-  // app.use(i18n)
-  // app.use(createHead())
-  // router.isReady().then(async () => {
-  //   if (isClient) {
-  //     const lang = localStorage.getItem('lang')
-  //     if (lang) {
-  //       const messages = await import(`@/i18n/locales/${lang}.json`)
-  //       i18n.global.setLocaleMessage(lang, messages.default)
-  //       i18n.global.locale.value = lang
-  //       console.log('Loaded message json', i18n.global.locale.value)
-  //     }
-  //     app.mount('#app')
-  //     document.querySelector('html')?.setAttribute('lang', lang)
-  //   }
-  // })
+  const messages = await import(`@/i18n/locales/${defaultLang}.json`)
+
+  const i18n = createI18n({
+    legacy: false,
+    locale: defaultLang,
+    fallbackLocale: 'en',
+    messages: { [defaultLang]: messages.default },
+    fallbackWarn: false,
+    missingWarn: false,
+  })
+
+  app.use(createPinia())
+  app.use(router)
+  app.use(i18n)
+  app.use(createHead())
+
+  console.log(
+    isClient
+      ? '[vite-ssg] Running on client (hydration)'
+      : '[vite-ssg] Rendering on server (SSG build)',
+  )
+
+  if (isClient) {
+    const savedLang = localStorage.getItem('lang')
+    if (savedLang && savedLang !== defaultLang) {
+      try {
+        const newMessages = await import(`@/i18n/locales/${savedLang}.json`)
+        i18n.global.setLocaleMessage(savedLang, newMessages.default)
+        i18n.global.locale.value = savedLang
+        document.documentElement.setAttribute('lang', savedLang)
+      } catch (e) {
+        console.warn(`Could not load locale ${savedLang}`, e)
+      }
+    }
+  }
 })

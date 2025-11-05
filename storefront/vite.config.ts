@@ -3,7 +3,6 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import svgLoader from 'vite-svg-loader'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import { ViteSSG } from 'vite-ssg'
 import path from 'path'
 
 // https://vite.dev/config/
@@ -31,6 +30,7 @@ export default defineConfig({
   },
   ssgOptions: {
     script: 'async',
-    formatting: 'minify',
+    //formatting: 'minify',
+    includedRoutes: () => ['/', '/en', '/de'],
   },
 })

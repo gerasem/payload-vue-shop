@@ -1,18 +1,23 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 export function useDevice() {
-  const isMobile = ref<boolean>(window.innerWidth < 768)
+  const isMobile = ref(false)
 
   const updateIsMobile = () => {
-    isMobile.value = window.innerWidth < 768
+    if (typeof window !== 'undefined') {
+      isMobile.value = window.innerWidth < 768
+    }
   }
 
   onMounted(() => {
+    updateIsMobile()
     window.addEventListener('resize', updateIsMobile)
   })
 
   onUnmounted(() => {
-    window.removeEventListener('resize', updateIsMobile)
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', updateIsMobile)
+    }
   })
 
   return { isMobile }
