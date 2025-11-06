@@ -6,7 +6,10 @@ import type { DocumentNode } from 'graphql'
 // import { sdk } from './config'
 
 // todo refactor this both functions
-export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
+export async function gqlRequest<T>(
+  query: DocumentNode,
+  loaderKey: string | undefined = undefined,
+): Promise<T> {
   let locale: string = ''
 
   if (typeof window !== 'undefined') {
@@ -33,12 +36,14 @@ export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Pro
 
 async function handleRequest<T>(
   callback: () => Promise<T>,
-  options: { loaderKey: string },
+  options: { loaderKey: string | undefined },
 ): Promise<T> {
   const loaderStore = useLoaderStore()
 
   try {
-    loaderStore.startLoading(options.loaderKey)
+    if (options.loaderKey) {
+      loaderStore.startLoading(options.loaderKey)
+    }
     return await callback()
   } catch (error: unknown) {
     const toastStore = useToastStore()
@@ -52,13 +57,15 @@ async function handleRequest<T>(
           label: 'Reload Page',
           onClick: () => window.location.reload(),
         },
-        1000,
+        10000,
       )
     }
 
     throw error
   } finally {
-    loaderStore.stopLoading(options.loaderKey)
+    if (options.loaderKey) {
+      loaderStore.stopLoading(options.loaderKey)
+    }
   }
 }
 

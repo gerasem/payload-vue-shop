@@ -23,34 +23,23 @@ export const useContentStore = defineStore('content', () => {
 
   const fetchInformationBanner = async (): Promise<void> => {
     if (informationBanner.value) return
-
-    console.log('fetchInformationBanner called')
-
-    const data = await gqlRequest<InformationBannerQuery>(
-      INFORMATION_BANNER_QUERY,
-      loaderStore.LOADER_KEYS.INFORMATION_BANNER,
-    )
-
+    const data = await gqlRequest<InformationBannerQuery>(INFORMATION_BANNER_QUERY)
     informationBanner.value = data.InformationBanner?.items || []
   }
 
   const fetchHeader = async (): Promise<void> => {
     if (header.value) return
-
     const data = await gqlRequest<HeaderQuery>(HEADER_QUERY, loaderStore.LOADER_KEYS.HEADER)
-
     header.value = data?.Header ?? null
   }
 
   const fetchFooter = async (): Promise<void> => {
     if (footer.value) return
-
     const data = await gqlRequest<FooterQuery>(FOOTER_QUERY, loaderStore.LOADER_KEYS.FOOTER)
-
     footer.value = data?.Footer ?? null
   }
 
-  const hydrate = (data: { informationBanner: any[] }) => {
+  const hydrate = (data) => {
     console.log('DATA IN HYDRATE:', data)
     if (data?.informationBanner) {
       informationBanner.value = data.informationBanner
