@@ -5,18 +5,18 @@ import { useToastStore } from '@/stores/ToastStore'
 import type { DocumentNode } from 'graphql'
 // import { sdk } from './config'
 
-let locale: string = ''
-
-if (typeof window !== 'undefined') {
-  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
-} else {
-  locale = import.meta.env.VITE_DEFAULT_LANGUAGE
-}
-
-console.log('USE LANG From LS', locale)
-
 // todo refactor this both functions
 export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
+  let locale: string = ''
+
+  if (typeof window !== 'undefined') {
+    locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
+  } else {
+    locale = import.meta.env.VITE_DEFAULT_LANGUAGE
+  }
+
+  console.log('USE LANG From LS', locale)
+
   return handleRequest(
     async () => {
       const { data } = await apolloClient.query({

@@ -24,6 +24,8 @@ export const useContentStore = defineStore('content', () => {
   const fetchInformationBanner = async (): Promise<void> => {
     if (informationBanner.value) return
 
+    console.log('fetchInformationBanner called')
+
     const data = await gqlRequest<InformationBannerQuery>(
       INFORMATION_BANNER_QUERY,
       loaderStore.LOADER_KEYS.INFORMATION_BANNER,

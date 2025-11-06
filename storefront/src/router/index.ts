@@ -9,7 +9,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
     component: RouterView,
-    beforeEnter: handleRouting,
     children: [
       {
         path: '',

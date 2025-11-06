@@ -41,20 +41,7 @@ class ApiService {
     }
   }
 
-  // payload
-  // todo fix locale
-  static fetchInformationBanner = (
-    loaderKey: string,
-  ): Promise<IInformationBanner> => {
-    return this.handleRequest(
-      async () => {
-        const { items } = await sdk.findGlobal({ slug: 'information-banner', locale: 'en' })
-        console.log('items', items)
-        return items || []
-      },
-      { loaderKey },
-    )
-  }
+
 
   static async fetchCategories(loaderKey: string) {
     return this.handleRequest(
