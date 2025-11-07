@@ -1,3 +1,4 @@
+import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
 import { useContentStore } from '@/stores/ContentStore'
 import { createHead } from '@unhead/vue/client'
 import type { ViteSSGContext } from 'vite-ssg'
@@ -67,23 +68,7 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       footer: contentStore.footer,
     }
   } else {
-    if (initialState?.content?.informationBanner) {
-      contentStore.hydrate(initialState.content)
-    } else {
-      await contentStore.fetchInformationBanner()
-    }
-
-    if (initialState?.content?.header) {
-      contentStore.hydrate(initialState.content)
-    } else {
-      await contentStore.fetchHeader()
-    }
-
-    if (initialState?.content?.footer) {
-      contentStore.hydrate(initialState.content)
-    } else {
-      await contentStore.fetchFooter()
-    }
+    await hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer'])
   }
 
   app.use(pinia)

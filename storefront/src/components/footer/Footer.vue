@@ -66,7 +66,7 @@ const contentStore = useContentStore()
 <style lang="scss">
 @use 'bulma/sass/layout/footer' with (
   $footer-background-color: $background-gray,
-  $footer-padding: 3rem 0.75rem
+  $footer-padding: 3rem 1.5rem
 );
 </style>
 
