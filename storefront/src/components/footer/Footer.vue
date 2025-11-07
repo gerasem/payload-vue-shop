@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { useContentStore } from '@/stores/ContentStore'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import FooterDebugBar from './FooterDebugBar.vue'
 import Link from '@/components/content/Link.vue'
-import { onMounted } from 'vue'
 
 const contentStore = useContentStore()
-const loaderStore = useLoaderStore()
-
-onMounted(async () => {
-  await contentStore.fetchFooter()
-})
 </script>
 
 <template>
@@ -22,16 +15,9 @@ onMounted(async () => {
             <div
               v-for="(item, index) in contentStore.footer?.navItems"
               :key="item?.id || index"
-              :class="[
-                'column',
-                'footer__item',
-                'is-full-mobile',
-                'is-half-tablet',
-                index < 3 ? 'is-half-desktop' : 'is-half-desktop',
-              ]"
+              class="column is-full-mobile is-half-tablet is-half-desktop footer__item"
             >
               <Link
-                linkClass=""
                 :isExternal="item.link?.type === 'custom'"
                 :link="item?.link"
               >
@@ -53,7 +39,6 @@ onMounted(async () => {
 
             <li class="footer__item">
               <Link
-                linkClass=""
                 :isExternal="contentStore.footer?.contactLink?.link?.type === 'custom'"
                 :link="contentStore.footer?.contactLink?.link"
               >
@@ -61,9 +46,8 @@ onMounted(async () => {
               </Link>
             </li>
 
-            <li class="footer__item footer__item--instagram">
+            <li class="footer__item footer__item--instagram footer__item--instagram">
               <Link
-                linkClass=""
                 :isExternal="contentStore.footer?.socialLink?.link?.type === 'custom'"
                 :link="contentStore.footer?.socialLink?.link"
               >
@@ -91,11 +75,11 @@ onMounted(async () => {
   margin-top: 4rem;
 
   &__items {
-    margin: 0;
+    margin: 0 -15px;
   }
 
   &__item {
-    padding: 0.2rem 0.5rem;
+    padding: 0.2rem 15px;
 
     a {
       color: $color-text;

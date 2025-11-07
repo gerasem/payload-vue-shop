@@ -60,9 +60,11 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
   if (import.meta.env.SSR) {
     await contentStore.fetchInformationBanner()
     await contentStore.fetchHeader()
+    await contentStore.fetchFooter()
     initialState.content = {
       informationBanner: contentStore.informationBanner,
       header: contentStore.header,
+      footer: contentStore.footer,
     }
   } else {
     if (initialState?.content?.informationBanner) {
@@ -75,6 +77,12 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       contentStore.hydrate(initialState.content)
     } else {
       await contentStore.fetchHeader()
+    }
+
+    if (initialState?.content?.footer) {
+      contentStore.hydrate(initialState.content)
+    } else {
+      await contentStore.fetchFooter()
     }
   }
 

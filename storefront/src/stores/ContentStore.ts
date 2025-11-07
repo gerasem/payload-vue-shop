@@ -35,7 +35,7 @@ export const useContentStore = defineStore('content', () => {
 
   const fetchFooter = async (): Promise<void> => {
     if (footer.value) return
-    const data = await gqlRequest<FooterQuery>(FOOTER_QUERY, loaderStore.LOADER_KEYS.FOOTER)
+    const data = await gqlRequest<FooterQuery>(FOOTER_QUERY)
     footer.value = data?.Footer ?? null
   }
 
@@ -46,6 +46,9 @@ export const useContentStore = defineStore('content', () => {
     }
     if (data?.header) {
       header.value = data.header
+    }
+    if (data?.footer) {
+      footer.value = data.footer
     }
   }
 
