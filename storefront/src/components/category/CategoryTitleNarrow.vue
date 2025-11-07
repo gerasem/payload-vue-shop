@@ -1,27 +1,17 @@
 <script setup lang="ts">
-import CategorySkeletonGroup from '@/components/category/CategorySkeletonGroup.vue'
 import CategoryTitle from '@/components/category/CategoryTitle.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
-import { useLoaderStore } from '@/stores/LoaderStore'
 
 const categoryStore = useCategoryStore()
-const loaderStore = useLoaderStore()
 </script>
 
 <template>
   <div class="is-full category__container">
-    <CategorySkeletonGroup
-      v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.CATEGORIES)"
-      :count="5"
+    <CategoryTitle
+      v-for="category in categoryStore.categories"
+      :key="category.id"
+      :category="category"
     />
-
-    <template v-else>
-      <CategoryTitle
-        v-for="category in categoryStore.categories"
-        :key="category.id"
-        :category="category"
-      />
-    </template>
   </div>
 </template>
 

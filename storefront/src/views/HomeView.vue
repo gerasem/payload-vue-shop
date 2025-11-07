@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import CategoryPreviewMobile from '@/components/category/CategoryPreviewMobile.vue'
-import CategoryCardSkeleton from '@/components/category/CategoryCardSkeleton.vue'
 import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
 import CategoryPreview from '@/components/category/CategoryPreview.vue'
 import CategoryCard from '@/components/category/CategoryCard.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import { useDevice } from '@/composables/useDevice.ts'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import { useSeoMeta } from '@unhead/vue'
 
 const { isMobile } = useDevice()
 const categoryStore = useCategoryStore()
-const loaderStore = useLoaderStore()
 
 useSeoMeta({
   title: 'Home',
@@ -36,20 +33,11 @@ useSeoMeta({
     <main class="container is-fluid">
       <div class="columns is-5-tablet is-6-desktop is-8-fullhd">
         <div class="column is-one-third-tablet is-one-fifth-desktop">
-          <template v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.CATEGORIES)">
-            <CategoryCardSkeleton
-              v-for="skeleton in 5"
-              :key="skeleton"
-            />
-          </template>
-
-          <template v-else>
-            <CategoryCard
-              v-for="category in categoryStore.categories"
-              :key="category.id"
-              :category="category"
-            />
-          </template>
+          <CategoryCard
+            v-for="category in categoryStore.categories"
+            :key="category.id"
+            :category="category"
+          />
         </div>
 
         <div class="column">

@@ -1,3 +1,4 @@
+import { useCategoryStore } from '@/stores/CategoryStore'
 import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
 import { useContentStore } from '@/stores/ContentStore'
 import { createHead } from '@unhead/vue/client'
@@ -57,18 +58,25 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
   // --- Pinia + ContentStore ---
   const pinia = createPinia()
   const contentStore = useContentStore(pinia)
+  const categoryStore = useCategoryStore()
 
   if (import.meta.env.SSR) {
     await contentStore.fetchInformationBanner()
     await contentStore.fetchHeader()
     await contentStore.fetchFooter()
+    await categoryStore.fetchCategories()
+
     initialState.content = {
       informationBanner: contentStore.informationBanner,
       header: contentStore.header,
       footer: contentStore.footer,
     }
+    initialState.category = {
+      categories: categoryStore.categories,
+    }
   } else {
     await hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer'])
+    await hydrateOrFetch(categoryStore, initialState, ['categories'])
   }
 
   app.use(pinia)
