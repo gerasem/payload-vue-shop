@@ -37,13 +37,15 @@ const handleLogoClick = () => {
 <style scoped lang="scss">
 .navbar {
   &__logo {
+    align-items: flex-start !important;
+
     @media (max-width: $screen-md-max) {
       flex: 1;
       justify-content: center;
     }
 
-    svg {
-      margin-top: -5px;
+    span {
+      margin-top: 2px;
     }
   }
 

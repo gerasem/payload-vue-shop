@@ -29,7 +29,7 @@ export const useContentStore = defineStore('content', () => {
 
   const fetchHeader = async (): Promise<void> => {
     if (header.value) return
-    const data = await gqlRequest<HeaderQuery>(HEADER_QUERY, loaderStore.LOADER_KEYS.HEADER)
+    const data = await gqlRequest<HeaderQuery>(HEADER_QUERY)
     header.value = data?.Header ?? null
   }
 
@@ -43,6 +43,9 @@ export const useContentStore = defineStore('content', () => {
     console.log('DATA IN HYDRATE:', data)
     if (data?.informationBanner) {
       informationBanner.value = data.informationBanner
+    }
+    if (data?.header) {
+      header.value = data.header
     }
   }
 

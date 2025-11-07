@@ -59,14 +59,22 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
 
   if (import.meta.env.SSR) {
     await contentStore.fetchInformationBanner()
+    await contentStore.fetchHeader()
     initialState.content = {
       informationBanner: contentStore.informationBanner,
+      header: contentStore.header,
     }
   } else {
     if (initialState?.content?.informationBanner) {
       contentStore.hydrate(initialState.content)
     } else {
       await contentStore.fetchInformationBanner()
+    }
+
+    if (initialState?.content?.header) {
+      contentStore.hydrate(initialState.content)
+    } else {
+      await contentStore.fetchHeader()
     }
   }
 
