@@ -22,7 +22,6 @@
     "@payloadcms/sdk": "^3.61.1",
     "@unhead/vue": "^2.0.8",
     "bulma": "^1.0.4",
-    "dompurify": "^3.3.0",
     "graphql": "^16.11.0",
     "lodash.debounce": "^4.0.8",
     "photoswipe": "^5.4.4",
