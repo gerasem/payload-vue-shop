@@ -5,27 +5,32 @@ import { useToastStore } from '@/stores/ToastStore'
 import type { DocumentNode } from 'graphql'
 // import { sdk } from './config'
 
-// todo refactor this both functions
+let locale: string = ''
+
+if (typeof window !== 'undefined') {
+  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
+} else {
+  locale = import.meta.env.VITE_DEFAULT_LANGUAGE
+}
+
 export async function gqlRequest<T>(
   query: DocumentNode,
-  loaderKey: string | undefined = undefined,
+  variables: Record<string, any> = {},
+  loaderKey?: string,
 ): Promise<T> {
-  let locale: string = ''
-
-  if (typeof window !== 'undefined') {
-    locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
-  } else {
-    locale = import.meta.env.VITE_DEFAULT_LANGUAGE
-  }
-
   console.log('USE LANG From LS', locale)
+
+  const finalVariables = {
+    ...variables,
+    locale,
+  }
 
   return handleRequest(
     async () => {
       const { data } = await apolloClient.query({
         query,
         fetchPolicy: 'cache-first',
-        variables: { locale },
+        variables: finalVariables,
       })
 
       return data
@@ -36,7 +41,7 @@ export async function gqlRequest<T>(
 
 async function handleRequest<T>(
   callback: () => Promise<T>,
-  options: { loaderKey: string | undefined },
+  options: { loaderKey?: string },
 ): Promise<T> {
   const loaderStore = useLoaderStore()
 
@@ -69,32 +74,4 @@ async function handleRequest<T>(
   }
 }
 
-// export async function fetchInformationBanner(loaderKey: string): Promise<IInformationBanner> {
-//   return handleRequest(
-//     async () => {
-//       const { items } = await sdk.findGlobal({
-//         slug: 'information-banner',
-//         locale,
-//         depth: 1,
-//       })
-//       console.log('Fetched items:', items)
-//       return items || []
-//     },
-//     { loaderKey },
-//   )
-// }
 
-// export async function fetchHeader(loaderKey: string): Promise<IHeader> {
-//   return handleRequest(
-//     async () => {
-//       const result = await sdk.findGlobal({
-//         slug: 'header',
-//         locale,
-//         depth: 1,
-//       })
-//       console.log('HEADER', result)
-//       return result as IHeader
-//     },
-//     { loaderKey },
-//   )
-// }

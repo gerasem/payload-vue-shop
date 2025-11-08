@@ -88,5 +88,16 @@ export const plugins: Plugin[] = [
     products: {
       productsCollectionOverride: ProductsCollection,
     },
+    currencies: {
+      supportedCurrencies: [
+        {
+          code: 'EUR', // The currency code in ISO 4217 format, e.g. 'USD'
+          decimals: 2, // The number of decimal places for the currency, e.g. 2 for USD
+          label: 'Euro', // A human-readable label for the currency, e.g. 'US Dollar'
+          symbol: '€', // The currency symbol, e.g. '$'
+        },
+      ],
+      defaultCurrency: 'EUR',
+    },
   }),
 ]

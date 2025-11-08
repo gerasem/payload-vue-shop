@@ -20,31 +20,23 @@ export const useCategoryStore = defineStore('category', () => {
     if (categories.value.length) {
       return
     }
-    const data = await gqlRequest<CategoriesQuery>(
-      CATEGORIES_QUERY,
-      loaderStore.LOADER_KEYS.CATEGORIES,
-    )
+    const data = await gqlRequest<CategoriesQuery>(CATEGORIES_QUERY)
     categories.value = data?.Categories?.docs ?? []
     console.log('fetched categories:', data)
   }
 
-  const getCategories = async () => {
-    if (categories.value.length) {
-      return
-    }
-    categories.value = await ApiService.fetchCategories(loaderStore.LOADER_KEYS.CATEGORIES)
-  }
-
   const setCurrentCategory = (handle: string) => {
     if (!categories.value.length) return
-    const foundCategory = categories.value.find((cat: ICategory) => cat.handle === handle)
+    const foundCategory = categories.value.find((cat: ICategory) => cat.slug === handle)
 
     if (!foundCategory) {
       router.push({ name: '404' })
     } else {
       currentCategory.value = foundCategory
     }
+
+    console.log('Current category set to:', currentCategory.value)
   }
 
-  return { categories, getCategories, currentCategory, setCurrentCategory, fetchCategories }
+  return { categories, currentCategory, setCurrentCategory, fetchCategories }
 })

@@ -1562,7 +1562,7 @@ export type CartCustomerArgs = {
 };
 
 export enum CartUpdate_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum CartUpdate_Status_MutationInput {
@@ -1605,15 +1605,15 @@ export type Cart_CreatedAt_Operator = {
 };
 
 export enum Cart_Currency {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Cart_Currency_Input {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Cart_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export type Cart_Currency_Operator = {
@@ -11385,7 +11385,7 @@ export type OrderTransactionsArgs = {
 };
 
 export enum OrderUpdate_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum OrderUpdate_Status_MutationInput {
@@ -11454,15 +11454,15 @@ export type Order_CreatedAt_Operator = {
 };
 
 export enum Order_Currency {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Order_Currency_Input {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Order_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export type Order_Currency_Operator = {
@@ -15524,8 +15524,8 @@ export type Product = {
   inventory?: Maybe<Scalars['Float']['output']>;
   layout?: Maybe<Array<Product_Layout>>;
   meta?: Maybe<Product_Meta>;
-  priceInUSD?: Maybe<Scalars['Float']['output']>;
-  priceInUSDEnabled?: Maybe<Scalars['Boolean']['output']>;
+  priceInEUR?: Maybe<Scalars['Float']['output']>;
+  priceInEUREnabled?: Maybe<Scalars['Boolean']['output']>;
   relatedProducts?: Maybe<Array<Product>>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -15605,8 +15605,8 @@ export type ProductVersion_Version = {
   inventory?: Maybe<Scalars['Float']['output']>;
   layout?: Maybe<Array<ProductVersion_Version_Layout>>;
   meta?: Maybe<ProductVersion_Version_Meta>;
-  priceInUSD?: Maybe<Scalars['Float']['output']>;
-  priceInUSDEnabled?: Maybe<Scalars['Boolean']['output']>;
+  priceInEUR?: Maybe<Scalars['Float']['output']>;
+  priceInEUREnabled?: Maybe<Scalars['Boolean']['output']>;
   relatedProducts?: Maybe<Array<Product>>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -15891,13 +15891,13 @@ export type Product_Meta__Title_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type Product_PriceInUsdEnabled_Operator = {
+export type Product_PriceInEurEnabled_Operator = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type Product_PriceInUsd_Operator = {
+export type Product_PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
@@ -15974,8 +15974,8 @@ export type Product_Where = {
   meta__description?: InputMaybe<Product_Meta__Description_Operator>;
   meta__image?: InputMaybe<Product_Meta__Image_Operator>;
   meta__title?: InputMaybe<Product_Meta__Title_Operator>;
-  priceInUSD?: InputMaybe<Product_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Product_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Product_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Product_PriceInEurEnabled_Operator>;
   relatedProducts?: InputMaybe<Product_RelatedProducts_Operator>;
   slug?: InputMaybe<Product_Slug_Operator>;
   title?: InputMaybe<Product_Title_Operator>;
@@ -16001,8 +16001,8 @@ export type Product_Where_And = {
   meta__description?: InputMaybe<Product_Meta__Description_Operator>;
   meta__image?: InputMaybe<Product_Meta__Image_Operator>;
   meta__title?: InputMaybe<Product_Meta__Title_Operator>;
-  priceInUSD?: InputMaybe<Product_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Product_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Product_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Product_PriceInEurEnabled_Operator>;
   relatedProducts?: InputMaybe<Product_RelatedProducts_Operator>;
   slug?: InputMaybe<Product_Slug_Operator>;
   title?: InputMaybe<Product_Title_Operator>;
@@ -16028,8 +16028,8 @@ export type Product_Where_Or = {
   meta__description?: InputMaybe<Product_Meta__Description_Operator>;
   meta__image?: InputMaybe<Product_Meta__Image_Operator>;
   meta__title?: InputMaybe<Product_Meta__Title_Operator>;
-  priceInUSD?: InputMaybe<Product_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Product_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Product_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Product_PriceInEurEnabled_Operator>;
   relatedProducts?: InputMaybe<Product_RelatedProducts_Operator>;
   slug?: InputMaybe<Product_Slug_Operator>;
   title?: InputMaybe<Product_Title_Operator>;
@@ -16089,8 +16089,8 @@ export type ProductsDocAccessFields = {
   inventory?: Maybe<ProductsDocAccessFields_Inventory>;
   layout?: Maybe<ProductsDocAccessFields_Layout>;
   meta?: Maybe<ProductsDocAccessFields_Meta>;
-  priceInUSD?: Maybe<ProductsDocAccessFields_PriceInUsd>;
-  priceInUSDEnabled?: Maybe<ProductsDocAccessFields_PriceInUsdEnabled>;
+  priceInEUR?: Maybe<ProductsDocAccessFields_PriceInEur>;
+  priceInEUREnabled?: Maybe<ProductsDocAccessFields_PriceInEurEnabled>;
   relatedProducts?: Maybe<ProductsDocAccessFields_RelatedProducts>;
   slug?: Maybe<ProductsDocAccessFields_Slug>;
   title?: Maybe<ProductsDocAccessFields_Title>;
@@ -16562,59 +16562,59 @@ export type ProductsDocAccessFields_Meta_Title_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsd = {
-  __typename?: 'ProductsDocAccessFields_priceInUSD';
-  create?: Maybe<ProductsDocAccessFields_PriceInUsd_Create>;
-  delete?: Maybe<ProductsDocAccessFields_PriceInUsd_Delete>;
-  read?: Maybe<ProductsDocAccessFields_PriceInUsd_Read>;
-  update?: Maybe<ProductsDocAccessFields_PriceInUsd_Update>;
+export type ProductsDocAccessFields_PriceInEur = {
+  __typename?: 'ProductsDocAccessFields_priceInEUR';
+  create?: Maybe<ProductsDocAccessFields_PriceInEur_Create>;
+  delete?: Maybe<ProductsDocAccessFields_PriceInEur_Delete>;
+  read?: Maybe<ProductsDocAccessFields_PriceInEur_Read>;
+  update?: Maybe<ProductsDocAccessFields_PriceInEur_Update>;
 };
 
-export type ProductsDocAccessFields_PriceInUsdEnabled = {
-  __typename?: 'ProductsDocAccessFields_priceInUSDEnabled';
-  create?: Maybe<ProductsDocAccessFields_PriceInUsdEnabled_Create>;
-  delete?: Maybe<ProductsDocAccessFields_PriceInUsdEnabled_Delete>;
-  read?: Maybe<ProductsDocAccessFields_PriceInUsdEnabled_Read>;
-  update?: Maybe<ProductsDocAccessFields_PriceInUsdEnabled_Update>;
+export type ProductsDocAccessFields_PriceInEurEnabled = {
+  __typename?: 'ProductsDocAccessFields_priceInEUREnabled';
+  create?: Maybe<ProductsDocAccessFields_PriceInEurEnabled_Create>;
+  delete?: Maybe<ProductsDocAccessFields_PriceInEurEnabled_Delete>;
+  read?: Maybe<ProductsDocAccessFields_PriceInEurEnabled_Read>;
+  update?: Maybe<ProductsDocAccessFields_PriceInEurEnabled_Update>;
 };
 
-export type ProductsDocAccessFields_PriceInUsdEnabled_Create = {
-  __typename?: 'ProductsDocAccessFields_priceInUSDEnabled_Create';
+export type ProductsDocAccessFields_PriceInEurEnabled_Create = {
+  __typename?: 'ProductsDocAccessFields_priceInEUREnabled_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsdEnabled_Delete = {
-  __typename?: 'ProductsDocAccessFields_priceInUSDEnabled_Delete';
+export type ProductsDocAccessFields_PriceInEurEnabled_Delete = {
+  __typename?: 'ProductsDocAccessFields_priceInEUREnabled_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsdEnabled_Read = {
-  __typename?: 'ProductsDocAccessFields_priceInUSDEnabled_Read';
+export type ProductsDocAccessFields_PriceInEurEnabled_Read = {
+  __typename?: 'ProductsDocAccessFields_priceInEUREnabled_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsdEnabled_Update = {
-  __typename?: 'ProductsDocAccessFields_priceInUSDEnabled_Update';
+export type ProductsDocAccessFields_PriceInEurEnabled_Update = {
+  __typename?: 'ProductsDocAccessFields_priceInEUREnabled_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsd_Create = {
-  __typename?: 'ProductsDocAccessFields_priceInUSD_Create';
+export type ProductsDocAccessFields_PriceInEur_Create = {
+  __typename?: 'ProductsDocAccessFields_priceInEUR_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsd_Delete = {
-  __typename?: 'ProductsDocAccessFields_priceInUSD_Delete';
+export type ProductsDocAccessFields_PriceInEur_Delete = {
+  __typename?: 'ProductsDocAccessFields_priceInEUR_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsd_Read = {
-  __typename?: 'ProductsDocAccessFields_priceInUSD_Read';
+export type ProductsDocAccessFields_PriceInEur_Read = {
+  __typename?: 'ProductsDocAccessFields_priceInEUR_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsDocAccessFields_PriceInUsd_Update = {
-  __typename?: 'ProductsDocAccessFields_priceInUSD_Update';
+export type ProductsDocAccessFields_PriceInEur_Update = {
+  __typename?: 'ProductsDocAccessFields_priceInEUR_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -16799,8 +16799,8 @@ export type ProductsFields = {
   inventory?: Maybe<ProductsFields_Inventory>;
   layout?: Maybe<ProductsFields_Layout>;
   meta?: Maybe<ProductsFields_Meta>;
-  priceInUSD?: Maybe<ProductsFields_PriceInUsd>;
-  priceInUSDEnabled?: Maybe<ProductsFields_PriceInUsdEnabled>;
+  priceInEUR?: Maybe<ProductsFields_PriceInEur>;
+  priceInEUREnabled?: Maybe<ProductsFields_PriceInEurEnabled>;
   relatedProducts?: Maybe<ProductsFields_RelatedProducts>;
   slug?: Maybe<ProductsFields_Slug>;
   title?: Maybe<ProductsFields_Title>;
@@ -17272,59 +17272,59 @@ export type ProductsFields_Meta_Title_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsd = {
-  __typename?: 'ProductsFields_priceInUSD';
-  create?: Maybe<ProductsFields_PriceInUsd_Create>;
-  delete?: Maybe<ProductsFields_PriceInUsd_Delete>;
-  read?: Maybe<ProductsFields_PriceInUsd_Read>;
-  update?: Maybe<ProductsFields_PriceInUsd_Update>;
+export type ProductsFields_PriceInEur = {
+  __typename?: 'ProductsFields_priceInEUR';
+  create?: Maybe<ProductsFields_PriceInEur_Create>;
+  delete?: Maybe<ProductsFields_PriceInEur_Delete>;
+  read?: Maybe<ProductsFields_PriceInEur_Read>;
+  update?: Maybe<ProductsFields_PriceInEur_Update>;
 };
 
-export type ProductsFields_PriceInUsdEnabled = {
-  __typename?: 'ProductsFields_priceInUSDEnabled';
-  create?: Maybe<ProductsFields_PriceInUsdEnabled_Create>;
-  delete?: Maybe<ProductsFields_PriceInUsdEnabled_Delete>;
-  read?: Maybe<ProductsFields_PriceInUsdEnabled_Read>;
-  update?: Maybe<ProductsFields_PriceInUsdEnabled_Update>;
+export type ProductsFields_PriceInEurEnabled = {
+  __typename?: 'ProductsFields_priceInEUREnabled';
+  create?: Maybe<ProductsFields_PriceInEurEnabled_Create>;
+  delete?: Maybe<ProductsFields_PriceInEurEnabled_Delete>;
+  read?: Maybe<ProductsFields_PriceInEurEnabled_Read>;
+  update?: Maybe<ProductsFields_PriceInEurEnabled_Update>;
 };
 
-export type ProductsFields_PriceInUsdEnabled_Create = {
-  __typename?: 'ProductsFields_priceInUSDEnabled_Create';
+export type ProductsFields_PriceInEurEnabled_Create = {
+  __typename?: 'ProductsFields_priceInEUREnabled_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsdEnabled_Delete = {
-  __typename?: 'ProductsFields_priceInUSDEnabled_Delete';
+export type ProductsFields_PriceInEurEnabled_Delete = {
+  __typename?: 'ProductsFields_priceInEUREnabled_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsdEnabled_Read = {
-  __typename?: 'ProductsFields_priceInUSDEnabled_Read';
+export type ProductsFields_PriceInEurEnabled_Read = {
+  __typename?: 'ProductsFields_priceInEUREnabled_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsdEnabled_Update = {
-  __typename?: 'ProductsFields_priceInUSDEnabled_Update';
+export type ProductsFields_PriceInEurEnabled_Update = {
+  __typename?: 'ProductsFields_priceInEUREnabled_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsd_Create = {
-  __typename?: 'ProductsFields_priceInUSD_Create';
+export type ProductsFields_PriceInEur_Create = {
+  __typename?: 'ProductsFields_priceInEUR_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsd_Delete = {
-  __typename?: 'ProductsFields_priceInUSD_Delete';
+export type ProductsFields_PriceInEur_Delete = {
+  __typename?: 'ProductsFields_priceInEUR_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsd_Read = {
-  __typename?: 'ProductsFields_priceInUSD_Read';
+export type ProductsFields_PriceInEur_Read = {
+  __typename?: 'ProductsFields_priceInEUR_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ProductsFields_PriceInUsd_Update = {
-  __typename?: 'ProductsFields_priceInUSD_Update';
+export type ProductsFields_PriceInEur_Update = {
+  __typename?: 'ProductsFields_priceInEUR_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -19425,7 +19425,7 @@ export type TransactionOrderArgs = {
 };
 
 export enum TransactionUpdate_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum TransactionUpdate_PaymentMethod_MutationInput {
@@ -19636,15 +19636,15 @@ export type Transaction_CreatedAt_Operator = {
 };
 
 export enum Transaction_Currency {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Transaction_Currency_Input {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export enum Transaction_Currency_MutationInput {
-  Usd = 'USD'
+  Eur = 'EUR'
 }
 
 export type Transaction_Currency_Operator = {
@@ -22789,8 +22789,8 @@ export type Variant = {
   id: Scalars['Int']['output'];
   inventory?: Maybe<Scalars['Float']['output']>;
   options?: Maybe<Array<VariantOption>>;
-  priceInUSD?: Maybe<Scalars['Float']['output']>;
-  priceInUSDEnabled?: Maybe<Scalars['Boolean']['output']>;
+  priceInEUR?: Maybe<Scalars['Float']['output']>;
+  priceInEUREnabled?: Maybe<Scalars['Boolean']['output']>;
   product?: Maybe<Product>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -23999,8 +23999,8 @@ export type VariantVersion_Version = {
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   inventory?: Maybe<Scalars['Float']['output']>;
   options?: Maybe<Array<VariantOption>>;
-  priceInUSD?: Maybe<Scalars['Float']['output']>;
-  priceInUSDEnabled?: Maybe<Scalars['Boolean']['output']>;
+  priceInEUR?: Maybe<Scalars['Float']['output']>;
+  priceInEUREnabled?: Maybe<Scalars['Boolean']['output']>;
   product?: Maybe<Product>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -24103,13 +24103,13 @@ export type Variant_Options_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
-export type Variant_PriceInUsdEnabled_Operator = {
+export type Variant_PriceInEurEnabled_Operator = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type Variant_PriceInUsd_Operator = {
+export type Variant_PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
@@ -24158,8 +24158,8 @@ export type Variant_Where = {
   id?: InputMaybe<Variant_Id_Operator>;
   inventory?: InputMaybe<Variant_Inventory_Operator>;
   options?: InputMaybe<Variant_Options_Operator>;
-  priceInUSD?: InputMaybe<Variant_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Variant_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Variant_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Variant_PriceInEurEnabled_Operator>;
   product?: InputMaybe<Variant_Product_Operator>;
   title?: InputMaybe<Variant_Title_Operator>;
   updatedAt?: InputMaybe<Variant_UpdatedAt_Operator>;
@@ -24174,8 +24174,8 @@ export type Variant_Where_And = {
   id?: InputMaybe<Variant_Id_Operator>;
   inventory?: InputMaybe<Variant_Inventory_Operator>;
   options?: InputMaybe<Variant_Options_Operator>;
-  priceInUSD?: InputMaybe<Variant_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Variant_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Variant_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Variant_PriceInEurEnabled_Operator>;
   product?: InputMaybe<Variant_Product_Operator>;
   title?: InputMaybe<Variant_Title_Operator>;
   updatedAt?: InputMaybe<Variant_UpdatedAt_Operator>;
@@ -24190,8 +24190,8 @@ export type Variant_Where_Or = {
   id?: InputMaybe<Variant_Id_Operator>;
   inventory?: InputMaybe<Variant_Inventory_Operator>;
   options?: InputMaybe<Variant_Options_Operator>;
-  priceInUSD?: InputMaybe<Variant_PriceInUsd_Operator>;
-  priceInUSDEnabled?: InputMaybe<Variant_PriceInUsdEnabled_Operator>;
+  priceInEUR?: InputMaybe<Variant_PriceInEur_Operator>;
+  priceInEUREnabled?: InputMaybe<Variant_PriceInEurEnabled_Operator>;
   product?: InputMaybe<Variant_Product_Operator>;
   title?: InputMaybe<Variant_Title_Operator>;
   updatedAt?: InputMaybe<Variant_UpdatedAt_Operator>;
@@ -24243,8 +24243,8 @@ export type VariantsDocAccessFields = {
   deletedAt?: Maybe<VariantsDocAccessFields_DeletedAt>;
   inventory?: Maybe<VariantsDocAccessFields_Inventory>;
   options?: Maybe<VariantsDocAccessFields_Options>;
-  priceInUSD?: Maybe<VariantsDocAccessFields_PriceInUsd>;
-  priceInUSDEnabled?: Maybe<VariantsDocAccessFields_PriceInUsdEnabled>;
+  priceInEUR?: Maybe<VariantsDocAccessFields_PriceInEur>;
+  priceInEUREnabled?: Maybe<VariantsDocAccessFields_PriceInEurEnabled>;
   product?: Maybe<VariantsDocAccessFields_Product>;
   title?: Maybe<VariantsDocAccessFields_Title>;
   updatedAt?: Maybe<VariantsDocAccessFields_UpdatedAt>;
@@ -24390,59 +24390,59 @@ export type VariantsDocAccessFields_Options_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsd = {
-  __typename?: 'VariantsDocAccessFields_priceInUSD';
-  create?: Maybe<VariantsDocAccessFields_PriceInUsd_Create>;
-  delete?: Maybe<VariantsDocAccessFields_PriceInUsd_Delete>;
-  read?: Maybe<VariantsDocAccessFields_PriceInUsd_Read>;
-  update?: Maybe<VariantsDocAccessFields_PriceInUsd_Update>;
+export type VariantsDocAccessFields_PriceInEur = {
+  __typename?: 'VariantsDocAccessFields_priceInEUR';
+  create?: Maybe<VariantsDocAccessFields_PriceInEur_Create>;
+  delete?: Maybe<VariantsDocAccessFields_PriceInEur_Delete>;
+  read?: Maybe<VariantsDocAccessFields_PriceInEur_Read>;
+  update?: Maybe<VariantsDocAccessFields_PriceInEur_Update>;
 };
 
-export type VariantsDocAccessFields_PriceInUsdEnabled = {
-  __typename?: 'VariantsDocAccessFields_priceInUSDEnabled';
-  create?: Maybe<VariantsDocAccessFields_PriceInUsdEnabled_Create>;
-  delete?: Maybe<VariantsDocAccessFields_PriceInUsdEnabled_Delete>;
-  read?: Maybe<VariantsDocAccessFields_PriceInUsdEnabled_Read>;
-  update?: Maybe<VariantsDocAccessFields_PriceInUsdEnabled_Update>;
+export type VariantsDocAccessFields_PriceInEurEnabled = {
+  __typename?: 'VariantsDocAccessFields_priceInEUREnabled';
+  create?: Maybe<VariantsDocAccessFields_PriceInEurEnabled_Create>;
+  delete?: Maybe<VariantsDocAccessFields_PriceInEurEnabled_Delete>;
+  read?: Maybe<VariantsDocAccessFields_PriceInEurEnabled_Read>;
+  update?: Maybe<VariantsDocAccessFields_PriceInEurEnabled_Update>;
 };
 
-export type VariantsDocAccessFields_PriceInUsdEnabled_Create = {
-  __typename?: 'VariantsDocAccessFields_priceInUSDEnabled_Create';
+export type VariantsDocAccessFields_PriceInEurEnabled_Create = {
+  __typename?: 'VariantsDocAccessFields_priceInEUREnabled_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsdEnabled_Delete = {
-  __typename?: 'VariantsDocAccessFields_priceInUSDEnabled_Delete';
+export type VariantsDocAccessFields_PriceInEurEnabled_Delete = {
+  __typename?: 'VariantsDocAccessFields_priceInEUREnabled_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsdEnabled_Read = {
-  __typename?: 'VariantsDocAccessFields_priceInUSDEnabled_Read';
+export type VariantsDocAccessFields_PriceInEurEnabled_Read = {
+  __typename?: 'VariantsDocAccessFields_priceInEUREnabled_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsdEnabled_Update = {
-  __typename?: 'VariantsDocAccessFields_priceInUSDEnabled_Update';
+export type VariantsDocAccessFields_PriceInEurEnabled_Update = {
+  __typename?: 'VariantsDocAccessFields_priceInEUREnabled_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsd_Create = {
-  __typename?: 'VariantsDocAccessFields_priceInUSD_Create';
+export type VariantsDocAccessFields_PriceInEur_Create = {
+  __typename?: 'VariantsDocAccessFields_priceInEUR_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsd_Delete = {
-  __typename?: 'VariantsDocAccessFields_priceInUSD_Delete';
+export type VariantsDocAccessFields_PriceInEur_Delete = {
+  __typename?: 'VariantsDocAccessFields_priceInEUR_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsd_Read = {
-  __typename?: 'VariantsDocAccessFields_priceInUSD_Read';
+export type VariantsDocAccessFields_PriceInEur_Read = {
+  __typename?: 'VariantsDocAccessFields_priceInEUR_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsDocAccessFields_PriceInUsd_Update = {
-  __typename?: 'VariantsDocAccessFields_priceInUSD_Update';
+export type VariantsDocAccessFields_PriceInEur_Update = {
+  __typename?: 'VariantsDocAccessFields_priceInEUR_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -24537,8 +24537,8 @@ export type VariantsFields = {
   deletedAt?: Maybe<VariantsFields_DeletedAt>;
   inventory?: Maybe<VariantsFields_Inventory>;
   options?: Maybe<VariantsFields_Options>;
-  priceInUSD?: Maybe<VariantsFields_PriceInUsd>;
-  priceInUSDEnabled?: Maybe<VariantsFields_PriceInUsdEnabled>;
+  priceInEUR?: Maybe<VariantsFields_PriceInEur>;
+  priceInEUREnabled?: Maybe<VariantsFields_PriceInEurEnabled>;
   product?: Maybe<VariantsFields_Product>;
   title?: Maybe<VariantsFields_Title>;
   updatedAt?: Maybe<VariantsFields_UpdatedAt>;
@@ -24684,59 +24684,59 @@ export type VariantsFields_Options_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsd = {
-  __typename?: 'VariantsFields_priceInUSD';
-  create?: Maybe<VariantsFields_PriceInUsd_Create>;
-  delete?: Maybe<VariantsFields_PriceInUsd_Delete>;
-  read?: Maybe<VariantsFields_PriceInUsd_Read>;
-  update?: Maybe<VariantsFields_PriceInUsd_Update>;
+export type VariantsFields_PriceInEur = {
+  __typename?: 'VariantsFields_priceInEUR';
+  create?: Maybe<VariantsFields_PriceInEur_Create>;
+  delete?: Maybe<VariantsFields_PriceInEur_Delete>;
+  read?: Maybe<VariantsFields_PriceInEur_Read>;
+  update?: Maybe<VariantsFields_PriceInEur_Update>;
 };
 
-export type VariantsFields_PriceInUsdEnabled = {
-  __typename?: 'VariantsFields_priceInUSDEnabled';
-  create?: Maybe<VariantsFields_PriceInUsdEnabled_Create>;
-  delete?: Maybe<VariantsFields_PriceInUsdEnabled_Delete>;
-  read?: Maybe<VariantsFields_PriceInUsdEnabled_Read>;
-  update?: Maybe<VariantsFields_PriceInUsdEnabled_Update>;
+export type VariantsFields_PriceInEurEnabled = {
+  __typename?: 'VariantsFields_priceInEUREnabled';
+  create?: Maybe<VariantsFields_PriceInEurEnabled_Create>;
+  delete?: Maybe<VariantsFields_PriceInEurEnabled_Delete>;
+  read?: Maybe<VariantsFields_PriceInEurEnabled_Read>;
+  update?: Maybe<VariantsFields_PriceInEurEnabled_Update>;
 };
 
-export type VariantsFields_PriceInUsdEnabled_Create = {
-  __typename?: 'VariantsFields_priceInUSDEnabled_Create';
+export type VariantsFields_PriceInEurEnabled_Create = {
+  __typename?: 'VariantsFields_priceInEUREnabled_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsdEnabled_Delete = {
-  __typename?: 'VariantsFields_priceInUSDEnabled_Delete';
+export type VariantsFields_PriceInEurEnabled_Delete = {
+  __typename?: 'VariantsFields_priceInEUREnabled_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsdEnabled_Read = {
-  __typename?: 'VariantsFields_priceInUSDEnabled_Read';
+export type VariantsFields_PriceInEurEnabled_Read = {
+  __typename?: 'VariantsFields_priceInEUREnabled_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsdEnabled_Update = {
-  __typename?: 'VariantsFields_priceInUSDEnabled_Update';
+export type VariantsFields_PriceInEurEnabled_Update = {
+  __typename?: 'VariantsFields_priceInEUREnabled_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsd_Create = {
-  __typename?: 'VariantsFields_priceInUSD_Create';
+export type VariantsFields_PriceInEur_Create = {
+  __typename?: 'VariantsFields_priceInEUR_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsd_Delete = {
-  __typename?: 'VariantsFields_priceInUSD_Delete';
+export type VariantsFields_PriceInEur_Delete = {
+  __typename?: 'VariantsFields_priceInEUR_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsd_Read = {
-  __typename?: 'VariantsFields_priceInUSD_Read';
+export type VariantsFields_PriceInEur_Read = {
+  __typename?: 'VariantsFields_priceInEUR_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type VariantsFields_PriceInUsd_Update = {
-  __typename?: 'VariantsFields_priceInUSD_Update';
+export type VariantsFields_PriceInEur_Update = {
+  __typename?: 'VariantsFields_priceInEUR_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -25603,8 +25603,8 @@ export type MutationProductInput = {
   inventory?: InputMaybe<Scalars['Float']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationProduct_MetaInput>;
-  priceInUSD?: InputMaybe<Scalars['Float']['input']>;
-  priceInUSDEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  priceInEUR?: InputMaybe<Scalars['Float']['input']>;
+  priceInEUREnabled?: InputMaybe<Scalars['Boolean']['input']>;
   relatedProducts?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   slug: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
@@ -25624,8 +25624,8 @@ export type MutationProductUpdateInput = {
   inventory?: InputMaybe<Scalars['Float']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationProductUpdate_MetaInput>;
-  priceInUSD?: InputMaybe<Scalars['Float']['input']>;
-  priceInUSDEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  priceInEUR?: InputMaybe<Scalars['Float']['input']>;
+  priceInEUREnabled?: InputMaybe<Scalars['Boolean']['input']>;
   relatedProducts?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -25821,8 +25821,8 @@ export type MutationVariantInput = {
   deletedAt?: InputMaybe<Scalars['String']['input']>;
   inventory?: InputMaybe<Scalars['Float']['input']>;
   options?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  priceInUSD?: InputMaybe<Scalars['Float']['input']>;
-  priceInUSDEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  priceInEUR?: InputMaybe<Scalars['Float']['input']>;
+  priceInEUREnabled?: InputMaybe<Scalars['Boolean']['input']>;
   product?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -25870,8 +25870,8 @@ export type MutationVariantUpdateInput = {
   deletedAt?: InputMaybe<Scalars['String']['input']>;
   inventory?: InputMaybe<Scalars['Float']['input']>;
   options?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  priceInUSD?: InputMaybe<Scalars['Float']['input']>;
-  priceInUSDEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  priceInEUR?: InputMaybe<Scalars['Float']['input']>;
+  priceInEUREnabled?: InputMaybe<Scalars['Boolean']['input']>;
   product?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -26592,13 +26592,13 @@ export type VersionsProduct_Version__Meta__Title_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type VersionsProduct_Version__PriceInUsdEnabled_Operator = {
+export type VersionsProduct_Version__PriceInEurEnabled_Operator = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type VersionsProduct_Version__PriceInUsd_Operator = {
+export type VersionsProduct_Version__PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
@@ -26682,8 +26682,8 @@ export type VersionsProduct_Where = {
   version__meta__description?: InputMaybe<VersionsProduct_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsProduct_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsProduct_Version__Meta__Title_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsProduct_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsProduct_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsProduct_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsProduct_Version__PriceInEurEnabled_Operator>;
   version__relatedProducts?: InputMaybe<VersionsProduct_Version__RelatedProducts_Operator>;
   version__slug?: InputMaybe<VersionsProduct_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsProduct_Version__Title_Operator>;
@@ -26716,8 +26716,8 @@ export type VersionsProduct_Where_And = {
   version__meta__description?: InputMaybe<VersionsProduct_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsProduct_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsProduct_Version__Meta__Title_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsProduct_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsProduct_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsProduct_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsProduct_Version__PriceInEurEnabled_Operator>;
   version__relatedProducts?: InputMaybe<VersionsProduct_Version__RelatedProducts_Operator>;
   version__slug?: InputMaybe<VersionsProduct_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsProduct_Version__Title_Operator>;
@@ -26750,8 +26750,8 @@ export type VersionsProduct_Where_Or = {
   version__meta__description?: InputMaybe<VersionsProduct_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsProduct_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsProduct_Version__Meta__Title_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsProduct_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsProduct_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsProduct_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsProduct_Version__PriceInEurEnabled_Operator>;
   version__relatedProducts?: InputMaybe<VersionsProduct_Version__RelatedProducts_Operator>;
   version__slug?: InputMaybe<VersionsProduct_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsProduct_Version__Title_Operator>;
@@ -26901,13 +26901,13 @@ export type VersionsVariant_Version__Options_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
-export type VersionsVariant_Version__PriceInUsdEnabled_Operator = {
+export type VersionsVariant_Version__PriceInEurEnabled_Operator = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type VersionsVariant_Version__PriceInUsd_Operator = {
+export type VersionsVariant_Version__PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
@@ -26963,8 +26963,8 @@ export type VersionsVariant_Where = {
   version__deletedAt?: InputMaybe<VersionsVariant_Version__DeletedAt_Operator>;
   version__inventory?: InputMaybe<VersionsVariant_Version__Inventory_Operator>;
   version__options?: InputMaybe<VersionsVariant_Version__Options_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsVariant_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsVariant_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsVariant_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsVariant_Version__PriceInEurEnabled_Operator>;
   version__product?: InputMaybe<VersionsVariant_Version__Product_Operator>;
   version__title?: InputMaybe<VersionsVariant_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsVariant_Version__UpdatedAt_Operator>;
@@ -26986,8 +26986,8 @@ export type VersionsVariant_Where_And = {
   version__deletedAt?: InputMaybe<VersionsVariant_Version__DeletedAt_Operator>;
   version__inventory?: InputMaybe<VersionsVariant_Version__Inventory_Operator>;
   version__options?: InputMaybe<VersionsVariant_Version__Options_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsVariant_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsVariant_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsVariant_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsVariant_Version__PriceInEurEnabled_Operator>;
   version__product?: InputMaybe<VersionsVariant_Version__Product_Operator>;
   version__title?: InputMaybe<VersionsVariant_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsVariant_Version__UpdatedAt_Operator>;
@@ -27009,8 +27009,8 @@ export type VersionsVariant_Where_Or = {
   version__deletedAt?: InputMaybe<VersionsVariant_Version__DeletedAt_Operator>;
   version__inventory?: InputMaybe<VersionsVariant_Version__Inventory_Operator>;
   version__options?: InputMaybe<VersionsVariant_Version__Options_Operator>;
-  version__priceInUSD?: InputMaybe<VersionsVariant_Version__PriceInUsd_Operator>;
-  version__priceInUSDEnabled?: InputMaybe<VersionsVariant_Version__PriceInUsdEnabled_Operator>;
+  version__priceInEUR?: InputMaybe<VersionsVariant_Version__PriceInEur_Operator>;
+  version__priceInEUREnabled?: InputMaybe<VersionsVariant_Version__PriceInEurEnabled_Operator>;
   version__product?: InputMaybe<VersionsVariant_Version__Product_Operator>;
   version__title?: InputMaybe<VersionsVariant_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsVariant_Version__UpdatedAt_Operator>;
@@ -27058,3 +27058,11 @@ export type InformationBannerQueryVariables = Exact<{
 
 
 export type InformationBannerQuery = { __typename?: 'Query', InformationBanner?: { __typename?: 'InformationBanner', items?: Array<{ __typename?: 'InformationBanner_Items', id?: string | null, text?: string | null, icon?: { __typename?: 'SvgMedia', id: number, svgContent?: string | null } | null }> | null } | null };
+
+export type ProductsByCategoryIdQueryVariables = Exact<{
+  locale: LocaleInputType;
+  categoryId: Scalars['Int']['input'];
+}>;
+
+
+export type ProductsByCategoryIdQuery = { __typename?: 'Query', Products?: { __typename?: 'Products', totalDocs: number, docs: Array<{ __typename?: 'Product', id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, priceInEUREnabled?: boolean | null, gallery?: Array<{ __typename?: 'Product_Gallery', id?: string | null, image?: { __typename?: 'Media', url?: string | null, thumbnailURL?: string | null } | null }> | null, variants?: { __typename?: 'Product_Variants', docs: Array<{ __typename?: 'Variant', id: number, priceInEUR?: number | null, title?: string | null }> } | null }> } | null };

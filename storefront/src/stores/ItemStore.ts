@@ -1,34 +1,37 @@
+import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
+import ITEMS_BY_CATEGORY_ID from '@/graphql/itemsByCategoryId.gql'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import type { ICategory } from '@/interfaces/ICategory'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import type { IItem } from '@/interfaces/IItem'
 import ApiService from '@/services/api/api'
-// import { HttpTypes } from '@medusajs/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+
+import { gqlRequest } from '@/services/api/api-payload'
 
 export const useItemStore = defineStore('item', () => {
   const items = ref<IItem[]>([])
   const itemsOnMainPage = ref<IItem[]>([])
 
   const getItemsByCategory = async (category: ICategory) => {
-    const loaderStore = useLoaderStore()
+    if (items.value.some((item) => item.category === category.slug)) return
 
-    if (items.value.some((item) => item.category === category.handle)) return
+    // const products = await ApiService.fetchItemsByCategory(category.id)
 
-    const products = await ApiService.fetchItemsByCategory(
-      category.id,
-      loaderStore.LOADER_KEYS.ITEMS,
-    )
+    const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
+      where: { categories: { in: [category.id] } },
+    })
+
+    console.log('Fetched items for category', category.slug, data)
 
     items.value.push({
-      category: category.handle,
-      products,
+      category: category.slug,
+      products: data.Products?.docs || [],
     })
   }
 
   const getItemsForMainPage = async (category: ICategory, limit?: number) => {
-    if (itemsOnMainPage.value.some((item) => item.category === category.handle)) return
+    if (itemsOnMainPage.value.some((item) => item.category === category.slug)) return
 
     const products = await ApiService.fetchItemsByCategory(
       category.id,
@@ -55,11 +58,11 @@ export const useItemStore = defineStore('item', () => {
     }
   }
 
-  const itemsByCategory = (categoryHandle: string): HttpTypes.StoreProduct[] | [] => {
+  const itemsByCategory = (categoryHandle: string) => {
     return items.value.find((item) => item.category === categoryHandle)?.products || []
   }
 
-  const itemsByCategoryForMainPage = (categoryHandle: string): HttpTypes.StoreProduct[] | [] => {
+  const itemsByCategoryForMainPage = (categoryHandle: string) => {
     return itemsOnMainPage.value.find((item) => item.category === categoryHandle)?.products || []
   }
 

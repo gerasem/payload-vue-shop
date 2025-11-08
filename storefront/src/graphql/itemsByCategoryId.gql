@@ -1,0 +1,26 @@
+query ProductsByCategoryId($locale: LocaleInputType!, $where: Product_where!) {
+  Products(where: $where, locale: $locale, limit: 1000) {
+    docs {
+      id
+      title
+      slug
+      priceInEUR
+      priceInEUREnabled
+      gallery {
+        id
+        image {
+          url
+          thumbnailURL
+        }
+      }
+      variants {
+        docs {
+          id
+          priceInEUR
+          title
+        }
+      }
+    }
+    totalDocs
+  }
+}
