@@ -27061,8 +27061,8 @@ export type InformationBannerQuery = { __typename?: 'Query', InformationBanner?:
 
 export type ProductsByCategoryIdQueryVariables = Exact<{
   locale: LocaleInputType;
-  categoryId: Scalars['Int']['input'];
+  where: Product_Where;
 }>;
 
 
-export type ProductsByCategoryIdQuery = { __typename?: 'Query', Products?: { __typename?: 'Products', totalDocs: number, docs: Array<{ __typename?: 'Product', id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, priceInEUREnabled?: boolean | null, gallery?: Array<{ __typename?: 'Product_Gallery', id?: string | null, image?: { __typename?: 'Media', url?: string | null, thumbnailURL?: string | null } | null }> | null, variants?: { __typename?: 'Product_Variants', docs: Array<{ __typename?: 'Variant', id: number, priceInEUR?: number | null, title?: string | null }> } | null }> } | null };
+export type ProductsByCategoryIdQuery = { __typename?: 'Query', Products?: { __typename?: 'Products', totalDocs: number, docs: Array<{ __typename?: 'Product', id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, inventory?: number | null, enableVariants?: boolean | null, gallery?: Array<{ __typename?: 'Product_Gallery', id?: string | null, image?: { __typename?: 'Media', url?: string | null, thumbnailURL?: string | null } | null }> | null, variants?: { __typename?: 'Product_Variants', docs: Array<{ __typename?: 'Variant', id: number, priceInEUR?: number | null, title?: string | null }> } | null, variantTypes?: Array<{ __typename?: 'VariantType', id: number, label: string, name: string, options?: { __typename?: 'VariantType_Options', docs: Array<{ __typename?: 'VariantOption', id: number, label: string, value: string }> } | null }> | null, meta?: { __typename?: 'Product_Meta', title?: string | null, description?: string | null } | null }> } | null };

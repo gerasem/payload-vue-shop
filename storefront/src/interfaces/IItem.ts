@@ -1,6 +1,8 @@
-import { HttpTypes } from '@medusajs/types'
+import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
 
-export interface IItem {
+export interface IItemGrouped {
   category: string
-  products: HttpTypes.StoreProduct[] | []
+  products: IItem[]
 }
+
+export type IItem = NonNullable<NonNullable<ProductsByCategoryIdQuery['Products']>['docs']>[number]

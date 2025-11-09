@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
-import ItemSkeletonContainer from '@/components/item/ItemSkeletonGroup.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
-import ItemContainer from '@/components/item/ItemContainer.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
+import Item from '@/components/item/Item.vue'
 import { useSeoMeta } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 import { watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const loaderStore = useLoaderStore()
+const { t } = useI18n()
 
 const route = useRoute()
 const categoryStore = useCategoryStore()
@@ -44,23 +43,26 @@ useSeoMeta({
   <CategoryTitleNarrow />
 
   <main class="container is-fluid">
-    <Header
-      :level="1"
-      :loading="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.CATEGORIES)"
-    >
-      {{ categoryStore.currentCategory?.name }}
+    <Header :level="1">
+      {{ categoryStore.currentCategory?.title }}
     </Header>
 
-    <ItemSkeletonContainer
-      v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.ITEMS)"
-      :count="8"
-    />
+    <div class="columns is-mobile is-multiline is-3">
+      <div
+        v-for="item in items"
+        :key="item.id"
+        class="column is-half-tablet is-one-third-desktop is-one-quarter-fullhd"
+      >
+        <Item :item="item" />
+      </div>
 
-    <ItemContainer
-      v-else
-      :items="items"
-      :loading="!loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.ITEMS)"
-    />
+      <p
+        v-if="items.length === 0"
+        class="column"
+      >
+        {{ t('Nothing found') }}
+      </p>
+    </div>
   </main>
 
   <section class="section">

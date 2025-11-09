@@ -1,8 +1,8 @@
 import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
 import ITEMS_BY_CATEGORY_ID from '@/graphql/itemsByCategoryId.gql'
+import type { IItem, IItemGrouped } from '@/interfaces/IItem'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import type { ICategory } from '@/interfaces/ICategory'
-import type { IItem } from '@/interfaces/IItem'
 import ApiService from '@/services/api/api'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -10,69 +10,83 @@ import { ref } from 'vue'
 import { gqlRequest } from '@/services/api/api-payload'
 
 export const useItemStore = defineStore('item', () => {
-  const items = ref<IItem[]>([])
-  const itemsOnMainPage = ref<IItem[]>([])
+  // храним категории + массив товаров
+  const items = ref<IItemGrouped[]>([])
+  const itemsOnMainPage = ref<IItemGrouped[]>([])
 
-  const getItemsByCategory = async (category: ICategory) => {
-    if (items.value.some((item) => item.category === category.slug)) return
+  // -------------------------------
+  // Получить товары по категории
+  // -------------------------------
+  const getItemsByCategory = async (category: ICategory): Promise<void> => {
+    // уже есть — ничего не делаем
+    if (items.value.some(i => i.category === category.slug)) return
 
-    // const products = await ApiService.fetchItemsByCategory(category.id)
+    const data = await gqlRequest<ProductsByCategoryIdQuery>(
+      ITEMS_BY_CATEGORY_ID,
+      {
+        where: { categories: { in: [category.id] } },
+      },
+    )
 
-    const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
-      where: { categories: { in: [category.id] } },
-    })
-
-    console.log('Fetched items for category', category.slug, data)
+    const docs: IItem[] = data.Products?.docs ?? []
 
     items.value.push({
       category: category.slug,
-      products: data.Products?.docs || [],
+      products: docs,
     })
   }
 
-  const getItemsForMainPage = async (category: ICategory, limit?: number) => {
-    if (itemsOnMainPage.value.some((item) => item.category === category.slug)) return
+  // -------------------------------
+  // Для главной страницы
+  // -------------------------------
+  const getItemsForMainPage = async (category: ICategory, limit?: number): Promise<void> => {
+    if (itemsOnMainPage.value.some(i => i.category === category.slug)) return
 
-    const products = await ApiService.fetchItemsByCategory(
+    const products: IItem[] = await ApiService.fetchItemsByCategory(
       category.id,
-      `items-${category.handle}`,
+      `items-${category.slug}`,
       limit,
     )
 
     itemsOnMainPage.value.push({
-      category: category.handle,
+      category: category.slug,
       products,
     })
   }
 
-  const getAllItems = async () => {
+  // -------------------------------
+  // Загрузить все категории
+  // -------------------------------
+  const getAllItems = async (): Promise<void> => {
     const categoryStore = useCategoryStore()
-    const store = useItemStore()
 
     for (const category of categoryStore.categories) {
-      const exists = items.value.some((item) => item.category === category.handle)
-
-      if (!exists) {
-        await store.getItemsByCategory(category)
+      if (!items.value.some(i => i.category === category.slug)) {
+        await getItemsByCategory(category)
       }
     }
   }
 
-  const itemsByCategory = (categoryHandle: string) => {
-    return items.value.find((item) => item.category === categoryHandle)?.products || []
+  // -------------------------------
+  // Геттер — товары по категории
+  // -------------------------------
+  const itemsByCategory = (categorySlug: string): IItem[] => {
+    return items.value.find(i => i.category === categorySlug)?.products ?? []
   }
 
-  const itemsByCategoryForMainPage = (categoryHandle: string) => {
-    return itemsOnMainPage.value.find((item) => item.category === categoryHandle)?.products || []
+  const itemsByCategoryForMainPage = (categoryHandle: string): IItem[] => {
+    return itemsOnMainPage.value.find(i => i.category === categoryHandle)?.products ?? []
   }
 
   return {
     items,
     itemsOnMainPage,
-    itemsByCategoryForMainPage,
+
     getItemsByCategory,
-    itemsByCategory,
-    getAllItems,
     getItemsForMainPage,
+    getAllItems,
+
+    itemsByCategory,
+    itemsByCategoryForMainPage,
   }
 })

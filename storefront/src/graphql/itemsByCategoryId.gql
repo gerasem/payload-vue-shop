@@ -5,7 +5,8 @@ query ProductsByCategoryId($locale: LocaleInputType!, $where: Product_where!) {
       title
       slug
       priceInEUR
-      priceInEUREnabled
+      inventory
+      enableVariants
       gallery {
         id
         image {
@@ -18,9 +19,27 @@ query ProductsByCategoryId($locale: LocaleInputType!, $where: Product_where!) {
           id
           priceInEUR
           title
+          priceInEUR
         }
       }
+      variantTypes {
+        id
+        label
+        name
+        options {
+          docs {
+            id
+            label
+            value
+          }
+        }
+      }
+      meta {
+        title
+        description
+      }
     }
+
     totalDocs
   }
 }
