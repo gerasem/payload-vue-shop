@@ -27036,7 +27036,7 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', Categories?: { __typename?: 'Categories', docs: Array<{ __typename?: 'Category', id: number, title?: string | null, slug: string, image: { __typename?: 'Media', id: number, alt: string, url?: string | null, filename?: string | null, width?: number | null, height?: number | null, sizes?: { __typename?: 'Media_Sizes', categoryPreview?: { __typename?: 'Media_Sizes_CategoryPreview', url?: string | null, width?: number | null, height?: number | null, mimeType?: string | null, filename?: string | null } | null } | null } }> } | null };
+export type CategoriesQuery = { __typename?: 'Query', Categories?: { __typename?: 'Categories', docs: Array<{ __typename?: 'Category', id: number, title?: string | null, slug: string, description?: any | null, image: { __typename?: 'Media', id: number, alt: string, url?: string | null, filename?: string | null, width?: number | null, height?: number | null, sizes?: { __typename?: 'Media_Sizes', categoryPreview?: { __typename?: 'Media_Sizes_CategoryPreview', url?: string | null, width?: number | null, height?: number | null, mimeType?: string | null, filename?: string | null } | null } | null } }> } | null };
 
 export type FooterQueryVariables = Exact<{
   locale: LocaleInputType;

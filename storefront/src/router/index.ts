@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { handleRouting } from './beforeEnter'
 import HomeView from '@/views/HomeView.vue'
 import { RouterView } from 'vue-router'
 

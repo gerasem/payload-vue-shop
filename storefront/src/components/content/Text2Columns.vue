@@ -3,6 +3,7 @@ import Header from '@/components/content/Header.vue'
 
 defineProps<{
   header?: string
+  text: string
 }>()
 </script>
 
@@ -14,9 +15,10 @@ defineProps<{
       >{{ header }}</Header
     >
 
-    <p class="content text__paragraph text__paragraph--2-columns">
-      <slot></slot>
-    </p>
+    <p
+      v-html="text"
+      class="content text__paragraph text__paragraph--2-columns"
+    ></p>
   </div>
 </template>
 

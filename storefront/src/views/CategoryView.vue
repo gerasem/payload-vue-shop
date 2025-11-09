@@ -4,6 +4,7 @@ import Text2Columns from '@/components/content/Text2Columns.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
+import { richTextToHTML } from '@/utils/richtext'
 import Item from '@/components/item/Item.vue'
 import { useSeoMeta } from '@unhead/vue'
 import { useRoute } from 'vue-router'
@@ -35,7 +36,7 @@ watch(
 )
 
 useSeoMeta({
-  title: computed(() => (categoryStore.currentCategory ? categoryStore.currentCategory.name : '')),
+  title: computed(() => (categoryStore.currentCategory ? categoryStore.currentCategory.title : '')),
 })
 </script>
 
@@ -67,17 +68,7 @@ useSeoMeta({
 
   <section class="section">
     <div class="container is-fullhd">
-      <Text2Columns>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores expedita, maiores! Ab cum
-        porro voluptates voluptatibus voluptatum. Adipisci architecto at, atque cumque deleniti
-        eveniet exercitationem expedita, id illum iure, iusto maiores molestias nisi nobis non rerum
-        suscipit tempora unde velit veniam veritatis voluptas voluptate. Adipisci delectus
-        distinctio dolores iure maiores, nobis praesentium similique suscipit ullam voluptatum?
-        Aliquid animi consectetur consequuntur earum est et labore minima nam odio quidem quis
-        temporibus, ut vero. Ad alias amet asperiores assumenda consequatur culpa dignissimos,
-        doloribus eos fugit, molestiae nam nemo non officiis quasi quidem repellendus repudiandae
-        sapiente, ullam vero voluptatibus. Dolore neque quia ratione!</Text2Columns
-      >
+      <Text2Columns :text="richTextToHTML(categoryStore.currentCategory?.description || [])" />
     </div>
   </section>
 </template>
