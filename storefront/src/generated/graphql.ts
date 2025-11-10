@@ -15513,7 +15513,7 @@ export type PayloadPreferencesUpdateDocAccess = {
 export type Product = {
   __typename?: 'Product';
   _status?: Maybe<Product__Status>;
-  categories?: Maybe<Array<Category>>;
+  categories?: Maybe<Category>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['JSON']['output']>;
@@ -15595,7 +15595,7 @@ export type ProductVersionParentArgs = {
 export type ProductVersion_Version = {
   __typename?: 'ProductVersion_Version';
   _status?: Maybe<ProductVersion_Version__Status>;
-  categories?: Maybe<Array<Category>>;
+  categories?: Maybe<Category>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['JSON']['output']>;
@@ -25593,7 +25593,7 @@ export type MutationPayloadPreferenceUpdateInput = {
 
 export type MutationProductInput = {
   _status?: InputMaybe<Product__Status_MutationInput>;
-  categories?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  categories?: InputMaybe<Scalars['Int']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   deletedAt?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['JSON']['input']>;
@@ -25614,7 +25614,7 @@ export type MutationProductInput = {
 
 export type MutationProductUpdateInput = {
   _status?: InputMaybe<ProductUpdate__Status_MutationInput>;
-  categories?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  categories?: InputMaybe<Scalars['Int']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   deletedAt?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['JSON']['input']>;

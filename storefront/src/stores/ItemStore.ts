@@ -10,23 +10,15 @@ import { ref } from 'vue'
 import { gqlRequest } from '@/services/api/api-payload'
 
 export const useItemStore = defineStore('item', () => {
-  // храним категории + массив товаров
   const items = ref<IItemGrouped[]>([])
   const itemsOnMainPage = ref<IItemGrouped[]>([])
 
-  // -------------------------------
-  // Получить товары по категории
-  // -------------------------------
   const getItemsByCategory = async (category: ICategory): Promise<void> => {
-    // уже есть — ничего не делаем
-    if (items.value.some(i => i.category === category.slug)) return
+    if (items.value.some((i) => i.category === category.slug)) return
 
-    const data = await gqlRequest<ProductsByCategoryIdQuery>(
-      ITEMS_BY_CATEGORY_ID,
-      {
-        where: { categories: { in: [category.id] } },
-      },
-    )
+    const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
+      where: { categories: { in: [category.id] } },
+    })
 
     const docs: IItem[] = data.Products?.docs ?? []
 
@@ -36,11 +28,8 @@ export const useItemStore = defineStore('item', () => {
     })
   }
 
-  // -------------------------------
-  // Для главной страницы
-  // -------------------------------
   const getItemsForMainPage = async (category: ICategory, limit?: number): Promise<void> => {
-    if (itemsOnMainPage.value.some(i => i.category === category.slug)) return
+    if (itemsOnMainPage.value.some((i) => i.category === category.slug)) return
 
     const products: IItem[] = await ApiService.fetchItemsByCategory(
       category.id,
@@ -54,28 +43,29 @@ export const useItemStore = defineStore('item', () => {
     })
   }
 
-  // -------------------------------
-  // Загрузить все категории
-  // -------------------------------
   const getAllItems = async (): Promise<void> => {
     const categoryStore = useCategoryStore()
 
     for (const category of categoryStore.categories) {
-      if (!items.value.some(i => i.category === category.slug)) {
+      if (!items.value.some((i) => i.category === category.slug)) {
         await getItemsByCategory(category)
       }
     }
   }
 
-  // -------------------------------
-  // Геттер — товары по категории
-  // -------------------------------
   const itemsByCategory = (categorySlug: string): IItem[] => {
-    return items.value.find(i => i.category === categorySlug)?.products ?? []
+    return items.value.find((i) => i.category === categorySlug)?.products ?? []
   }
 
   const itemsByCategoryForMainPage = (categoryHandle: string): IItem[] => {
-    return itemsOnMainPage.value.find(i => i.category === categoryHandle)?.products ?? []
+    return itemsOnMainPage.value.find((i) => i.category === categoryHandle)?.products ?? []
+  }
+
+  const hydrate = (data) => {
+    console.log('DATA IN HYDRATE:', data)
+    if (data?.items) {
+      items.value = data.items
+    }
   }
 
   return {
@@ -88,5 +78,7 @@ export const useItemStore = defineStore('item', () => {
 
     itemsByCategory,
     itemsByCategoryForMainPage,
+
+    hydrate,
   }
 })

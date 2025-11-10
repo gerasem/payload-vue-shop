@@ -8,6 +8,8 @@ export async function hydrateOrFetch<T extends Record<string, any>>(
   for (const key of keys) {
     if (initialState?.content?.[key]) {
       store.hydrate(initialState.content)
+    } else if (initialState?.category?.[key]) {
+      store.hydrate(initialState.category)
     } else {
       missingKeys.push(key)
     }

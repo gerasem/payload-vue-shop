@@ -35,5 +35,12 @@ export const useCategoryStore = defineStore('category', () => {
     console.log('Current category set to:', currentCategory.value)
   }
 
-  return { categories, currentCategory, setCurrentCategory, fetchCategories }
+  const hydrate = (data) => {
+    console.log('DATA IN HYDRATE:', data)
+    if (data?.categories) {
+      categories.value = data.categories
+    }
+  }
+
+  return { categories, currentCategory, setCurrentCategory, fetchCategories, hydrate }
 })

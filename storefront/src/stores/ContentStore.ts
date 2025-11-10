@@ -10,13 +10,10 @@ import HEADER_QUERY from '@/graphql/header.gql'
 import FOOTER_QUERY from '@/graphql/footer.gql'
 
 import { gqlRequest } from '@/services/api/api-payload'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useContentStore = defineStore('content', () => {
-  const loaderStore = useLoaderStore()
-
   const informationBanner = ref<IInformationBanner[] | null>(null)
   const header = ref<IHeader | null>(null)
   const footer = ref<IFooter | null>(null)

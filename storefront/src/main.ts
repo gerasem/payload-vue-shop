@@ -74,6 +74,8 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
     initialState.category = {
       categories: categoryStore.categories,
     }
+
+    console.log('INITIAL STATE:', initialState)
   } else {
     await hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer'])
     await hydrateOrFetch(categoryStore, initialState, ['categories'])
