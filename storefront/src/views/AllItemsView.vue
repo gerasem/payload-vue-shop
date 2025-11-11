@@ -25,10 +25,7 @@ useSeoMeta({
     >
       <Header :level="3">{{ category.category.title }}</Header>
 
-      <ItemContainer
-        v-if="category.products.length"
-        :items="category.products"
-      />
+      <ItemContainer :items="category.products" />
     </template>
   </main>
 

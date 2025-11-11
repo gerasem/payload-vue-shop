@@ -16,14 +16,11 @@ export const useItemStore = defineStore('item', () => {
   const itemsOnMainPage = ref<IItemGrouped[]>([])
 
   const getItemsByCategory = async (category: ICategory): Promise<void> => {
-    if (items.value.some((i) => i.category === category.slug)) return
-
+    // if (items.value.some((i) => i.category === category.slug)) return
     // const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
     //   where: { categories: { in: [category.id] } },
     // })
-
     // const docs: IItem[] = data.Products?.docs ?? []
-
     // items.value.push({
     //   category: category.slug,
     //   products: docs,
@@ -45,17 +42,8 @@ export const useItemStore = defineStore('item', () => {
     })
   }
 
-  const getAllItems = async (): Promise<void> => {
-    // const categoryStore = useCategoryStore()
-
-    // for (const category of categoryStore.categories) {
-    //   if (!items.value.some((i) => i.category === category.slug)) {
-    //     await getItemsByCategory(category)
-    //   }
-    // }
-
+  const fetchItems = async (): Promise<void> => {
     const products = await gqlRequest<AllProductsQuery>(ALL_PRODUCTS)
-
     console.log('DATA ProductsByCategoryIdQuery', products)
 
     const map = new Map<string, { category: any; products: any[] }>()
@@ -81,12 +69,13 @@ export const useItemStore = defineStore('item', () => {
     }
 
     items.value = Array.from(map.values())
-
     console.log('ALL ITEMS FETCHED:', items.value)
   }
 
   const itemsByCategory = (categorySlug: string): IItem[] => {
-    return items.value.find((i) => i.category === categorySlug)?.products ?? []
+    console.log(1, items.value.find((i) => i.category.slug === categorySlug)?.products ?? [])
+    console.log(2, categorySlug)
+    return items.value.find((i) => i.category.slug === categorySlug)?.products ?? []
   }
 
   const itemsByCategoryForMainPage = (categoryHandle: string): IItem[] => {
@@ -106,7 +95,7 @@ export const useItemStore = defineStore('item', () => {
 
     getItemsByCategory,
     getItemsForMainPage,
-    getAllItems,
+    fetchItems,
 
     itemsByCategory,
     itemsByCategoryForMainPage,

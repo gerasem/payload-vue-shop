@@ -25,9 +25,6 @@ watch(
   () => route.params.handle,
   (newHandle) => {
     categoryStore.setCurrentCategory(newHandle as string)
-    if (categoryStore.currentCategory) {
-      itemStore.getItemsByCategory(categoryStore.currentCategory)
-    }
   },
   { immediate: true },
 )

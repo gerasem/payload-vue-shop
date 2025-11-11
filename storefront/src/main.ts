@@ -68,7 +68,7 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       contentStore.fetchHeader(),
       contentStore.fetchFooter(),
       categoryStore.fetchCategories(),
-      itemStore.getAllItems(),
+      itemStore.fetchItems(),
     ])
 
     initialState.content = {
@@ -81,7 +81,7 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       categories: categoryStore.categories,
     }
 
-    initialState.item = {
+    initialState.items = {
       items: itemStore.items,
     }
 
