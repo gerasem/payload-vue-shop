@@ -1,8 +1,10 @@
 import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
 import ITEMS_BY_CATEGORY_ID from '@/graphql/itemsByCategoryId.gql'
 import type { IItem, IItemGrouped } from '@/interfaces/IItem'
+import type { AllProductsQuery } from '@/generated/graphql'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import type { ICategory } from '@/interfaces/ICategory'
+import ALL_PRODUCTS from '@/graphql/allProducts.gql'
 import ApiService from '@/services/api/api'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -16,16 +18,16 @@ export const useItemStore = defineStore('item', () => {
   const getItemsByCategory = async (category: ICategory): Promise<void> => {
     if (items.value.some((i) => i.category === category.slug)) return
 
-    const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
-      where: { categories: { in: [category.id] } },
-    })
+    // const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
+    //   where: { categories: { in: [category.id] } },
+    // })
 
-    const docs: IItem[] = data.Products?.docs ?? []
+    // const docs: IItem[] = data.Products?.docs ?? []
 
-    items.value.push({
-      category: category.slug,
-      products: docs,
-    })
+    // items.value.push({
+    //   category: category.slug,
+    //   products: docs,
+    // })
   }
 
   const getItemsForMainPage = async (category: ICategory, limit?: number): Promise<void> => {
@@ -44,13 +46,43 @@ export const useItemStore = defineStore('item', () => {
   }
 
   const getAllItems = async (): Promise<void> => {
-    const categoryStore = useCategoryStore()
+    // const categoryStore = useCategoryStore()
 
-    for (const category of categoryStore.categories) {
-      if (!items.value.some((i) => i.category === category.slug)) {
-        await getItemsByCategory(category)
+    // for (const category of categoryStore.categories) {
+    //   if (!items.value.some((i) => i.category === category.slug)) {
+    //     await getItemsByCategory(category)
+    //   }
+    // }
+
+    const products = await gqlRequest<AllProductsQuery>(ALL_PRODUCTS)
+
+    console.log('DATA ProductsByCategoryIdQuery', products)
+
+    const map = new Map<string, { category: any; products: any[] }>()
+
+    for (const product of products.Products?.docs || []) {
+      const category = product.categories
+      if (!category) continue
+
+      const slug = category.slug
+      if (!slug) continue
+
+      if (!map.has(slug)) {
+        map.set(slug, {
+          category: {
+            slug: category.slug,
+            title: category.title,
+          },
+          products: [],
+        })
       }
+
+      map.get(slug)!.products.push(product)
     }
+
+    items.value = Array.from(map.values())
+
+    console.log('ALL ITEMS FETCHED:', items.value)
   }
 
   const itemsByCategory = (categorySlug: string): IItem[] => {

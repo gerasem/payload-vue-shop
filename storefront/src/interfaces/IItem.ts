@@ -1,7 +1,10 @@
 import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
 
 export interface IItemGrouped {
-  category: string
+  category: {
+    slug: string
+    title: string
+  }
   products: IItem[]
 }
 

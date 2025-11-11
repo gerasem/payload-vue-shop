@@ -1,6 +1,7 @@
 import { useCategoryStore } from '@/stores/CategoryStore'
 import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
 import { useContentStore } from '@/stores/ContentStore'
+import { useItemStore } from './stores/ItemStore'
 import { createHead } from '@unhead/vue/client'
 import type { ViteSSGContext } from 'vite-ssg'
 import { createI18n } from 'vue-i18n'
@@ -59,18 +60,23 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
   const pinia = createPinia()
   const contentStore = useContentStore(pinia)
   const categoryStore = useCategoryStore()
+  const itemStore = useItemStore()
 
   if (import.meta.env.SSR) {
-    await contentStore.fetchInformationBanner()
-    await contentStore.fetchHeader()
-    await contentStore.fetchFooter()
-    await categoryStore.fetchCategories()
+    await Promise.all([
+      contentStore.fetchInformationBanner(),
+      contentStore.fetchHeader(),
+      contentStore.fetchFooter(),
+      categoryStore.fetchCategories(),
+      itemStore.getAllItems(),
+    ])
 
     initialState.content = {
       informationBanner: contentStore.informationBanner,
       header: contentStore.header,
       footer: contentStore.footer,
     }
+
     initialState.category = {
       categories: categoryStore.categories,
     }
