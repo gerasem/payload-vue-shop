@@ -81,10 +81,15 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       categories: categoryStore.categories,
     }
 
+    initialState.item = {
+      items: itemStore.items,
+    }
+
     console.log('INITIAL STATE:', initialState)
   } else {
     await hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer'])
     await hydrateOrFetch(categoryStore, initialState, ['categories'])
+    await hydrateOrFetch(itemStore, initialState, ['items'])
   }
 
   app.use(pinia)

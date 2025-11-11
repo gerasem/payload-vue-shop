@@ -5,11 +5,6 @@ import ItemContainer from '@/components/item/ItemContainer.vue'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
 import { useSeoMeta } from '@unhead/vue'
-import { onMounted } from 'vue'
-
-onMounted(async () => {
-  await itemStore.getAllItems()
-})
 
 const itemStore = useItemStore()
 
