@@ -5,7 +5,7 @@ import type { ILink } from '@/interfaces/ILink'
 defineProps<{
   isExternal?: boolean
   link: ILink | undefined
-  linkClass: string
+  linkClass?: string
 }>()
 </script>
 

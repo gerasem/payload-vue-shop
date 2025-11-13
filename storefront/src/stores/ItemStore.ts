@@ -1,75 +1,105 @@
+import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
+import ITEMS_BY_CATEGORY_ID from '@/graphql/itemsByCategoryId.gql'
+import type { IItem, IItemGrouped } from '@/interfaces/IItem'
+import type { AllProductsQuery } from '@/generated/graphql'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import type { ICategory } from '@/interfaces/ICategory'
-import { useLoaderStore } from '@/stores/LoaderStore'
-import type { IItem } from '@/interfaces/IItem'
+import ALL_PRODUCTS from '@/graphql/allProducts.gql'
 import ApiService from '@/services/api/api'
-// import { HttpTypes } from '@medusajs/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
+import { gqlRequest } from '@/services/api/api-payload'
+
 export const useItemStore = defineStore('item', () => {
-  const items = ref<IItem[]>([])
-  const itemsOnMainPage = ref<IItem[]>([])
+  const items = ref<IItemGrouped[]>([])
+  const itemsOnMainPage = ref<IItemGrouped[]>([])
 
-  const getItemsByCategory = async (category: ICategory) => {
-    const loaderStore = useLoaderStore()
-
-    if (items.value.some((item) => item.category === category.handle)) return
-
-    const products = await ApiService.fetchItemsByCategory(
-      category.id,
-      loaderStore.LOADER_KEYS.ITEMS,
-    )
-
-    items.value.push({
-      category: category.handle,
-      products,
-    })
+  const getItemsByCategory = async (category: ICategory): Promise<void> => {
+    // if (items.value.some((i) => i.category === category.slug)) return
+    // const data = await gqlRequest<ProductsByCategoryIdQuery>(ITEMS_BY_CATEGORY_ID, {
+    //   where: { categories: { in: [category.id] } },
+    // })
+    // const docs: IItem[] = data.Products?.docs ?? []
+    // items.value.push({
+    //   category: category.slug,
+    //   products: docs,
+    // })
   }
 
-  const getItemsForMainPage = async (category: ICategory, limit?: number) => {
-    if (itemsOnMainPage.value.some((item) => item.category === category.handle)) return
+  const getItemsForMainPage = async (category: ICategory, limit?: number): Promise<void> => {
+    if (itemsOnMainPage.value.some((i) => i.category === category.slug)) return
 
-    const products = await ApiService.fetchItemsByCategory(
+    const products: IItem[] = await ApiService.fetchItemsByCategory(
       category.id,
-      `items-${category.handle}`,
+      `items-${category.slug}`,
       limit,
     )
 
     itemsOnMainPage.value.push({
-      category: category.handle,
+      category: category.slug,
       products,
     })
   }
 
-  const getAllItems = async () => {
-    const categoryStore = useCategoryStore()
-    const store = useItemStore()
+  const fetchItems = async (): Promise<void> => {
+    const products = await gqlRequest<AllProductsQuery>(ALL_PRODUCTS)
+    console.log('DATA ProductsByCategoryIdQuery', products)
 
-    for (const category of categoryStore.categories) {
-      const exists = items.value.some((item) => item.category === category.handle)
+    const map = new Map<string, { category: any; products: any[] }>()
 
-      if (!exists) {
-        await store.getItemsByCategory(category)
+    for (const product of products.Products?.docs || []) {
+      const category = product.categories
+      if (!category) continue
+
+      const slug = category.slug
+      if (!slug) continue
+
+      if (!map.has(slug)) {
+        map.set(slug, {
+          category: {
+            slug: category.slug,
+            title: category.title,
+          },
+          products: [],
+        })
       }
+
+      map.get(slug)!.products.push(product)
     }
+
+    items.value = Array.from(map.values())
+    console.log('ALL ITEMS FETCHED:', items.value)
   }
 
-  const itemsByCategory = (categoryHandle: string): HttpTypes.StoreProduct[] | [] => {
-    return items.value.find((item) => item.category === categoryHandle)?.products || []
+  const itemsByCategory = (categorySlug: string): IItem[] => {
+    console.log(1, items.value.find((i) => i.category.slug === categorySlug)?.products ?? [])
+    console.log(2, categorySlug)
+    return items.value.find((i) => i.category.slug === categorySlug)?.products ?? []
   }
 
-  const itemsByCategoryForMainPage = (categoryHandle: string): HttpTypes.StoreProduct[] | [] => {
-    return itemsOnMainPage.value.find((item) => item.category === categoryHandle)?.products || []
+  const itemsByCategoryForMainPage = (categoryHandle: string): IItem[] => {
+    return itemsOnMainPage.value.find((i) => i.category === categoryHandle)?.products ?? []
+  }
+
+  const hydrate = (data) => {
+    console.log('DATA IN HYDRATE:', data)
+    if (data?.items) {
+      items.value = data.items
+    }
   }
 
   return {
     items,
     itemsOnMainPage,
-    itemsByCategoryForMainPage,
+
     getItemsByCategory,
-    itemsByCategory,
-    getAllItems,
     getItemsForMainPage,
+    fetchItems,
+
+    itemsByCategory,
+    itemsByCategoryForMainPage,
+
+    hydrate,
   }
 })

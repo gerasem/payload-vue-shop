@@ -9,10 +9,10 @@ defineProps<{
 
 <template>
   <RouterLink
-    :to="localePath(`category/${category.handle}`)"
+    :to="localePath(`category/${category.slug}`)"
     class="category__title"
   >
-    <h3>{{ category.name }}</h3>
+    <h3>{{ category.title }}</h3>
   </RouterLink>
 </template>
 

@@ -28,4 +28,9 @@ export default defineConfig({
       ignored: ['!../payload/src/payload-types.ts'],
     },
   },
+  ssgOptions: {
+    script: 'async',
+    //formatting: 'minify',
+    includedRoutes: () => ['/', '/en', '/de'],
+  },
 })

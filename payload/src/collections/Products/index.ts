@@ -205,7 +205,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         position: 'sidebar',
         sortOptions: 'title',
       },
-      hasMany: true,
+      hasMany: false,
       relationTo: 'categories',
     },
     slugField(),

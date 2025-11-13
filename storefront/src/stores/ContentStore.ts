@@ -10,43 +10,52 @@ import HEADER_QUERY from '@/graphql/header.gql'
 import FOOTER_QUERY from '@/graphql/footer.gql'
 
 import { gqlRequest } from '@/services/api/api-payload'
-import { useLoaderStore } from '@/stores/LoaderStore'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useContentStore = defineStore('content', () => {
-  const loaderStore = useLoaderStore()
-
   const informationBanner = ref<IInformationBanner[] | null>(null)
   const header = ref<IHeader | null>(null)
   const footer = ref<IFooter | null>(null)
 
   const fetchInformationBanner = async (): Promise<void> => {
     if (informationBanner.value) return
-
-    const data = await gqlRequest<InformationBannerQuery>(
-      INFORMATION_BANNER_QUERY,
-      loaderStore.LOADER_KEYS.INFORMATION_BANNER,
-    )
-
+    const data = await gqlRequest<InformationBannerQuery>(INFORMATION_BANNER_QUERY)
     informationBanner.value = data.InformationBanner?.items || []
   }
 
   const fetchHeader = async (): Promise<void> => {
     if (header.value) return
-
-    const data = await gqlRequest<HeaderQuery>(HEADER_QUERY, loaderStore.LOADER_KEYS.HEADER)
-
+    const data = await gqlRequest<HeaderQuery>(HEADER_QUERY)
     header.value = data?.Header ?? null
   }
 
   const fetchFooter = async (): Promise<void> => {
     if (footer.value) return
-
-    const data = await gqlRequest<FooterQuery>(FOOTER_QUERY, loaderStore.LOADER_KEYS.FOOTER)
-
+    const data = await gqlRequest<FooterQuery>(FOOTER_QUERY)
     footer.value = data?.Footer ?? null
   }
 
-  return { informationBanner, fetchInformationBanner, header, fetchHeader, footer, fetchFooter }
+  const hydrate = (data) => {
+    console.log('DATA IN HYDRATE:', data)
+    if (data?.informationBanner) {
+      informationBanner.value = data.informationBanner
+    }
+    if (data?.header) {
+      header.value = data.header
+    }
+    if (data?.footer) {
+      footer.value = data.footer
+    }
+  }
+
+  return {
+    informationBanner,
+    fetchInformationBanner,
+    header,
+    fetchHeader,
+    footer,
+    fetchFooter,
+    hydrate,
+  }
 })

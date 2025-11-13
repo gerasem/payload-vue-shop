@@ -1,0 +1,50 @@
+query AllProducts($locale: LocaleInputType!) {
+  Products(locale: $locale, limit: 10000) {
+    docs {
+      id
+      title
+      slug
+      priceInEUR
+      inventory
+      enableVariants
+      gallery {
+        id
+        image {
+          url
+          thumbnailURL
+        }
+      }
+      variants {
+        docs {
+          id
+          priceInEUR
+          title
+          priceInEUR
+        }
+      }
+      variantTypes {
+        id
+        label
+        name
+        options {
+          docs {
+            id
+            label
+            value
+          }
+        }
+      }
+      meta {
+        title
+        description
+      }
+      categories {
+        id
+        slug
+        title
+      }
+    }
+
+    totalDocs
+  }
+}

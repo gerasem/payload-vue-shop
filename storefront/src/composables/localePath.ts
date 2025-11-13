@@ -5,10 +5,16 @@ export const localePath = (path: string | null | undefined): RouteLocationRaw =>
     return '/'
   }
 
-  const langInLS = localStorage.getItem('lang')
+  let currentLocale: string
+
+  if (typeof window !== 'undefined') {
+    currentLocale =  localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LANGUAGE
+  } else {
+    currentLocale = import.meta.env.VITE_DEFAULT_LANGUAGE
+  }
 
   if (path === '/') {
-    return `/${langInLS}`
+    return `/${currentLocale}`
   }
-  return `/${langInLS}/${path}`
+  return `/${currentLocale}/${path}`
 }

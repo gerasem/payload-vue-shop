@@ -1,31 +1,13 @@
 <script setup lang="ts">
 import { useContentStore } from '@/stores/ContentStore'
-import { useLoaderStore } from '@/stores/LoaderStore'
-import { sanitizeSvg } from '@/utils/sanitizeSvg'
-import { onMounted } from 'vue'
 
 const contentStore = useContentStore()
-const loaderStore = useLoaderStore()
-
-onMounted(async () => {
-  await contentStore.fetchInformationBanner()
-})
 </script>
 
 <template>
   <header class="is-hidden-mobile information-banner__container">
     <div class="container is-fluid">
-      <div
-        v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.INFORMATION_BANNER)"
-        class="skeleton-lines information-banner__lines"
-      >
-        <div class="information-banner__line"></div>
-      </div>
-
-      <ul
-        v-else
-        class="information-banner__list-container"
-      >
+      <ul class="information-banner__list-container">
         <li
           v-for="(item, index) in contentStore.informationBanner"
           :key="item.id ?? index"
@@ -33,7 +15,7 @@ onMounted(async () => {
         >
           <span
             v-if="typeof item.icon === 'object' && item.icon?.svgContent"
-            v-html="sanitizeSvg(item.icon.svgContent)"
+            v-html="item.icon.svgContent"
           ></span>
 
           {{ item.text }}

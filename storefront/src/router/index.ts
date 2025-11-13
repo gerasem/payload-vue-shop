@@ -1,113 +1,119 @@
-import { createRouter, createWebHistory, type Router, RouterView } from 'vue-router'
-import { handleRouting } from './beforeEnter'
+import type { RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-const router: Router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
-    }
+import { RouterView } from 'vue-router'
+
+const isClient = typeof window !== 'undefined'
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
+    component: RouterView,
+    children: [
+      {
+        path: '',
+        name: 'main',
+        component: HomeView,
+      },
+      {
+        path: 'category',
+        name: 'all-items',
+        component: () => import('@/views/AllItemsView.vue'),
+      },
+      {
+        path: 'category/:handle',
+        name: 'catalog',
+        component: () => import('@/views/CategoryView.vue'),
+      },
+      {
+        path: 'item/:handle',
+        name: 'item',
+        component: () => import('@/views/ItemView.vue'),
+      },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: () => import('@/views/ContactView.vue'),
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: () => import('@/views/CartView.vue'),
+      },
+      {
+        path: 'checkout',
+        name: 'checkout',
+        component: () => import('@/views/CheckoutView.vue'),
+      },
+      {
+        path: 'payment',
+        name: 'payment',
+        component: () => import('@/views/PaymentView.vue'),
+      },
+      {
+        path: 'cabinet',
+        name: 'cabinet',
+        component: () => import('@/views/CabinetView.vue'),
+      },
+      {
+        path: '404',
+        name: '404',
+        component: () => import('@/views/404View.vue'),
+      },
+      {
+        path: ':pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('@/views/404View.vue'),
+      },
+    ],
   },
-  routes: [
-    {
-      path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
-      component: RouterView,
-      beforeEnter: handleRouting,
-      children: [
-        {
-          path: '',
-          name: 'main',
-          component: HomeView,
-        },
-        {
-          path: 'category',
-          name: 'all-items',
-          component: () => import('@/views/AllItemsView.vue'),
-        },
-        {
-          path: 'category/:handle',
-          name: 'catalog',
-          component: () => import('@/views/CategoryView.vue'),
-        },
-        {
-          path: 'item/:handle',
-          name: 'item',
-          component: () => import('@/views/ItemView.vue'),
-        },
-        {
-          path: 'contact',
-          name: 'contact',
-          component: () => import('@/views/ContactView.vue'),
-        },
-        {
-          path: 'cart',
-          name: 'cart',
-          component: () => import('@/views/CartView.vue'),
-        },
-        {
-          path: 'checkout',
-          name: 'checkout',
-          component: () => import('@/views/CheckoutView.vue'),
-        },
-        {
-          path: 'payment',
-          name: 'payment',
-          component: () => import('@/views/PaymentView.vue'),
-        },
-        {
-          path: 'cabinet',
-          name: 'cabinet',
-          component: () => import('@/views/CabinetView.vue'),
-        },
-        {
-          path: '404',
-          name: '404',
-          component: () => import('@/views/404View.vue'),
-        },
-        {
-          path: ':pathMatch(.*)*',
-          name: 'NotFound',
-          component: () => import('@/views/404View.vue'),
-        },
-      ],
-    },
-  ],
-})
+]
 
-router.beforeEach((to, from, next) => {
-  console.log('Lang un url', to.params.locale)
+// const router: Router = createRouter({
+//   history: isClient
+//     ? createWebHistory(import.meta.env.BASE_URL)
+//     : createMemoryHistory(import.meta.env.BASE_URL),
+//   scrollBehavior(to, from, savedPosition) {
+//     if (savedPosition) {
+//       return savedPosition
+//     } else {
+//       return { top: 0 }
+//     }
+//   },
+//   routes,
+// })
 
-  const langInLS = localStorage.getItem('lang')
-  if (langInLS === to.params.locale || (langInLS && to.params.locale === '')) {
-    console.log('lang in ls, continue')
-    next()
-  } else {
-    if (to.params.locale && typeof to.params.locale === 'string') {
-      localStorage.setItem('lang', to.params.locale)
-    } else {
-      localStorage.setItem('lang', import.meta.env.VITE_DEFAULT_LANGUAGE)
-    }
+// router.beforeEach((to, from, next) => {
+//   console.log('Lang un url', to.params.locale)
 
-    console.log('SET LANG LS', langInLS)
+//   const langInLS = localStorage.getItem('lang')
+//   if (langInLS === to.params.locale || (langInLS && to.params.locale === '')) {
+//     console.log('lang in ls, continue')
+//     next()
+//   } else {
+//     if (to.params.locale && typeof to.params.locale === 'string') {
+//       localStorage.setItem('lang', to.params.locale)
+//     } else {
+//       localStorage.setItem('lang', import.meta.env.VITE_DEFAULT_LANGUAGE)
+//     }
 
-    next()
-  }
+//     console.log('SET LANG LS', langInLS)
 
-  // const lang = localStorage.getItem('lang')
+//     next()
+//   }
 
-  // const SUPPORTED_LANGUAGES = ['en', 'de']
-  // const DEFAULT_LANGUAGE = 'de'
+//   // const lang = localStorage.getItem('lang')
 
-  // function normalizeLanguage(lang: string): string {
-  //   return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANGUAGE
-  // }
+//   // const SUPPORTED_LANGUAGES = ['en', 'de']
+//   // const DEFAULT_LANGUAGE = 'de'
 
-  // function detectUserLanguage(): string {
-  //   return navigator.language.split('-')[0]
-  // }
-})
+//   // function normalizeLanguage(lang: string): string {
+//   //   return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANGUAGE
+//   // }
+
+//   // function detectUserLanguage(): string {
+//   //   return navigator.language.split('-')[0]
+//   // }
+// })
 
 // router.afterEach((to, from) => {
 //   const toDepth = to.path.split('/').length
@@ -115,4 +121,4 @@ router.beforeEach((to, from, next) => {
 //   to.meta.transition = toDepth < fromDepth ? 'fade-in-right' : 'fade-in-left'
 // })
 
-export default router
+export default routes

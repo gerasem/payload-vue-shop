@@ -7,21 +7,15 @@ import NavbarMenu from '@/components/navbar/NavbarMenu.vue'
 import NavbarLogo from '@/components/navbar/NavbarLogo.vue'
 import NavbarCart from '@/components/navbar/NavbarCart.vue'
 import { useContentStore } from '@/stores/ContentStore'
-import { useLoaderStore } from '@/stores/LoaderStore'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 const contentStore = useContentStore()
-const loaderStore = useLoaderStore()
 
 const mobileMenu = ref<boolean>(false)
 
 const toggleMenu = () => {
   mobileMenu.value = new URLSearchParams(window.location.search).has('menu')
 }
-
-onMounted(async () => {
-  await contentStore.fetchHeader()
-})
 </script>
 
 <template>

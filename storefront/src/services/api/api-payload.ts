@@ -5,18 +5,32 @@ import { useToastStore } from '@/stores/ToastStore'
 import type { DocumentNode } from 'graphql'
 // import { sdk } from './config'
 
-const locale: string = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE
+let locale: string = ''
 
-console.log('USE LANG From LS', locale)
+if (typeof window !== 'undefined') {
+  locale = localStorage.getItem('lang') || import.meta.env.VITE_DEFAULT_LOCALE || 'de'
+} else {
+  locale = import.meta.env.VITE_DEFAULT_LANGUAGE
+}
 
-// todo refactor this both functions 
-export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Promise<T> {
+export async function gqlRequest<T>(
+  query: DocumentNode,
+  variables: Record<string, any> = {},
+  loaderKey?: string,
+): Promise<T> {
+  console.log('USE LANG From LS', locale)
+
+  const finalVariables = {
+    ...variables,
+    locale,
+  }
+
   return handleRequest(
     async () => {
       const { data } = await apolloClient.query({
         query,
         fetchPolicy: 'cache-first',
-        variables: { locale },
+        variables: finalVariables,
       })
 
       return data
@@ -27,12 +41,14 @@ export async function gqlRequest<T>(query: DocumentNode, loaderKey: string): Pro
 
 async function handleRequest<T>(
   callback: () => Promise<T>,
-  options: { loaderKey: string },
+  options: { loaderKey?: string },
 ): Promise<T> {
   const loaderStore = useLoaderStore()
 
   try {
-    loaderStore.startLoading(options.loaderKey)
+    if (options.loaderKey) {
+      loaderStore.startLoading(options.loaderKey)
+    }
     return await callback()
   } catch (error: unknown) {
     const toastStore = useToastStore()
@@ -46,42 +62,16 @@ async function handleRequest<T>(
           label: 'Reload Page',
           onClick: () => window.location.reload(),
         },
-        1000,
+        10000,
       )
     }
 
     throw error
   } finally {
-    loaderStore.stopLoading(options.loaderKey)
+    if (options.loaderKey) {
+      loaderStore.stopLoading(options.loaderKey)
+    }
   }
 }
 
-// export async function fetchInformationBanner(loaderKey: string): Promise<IInformationBanner> {
-//   return handleRequest(
-//     async () => {
-//       const { items } = await sdk.findGlobal({
-//         slug: 'information-banner',
-//         locale,
-//         depth: 1,
-//       })
-//       console.log('Fetched items:', items)
-//       return items || []
-//     },
-//     { loaderKey },
-//   )
-// }
 
-// export async function fetchHeader(loaderKey: string): Promise<IHeader> {
-//   return handleRequest(
-//     async () => {
-//       const result = await sdk.findGlobal({
-//         slug: 'header',
-//         locale,
-//         depth: 1,
-//       })
-//       console.log('HEADER', result)
-//       return result as IHeader
-//     },
-//     { loaderKey },
-//   )
-// }

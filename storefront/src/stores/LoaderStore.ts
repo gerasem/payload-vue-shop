@@ -28,9 +28,6 @@ export const useLoaderStore = defineStore('loader', () => {
     GET_ITEM_QUANTITY: 'GET_ITEM_QUANTITY',
     INITIALIZE_CART: 'INITIALIZE_CART',
     SEND_CONTACT_FORM: 'SEND_CONTACT_FORM',
-    INFORMATION_BANNER: 'INFORMATION_BANNER',
-    HEADER: 'HEADER',
-    FOOTER: 'FOOTER',
   }
 
   return { isLoading, isLoadingKey, startLoading, stopLoading, activeLoaders, LOADER_KEYS }

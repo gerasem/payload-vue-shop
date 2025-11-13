@@ -1,37 +1,99 @@
+import { useCategoryStore } from '@/stores/CategoryStore'
+import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
+import { useContentStore } from '@/stores/ContentStore'
+import { useItemStore } from './stores/ItemStore'
 import { createHead } from '@unhead/vue/client'
+import type { ViteSSGContext } from 'vite-ssg'
 import { createI18n } from 'vue-i18n'
 import { createPinia } from 'pinia'
 import './assets/styles/main.scss'
-import { createApp } from 'vue'
-import router from './router'
+import { ViteSSG } from 'vite-ssg'
+import routes from './router'
 import App from './App.vue'
 
-const app = createApp(App)
+export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext) => {
+  const { app, router, initialState } = context
 
-const i18n = createI18n({
-  locale: import.meta.env.VITE_DEFAULT_LANGUAGE,
-  fallbackLocale: 'en',
-  legacy: false,
-  fallbackWarn: false,
-  missingWarn: false,
-})
+  console.log(
+    import.meta.env.SSR
+      ? '[vite-ssg] Rendering on server'
+      : '[vite-ssg] Running on client (hydration)',
+  )
 
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
-app.use(createHead())
+  const defaultLang = import.meta.env.VITE_DEFAULT_LANGUAGE || 'de'
+  const supportedLocales = (import.meta.env.VITE_LANGUAGES || 'de').split(',')
 
-router.isReady().then(async () => {
-  const lang = localStorage.getItem('lang')
+  let finalLang = defaultLang
 
-  if (lang) {
-    const messages = await import(`@/i18n/locales/${lang}.json`)
+  if (!import.meta.env.SSR) {
+    const pathLang =
+      window.location.pathname.split('/')[1] || import.meta.env.VITE_DEFAULT_LANGUAGE || 'de'
+    const langInUrl =
+      supportedLocales.includes(pathLang) && pathLang?.match(/^[a-z]{2}$/) ? pathLang : undefined
+    const langInLS = localStorage.getItem('lang')
 
-    i18n.global.setLocaleMessage(lang, messages.default)
-    i18n.global.locale.value = lang
-    console.log('Loaded message json', i18n.global.locale.value)
+    finalLang = langInUrl || langInLS || defaultLang
+
+    if (langInLS !== finalLang) {
+      localStorage.setItem('lang', finalLang)
+    }
+
+    document.documentElement.setAttribute('lang', finalLang)
+
+    console.log('[Lang] finalLang:', finalLang, 'from URL:', langInUrl, 'from LS:', langInLS)
   }
 
-  app.mount('#app')
-  document.querySelector('html')?.setAttribute('lang', lang)
+  console.log('[i18n] init with lang:', finalLang)
+
+  // --- i18n ---
+  const messages = await import(`@/i18n/locales/${finalLang}.json`)
+  const i18n = createI18n({
+    legacy: false,
+    locale: finalLang,
+    fallbackLocale: 'de',
+    messages: { [finalLang]: messages.default },
+    fallbackWarn: false,
+    missingWarn: false,
+  })
+
+  // --- Pinia + ContentStore ---
+  const pinia = createPinia()
+  const contentStore = useContentStore(pinia)
+  const categoryStore = useCategoryStore()
+  const itemStore = useItemStore()
+
+  if (import.meta.env.SSR) {
+    await Promise.all([
+      contentStore.fetchInformationBanner(),
+      contentStore.fetchHeader(),
+      contentStore.fetchFooter(),
+      categoryStore.fetchCategories(),
+      itemStore.fetchItems(),
+    ])
+
+    initialState.content = {
+      informationBanner: contentStore.informationBanner,
+      header: contentStore.header,
+      footer: contentStore.footer,
+    }
+
+    initialState.category = {
+      categories: categoryStore.categories,
+    }
+
+    initialState.items = {
+      items: itemStore.items,
+    }
+
+    console.log('INITIAL STATE:', initialState)
+  } else {
+    await hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer'])
+    await hydrateOrFetch(categoryStore, initialState, ['categories'])
+    await hydrateOrFetch(itemStore, initialState, ['items'])
+  }
+
+  app.use(pinia)
+  app.use(router)
+  app.use(i18n)
+  app.use(createHead())
 })

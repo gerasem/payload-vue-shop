@@ -1,31 +1,36 @@
 <script setup lang="ts">
-// import { useProductPrice } from '@/composables/useProductPrice'
-// import { localePath } from '@/composables/localePath.ts'
-// import { HttpTypes } from '@medusajs/types'
-// import { useI18n } from 'vue-i18n'
+import { useProductPrice } from '@/composables/useProductPrice'
+import defaultImage from '@/assets/images/_default-image.svg'
+import { localePath } from '@/composables/localePath.ts'
+import type { IItem } from '@/interfaces/IItem'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
-// const { getProductPrice } = useProductPrice()
-// const { t } = useI18n()
+const { getProductPrice } = useProductPrice()
+const { t } = useI18n()
 
-// const props = defineProps<{
-//   item: HttpTypes.StoreProduct
-// }>()
+const props = defineProps<{
+  item: IItem
+}>()
 
-// const { cheapestPrice } = getProductPrice({
-//   product: props.item,
-// })
+const { cheapestPrice } = getProductPrice({
+  product: props.item,
+})
+
+const imageUrl = computed(() => {
+  return import.meta.env.VITE_BACKEND_DOMAIN + props.item.gallery?.[0]?.image?.url || defaultImage
+})
 </script>
 
 <template>
   <RouterLink
-  v-if="false"
-    :to="localePath(`item/${item.handle}`)"
+    :to="localePath(`item/${item.slug}`)"
     class="item"
   >
     <img
       class="image is-square item__image"
-      :src="item.thumbnail ? item.thumbnail : '/images/placeholder.png'"
-      :alt="item.title"
+      :src="imageUrl"
+      :alt="item.title || ''"
     />
 
     <div class="item__bottom">
@@ -36,7 +41,6 @@
         class="item__price"
       >
         {{ t('from') }}
-        {{ cheapestPrice.calculated_price }}
       </div>
     </div>
   </RouterLink>
