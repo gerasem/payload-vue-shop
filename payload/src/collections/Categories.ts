@@ -7,6 +7,14 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
+
 export const Categories: CollectionConfig = {
   slug: 'categories',
   access: {
@@ -30,25 +38,62 @@ export const Categories: CollectionConfig = {
     }),
 
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-      filterOptions: () => ({
-        mimeType: { in: ['image/jpeg', 'image/png', 'image/webp'] },
-      }),
-    },
+      type: 'tabs',
+      tabs: [
+        {
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
+              filterOptions: () => ({
+                mimeType: { in: ['image/jpeg', 'image/png', 'image/webp'] },
+              }),
+            },
 
-    {
-      name: 'description',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+            {
+              name: 'description',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+                },
+              }),
+              required: false,
+              localized: true,
+            },
+          ],
+          label: 'Content',
         },
-      }),
-      required: false,
-      localized: true,
+        {
+          name: 'meta',
+          label: 'SEO',
+          fields: [
+            OverviewField({
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+              imagePath: 'meta.image',
+            }),
+            MetaTitleField({
+              hasGenerateFn: true,
+            }),
+            MetaImageField({
+              relationTo: 'media',
+            }),
+
+            MetaDescriptionField({}),
+            PreviewField({
+              // if the `generateUrl` function is configured
+              hasGenerateFn: true,
+
+              // field paths to match the target field for data
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+            }),
+          ],
+        },
+      ],
     },
   ],
 }

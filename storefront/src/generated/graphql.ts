@@ -2614,6 +2614,7 @@ export type CategoriesDocAccessFields = {
   description?: Maybe<CategoriesDocAccessFields_Description>;
   generateSlug?: Maybe<CategoriesDocAccessFields_GenerateSlug>;
   image?: Maybe<CategoriesDocAccessFields_Image>;
+  meta?: Maybe<CategoriesDocAccessFields_Meta>;
   slug?: Maybe<CategoriesDocAccessFields_Slug>;
   title?: Maybe<CategoriesDocAccessFields_Title>;
   updatedAt?: Maybe<CategoriesDocAccessFields_UpdatedAt>;
@@ -2731,6 +2732,97 @@ export type CategoriesDocAccessFields_Image_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type CategoriesDocAccessFields_Meta = {
+  __typename?: 'CategoriesDocAccessFields_meta';
+  description?: Maybe<CategoriesDocAccessFields_Meta_Description>;
+  image?: Maybe<CategoriesDocAccessFields_Meta_Image>;
+  title?: Maybe<CategoriesDocAccessFields_Meta_Title>;
+};
+
+export type CategoriesDocAccessFields_Meta_Description = {
+  __typename?: 'CategoriesDocAccessFields_meta_description';
+  create?: Maybe<CategoriesDocAccessFields_Meta_Description_Create>;
+  delete?: Maybe<CategoriesDocAccessFields_Meta_Description_Delete>;
+  read?: Maybe<CategoriesDocAccessFields_Meta_Description_Read>;
+  update?: Maybe<CategoriesDocAccessFields_Meta_Description_Update>;
+};
+
+export type CategoriesDocAccessFields_Meta_Description_Create = {
+  __typename?: 'CategoriesDocAccessFields_meta_description_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Description_Delete = {
+  __typename?: 'CategoriesDocAccessFields_meta_description_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Description_Read = {
+  __typename?: 'CategoriesDocAccessFields_meta_description_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Description_Update = {
+  __typename?: 'CategoriesDocAccessFields_meta_description_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Image = {
+  __typename?: 'CategoriesDocAccessFields_meta_image';
+  create?: Maybe<CategoriesDocAccessFields_Meta_Image_Create>;
+  delete?: Maybe<CategoriesDocAccessFields_Meta_Image_Delete>;
+  read?: Maybe<CategoriesDocAccessFields_Meta_Image_Read>;
+  update?: Maybe<CategoriesDocAccessFields_Meta_Image_Update>;
+};
+
+export type CategoriesDocAccessFields_Meta_Image_Create = {
+  __typename?: 'CategoriesDocAccessFields_meta_image_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Image_Delete = {
+  __typename?: 'CategoriesDocAccessFields_meta_image_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Image_Read = {
+  __typename?: 'CategoriesDocAccessFields_meta_image_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Image_Update = {
+  __typename?: 'CategoriesDocAccessFields_meta_image_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Title = {
+  __typename?: 'CategoriesDocAccessFields_meta_title';
+  create?: Maybe<CategoriesDocAccessFields_Meta_Title_Create>;
+  delete?: Maybe<CategoriesDocAccessFields_Meta_Title_Delete>;
+  read?: Maybe<CategoriesDocAccessFields_Meta_Title_Read>;
+  update?: Maybe<CategoriesDocAccessFields_Meta_Title_Update>;
+};
+
+export type CategoriesDocAccessFields_Meta_Title_Create = {
+  __typename?: 'CategoriesDocAccessFields_meta_title_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Title_Delete = {
+  __typename?: 'CategoriesDocAccessFields_meta_title_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Title_Read = {
+  __typename?: 'CategoriesDocAccessFields_meta_title_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesDocAccessFields_Meta_Title_Update = {
+  __typename?: 'CategoriesDocAccessFields_meta_title_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type CategoriesDocAccessFields_Slug = {
   __typename?: 'CategoriesDocAccessFields_slug';
   create?: Maybe<CategoriesDocAccessFields_Slug_Create>;
@@ -2821,6 +2913,7 @@ export type CategoriesFields = {
   description?: Maybe<CategoriesFields_Description>;
   generateSlug?: Maybe<CategoriesFields_GenerateSlug>;
   image?: Maybe<CategoriesFields_Image>;
+  meta?: Maybe<CategoriesFields_Meta>;
   slug?: Maybe<CategoriesFields_Slug>;
   title?: Maybe<CategoriesFields_Title>;
   updatedAt?: Maybe<CategoriesFields_UpdatedAt>;
@@ -2935,6 +3028,97 @@ export type CategoriesFields_Image_Read = {
 
 export type CategoriesFields_Image_Update = {
   __typename?: 'CategoriesFields_image_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta = {
+  __typename?: 'CategoriesFields_meta';
+  description?: Maybe<CategoriesFields_Meta_Description>;
+  image?: Maybe<CategoriesFields_Meta_Image>;
+  title?: Maybe<CategoriesFields_Meta_Title>;
+};
+
+export type CategoriesFields_Meta_Description = {
+  __typename?: 'CategoriesFields_meta_description';
+  create?: Maybe<CategoriesFields_Meta_Description_Create>;
+  delete?: Maybe<CategoriesFields_Meta_Description_Delete>;
+  read?: Maybe<CategoriesFields_Meta_Description_Read>;
+  update?: Maybe<CategoriesFields_Meta_Description_Update>;
+};
+
+export type CategoriesFields_Meta_Description_Create = {
+  __typename?: 'CategoriesFields_meta_description_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Description_Delete = {
+  __typename?: 'CategoriesFields_meta_description_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Description_Read = {
+  __typename?: 'CategoriesFields_meta_description_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Description_Update = {
+  __typename?: 'CategoriesFields_meta_description_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Image = {
+  __typename?: 'CategoriesFields_meta_image';
+  create?: Maybe<CategoriesFields_Meta_Image_Create>;
+  delete?: Maybe<CategoriesFields_Meta_Image_Delete>;
+  read?: Maybe<CategoriesFields_Meta_Image_Read>;
+  update?: Maybe<CategoriesFields_Meta_Image_Update>;
+};
+
+export type CategoriesFields_Meta_Image_Create = {
+  __typename?: 'CategoriesFields_meta_image_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Image_Delete = {
+  __typename?: 'CategoriesFields_meta_image_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Image_Read = {
+  __typename?: 'CategoriesFields_meta_image_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Image_Update = {
+  __typename?: 'CategoriesFields_meta_image_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Title = {
+  __typename?: 'CategoriesFields_meta_title';
+  create?: Maybe<CategoriesFields_Meta_Title_Create>;
+  delete?: Maybe<CategoriesFields_Meta_Title_Delete>;
+  read?: Maybe<CategoriesFields_Meta_Title_Read>;
+  update?: Maybe<CategoriesFields_Meta_Title_Update>;
+};
+
+export type CategoriesFields_Meta_Title_Create = {
+  __typename?: 'CategoriesFields_meta_title_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Title_Delete = {
+  __typename?: 'CategoriesFields_meta_title_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Title_Read = {
+  __typename?: 'CategoriesFields_meta_title_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesFields_Meta_Title_Update = {
+  __typename?: 'CategoriesFields_meta_title_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -3053,6 +3237,7 @@ export type Category = {
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Int']['output'];
   image: Media;
+  meta?: Maybe<Category_Meta>;
   slug: Scalars['String']['output'];
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3065,6 +3250,19 @@ export type CategoryDescriptionArgs = {
 
 
 export type CategoryImageArgs = {
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  locale?: InputMaybe<LocaleInputType>;
+};
+
+export type Category_Meta = {
+  __typename?: 'Category_Meta';
+  description?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Media>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Category_MetaImageArgs = {
   fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
   locale?: InputMaybe<LocaleInputType>;
 };
@@ -3112,6 +3310,34 @@ export type Category_Image_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
+export type Category_Meta__Description_Operator = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Category_Meta__Image_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Category_Meta__Title_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type Category_Slug_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -3151,6 +3377,9 @@ export type Category_Where = {
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
   image?: InputMaybe<Category_Image_Operator>;
+  meta__description?: InputMaybe<Category_Meta__Description_Operator>;
+  meta__image?: InputMaybe<Category_Meta__Image_Operator>;
+  meta__title?: InputMaybe<Category_Meta__Title_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -3164,6 +3393,9 @@ export type Category_Where_And = {
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
   image?: InputMaybe<Category_Image_Operator>;
+  meta__description?: InputMaybe<Category_Meta__Description_Operator>;
+  meta__image?: InputMaybe<Category_Meta__Image_Operator>;
+  meta__title?: InputMaybe<Category_Meta__Title_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -3177,6 +3409,9 @@ export type Category_Where_Or = {
   generateSlug?: InputMaybe<Category_GenerateSlug_Operator>;
   id?: InputMaybe<Category_Id_Operator>;
   image?: InputMaybe<Category_Image_Operator>;
+  meta__description?: InputMaybe<Category_Meta__Description_Operator>;
+  meta__image?: InputMaybe<Category_Meta__Image_Operator>;
+  meta__title?: InputMaybe<Category_Meta__Title_Operator>;
   slug?: InputMaybe<Category_Slug_Operator>;
   title?: InputMaybe<Category_Title_Operator>;
   updatedAt?: InputMaybe<Category_UpdatedAt_Operator>;
@@ -25199,6 +25434,7 @@ export type MutationCategoryInput = {
   description?: InputMaybe<Scalars['JSON']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   image?: InputMaybe<Scalars['Int']['input']>;
+  meta?: InputMaybe<MutationCategory_MetaInput>;
   slug: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -25209,9 +25445,22 @@ export type MutationCategoryUpdateInput = {
   description?: InputMaybe<Scalars['JSON']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   image?: InputMaybe<Scalars['Int']['input']>;
+  meta?: InputMaybe<MutationCategoryUpdate_MetaInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCategoryUpdate_MetaInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCategory_MetaInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationFooterInput = {
@@ -27043,7 +27292,7 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', Categories?: { __typename?: 'Categories', docs: Array<{ __typename?: 'Category', id: number, title?: string | null, slug: string, description?: any | null, image: { __typename?: 'Media', id: number, alt: string, url?: string | null, filename?: string | null, width?: number | null, height?: number | null, sizes?: { __typename?: 'Media_Sizes', categoryPreview?: { __typename?: 'Media_Sizes_CategoryPreview', url?: string | null, width?: number | null, height?: number | null, mimeType?: string | null, filename?: string | null } | null } | null } }> } | null };
+export type CategoriesQuery = { __typename?: 'Query', Categories?: { __typename?: 'Categories', docs: Array<{ __typename?: 'Category', id: number, title?: string | null, slug: string, description?: any | null, image: { __typename?: 'Media', id: number, alt: string, url?: string | null, filename?: string | null, width?: number | null, height?: number | null, sizes?: { __typename?: 'Media_Sizes', categoryPreview?: { __typename?: 'Media_Sizes_CategoryPreview', url?: string | null, width?: number | null, height?: number | null, mimeType?: string | null, filename?: string | null } | null } | null }, meta?: { __typename?: 'Category_Meta', title?: string | null, description?: string | null } | null }> } | null };
 
 export type FooterQueryVariables = Exact<{
   locale: LocaleInputType;

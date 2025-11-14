@@ -33,7 +33,7 @@ watch(
 )
 
 useSeoMeta({
-  title: computed(() => (categoryStore.currentCategory ? categoryStore.currentCategory.title : '')),
+  title: computed(() => (categoryStore.currentCategory ? categoryStore.currentCategory.meta?.title : '')),
 })
 </script>
 

@@ -22,6 +22,10 @@ query Categories($locale: LocaleInputType!) {
           }
         }
       }
+      meta {
+        title
+        description
+      }
     }
   }
 }
