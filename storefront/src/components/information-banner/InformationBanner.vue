@@ -26,6 +26,8 @@ const contentStore = useContentStore()
 </template>
 
 <style scoped lang="scss">
+@use 'sass:color';
+
 .information-banner {
   &__container {
     height: 40px;
@@ -37,7 +39,11 @@ const contentStore = useContentStore()
 
     &:after {
       content: '';
-      background: linear-gradient(90deg, transparent 0, darken($color-categories-background, 5%));
+      background: linear-gradient(
+        90deg,
+        transparent 0,
+        color.adjust($color-categories-background, $lightness: -5%)
+      );
       width: 30px;
       height: 40px;
       position: absolute;
