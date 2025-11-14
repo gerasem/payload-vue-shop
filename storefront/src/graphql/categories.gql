@@ -4,7 +4,6 @@ query Categories($locale: LocaleInputType!) {
       id
       title
       slug
-      description
       image {
         id
         alt

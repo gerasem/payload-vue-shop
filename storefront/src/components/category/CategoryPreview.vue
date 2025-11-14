@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import CategoryPreviewHeader from '@/components/category/CategoryPreviewHeader.vue'
-import ItemSkeletonContainer from '@/components/item/ItemSkeletonGroup.vue'
 import ItemContainer from '@/components/item/ItemContainer.vue'
 import type { ICategory } from '@/interfaces/ICategory'
-import { useLoaderStore } from '@/stores/LoaderStore'
+import type { IItemGrouped } from '@/interfaces/IItem'
 import { useItemStore } from '@/stores/ItemStore'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 const props = defineProps<{
   category: ICategory
 }>()
@@ -13,7 +12,11 @@ const props = defineProps<{
 const itemStore = useItemStore()
 
 const items = computed(() => {
-  return itemStore.itemsByCategoryForMainPage(props.category.handle)
+  return (
+    itemStore.items
+      .find((i: IItemGrouped) => i.category.slug === props.category.slug)
+      ?.products.slice(0, 4) ?? []
+  )
 })
 </script>
 

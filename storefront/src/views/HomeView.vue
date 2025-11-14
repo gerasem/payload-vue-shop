@@ -7,6 +7,7 @@ import Text2Columns from '@/components/content/Text2Columns.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import { useDevice } from '@/composables/useDevice.ts'
 import { useSeoMeta } from '@unhead/vue'
+import { richTextToHTML } from '@/utils/richtext'
 
 const { isMobile } = useDevice()
 const categoryStore = useCategoryStore()
@@ -46,6 +47,8 @@ useSeoMeta({
             :key="category.id"
             :category="category"
           />
+
+                <!-- <Text2Columns :text="richTextToHTML(categoryStore.currentCategory?.description || [])" /> -->
 
           <Text2Columns header="About us">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores expedita, maiores! Ab

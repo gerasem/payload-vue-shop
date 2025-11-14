@@ -34,10 +34,7 @@ query AllProducts($locale: LocaleInputType!) {
           }
         }
       }
-      meta {
-        title
-        description
-      }
+
       categories {
         id
         slug
