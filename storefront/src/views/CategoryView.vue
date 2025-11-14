@@ -16,7 +16,10 @@ const itemStore = useItemStore()
 
 const items = computed(() => {
   if (categoryStore.currentCategory) {
-    return itemStore.itemsByCategory(categoryStore.currentCategory.slug)
+    return (
+      itemStore.items.find((i) => i.category.slug === categoryStore.currentCategory?.slug)
+        ?.products ?? []
+    )
   }
   return []
 })

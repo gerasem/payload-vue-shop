@@ -12,13 +12,13 @@ export const useCategoryStore = defineStore('category', () => {
   const currentCategory = ref<ICategory | null>(null)
 
   const fetchCategories = async (): Promise<void> => {
-    console.log('fetchCategories called')
+    // console.log('fetchCategories called')
     if (categories.value.length) {
       return
     }
     const data = await gqlRequest<CategoriesQuery>(CATEGORIES_QUERY)
     categories.value = data?.Categories?.docs ?? []
-    console.log('fetched categories:', data)
+    // console.log('fetched categories:', data)
   }
 
   const setCurrentCategory = (handle: string) => {
@@ -32,11 +32,11 @@ export const useCategoryStore = defineStore('category', () => {
       currentCategory.value = foundCategory
     }
 
-    console.log('Current category set to:', currentCategory.value)
+    // console.log('Current category set to:', currentCategory.value)
   }
 
   const hydrate = (data) => {
-    console.log('DATA IN HYDRATE:', data)
+    // console.log('DATA IN HYDRATE:', data)
     if (data?.categories) {
       categories.value = data.categories
     }

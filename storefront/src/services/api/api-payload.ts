@@ -1,9 +1,7 @@
 import { apolloClient } from '@/graphql/apollo-client'
 import { useLoaderStore } from '@/stores/LoaderStore'
-// import type { IHeader } from '@/interfaces/IHeader'
 import { useToastStore } from '@/stores/ToastStore'
 import type { DocumentNode } from 'graphql'
-// import { sdk } from './config'
 
 let locale: string = ''
 
@@ -73,5 +71,3 @@ async function handleRequest<T>(
     }
   }
 }
-
-
