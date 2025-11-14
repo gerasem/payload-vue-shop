@@ -10,12 +10,7 @@ const props = defineProps<{
   category: ICategory
 }>()
 
-onMounted(async () => {
-  await itemStore.getItemsForMainPage(props.category, 4)
-})
-
 const itemStore = useItemStore()
-const loaderStore = useLoaderStore()
 
 const items = computed(() => {
   return itemStore.itemsByCategoryForMainPage(props.category.handle)
@@ -26,16 +21,7 @@ const items = computed(() => {
   <div class="category__preview-container">
     <CategoryPreviewHeader :category="category" />
 
-    <ItemSkeletonContainer
-      v-if="loaderStore.isLoadingKey(`items-${category.handle}`)"
-      :count="4"
-    />
-
-    <ItemContainer
-      v-else
-      :loading="!loaderStore.isLoadingKey(`items-${category.handle}`)"
-      :items="items"
-    />
+    <ItemContainer :items="items" />
   </div>
 </template>
 
