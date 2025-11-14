@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import CategoryPreviewHeader from '@/components/category/CategoryPreviewHeader.vue'
-import ItemSkeleton from '@/components/item/ItemSkeleton.vue'
 import type { ICategory } from '@/interfaces/ICategory'
-import { useLoaderStore } from '@/stores/LoaderStore'
+import type { IItemGrouped } from '@/interfaces/IItem'
 import { useItemStore } from '@/stores/ItemStore'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import Item from '@/components/item/Item.vue'
-import { onMounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 import 'swiper/css'
 
+const { t } = useI18n()
 const props = defineProps<{
   category: ICategory
 }>()
 
-onMounted(() => {
-  itemStore.getItemsForMainPage(props.category, 4)
-})
-
 const itemStore = useItemStore()
-const loaderStore = useLoaderStore()
 
 const items = computed(() => {
-  return itemStore.itemsByCategoryForMainPage(props.category.handle)
+  return (
+    itemStore.items
+      .find((i: IItemGrouped) => i.category.slug === props.category.slug)
+      ?.products.slice(0, 4) ?? []
+  )
 })
 </script>
 
@@ -33,31 +33,15 @@ const items = computed(() => {
       :slidesPerView="1.2"
       :space-between="30"
     >
-      <template v-if="loaderStore.isLoadingKey(`items-${category.handle}`)">
-        <swiper-slide
-          v-for="skeleton in 2"
-          :key="skeleton"
-        >
-          <ItemSkeleton />
-        </swiper-slide>
-      </template>
-
-      <template v-else>
-        <swiper-slide
-          v-for="item in items"
-          :key="item.id"
-        >
-          <Item :item="item" />
-        </swiper-slide>
-      </template>
+      <swiper-slide
+        v-for="item in items"
+        :key="item.id"
+      >
+        <Item :item="item" />
+      </swiper-slide>
     </swiper>
 
-    <p
-      v-if="!loaderStore.isLoadingKey(`items-${category.handle}`) && items.length === 0"
-      class=""
-    >
-      Nothing found
-    </p>
+    <p v-if="items.length === 0">{{ t('Nothing found') }}</p>
   </div>
 </template>
 
