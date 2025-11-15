@@ -14,11 +14,11 @@ import App from './App.vue'
 export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext) => {
   const { app, router, initialState } = context
 
-  console.log(
-    import.meta.env.SSR
-      ? '[vite-ssg] Rendering on server'
-      : '[vite-ssg] Running on client (hydration)',
-  )
+  // console.log(
+  //   import.meta.env.SSR
+  //     ? '[vite-ssg] Rendering on server'
+  //     : '[vite-ssg] Running on client (hydration)',
+  // )
 
   const defaultLang = import.meta.env.VITE_DEFAULT_LANGUAGE || 'de'
   const supportedLocales = (import.meta.env.VITE_LANGUAGES || 'de').split(',')
@@ -40,10 +40,10 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
 
     document.documentElement.setAttribute('lang', finalLang)
 
-    console.log('[Lang] finalLang:', finalLang, 'from URL:', langInUrl, 'from LS:', langInLS)
+    // console.log('[Lang] finalLang:', finalLang, 'from URL:', langInUrl, 'from LS:', langInLS)
   }
 
-  console.log('[i18n] init with lang:', finalLang)
+  // console.log('[i18n] init with lang:', finalLang)
 
   // --- i18n ---
   const messages = await import(`@/i18n/locales/${finalLang}.json`)
@@ -68,6 +68,7 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       contentStore.fetchHeader(),
       contentStore.fetchFooter(),
       contentStore.fetchHomePage(),
+      contentStore.fetchAllItemsPage(),
       categoryStore.fetchCategories(),
       itemStore.fetchItems(),
     ])
@@ -76,8 +77,10 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       informationBanner: contentStore.informationBanner,
       header: contentStore.header,
       footer: contentStore.footer,
-      homePage: contentStore.homePage
+      homePage: contentStore.homePage,
+      allItemsPage: contentStore.allItemsPage,
     }
+
 
     initialState.category = {
       categories: categoryStore.categories,
@@ -87,9 +90,15 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       items: itemStore.items,
     }
 
-    console.log('INITIAL STATE:', initialState)
+    // console.log('INITIAL STATE:', initialState)
   } else {
-    hydrateOrFetch(contentStore, initialState, ['informationBanner', 'header', 'footer', 'homePage'])
+    hydrateOrFetch(contentStore, initialState, [
+      'informationBanner',
+      'header',
+      'footer',
+      'homePage',
+      'allItemsPage',
+    ])
     await Promise.all([
       hydrateOrFetch(categoryStore, initialState, ['categories']),
       hydrateOrFetch(itemStore, initialState, ['items']),

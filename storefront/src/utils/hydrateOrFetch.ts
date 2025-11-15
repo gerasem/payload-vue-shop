@@ -3,20 +3,22 @@ export async function hydrateOrFetch<T extends Record<string, any>>(
   initialState: any,
   keys: (keyof T)[],
 ) {
+  const hydrateSources = ['content', 'category', 'items'] as const
   const missingKeys: (keyof T)[] = []
 
   for (const key of keys) {
-    console.log('key:key:', key)
-    console.log('initialState?.content?.[key]', initialState?.content?.[key])
-    if (initialState?.content?.[key]) {
-      store.hydrate(initialState.content)
-    } else if (initialState?.category?.[key]) {
-      store.hydrate(initialState.category)
-    } else if (initialState?.items?.[key]) {
-      store.hydrate(initialState.items)
-    } else {
-      missingKeys.push(key)
+    let found = false
+
+    for (const source of hydrateSources) {
+      const sourceData = initialState?.[source]?.[key]
+      if (sourceData !== undefined) {
+        store.hydrate(initialState[source])
+        found = true
+        break
+      }
     }
+
+    if (!found) missingKeys.push(key)
   }
 
   for (const key of missingKeys) {

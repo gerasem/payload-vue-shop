@@ -2,14 +2,21 @@
 import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
 import ItemContainer from '@/components/item/ItemContainer.vue'
+import { useContentStore } from '@/stores/ContentStore'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
+import { richTextToHTML } from '@/utils/richtext'
 import { useSeoMeta } from '@unhead/vue'
+import { computed } from 'vue'
 
 const itemStore = useItemStore()
+const contentStore = useContentStore()
 
 useSeoMeta({
-  title: 'All Items',
+  title: computed(() => contentStore.allItemsPage?.meta?.title || contentStore.allItemsPage?.title),
+  description: computed(
+    () => contentStore.allItemsPage?.meta?.description || contentStore.allItemsPage?.title,
+  ),
 })
 </script>
 
@@ -31,7 +38,12 @@ useSeoMeta({
 
   <section class="section">
     <div class="container is-fullhd">
-      <Text2Columns text=""> </Text2Columns>
+      <pre>
+        {{ contentStore.homePage?.content }}
+
+        {{ richTextToHTML(contentStore.allItemsPage?.content) }}
+      </pre>
+      <Text2Columns :text="richTextToHTML(contentStore.allItemsPage?.content || [])"></Text2Columns>
     </div>
   </section>
 </template>

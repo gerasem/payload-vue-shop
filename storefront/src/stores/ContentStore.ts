@@ -21,6 +21,7 @@ export const useContentStore = defineStore('content', () => {
   const header = ref<IHeader | null>(null)
   const footer = ref<IFooter | null>(null)
   const homePage = ref<IPage | null>(null)
+  const allItemsPage = ref<IPage | null>(null)
 
   const fetchInformationBanner = async (): Promise<void> => {
     if (informationBanner.value) return
@@ -46,20 +47,23 @@ export const useContentStore = defineStore('content', () => {
     homePage.value = data.Pages?.docs?.[0] || null
   }
 
+  const fetchAllItemsPage = async (): Promise<void> => {
+    if (allItemsPage.value) return
+    const data = await gqlRequest<PageBySlugQuery>(PAGE_BY_SLUG_QUERY, { slug: 'category' })
+    allItemsPage.value = data.Pages?.docs?.[0] || null
+  }
+
   const hydrate = (data) => {
-    console.log('DATA IN HYDRATE:', data)
-    if (data?.informationBanner) {
-      informationBanner.value = data.informationBanner
-    }
-    if (data?.header) {
-      header.value = data.header
-    }
-    if (data?.footer) {
-      footer.value = data.footer
-    }
-    if (data?.homePage) {
-      homePage.value = data.homePage
-    }
+    // console.log('Data in hydrate', data)
+    Object.entries({
+      informationBanner,
+      header,
+      footer,
+      homePage,
+      allItemsPage,
+    }).forEach(([key, ref]) => {
+      if (key in data) ref.value = data[key]
+    })
   }
 
   return {
@@ -71,6 +75,8 @@ export const useContentStore = defineStore('content', () => {
     fetchFooter,
     homePage,
     fetchHomePage,
+    allItemsPage,
+    fetchAllItemsPage,
     hydrate,
   }
 })
