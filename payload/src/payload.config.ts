@@ -23,7 +23,6 @@ import { SvgMedia } from '@/collections/SvgMedia'
 import { Pages } from '@/collections/Pages'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
-import { Home } from '@/globals/Home'
 import { Header } from '@/globals/Header'
 import { plugins } from './plugins'
 import { InformationBanner } from '@/globals/InformationBanner'
@@ -86,7 +85,7 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Header, Footer, InformationBanner, Home],
+  globals: [Header, Footer, InformationBanner],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

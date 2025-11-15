@@ -13579,20 +13579,20 @@ export type OrdersUpdateDocAccess = {
 export type Page = {
   __typename?: 'Page';
   _status?: Maybe<Page__Status>;
+  content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['Int']['output'];
   layout?: Maybe<Array<Page_Layout>>;
   meta?: Maybe<Page_Meta>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
-  richText?: Maybe<Scalars['JSON']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
-export type PageRichTextArgs = {
+export type PageContentArgs = {
   depth?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -13624,19 +13624,19 @@ export type PageVersionParentArgs = {
 export type PageVersion_Version = {
   __typename?: 'PageVersion_Version';
   _status?: Maybe<PageVersion_Version__Status>;
+  content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   layout?: Maybe<Array<PageVersion_Version_Layout>>;
   meta?: Maybe<PageVersion_Version_Meta>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
-  richText?: Maybe<Scalars['JSON']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
-export type PageVersion_VersionRichTextArgs = {
+export type PageVersion_VersionContentArgs = {
   depth?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -13702,6 +13702,14 @@ export type Page__Status_Operator = {
   in?: InputMaybe<Array<InputMaybe<Page__Status_Input>>>;
   not_equals?: InputMaybe<Page__Status_Input>;
   not_in?: InputMaybe<Array<InputMaybe<Page__Status_Input>>>;
+};
+
+export type Page_Content_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type Page_CreatedAt_Operator = {
@@ -13770,14 +13778,6 @@ export type Page_PublishedOn_Operator = {
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type Page_RichText_Operator = {
-  contains?: InputMaybe<Scalars['JSON']['input']>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['JSON']['input']>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-};
-
 export type Page_Slug_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -13813,6 +13813,7 @@ export type Page_Where = {
   AND?: InputMaybe<Array<InputMaybe<Page_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Page_Where_Or>>>;
   _status?: InputMaybe<Page__Status_Operator>;
+  content?: InputMaybe<Page_Content_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
@@ -13820,7 +13821,6 @@ export type Page_Where = {
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
-  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -13830,6 +13830,7 @@ export type Page_Where_And = {
   AND?: InputMaybe<Array<InputMaybe<Page_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Page_Where_Or>>>;
   _status?: InputMaybe<Page__Status_Operator>;
+  content?: InputMaybe<Page_Content_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
@@ -13837,7 +13838,6 @@ export type Page_Where_And = {
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
-  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -13847,6 +13847,7 @@ export type Page_Where_Or = {
   AND?: InputMaybe<Array<InputMaybe<Page_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Page_Where_Or>>>;
   _status?: InputMaybe<Page__Status_Operator>;
+  content?: InputMaybe<Page_Content_Operator>;
   createdAt?: InputMaybe<Page_CreatedAt_Operator>;
   generateSlug?: InputMaybe<Page_GenerateSlug_Operator>;
   id?: InputMaybe<Page_Id_Operator>;
@@ -13854,7 +13855,6 @@ export type Page_Where_Or = {
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
-  richText?: InputMaybe<Page_RichText_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
   updatedAt?: InputMaybe<Page_UpdatedAt_Operator>;
@@ -13902,12 +13902,12 @@ export type PagesDeleteDocAccess = {
 export type PagesDocAccessFields = {
   __typename?: 'PagesDocAccessFields';
   _status?: Maybe<PagesDocAccessFields__Status>;
+  content?: Maybe<PagesDocAccessFields_Content>;
   createdAt?: Maybe<PagesDocAccessFields_CreatedAt>;
   generateSlug?: Maybe<PagesDocAccessFields_GenerateSlug>;
   layout?: Maybe<PagesDocAccessFields_Layout>;
   meta?: Maybe<PagesDocAccessFields_Meta>;
   publishedOn?: Maybe<PagesDocAccessFields_PublishedOn>;
-  richText?: Maybe<PagesDocAccessFields_RichText>;
   slug?: Maybe<PagesDocAccessFields_Slug>;
   title?: Maybe<PagesDocAccessFields_Title>;
   updatedAt?: Maybe<PagesDocAccessFields_UpdatedAt>;
@@ -13938,6 +13938,34 @@ export type PagesDocAccessFields__Status_Read = {
 
 export type PagesDocAccessFields__Status_Update = {
   __typename?: 'PagesDocAccessFields__status_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_Content = {
+  __typename?: 'PagesDocAccessFields_content';
+  create?: Maybe<PagesDocAccessFields_Content_Create>;
+  delete?: Maybe<PagesDocAccessFields_Content_Delete>;
+  read?: Maybe<PagesDocAccessFields_Content_Read>;
+  update?: Maybe<PagesDocAccessFields_Content_Update>;
+};
+
+export type PagesDocAccessFields_Content_Create = {
+  __typename?: 'PagesDocAccessFields_content_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_Content_Delete = {
+  __typename?: 'PagesDocAccessFields_content_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_Content_Read = {
+  __typename?: 'PagesDocAccessFields_content_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_Content_Update = {
+  __typename?: 'PagesDocAccessFields_content_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -14144,34 +14172,6 @@ export type PagesDocAccessFields_PublishedOn_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type PagesDocAccessFields_RichText = {
-  __typename?: 'PagesDocAccessFields_richText';
-  create?: Maybe<PagesDocAccessFields_RichText_Create>;
-  delete?: Maybe<PagesDocAccessFields_RichText_Delete>;
-  read?: Maybe<PagesDocAccessFields_RichText_Read>;
-  update?: Maybe<PagesDocAccessFields_RichText_Update>;
-};
-
-export type PagesDocAccessFields_RichText_Create = {
-  __typename?: 'PagesDocAccessFields_richText_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_RichText_Delete = {
-  __typename?: 'PagesDocAccessFields_richText_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_RichText_Read = {
-  __typename?: 'PagesDocAccessFields_richText_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesDocAccessFields_RichText_Update = {
-  __typename?: 'PagesDocAccessFields_richText_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
 export type PagesDocAccessFields_Slug = {
   __typename?: 'PagesDocAccessFields_slug';
   create?: Maybe<PagesDocAccessFields_Slug_Create>;
@@ -14259,12 +14259,12 @@ export type PagesDocAccessFields_UpdatedAt_Update = {
 export type PagesFields = {
   __typename?: 'PagesFields';
   _status?: Maybe<PagesFields__Status>;
+  content?: Maybe<PagesFields_Content>;
   createdAt?: Maybe<PagesFields_CreatedAt>;
   generateSlug?: Maybe<PagesFields_GenerateSlug>;
   layout?: Maybe<PagesFields_Layout>;
   meta?: Maybe<PagesFields_Meta>;
   publishedOn?: Maybe<PagesFields_PublishedOn>;
-  richText?: Maybe<PagesFields_RichText>;
   slug?: Maybe<PagesFields_Slug>;
   title?: Maybe<PagesFields_Title>;
   updatedAt?: Maybe<PagesFields_UpdatedAt>;
@@ -14295,6 +14295,34 @@ export type PagesFields__Status_Read = {
 
 export type PagesFields__Status_Update = {
   __typename?: 'PagesFields__status_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_Content = {
+  __typename?: 'PagesFields_content';
+  create?: Maybe<PagesFields_Content_Create>;
+  delete?: Maybe<PagesFields_Content_Delete>;
+  read?: Maybe<PagesFields_Content_Read>;
+  update?: Maybe<PagesFields_Content_Update>;
+};
+
+export type PagesFields_Content_Create = {
+  __typename?: 'PagesFields_content_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_Content_Delete = {
+  __typename?: 'PagesFields_content_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_Content_Read = {
+  __typename?: 'PagesFields_content_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_Content_Update = {
+  __typename?: 'PagesFields_content_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -14498,34 +14526,6 @@ export type PagesFields_PublishedOn_Read = {
 
 export type PagesFields_PublishedOn_Update = {
   __typename?: 'PagesFields_publishedOn_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_RichText = {
-  __typename?: 'PagesFields_richText';
-  create?: Maybe<PagesFields_RichText_Create>;
-  delete?: Maybe<PagesFields_RichText_Delete>;
-  read?: Maybe<PagesFields_RichText_Read>;
-  update?: Maybe<PagesFields_RichText_Update>;
-};
-
-export type PagesFields_RichText_Create = {
-  __typename?: 'PagesFields_richText_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_RichText_Delete = {
-  __typename?: 'PagesFields_richText_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_RichText_Read = {
-  __typename?: 'PagesFields_richText_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PagesFields_RichText_Update = {
-  __typename?: 'PagesFields_richText_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -25772,12 +25772,12 @@ export type MutationOrder_ShippingAddressInput = {
 
 export type MutationPageInput = {
   _status?: InputMaybe<Page__Status_MutationInput>;
+  content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPage_MetaInput>;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
-  richText?: InputMaybe<Scalars['JSON']['input']>;
   slug: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -25785,12 +25785,12 @@ export type MutationPageInput = {
 
 export type MutationPageUpdateInput = {
   _status?: InputMaybe<PageUpdate__Status_MutationInput>;
+  content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPageUpdate_MetaInput>;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
-  richText?: InputMaybe<Scalars['JSON']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -26455,6 +26455,14 @@ export type VersionsPage_Version___Status_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<VersionsPage_Version___Status_Input>>>;
 };
 
+export type VersionsPage_Version__Content_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type VersionsPage_Version__CreatedAt_Operator = {
   equals?: InputMaybe<Scalars['DateTime']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -26511,14 +26519,6 @@ export type VersionsPage_Version__PublishedOn_Operator = {
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type VersionsPage_Version__RichText_Operator = {
-  contains?: InputMaybe<Scalars['JSON']['input']>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['JSON']['input']>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-};
-
 export type VersionsPage_Version__Slug_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -26562,13 +26562,13 @@ export type VersionsPage_Where = {
   snapshot?: InputMaybe<VersionsPage_Snapshot_Operator>;
   updatedAt?: InputMaybe<VersionsPage_UpdatedAt_Operator>;
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
+  version__content?: InputMaybe<VersionsPage_Version__Content_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
-  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -26586,13 +26586,13 @@ export type VersionsPage_Where_And = {
   snapshot?: InputMaybe<VersionsPage_Snapshot_Operator>;
   updatedAt?: InputMaybe<VersionsPage_UpdatedAt_Operator>;
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
+  version__content?: InputMaybe<VersionsPage_Version__Content_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
-  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -26610,13 +26610,13 @@ export type VersionsPage_Where_Or = {
   snapshot?: InputMaybe<VersionsPage_Snapshot_Operator>;
   updatedAt?: InputMaybe<VersionsPage_UpdatedAt_Operator>;
   version___status?: InputMaybe<VersionsPage_Version___Status_Operator>;
+  version__content?: InputMaybe<VersionsPage_Version__Content_Operator>;
   version__createdAt?: InputMaybe<VersionsPage_Version__CreatedAt_Operator>;
   version__generateSlug?: InputMaybe<VersionsPage_Version__GenerateSlug_Operator>;
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
-  version__richText?: InputMaybe<VersionsPage_Version__RichText_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
   version__updatedAt?: InputMaybe<VersionsPage_Version__UpdatedAt_Operator>;
@@ -27322,3 +27322,11 @@ export type ProductsByCategoryIdQueryVariables = Exact<{
 
 
 export type ProductsByCategoryIdQuery = { __typename?: 'Query', Products?: { __typename?: 'Products', totalDocs: number, docs: Array<{ __typename?: 'Product', id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, inventory?: number | null, enableVariants?: boolean | null, gallery?: Array<{ __typename?: 'Product_Gallery', id?: string | null, image?: { __typename?: 'Media', url?: string | null, thumbnailURL?: string | null } | null }> | null, variants?: { __typename?: 'Product_Variants', docs: Array<{ __typename?: 'Variant', id: number, priceInEUR?: number | null, title?: string | null }> } | null, variantTypes?: Array<{ __typename?: 'VariantType', id: number, label: string, name: string, options?: { __typename?: 'VariantType_Options', docs: Array<{ __typename?: 'VariantOption', id: number, label: string, value: string }> } | null }> | null, meta?: { __typename?: 'Product_Meta', title?: string | null, description?: string | null } | null }> } | null };
+
+export type PageBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: LocaleInputType;
+}>;
+
+
+export type PageBySlugQuery = { __typename?: 'Query', Pages?: { __typename?: 'Pages', docs: Array<{ __typename?: 'Page', id: number, title?: string | null, slug?: string | null, content?: any | null, meta?: { __typename?: 'Page_Meta', title?: string | null, description?: string | null } | null }> } | null };

@@ -39,6 +39,15 @@ export function richTextToHTML(node: LexicalNode): string {
         html += wrapFormat(n.text, n.format || 0)
         break
 
+      case 'heading':
+        const tag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(n.tag)
+          ? n.tag
+          : 'h2' 
+        html += `<${tag}>`
+        n.children?.forEach(traverse)
+        html += `</${tag}>`
+        break
+
       case 'link':
         const url = n.fields?.url || '#'
         html += `<a href="${url}" target="_blank" rel="noopener noreferrer">`
@@ -47,10 +56,10 @@ export function richTextToHTML(node: LexicalNode): string {
         break
 
       case 'list':
-        const tag = n.listType === 'number' || n.tag === 'ol' ? 'ol' : 'ul'
-        html += `<${tag}>`
+        const listTag = n.listType === 'number' || n.tag === 'ol' ? 'ol' : 'ul'
+        html += `<${listTag}>`
         n.children?.forEach(traverse)
-        html += `</${tag}>`
+        html += `</${listTag}>`
         break
 
       case 'listitem':
@@ -73,7 +82,7 @@ export function richTextToHTML(node: LexicalNode): string {
 
       case 'tablecell':
         const tagCell = n.headerState && n.headerState > 0 ? 'th' : 'td'
-        html += `<${tagCell}${n.colSpan && n.colSpan > 1 ? ` colspan="${n.colSpan}"` : ''}${n.rowSpan && n.rowSpan > 1 ? ` rowspan="${n.rowSpan}"` : ''}>`
+        html += `<${tagCell}${n.colSpan > 1 ? ` colspan="${n.colSpan}"` : ''}${n.rowSpan > 1 ? ` rowspan="${n.rowSpan}"` : ''}>`
         n.children?.forEach(traverse)
         html += `</${tagCell}>`
         break

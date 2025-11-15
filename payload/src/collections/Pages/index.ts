@@ -103,7 +103,7 @@ export const Pages: CollectionConfig = {
               required: false,
             },
             {
-              name: 'richText',
+              name: 'content',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {

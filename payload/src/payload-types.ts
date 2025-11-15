@@ -131,13 +131,11 @@ export interface Config {
     header: Header;
     footer: Footer;
     'information-banner': InformationBanner;
-    home: Home;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'information-banner': InformationBannerSelect<false> | InformationBannerSelect<true>;
-    home: HomeSelect<false> | HomeSelect<true>;
   };
   locale: 'de' | 'en';
   user: User & {
@@ -445,7 +443,7 @@ export interface Page {
         | FormBlock
       )[]
     | null;
-  richText?: {
+  content?: {
     root: {
       type: string;
       children: {
@@ -1210,7 +1208,7 @@ export interface PagesSelect<T extends boolean = true> {
         banner?: T | BannerBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
       };
-  richText?: T;
+  content?: T;
   meta?:
     | T
     | {
@@ -1905,31 +1903,6 @@ export interface InformationBanner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home".
- */
-export interface Home {
-  id: number;
-  header?: string | null;
-  text?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2030,17 +2003,6 @@ export interface InformationBannerSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home_select".
- */
-export interface HomeSelect<T extends boolean = true> {
-  header?: T;
-  text?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

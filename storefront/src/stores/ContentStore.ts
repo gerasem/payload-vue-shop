@@ -17,6 +17,7 @@ export const useContentStore = defineStore('content', () => {
   const informationBanner = ref<IInformationBanner[] | null>(null)
   const header = ref<IHeader | null>(null)
   const footer = ref<IFooter | null>(null)
+  const homePage = ref<any | null>(null) 
 
   const fetchInformationBanner = async (): Promise<void> => {
     if (informationBanner.value) return

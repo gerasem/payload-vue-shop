@@ -1,0 +1,19 @@
+query PageBySlug($slug: String!, $locale: LocaleInputType!) {
+  Pages(
+    where: { slug: { equals: $slug } }
+    locale: $locale
+    limit: 1
+  ) {
+    docs {
+      id
+      title
+      slug
+      content
+
+      meta {
+        title
+        description
+      }
+    }
+  }
+}
