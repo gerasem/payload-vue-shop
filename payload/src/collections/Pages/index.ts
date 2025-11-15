@@ -115,7 +115,8 @@ export const Pages: CollectionConfig = {
                   ]
                 },
               }),
-              label: false,
+              label: 'Content',
+              localized: true,
             },
           ],
           label: 'Content',

@@ -28,7 +28,6 @@ export type Access = {
   form_submissions?: Maybe<Form_SubmissionsAccess>;
   forms?: Maybe<FormsAccess>;
   header?: Maybe<HeaderAccess>;
-  home?: Maybe<HomeAccess>;
   information_banner?: Maybe<Information_BannerAccess>;
   media?: Maybe<MediaAccess>;
   orders?: Maybe<OrdersAccess>;
@@ -8669,283 +8668,6 @@ export enum Header_NavItems_Link_Type {
   Reference = 'reference'
 }
 
-export type Home = {
-  __typename?: 'Home';
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  header?: Maybe<Scalars['String']['output']>;
-  text?: Maybe<Scalars['JSON']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type HomeTextArgs = {
-  depth?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type HomeDocAccessFields = {
-  __typename?: 'HomeDocAccessFields';
-  createdAt?: Maybe<HomeDocAccessFields_CreatedAt>;
-  header?: Maybe<HomeDocAccessFields_Header>;
-  text?: Maybe<HomeDocAccessFields_Text>;
-  updatedAt?: Maybe<HomeDocAccessFields_UpdatedAt>;
-};
-
-export type HomeDocAccessFields_CreatedAt = {
-  __typename?: 'HomeDocAccessFields_createdAt';
-  create?: Maybe<HomeDocAccessFields_CreatedAt_Create>;
-  delete?: Maybe<HomeDocAccessFields_CreatedAt_Delete>;
-  read?: Maybe<HomeDocAccessFields_CreatedAt_Read>;
-  update?: Maybe<HomeDocAccessFields_CreatedAt_Update>;
-};
-
-export type HomeDocAccessFields_CreatedAt_Create = {
-  __typename?: 'HomeDocAccessFields_createdAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_CreatedAt_Delete = {
-  __typename?: 'HomeDocAccessFields_createdAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_CreatedAt_Read = {
-  __typename?: 'HomeDocAccessFields_createdAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_CreatedAt_Update = {
-  __typename?: 'HomeDocAccessFields_createdAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Header = {
-  __typename?: 'HomeDocAccessFields_header';
-  create?: Maybe<HomeDocAccessFields_Header_Create>;
-  delete?: Maybe<HomeDocAccessFields_Header_Delete>;
-  read?: Maybe<HomeDocAccessFields_Header_Read>;
-  update?: Maybe<HomeDocAccessFields_Header_Update>;
-};
-
-export type HomeDocAccessFields_Header_Create = {
-  __typename?: 'HomeDocAccessFields_header_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Header_Delete = {
-  __typename?: 'HomeDocAccessFields_header_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Header_Read = {
-  __typename?: 'HomeDocAccessFields_header_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Header_Update = {
-  __typename?: 'HomeDocAccessFields_header_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Text = {
-  __typename?: 'HomeDocAccessFields_text';
-  create?: Maybe<HomeDocAccessFields_Text_Create>;
-  delete?: Maybe<HomeDocAccessFields_Text_Delete>;
-  read?: Maybe<HomeDocAccessFields_Text_Read>;
-  update?: Maybe<HomeDocAccessFields_Text_Update>;
-};
-
-export type HomeDocAccessFields_Text_Create = {
-  __typename?: 'HomeDocAccessFields_text_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Text_Delete = {
-  __typename?: 'HomeDocAccessFields_text_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Text_Read = {
-  __typename?: 'HomeDocAccessFields_text_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_Text_Update = {
-  __typename?: 'HomeDocAccessFields_text_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_UpdatedAt = {
-  __typename?: 'HomeDocAccessFields_updatedAt';
-  create?: Maybe<HomeDocAccessFields_UpdatedAt_Create>;
-  delete?: Maybe<HomeDocAccessFields_UpdatedAt_Delete>;
-  read?: Maybe<HomeDocAccessFields_UpdatedAt_Read>;
-  update?: Maybe<HomeDocAccessFields_UpdatedAt_Update>;
-};
-
-export type HomeDocAccessFields_UpdatedAt_Create = {
-  __typename?: 'HomeDocAccessFields_updatedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_UpdatedAt_Delete = {
-  __typename?: 'HomeDocAccessFields_updatedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_UpdatedAt_Read = {
-  __typename?: 'HomeDocAccessFields_updatedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeDocAccessFields_UpdatedAt_Update = {
-  __typename?: 'HomeDocAccessFields_updatedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields = {
-  __typename?: 'HomeFields';
-  createdAt?: Maybe<HomeFields_CreatedAt>;
-  header?: Maybe<HomeFields_Header>;
-  text?: Maybe<HomeFields_Text>;
-  updatedAt?: Maybe<HomeFields_UpdatedAt>;
-};
-
-export type HomeFields_CreatedAt = {
-  __typename?: 'HomeFields_createdAt';
-  create?: Maybe<HomeFields_CreatedAt_Create>;
-  delete?: Maybe<HomeFields_CreatedAt_Delete>;
-  read?: Maybe<HomeFields_CreatedAt_Read>;
-  update?: Maybe<HomeFields_CreatedAt_Update>;
-};
-
-export type HomeFields_CreatedAt_Create = {
-  __typename?: 'HomeFields_createdAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_CreatedAt_Delete = {
-  __typename?: 'HomeFields_createdAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_CreatedAt_Read = {
-  __typename?: 'HomeFields_createdAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_CreatedAt_Update = {
-  __typename?: 'HomeFields_createdAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Header = {
-  __typename?: 'HomeFields_header';
-  create?: Maybe<HomeFields_Header_Create>;
-  delete?: Maybe<HomeFields_Header_Delete>;
-  read?: Maybe<HomeFields_Header_Read>;
-  update?: Maybe<HomeFields_Header_Update>;
-};
-
-export type HomeFields_Header_Create = {
-  __typename?: 'HomeFields_header_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Header_Delete = {
-  __typename?: 'HomeFields_header_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Header_Read = {
-  __typename?: 'HomeFields_header_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Header_Update = {
-  __typename?: 'HomeFields_header_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Text = {
-  __typename?: 'HomeFields_text';
-  create?: Maybe<HomeFields_Text_Create>;
-  delete?: Maybe<HomeFields_Text_Delete>;
-  read?: Maybe<HomeFields_Text_Read>;
-  update?: Maybe<HomeFields_Text_Update>;
-};
-
-export type HomeFields_Text_Create = {
-  __typename?: 'HomeFields_text_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Text_Delete = {
-  __typename?: 'HomeFields_text_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Text_Read = {
-  __typename?: 'HomeFields_text_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_Text_Update = {
-  __typename?: 'HomeFields_text_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_UpdatedAt = {
-  __typename?: 'HomeFields_updatedAt';
-  create?: Maybe<HomeFields_UpdatedAt_Create>;
-  delete?: Maybe<HomeFields_UpdatedAt_Delete>;
-  read?: Maybe<HomeFields_UpdatedAt_Read>;
-  update?: Maybe<HomeFields_UpdatedAt_Update>;
-};
-
-export type HomeFields_UpdatedAt_Create = {
-  __typename?: 'HomeFields_updatedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_UpdatedAt_Delete = {
-  __typename?: 'HomeFields_updatedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_UpdatedAt_Read = {
-  __typename?: 'HomeFields_updatedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeFields_UpdatedAt_Update = {
-  __typename?: 'HomeFields_updatedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type HomeReadAccess = {
-  __typename?: 'HomeReadAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type HomeReadDocAccess = {
-  __typename?: 'HomeReadDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type HomeUpdateAccess = {
-  __typename?: 'HomeUpdateAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type HomeUpdateDocAccess = {
-  __typename?: 'HomeUpdateDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
 export type InformationBanner = {
   __typename?: 'InformationBanner';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -10996,7 +10718,6 @@ export type Mutation = {
   updateForm?: Maybe<Form>;
   updateFormSubmission?: Maybe<FormSubmission>;
   updateHeader?: Maybe<Header>;
-  updateHome?: Maybe<Home>;
   updateInformationBanner?: Maybe<InformationBanner>;
   updateMedia?: Maybe<Media>;
   updateOrder?: Maybe<Order>;
@@ -11437,13 +11158,6 @@ export type MutationUpdateFormSubmissionArgs = {
 
 export type MutationUpdateHeaderArgs = {
   data: MutationHeaderInput;
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type MutationUpdateHomeArgs = {
-  data: MutationHomeInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
 };
@@ -17782,7 +17496,6 @@ export type Query = {
   FormSubmissions?: Maybe<FormSubmissions>;
   Forms?: Maybe<Forms>;
   Header?: Maybe<Header>;
-  Home?: Maybe<Home>;
   InformationBanner?: Maybe<InformationBanner>;
   Media?: Maybe<Media>;
   Order?: Maybe<Order>;
@@ -17832,7 +17545,6 @@ export type Query = {
   docAccessForm?: Maybe<FormsDocAccess>;
   docAccessFormSubmission?: Maybe<Form_SubmissionsDocAccess>;
   docAccessHeader?: Maybe<HeaderDocAccess>;
-  docAccessHome?: Maybe<HomeDocAccess>;
   docAccessInformationBanner?: Maybe<Information_BannerDocAccess>;
   docAccessMedia?: Maybe<MediaDocAccess>;
   docAccessOrder?: Maybe<OrdersDocAccess>;
@@ -17986,14 +17698,6 @@ export type QueryFormsArgs = {
 
 
 export type QueryHeaderArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-  select?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryHomeArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
   locale?: InputMaybe<LocaleInputType>;
@@ -25313,20 +25017,6 @@ export type HeaderDocAccess = {
   update?: Maybe<HeaderUpdateDocAccess>;
 };
 
-export type HomeAccess = {
-  __typename?: 'homeAccess';
-  fields?: Maybe<HomeFields>;
-  read?: Maybe<HomeReadAccess>;
-  update?: Maybe<HomeUpdateAccess>;
-};
-
-export type HomeDocAccess = {
-  __typename?: 'homeDocAccess';
-  fields?: Maybe<HomeDocAccessFields>;
-  read?: Maybe<HomeReadDocAccess>;
-  update?: Maybe<HomeUpdateDocAccess>;
-};
-
 export type Information_BannerAccess = {
   __typename?: 'information_bannerAccess';
   fields?: Maybe<InformationBannerFields>;
@@ -25623,13 +25313,6 @@ export type MutationHeader_NavItems_LinkInput = {
   reference?: InputMaybe<Header_NavItems_Link_ReferenceRelationshipInput>;
   type?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type MutationHomeInput = {
-  createdAt?: InputMaybe<Scalars['String']['input']>;
-  header?: InputMaybe<Scalars['String']['input']>;
-  text?: InputMaybe<Scalars['JSON']['input']>;
-  updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationInformationBannerInput = {

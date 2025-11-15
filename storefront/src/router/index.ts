@@ -2,7 +2,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import { RouterView } from 'vue-router'
 
-const isClient = typeof window !== 'undefined'
+
+// const isClient = typeof window !== 'undefined'
 
 const routes: RouteRecordRaw[] = [
   {
