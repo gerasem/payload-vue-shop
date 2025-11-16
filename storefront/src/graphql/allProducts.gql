@@ -40,6 +40,11 @@ query AllProducts($locale: LocaleInputType!) {
         slug
         title
       }
+
+      meta{
+        title
+        description
+      }
     }
 
     totalDocs

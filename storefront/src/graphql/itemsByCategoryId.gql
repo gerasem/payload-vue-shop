@@ -1,45 +1,45 @@
-query ProductsByCategoryId($locale: LocaleInputType!, $where: Product_where!) {
-  Products(where: $where, locale: $locale, limit: 1000) {
-    docs {
-      id
-      title
-      slug
-      priceInEUR
-      inventory
-      enableVariants
-      gallery {
-        id
-        image {
-          url
-          thumbnailURL
-        }
-      }
-      variants {
-        docs {
-          id
-          priceInEUR
-          title
-          priceInEUR
-        }
-      }
-      variantTypes {
-        id
-        label
-        name
-        options {
-          docs {
-            id
-            label
-            value
-          }
-        }
-      }
-      meta {
-        title
-        description
-      }
-    }
+# query ProductsByCategoryId($locale: LocaleInputType!, $where: Product_where!) {
+#   Products(where: $where, locale: $locale, limit: 1000) {
+#     docs {
+#       id
+#       title
+#       slug
+#       priceInEUR
+#       inventory
+#       enableVariants
+#       gallery {
+#         id
+#         image {
+#           url
+#           thumbnailURL
+#         }
+#       }
+#       variants {
+#         docs {
+#           id
+#           priceInEUR
+#           title
+#           priceInEUR
+#         }
+#       }
+#       variantTypes {
+#         id
+#         label
+#         name
+#         options {
+#           docs {
+#             id
+#             label
+#             value
+#           }
+#         }
+#       }
+#       meta {
+#         title
+#         description
+#       }
+#     }
 
-    totalDocs
-  }
-}
+#     totalDocs
+#   }
+# }

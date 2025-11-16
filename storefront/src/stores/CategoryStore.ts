@@ -1,7 +1,7 @@
 import type { CategoriesQuery } from '@/generated/graphql'
 import { gqlRequest } from '@/services/api/api-payload'
 import type { ICategory } from '@/interfaces/ICategory'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -9,7 +9,7 @@ import CATEGORIES_QUERY from '@/graphql/categories.gql'
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref<ICategory[]>([])
-  const currentCategory = ref<ICategory | null>(null)
+  // const currentCategory = ref<ICategory | null>(null)
 
   const fetchCategories = async (): Promise<void> => {
     // console.log('fetchCategories called')
@@ -21,19 +21,19 @@ export const useCategoryStore = defineStore('category', () => {
     // console.log('fetched categories:', data)
   }
 
-  const setCurrentCategory = (handle: string) => {
-    if (!categories.value.length) return
-    const foundCategory = categories.value.find((cat: ICategory) => cat.slug === handle)
+  // const setCurrentCategory = (handle: string) => {
+  //   if (!categories.value.length) return
+  //   const foundCategory = categories.value.find((cat: ICategory) => cat.slug === handle)
 
-    const router = useRouter()
-    if (!foundCategory) {
-      router.push({ name: '404' })
-    } else {
-      currentCategory.value = foundCategory
-    }
+  //   const router = useRouter()
+  //   if (!foundCategory) {
+  //     router.push({ name: '404' })
+  //   } else {
+  //     currentCategory.value = foundCategory
+  //   }
 
-    // console.log('Current category set to:', currentCategory.value)
-  }
+  //   // console.log('Current category set to:', currentCategory.value)
+  // }
 
   const hydrate = (data) => {
     // console.log('DATA IN HYDRATE:', data)
@@ -42,5 +42,5 @@ export const useCategoryStore = defineStore('category', () => {
     }
   }
 
-  return { categories, currentCategory, setCurrentCategory, fetchCategories, hydrate }
+  return { categories, fetchCategories, hydrate }
 })

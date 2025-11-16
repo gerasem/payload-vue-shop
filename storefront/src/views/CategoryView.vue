@@ -6,37 +6,33 @@ import { useCategoryStore } from '@/stores/CategoryStore'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
+import { useRoute, useRouter } from 'vue-router'
 import { useSeoMeta } from '@unhead/vue'
-import { useRoute } from 'vue-router'
 import { watch, computed } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
+
 const categoryStore = useCategoryStore()
 const itemStore = useItemStore()
 
 const items = computed(() => {
-  if (categoryStore.currentCategory) {
-    return (
-      itemStore.items.find((i) => i.category.slug === categoryStore.currentCategory?.slug)
-        ?.products ?? []
-    )
-  }
-  return []
+  return itemStore.items.find((i) => i.category.slug === category.value?.slug)?.products ?? []
 })
 
-watch(
-  () => route.params.handle,
-  (newHandle) => {
-    categoryStore.setCurrentCategory(newHandle as string)
-  },
-  { immediate: true },
-)
+const category = computed(() => {
+  return categoryStore.categories.find((cat) => cat.slug === route.params.handle) || null
+})
+
+watch(category, (value) => {
+  if (!value) {
+    router.push({ name: '404' })
+  }
+})
 
 useSeoMeta({
-title: computed(() => categoryStore.currentCategory?.meta?.title || categoryStore.currentCategory?.title),
-  description: computed(
-    () => categoryStore.currentCategory?.meta?.description || categoryStore.currentCategory?.title,
-  ),
+  title: computed(() => category.value?.meta?.title || category.value?.title),
+  description: computed(() => category.value?.meta?.description || category.value?.title),
 })
 </script>
 
@@ -45,7 +41,7 @@ title: computed(() => categoryStore.currentCategory?.meta?.title || categoryStor
 
   <main class="container is-fluid">
     <Header :level="1">
-      {{ categoryStore.currentCategory?.title }}
+      {{ category?.title }}
     </Header>
 
     <ItemContainer :items="items" />
@@ -53,7 +49,7 @@ title: computed(() => categoryStore.currentCategory?.meta?.title || categoryStor
 
   <section class="section">
     <div class="container is-fullhd">
-      <Text2Columns :text="richTextToHTML(categoryStore.currentCategory?.description || [])" />
+      <Text2Columns :text="richTextToHTML(category?.description || [])" />
     </div>
   </section>
 </template>
