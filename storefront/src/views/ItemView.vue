@@ -8,6 +8,7 @@ import Gallery from '@/components/gallery/Gallery.vue'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
+import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
 import type { IItem } from '@/interfaces/IItem'
 import ApiService from '@/services/api/api'
@@ -49,27 +50,25 @@ useSeoMeta({
   <main class="container is-fluid">
     <BreadcrumbItem :category="category" />
 
-    <!-- <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
+    <!-- <pre>{{ item }}</pre> -->
+    <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
       <div class="column is-three-fifths-widescreen is-half-desktop">
         <Gallery :item="item" />
       </div>
 
       <div class="column is-desktop">
-        <Header
-          :level="1"
-          v-if="item"
-        >
-          {{ item.title }}
+        <Header :level="1">
+          {{ item?.title }}
         </Header>
 
         <ProductActions :product="item" />
       </div>
-    </div> -->
+    </div>
   </main>
 
   <section class="section">
     <div class="container is-fullhd">
-      <!-- <Text2Columns v-if="item"> {{ item.description }} </Text2Columns> -->
+      <Text2Columns :text="richTextToHTML(item?.description || [])"> </Text2Columns>
     </div>
   </section>
 </template>

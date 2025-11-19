@@ -7,12 +7,14 @@ query AllProducts($locale: LocaleInputType!) {
       priceInEUR
       inventory
       enableVariants
+      description
       gallery {
         id
-        image {
-          url
-          thumbnailURL
-        }
+        url
+        thumbnailURL
+        width
+        height
+        alt
       }
       variants {
         docs {

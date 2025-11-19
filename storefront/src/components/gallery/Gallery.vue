@@ -1,32 +1,50 @@
 <script setup lang="ts">
-// import PhotoSwipeLightbox from 'photoswipe/lightbox'
-// import { HttpTypes } from '@medusajs/types'
-// import 'photoswipe/style.css'
+import defaultImage from '@/assets/images/_default-image.svg'
+import PhotoSwipeLightbox from 'photoswipe/lightbox'
+import { onMounted, onUnmounted, ref } from 'vue'
+import type { IItem } from '@/interfaces/IItem'
+import 'photoswipe/style.css'
 
-// const props = defineProps<{
-//   item: HttpTypes.StoreProduct | null
-//   loading: boolean
-// }>()
+const props = defineProps<{
+  item: IItem
+}>()
 
-// const getImageSize = (url: string) => {
-//   return new Promise((resolve) => {
-//     const img = new Image()
-//     img.src = url
-//     img.onload = () => {
-//       resolve({
-//         src: url,
-//         w: img.naturalWidth,
-//         h: img.naturalHeight,
-//       })
-//     }
-//   })
-// }
+const lightbox = ref()
+
+onMounted(() => {
+  if (!lightbox.value) {
+    lightbox.value = new PhotoSwipeLightbox({
+      gallery: '#item-gallery',
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+    })
+    lightbox.value.init()
+  }
+})
+
+onUnmounted(() => {
+  if (lightbox.value) {
+    lightbox.value.destroy()
+    lightbox.value = null
+  }
+})
+
+const getImage = (imageUrl: string | null | undefined) => {
+  return import.meta.env.VITE_BACKEND_DOMAIN + imageUrl || defaultImage
+}
 
 // const openGallery = async (startIndex: number) => {
-//   if (!props.item?.images) {
+//   if (!props.item?.gallery) {
 //     return
 //   }
-//   const items = await Promise.all(props.item.images.map((img) => getImageSize(img.url)))
+//   // const items = await Promise.all(props.item.gallery.map((img) => getImageSize(img?.image?.url)))
+
+//   // const items = props.item.gallery.map(img => {
+//   //   return  {
+//   //     ...img,
+//   //     src:
+//   //   }
+//   // })
 
 //   const lightbox = new PhotoSwipeLightbox({
 //     dataSource: items,
@@ -39,44 +57,33 @@
 </script>
 
 <template>
-  <div v-if="false"
+  <div
     id="gallery"
     class="gallery__row"
-    :class="{ 'gallery__row--one-image': item?.images?.length === 1 }"
+    :class="{ 'gallery__row--one-image': item?.gallery?.length === 1 }"
   >
-    <template v-if="loading">
-      <figure
-        v-for="skeleton in 4"
-        :key="skeleton"
-        class="block image is-256x256 is-skeleton"
+    <div
+      v-if="item?.gallery"
+      id="item-gallery"
+    >
+      <a
+        v-for="(image, key) in item.gallery"
+        :key="key"
+        :href="getImage(image.image?.url)"
+        :data-pswp-width="image.image?.width"
+        :data-pswp-height="image.image?.height"
+        target="_blank"
+        rel="noreferrer"
+        class="gallery__item"
       >
         <img
-          alt="Placeholder"
-          src="https://placehold.co/128x128"
+          :src="getImage(image.image?.thumbnailURL ?? image.image?.url)"
+          :alt="image.image?.alt"
         />
-      </figure>
-    </template>
+      </a>
+    </div>
 
-    <template v-else>
-      <template v-if="item?.images">
-        <a
-          v-for="(image, key) in item.images"
-          :key="key"
-          href="#"
-          target="_blank"
-          rel="noreferrer"
-          class="gallery__item"
-          @click.prevent="openGallery(key)"
-        >
-          <img
-            :src="image.url"
-            :alt="`Image ${key + 1}`"
-          />
-        </a>
-      </template>
-
-      <p v-else>No images</p>
-    </template>
+    <p v-else>No images</p>
   </div>
 </template>
 
