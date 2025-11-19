@@ -1,23 +1,31 @@
 <script setup lang="ts">
-import { useProductPrice } from '@/composables/useProductPrice'
+import {
+  getMinPriceFormatted,
+  getMinPriceInCents,
+  formatEuro,
+  areAllPricesEqual,
+} from '@/utils/priceUtils'
 import { localePath } from '@/composables/localePath.ts'
 import type { IItem } from '@/interfaces/IItem'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 
-const { getProductPrice } = useProductPrice()
 const { t } = useI18n()
 
 const props = defineProps<{
   item: IItem
 }>()
 
-const { cheapestPrice } = getProductPrice({
-  product: props.item,
-})
-
 const imageUrl = computed(() => {
   return import.meta.env.VITE_BACKEND_DOMAIN + props.item.gallery?.[0]?.url
+})
+
+const price = computed(() => {
+  if (areAllPricesEqual(props.item)) {
+    return formatEuro(props.item.priceInEUR)
+  } else {
+    return `${t('From')} ${getMinPriceFormatted(props.item)}`
+  }
 })
 </script>
 
@@ -35,11 +43,8 @@ const imageUrl = computed(() => {
     <div class="item__bottom">
       <h3 class="item__title">{{ item.title }}</h3>
 
-      <div
-        v-if="cheapestPrice"
-        class="item__price"
-      >
-        {{ t('from') }}
+      <div class="item__price">
+        {{ price }}
       </div>
     </div>
   </RouterLink>
