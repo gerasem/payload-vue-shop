@@ -32,28 +32,6 @@ onUnmounted(() => {
 const getImage = (imageUrl: string | null | undefined) => {
   return import.meta.env.VITE_BACKEND_DOMAIN + imageUrl || defaultImage
 }
-
-// const openGallery = async (startIndex: number) => {
-//   if (!props.item?.gallery) {
-//     return
-//   }
-//   // const items = await Promise.all(props.item.gallery.map((img) => getImageSize(img?.image?.url)))
-
-//   // const items = props.item.gallery.map(img => {
-//   //   return  {
-//   //     ...img,
-//   //     src:
-//   //   }
-//   // })
-
-//   const lightbox = new PhotoSwipeLightbox({
-//     dataSource: items,
-//     pswpModule: () => import('photoswipe'),
-//   })
-
-//   lightbox.init()
-//   lightbox.loadAndOpen(startIndex)
-// }
 </script>
 
 <template>
@@ -69,16 +47,16 @@ const getImage = (imageUrl: string | null | undefined) => {
       <a
         v-for="(image, key) in item.gallery"
         :key="key"
-        :href="getImage(image.image?.url)"
-        :data-pswp-width="image.image?.width"
-        :data-pswp-height="image.image?.height"
+        :href="getImage(image?.url)"
+        :data-pswp-width="image?.width"
+        :data-pswp-height="image?.height"
         target="_blank"
         rel="noreferrer"
         class="gallery__item"
       >
         <img
-          :src="getImage(image.image?.thumbnailURL ?? image.image?.url)"
-          :alt="image.image?.alt"
+          :src="getImage(image?.thumbnailURL ?? image?.url)"
+          :alt="image?.alt"
         />
       </a>
     </div>

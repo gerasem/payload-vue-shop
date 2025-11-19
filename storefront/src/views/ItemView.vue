@@ -53,7 +53,10 @@ useSeoMeta({
     <!-- <pre>{{ item }}</pre> -->
     <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
       <div class="column is-three-fifths-widescreen is-half-desktop">
-        <Gallery :item="item" />
+        <Gallery
+          v-if="item"
+          :item="item"
+        />
       </div>
 
       <div class="column is-desktop">

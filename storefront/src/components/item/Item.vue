@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useProductPrice } from '@/composables/useProductPrice'
-import defaultImage from '@/assets/images/_default-image.svg'
 import { localePath } from '@/composables/localePath.ts'
 import type { IItem } from '@/interfaces/IItem'
 import { useI18n } from 'vue-i18n'
@@ -18,7 +17,7 @@ const { cheapestPrice } = getProductPrice({
 })
 
 const imageUrl = computed(() => {
-  return import.meta.env.VITE_BACKEND_DOMAIN + props.item.gallery?.[0]?.image?.url || defaultImage
+  return import.meta.env.VITE_BACKEND_DOMAIN + props.item.gallery?.[0]?.url
 })
 </script>
 
