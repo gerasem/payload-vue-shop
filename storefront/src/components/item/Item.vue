@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  getMinPriceFormatted,
-  getMinPriceInCents,
-  formatEuro,
-  areAllPricesEqual,
-} from '@/utils/priceUtils'
+import { getMinPriceFormatted, formatEuro, areAllPricesEqual } from '@/utils/priceUtils'
 import { localePath } from '@/composables/localePath.ts'
 import type { IItem } from '@/interfaces/IItem'
 import { useI18n } from 'vue-i18n'

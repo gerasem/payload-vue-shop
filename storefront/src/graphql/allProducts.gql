@@ -21,7 +21,13 @@ query AllProducts($locale: LocaleInputType!) {
           id
           priceInEUR
           title
-          priceInEUR
+          options {
+            id
+            label
+            value
+          }
+          inventory
+          
         }
       }
       variantTypes {
