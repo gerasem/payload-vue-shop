@@ -102,7 +102,7 @@ useSeoMeta({
   <main class="container is-fluid">
     <BreadcrumbItem :category="category" />
 
-    <pre>{{ item }}</pre>
+    <!-- <pre>{{ item }}</pre> -->
     <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
       <div class="column is-three-fifths-widescreen is-half-desktop">
         <Gallery
@@ -122,16 +122,16 @@ useSeoMeta({
           {{ selectedVariant ? selectedVariantPrice : price }}
         </h4>
 
-        <pre>{{ selectedVariantPrice }}</pre>
+        <!-- <pre>{{ selectedVariantPrice }}</pre> -->
 
         <div v-if="item?.variants?.docs.length && item?.variants?.docs.length > 0">
-          <pre>
+          <!-- <pre>
             {{ selectedOptions }}
           </pre>
 
           <pre>
             {{ selectedVariant }}
-          </pre>
+          </pre> -->
           <div
             v-for="type in variantTypes"
             :key="type.id"
