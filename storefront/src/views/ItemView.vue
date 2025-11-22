@@ -3,6 +3,7 @@ import { getMinPriceFormatted, formatEuro, areAllPricesEqual } from '@/utils/pri
 import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
 import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
 import ProductActions from '@/components/item-view/ProductActions.vue'
+import OptionSelect from '@/components/item-view/OptionSelect.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import Gallery from '@/components/gallery/Gallery.vue'
@@ -55,12 +56,6 @@ const price = computed(() => {
 })
 
 const selectedOptions = ref<Record<string, string>>({})
-
-const variantTypes = computed(() => item.value?.variantTypes || [])
-
-const selectOption = (typeName: string, value: string) => {
-  selectedOptions.value[typeName] = value
-}
 
 const selectedVariant = computed(() => {
   if (!item.value?.variants?.docs || item.value.variants.docs.length === 0) return null
@@ -132,27 +127,7 @@ useSeoMeta({
           <pre>
             {{ selectedVariant }}
           </pre> -->
-          <div
-            v-for="type in variantTypes"
-            :key="type.id"
-            class="mb-5"
-          >
-            <p class="label mb-2">{{ type.label }}</p>
-
-            <div class="buttons has-addons">
-              <button
-                v-for="opt in type.options?.docs"
-                :key="opt.id"
-                @click="selectOption(type.name, opt.value)"
-                :class="{
-                  'is-primary is-selected': selectedOptions[type.name] === opt.value,
-                }"
-                class="button is-small"
-              >
-                {{ opt.label }}
-              </button>
-            </div>
-          </div>
+          <OptionSelect :item="item" v-model="selectedOptions"/>
         </div>
       </div>
     </div>

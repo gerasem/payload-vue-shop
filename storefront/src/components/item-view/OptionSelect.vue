@@ -19,39 +19,51 @@
 // const updateOption = (value: string) => {
 //   emit('update-option', value)
 // }
+import type { IItem } from '@/interfaces/IItem'
+import { watch, ref, computed } from 'vue'
+
+const props = defineProps<{
+  item: IItem | null
+  modelValue: Record<string, string>
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Record<string, string>): void
+}>()
+
+const variantTypes = computed(() => props.item?.variantTypes || [])
+
+const selectOption = (typeName: string, value: string) => {
+  const selectedOptions = { ...props.modelValue }
+  emit('update:modelValue', {
+    ...selectedOptions,
+    [typeName]: value,
+  })
+}
 </script>
 
 <template>
-  <div class="field" v-if="false">
-    <label class="label is-small">{{ title }}</label>
-    <div class="control buttons option-select__buttons are-small">
-      <Button
-        v-for="value in filteredOptions"
-        :key="value"
-        @click="updateOption(value)"
-        class="button option-select__button"
-        :class="[{ 'is-info': value === current }, { 'is-light': value !== current }]"
-        :disabled="disabled"
-        data-testid="option-button"
+  <div
+    v-for="type in variantTypes"
+    :key="type.id"
+    class="mb-5"
+  >
+    <p class="label mb-2">{{ type.label }}</p>
+
+    <div class="buttons has-addons">
+      <button
+        v-for="opt in type.options?.docs"
+        :key="opt.id"
+        @click="selectOption(type.name, opt.value)"
+        :class="{
+          'is-primary is-selected': modelValue[type.name] === opt.value,
+        }"
+        class="button is-small"
       >
-        {{ value }}
-      </Button>
+        {{ opt.label }}
+      </button>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.option-select {
-  &__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: space-between;
-  }
-
-  &__button {
-    flex: 1;
-    min-width: 0;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
