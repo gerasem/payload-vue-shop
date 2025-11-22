@@ -1,210 +1,155 @@
-import { useLoaderStore } from '@/stores/LoaderStore'
-// import type { HttpTypes } from '@medusajs/types'
-import ApiService from '@/services/api/api'
+import { useItemStore } from '@/stores/ItemStore'
+import type { IItem } from '@/interfaces/IItem'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+
+interface CartItemLS {
+  variantId: string | null   // null — product has no variants
+  productId: number
+  qty: number
+}
+
+interface CartItemFull {
+  variantId: string | null
+  productId: number
+  qty: number
+  product: IItem
+  variant?: IItem['variants']['docs'][number]
+  priceInEUR: number
+  title: string
+  image?: string
+  slug: string
+}
 
 export const useCartStore = defineStore('cart', () => {
-  const cart = ref<undefined>(undefined)
-  const shippingOptions = ref<undefined>(undefined)
-  const paymentOptions = ref<undefined>(undefined)
-  const paymentCollection = ref<undefined>(undefined)
+  const itemStore = useItemStore()
 
-  const loaderStore = useLoaderStore()
+  // Minimal data stored in localStorage
+  const rawItems = ref<CartItemLS[]>([])
 
-  const initializeCart = async () => {
-    const cartId = localStorage.getItem('cart_id')
-    if (cartId) {
-      const dataCart = await ApiService.retrieveCart(
-        cartId,
-        loaderStore.LOADER_KEYS.INITIALIZE_CART,
-      )
+  // Full cart items enriched with fresh data from itemStore
+  const items = ref<CartItemFull[]>([])
 
-      console.log('retrieveCart', dataCart)
-      if (dataCart) {
-        cart.value = dataCart
-      } else {
-        await refreshCart()
-      }
-    } else {
-      await refreshCart()
-    }
-  }
-
-  const refreshCart = async () => {
-    console.log('Refresh cart')
-    const dataCart = await ApiService.createCart(loaderStore.LOADER_KEYS.ADD_TO_CART)
-    cart.value = dataCart
-    localStorage.setItem('cart_id', dataCart.id)
-    return dataCart
-  }
-
-  const addToCart = async (variantId: string, quantity: number) => {
-    if (!cart.value) {
-      await refreshCart()
-      throw new Error('Error initializing cart')
-    }
-
-    const dataCart = await ApiService.createCartLineItem(
-      cart.value?.id,
-      {
-        variant_id: variantId,
-        quantity,
-      },
-      loaderStore.LOADER_KEYS.ADD_TO_CART,
-    )
-    console.log('addToCart get cart', dataCart)
-    cart.value = dataCart
-    localStorage.setItem('cart_id', dataCart.id)
-    return dataCart
-  }
-
-  //todo refactoring needs
-  const updateCart = async ({
-    updateData,
-    shippingMethodData,
-  }: {
-    updateData,
-    shippingMethodData
-  }): Promise<void> => {
-    console.log('updateData', updateData)
-    console.log('cart.value', cart.value)
-    console.log('false?', !cart.value || !updateData)
-    if (!cart.value) {
-      return
-    }
-
+  // Load cart from localStorage on app start
+  function loadFromLS() {
     try {
-      let returnedCart = cart.value
-      if (updateData) {
-        returnedCart = await ApiService.updateCart(
-          cart.value.id,
-          updateData,
-          loaderStore.LOADER_KEYS.EDIT_CART,
-        )
+      const saved = localStorage.getItem('payload-cart')
+      if (saved) {
+        rawItems.value = JSON.parse(saved)
       }
-      if (shippingMethodData) {
-        returnedCart = await ApiService.addCartShippingMethod(
-          cart.value.id,
-          shippingMethodData,
-          loaderStore.LOADER_KEYS.EDIT_CART,
-        )
-      }
-      cart.value = returnedCart
-      localStorage.setItem('cart_id', returnedCart.id)
-    } catch (err) {
-      console.error('Error update cart:', err)
+    } catch (e) {
+      console.warn('Failed to load cart from localStorage', e)
+      rawItems.value = []
     }
   }
 
-  const updateItemQuantity = async (itemId: string, quantity: number): Promise<void> => {
-    if (!cart.value) {
+  // Persist rawItems to localStorage whenever it changes
+  watch(
+    rawItems,
+    () => {
+      localStorage.setItem('payload-cart', JSON.stringify(rawItems.value))
+    },
+    { deep: true }
+  )
+
+  // Initialize the cart — call once on app bootstrap (e.g. in main.ts)
+  function init() {
+    loadFromLS()
+    hydrate() // immediately populate full items with current product data
+  }
+
+  // Rebuild full cart items using raw data + fresh product info from itemStore
+  function hydrate() {
+    if (!itemStore.items.length) {
+      items.value = []
       return
     }
 
-    const dataCart = await ApiService.updateCartLineItem(
-      cart.value.id,
-      itemId,
-      { quantity },
-      loaderStore.LOADER_KEYS.EDIT_CART,
+    items.value = rawItems.value
+      .map((raw) => {
+        const product = itemStore.items
+          .flatMap((g) => g.products)
+          .find((p) => p.id === raw.productId)
+
+        if (!product) return null
+
+        const variant = raw.variantId
+          ? product.variants?.docs?.find((v) => v.id === raw.variantId)
+          : null
+
+        const priceInEUR = variant?.priceInEUR ?? product.priceInEUR ?? 0
+
+        return {
+          variantId: raw.variantId,
+          productId: raw.productId,
+          qty: raw.qty,
+          product,
+          variant,
+          priceInEUR,
+          title: variant?.title || product.title,
+          slug: product.slug,
+          image: product.gallery?.[0]?.url,
+        }
+      })
+      .filter((item): item is CartItemFull => item !== null)
+  }
+
+  // Universal add-to-cart function (supports products with and without variants)
+  function add(productId: number, qty: number = 1, variantId: string | null = null) {
+    const key = variantId ?? productId
+
+    const existing = rawItems.value.find(
+      (i) => (i.variantId ?? i.productId) === key
     )
-    cart.value = dataCart
-    localStorage.setItem('cart_id', dataCart.id)
-    //return dataCart
+
+    if (existing) {
+      existing.qty += qty
+    } else {
+      rawItems.value.push({
+        variantId,
+        productId,
+        qty,
+      })
+    }
+
+    hydrate() // refresh full cart items
   }
 
-  const getItemQuantity = async (itemId: string, variantId: string): Promise<number> => {
-    return await ApiService.fetchItemQuantityForItem(
-      itemId,
-      variantId,
-      loaderStore.LOADER_KEYS.GET_ITEM_QUANTITY,
+  // Remove item from cart
+  function remove(productId: number | string, variantId: string | null = null) {
+    const key = variantId ?? productId
+    rawItems.value = rawItems.value.filter(
+      (i) => (i.variantId ?? i.productId) !== key
     )
+    hydrate()
   }
 
-  const unsetCart = () => {
-    cart.value = undefined
-    localStorage.removeItem('cart_id')
+  // Clear entire cart
+  function clear() {
+    rawItems.value = []
+    items.value = []
   }
 
-  const removeItem = async (item): Promise<void> => {
-    if (cart.value) {
-      await ApiService.removeItem(cart.value.id, item, loaderStore.LOADER_KEYS.ADD_TO_CART)
-
-      await initializeCart()
-    }
-  }
-
-  const getShippingOptions = async (): Promise<void> => {
-    if (!cart.value) {
-      return
-    }
-    shippingOptions.value = await ApiService.fetchShippingOptions(
-      cart.value.id,
-      loaderStore.LOADER_KEYS.EDIT_CART,
-    )
-  }
-
-  const selectShippingOption = async (optionId: string) => {
-    if (!cart.value) {
-      return
-    }
-
-    if (optionId !== '') {
-      const returnedCart = await ApiService.addCartShippingMethod(
-        cart.value.id,
-        { option_id: optionId },
-        loaderStore.LOADER_KEYS.EDIT_CART,
-      )
-
-      cart.value = returnedCart
-    }
-  }
-
-  const selectPaymentOption = async (selectedPaymentMethod: string) => {
-    if (!cart.value) {
-      return
-    }
-
-    if (selectedPaymentMethod !== '') {
-      const returnedPaymentSession = await ApiService.initiatePaymentSession(
-        cart.value,
-        { provider_id: selectedPaymentMethod },
-        loaderStore.LOADER_KEYS.EDIT_CART,
-      )
-
-      console.log('test selectPaymentOption', returnedPaymentSession)
-      if (returnedPaymentSession?.payment_sessions && returnedPaymentSession?.payment_sessions[0]) {
-        paymentCollection.value = returnedPaymentSession?.payment_sessions[0]
-      }
-    }
-  }
-
-  const getPaymentOptions = async (): Promise<void> => {
-    if (!cart.value || !cart.value?.region_id) {
-      return
-    }
-
-    paymentOptions.value = await ApiService.fetchPaymentOptions(
-      cart.value.region_id,
-      loaderStore.LOADER_KEYS.EDIT_CART,
-    )
-  }
+  // Computed getters
+  const count = computed(() => items.value.reduce((sum, i) => sum + i.qty, 0))
+  const totalCents = computed(() =>
+    items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0)
+  )
+  const hasItems = computed(() => items.value.length > 0)
+  const isEmpty = computed(() => items.value.length === 0)
 
   return {
-    cart,
-    shippingOptions,
-    initializeCart,
-    addToCart,
-    refreshCart,
-    updateItemQuantity,
-    unsetCart,
-    getItemQuantity,
-    removeItem,
-    updateCart,
-    getShippingOptions,
-    selectShippingOption,
-    getPaymentOptions,
-    paymentOptions,
-    selectPaymentOption,
+    items,
+    rawItems,
+    count,
+    totalCents,
+    hasItems,
+    isEmpty,
+
+    init,      // call once in main.ts
+    add,
+    remove,
+    clear,
+    hydrate,   // can be called manually if products were updated
   }
 })

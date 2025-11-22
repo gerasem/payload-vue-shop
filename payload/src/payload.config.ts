@@ -104,5 +104,7 @@ export default buildConfig({
     fallback: true,
   },
   cors: ['http://localhost:8000', 'http://localhost:3000', 'http://localhost:4173'],
-  graphQL: {},
+  graphQL: {
+    disablePlaygroundInProduction: false,
+  },
 })

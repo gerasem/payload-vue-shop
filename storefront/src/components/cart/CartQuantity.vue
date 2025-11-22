@@ -2,7 +2,7 @@
 import Button from '@/components/form/Button.vue'
 
 const props = defineProps<{
-  inventoryQuantity: number
+  inventoryQuantity: number | null | undefined
   quantityError: boolean
   loading?: boolean
 }>()

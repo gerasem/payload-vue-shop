@@ -1,26 +1,6 @@
 <script setup lang="ts">
-// import Button from '@/components/form/Button.vue'
-// import type { HttpTypes } from '@medusajs/types'
-// import { computed } from 'vue'
-
-// const props = defineProps<{
-//   option: HttpTypes.StoreProductOption
-//   current: string | undefined
-//   title: string
-//   disabled?: boolean
-// }>()
-
-// const emit = defineEmits<{
-//   (e: 'update-option', value: string): void
-// }>()
-
-// const filteredOptions = computed(() => (props.option.values ?? []).map((v) => v.value))
-
-// const updateOption = (value: string) => {
-//   emit('update-option', value)
-// }
 import type { IItem } from '@/interfaces/IItem'
-import { watch, ref, computed } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   item: IItem | null

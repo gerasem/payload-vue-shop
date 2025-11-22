@@ -5,6 +5,7 @@ import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
 import ProductActions from '@/components/item-view/ProductActions.vue'
 import OptionSelect from '@/components/item-view/OptionSelect.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
+import AddToCart from '@/components/item-view/AddToCart.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import Gallery from '@/components/gallery/Gallery.vue'
 import { useLoaderStore } from '@/stores/LoaderStore'
@@ -97,7 +98,8 @@ useSeoMeta({
   <main class="container is-fluid">
     <BreadcrumbItem :category="category" />
 
-    <!-- <pre>{{ item }}</pre> -->
+    item:
+    <pre>{{ item }}</pre>
     <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
       <div class="column is-three-fifths-widescreen is-half-desktop">
         <Gallery
@@ -117,17 +119,27 @@ useSeoMeta({
           {{ selectedVariant ? selectedVariantPrice : price }}
         </h4>
 
-        <!-- <pre>{{ selectedVariantPrice }}</pre> -->
+        <pre>selected variant price --- {{ selectedVariantPrice }} ---</pre>
 
-        <div v-if="item?.variants?.docs.length && item?.variants?.docs.length > 0">
-          <!-- <pre>
-            {{ selectedOptions }}
+        <div v-if="item?.enableVariants">
+          <pre>
+            selected options +++ {{ selectedOptions }} +++
           </pre>
 
           <pre>
-            {{ selectedVariant }}
-          </pre> -->
-          <OptionSelect :item="item" v-model="selectedOptions"/>
+            SV {{ selectedVariant }}
+          </pre>
+          <OptionSelect
+            :item="item"
+            v-model="selectedOptions"
+          />
+        </div>
+
+        <div v-else>
+          <AddToCart
+            :item="item"
+            :inventoryQuantity="item?.inventory ||0"
+          />
         </div>
       </div>
     </div>
