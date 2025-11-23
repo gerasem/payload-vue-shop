@@ -4,7 +4,7 @@ import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 interface CartItemLS {
-  variantId: string | null   // null — product has no variants
+  variantId: string | null // null — product has no variants
   productId: number
   qty: number
 }
@@ -49,7 +49,7 @@ export const useCartStore = defineStore('cart', () => {
     () => {
       localStorage.setItem('payload-cart', JSON.stringify(rawItems.value))
     },
-    { deep: true }
+    { deep: true },
   )
 
   // Initialize the cart — call once on app bootstrap (e.g. in main.ts)
@@ -95,13 +95,15 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Universal add-to-cart function (supports products with and without variants)
-  async function add(productId: number | undefined, qty: number = 1, variantId: string | null = null) {
-    if(productId === undefined) return
+  async function add(
+    productId: number | undefined,
+    qty: number = 1,
+    variantId: number | null = null,
+  ) {
+    if (productId === undefined) return
     const key = variantId ?? productId
 
-    const existing = rawItems.value.find(
-      (i) => (i.variantId ?? i.productId) === key
-    )
+    const existing = rawItems.value.find((i) => (i.variantId ?? i.productId) === key)
 
     if (productId !== undefined && existing) {
       existing.qty += qty
@@ -119,9 +121,7 @@ export const useCartStore = defineStore('cart', () => {
   // Remove item from cart
   function remove(productId: number | string, variantId: string | null = null) {
     const key = variantId ?? productId
-    rawItems.value = rawItems.value.filter(
-      (i) => (i.variantId ?? i.productId) !== key
-    )
+    rawItems.value = rawItems.value.filter((i) => (i.variantId ?? i.productId) !== key)
     hydrate()
   }
 
@@ -133,9 +133,7 @@ export const useCartStore = defineStore('cart', () => {
 
   // Computed getters
   const count = computed(() => items.value.reduce((sum, i) => sum + i.qty, 0))
-  const totalCents = computed(() =>
-    items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0)
-  )
+  const totalCents = computed(() => items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0))
   const hasItems = computed(() => items.value.length > 0)
   const isEmpty = computed(() => items.value.length === 0)
 
@@ -147,10 +145,10 @@ export const useCartStore = defineStore('cart', () => {
     hasItems,
     isEmpty,
 
-    init,      // call once in main.ts
+    init, // call once in main.ts
     add,
     remove,
     clear,
-    hydrate,   // can be called manually if products were updated
+    hydrate, // can be called manually if products were updated
   }
 })

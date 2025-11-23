@@ -4,8 +4,6 @@ import { useLoaderStore } from '@/stores/LoaderStore'
 import { useToastStore } from '@/stores/ToastStore'
 import Button from '@/components/form/Button.vue'
 import { useCartStore } from '@/stores/CartStore'
-import type { IItem } from '@/interfaces/IItem'
-// import type { HttpTypes } from '@medusajs/types'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
 
@@ -13,7 +11,10 @@ const router = useRouter()
 const toastStore = useToastStore()
 
 const props = defineProps<{
-  item: IItem | null
+  productId: number
+  variantId: number | null | undefined
+  price: number | null | undefined
+  itemTitle: string | null | undefined
   inventoryQuantity: number | null | undefined
 }>()
 
@@ -31,14 +32,15 @@ const quantityError = computed(() => {
 
 // add to cart
 const handleAddToCart = async () => {
-  //   if (!props.selectedVariant?.id) {
-  //     return
-  //   }
-  await cartStore.add(props.item?.id, quantity.value)
-  toastStore.addSuccess(`Item ${props.item?.title} has been added`, '', {
+  loaderStore.startLoading(loaderStore.LOADER_KEYS.ADD_TO_CART)
+  await cartStore.add(props.productId, quantity.value, props.variantId)
+  toastStore.addSuccess(`Item ${props.itemTitle} has been added`, '', {
     label: 'Go to Checkout',
     onClick: () => router.push({ name: 'cart' }),
   })
+  setTimeout(() => {
+    loaderStore.stopLoading(loaderStore.LOADER_KEYS.ADD_TO_CART)
+  }, 500)
 }
 </script>
 

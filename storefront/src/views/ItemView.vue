@@ -137,7 +137,10 @@ useSeoMeta({
 
         <div v-else>
           <AddToCart
-            :item="item"
+            :itemTitle="item?.title"
+            :price="item?.priceInEUR"
+            :variantId="null"
+            :productId="item?.id || 0"
             :inventoryQuantity="item?.inventory"
           />
         </div>
