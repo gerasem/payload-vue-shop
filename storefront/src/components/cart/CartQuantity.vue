@@ -16,7 +16,7 @@ const decrementCount = () => {
 }
 
 const incrementCount = () => {
-  if (quantity.value < props.inventoryQuantity) {
+  if (props.inventoryQuantity === null || quantity.value < props.inventoryQuantity) {
     quantity.value++
   }
 }
@@ -47,14 +47,14 @@ const incrementCount = () => {
       min="1"
       pattern="[0-9]*"
       type="number"
-      :max="inventoryQuantity"
+      :max="inventoryQuantity !== null ? inventoryQuantity : 1000"
       name="item quantity"
     />
 
     <Button
       class="is-white"
       icon="plus-lg"
-      :disabled="quantity >= inventoryQuantity"
+      :disabled="inventoryQuantity !== null && quantity >= inventoryQuantity"
       @click="incrementCount()"
     ></Button>
   </div>

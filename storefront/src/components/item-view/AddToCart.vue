@@ -14,7 +14,7 @@ const toastStore = useToastStore()
 
 const props = defineProps<{
   item: IItem | null
-  inventoryQuantity: number
+  inventoryQuantity: number | null | undefined
 }>()
 
 const quantity = defineModel<number>('quantity', { default: 1 })
@@ -22,9 +22,9 @@ const cartStore = useCartStore()
 const loaderStore = useLoaderStore()
 
 const quantityError = computed(() => {
-  //   if (props.selectedVariant?.allow_backorder || !props.selectedVariant?.manage_inventory) {
-  //     return false
-  //   }
+  if (props.inventoryQuantity === null || props.inventoryQuantity === undefined) {
+    return false
+  }
 
   return quantity?.value > props.inventoryQuantity
 })

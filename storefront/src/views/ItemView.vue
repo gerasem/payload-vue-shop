@@ -138,7 +138,7 @@ useSeoMeta({
         <div v-else>
           <AddToCart
             :item="item"
-            :inventoryQuantity="item?.inventory ||0"
+            :inventoryQuantity="item?.inventory"
           />
         </div>
       </div>
