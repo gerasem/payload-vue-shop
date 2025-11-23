@@ -45,7 +45,17 @@ const handleAddToCart = async () => {
 </script>
 
 <template>
-  <div class="add-to-cart__container">
+  <div
+    v-if="inventoryQuantity === 0"
+    class="notification is-error is-light"
+  >
+    Out of Stock
+  </div>
+  
+  <div
+    v-else
+    class="add-to-cart__container"
+  >
     <CartQuantity
       v-model:quantity="quantity"
       :inventoryQuantity="inventoryQuantity"

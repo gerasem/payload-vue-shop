@@ -92,7 +92,7 @@ const getImage = (imageUrl: string | null | undefined) => {
 
     img {
       background-color: $background-gray;
-      min-height: 250px;
+      // min-height: 250px;
     }
   }
 }
