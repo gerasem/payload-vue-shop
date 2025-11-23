@@ -133,6 +133,21 @@ useSeoMeta({
             :item="item"
             v-model="selectedOptions"
           />
+
+          <AddToCart
+            v-if="selectedVariant"
+            :itemTitle="item?.title"
+            :price="selectedVariant?.priceInEUR"
+            :variantId="selectedVariant?.id"
+            :productId="item?.id || 0"
+            :inventoryQuantity="selectedVariant?.inventory"
+          />
+
+          <div v-else>
+            <div class="notification is-warning is-light mt-2">
+              Please select all options to add this item to your cart.
+            </div>
+          </div>
         </div>
 
         <div v-else>

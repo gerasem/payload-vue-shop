@@ -4,13 +4,13 @@ import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 interface CartItemLS {
-  variantId: string | null // null — product has no variants
+  variantId: number | null // null — product has no variants
   productId: number
   qty: number
 }
 
 interface CartItemFull {
-  variantId: string | null
+  variantId: number | null
   productId: number
   qty: number
   product: IItem
@@ -100,11 +100,12 @@ export const useCartStore = defineStore('cart', () => {
     qty: number = 1,
     variantId: number | null = null,
   ) {
+    console.log('CartStore.add', { productId, qty, variantId })
     if (productId === undefined) return
-    const key = variantId ?? productId
 
-    const existing = rawItems.value.find((i) => (i.variantId ?? i.productId) === key)
-
+    const existing = rawItems.value.find((item) => {
+      return item.productId === productId && item.variantId === variantId
+    })
     if (productId !== undefined && existing) {
       existing.qty += qty
     } else {
@@ -119,9 +120,10 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Remove item from cart
-  function remove(productId: number | string, variantId: string | null = null) {
-    const key = variantId ?? productId
-    rawItems.value = rawItems.value.filter((i) => (i.variantId ?? i.productId) !== key)
+  function remove(productId: number, variantId: string | null = null) {
+    rawItems.value = rawItems.value.filter(
+      (item) => !(item.productId === productId && item.variantId === variantId),
+    )
     hydrate()
   }
 
