@@ -1,7 +1,8 @@
 import { useCategoryStore } from '@/stores/CategoryStore'
 import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
 import { useContentStore } from '@/stores/ContentStore'
-import { useItemStore } from './stores/ItemStore'
+import { useItemStore } from '@/stores/ItemStore'
+import { useCartStore } from '@/stores/CartStore'
 import { createHead } from '@unhead/vue/client'
 import type { ViteSSGContext } from 'vite-ssg'
 import { createI18n } from 'vue-i18n'
@@ -81,7 +82,6 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       allItemsPage: contentStore.allItemsPage,
     }
 
-
     initialState.category = {
       categories: categoryStore.categories,
     }
@@ -103,6 +103,9 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       hydrateOrFetch(categoryStore, initialState, ['categories']),
       hydrateOrFetch(itemStore, initialState, ['items']),
     ])
+
+    const cart = useCartStore()
+    cart.init()
   }
 
   app.use(pinia)

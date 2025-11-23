@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { localePath } from '@/composables/localePath.ts'
 import { useLoaderStore } from '@/stores/LoaderStore'
-import { convertToLocale } from '@/utils/priceUtils'
 import { useCartStore } from '@/stores/CartStore'
 import Icon from '@/components/media/Icon.vue'
-import { computed } from 'vue'
 
 const cartStore = useCartStore()
 const loaderStore = useLoaderStore()
 
-const countOfItems = computed(() => {
-  return 0
-})
+
 </script>
 
 <template>
@@ -34,13 +30,13 @@ const countOfItems = computed(() => {
       :width="26"
       :height="28"
       class="navbar__cart-icon"
-      :class="{ active: countOfItems }"
+      :class="{ active: cartStore.hasItems }"
     />
 
     <span
-      v-if="countOfItems"
+      v-if="cartStore.hasItems"
       class="navbar__count"
-      >{{ countOfItems }}</span
+      >{{ cartStore.count }}</span
     >
   </RouterLink>
 </template>

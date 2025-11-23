@@ -95,14 +95,15 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Universal add-to-cart function (supports products with and without variants)
-  function add(productId: number, qty: number = 1, variantId: string | null = null) {
+  async function add(productId: number | undefined, qty: number = 1, variantId: string | null = null) {
+    if(productId === undefined) return
     const key = variantId ?? productId
 
     const existing = rawItems.value.find(
       (i) => (i.variantId ?? i.productId) === key
     )
 
-    if (existing) {
+    if (productId !== undefined && existing) {
       existing.qty += qty
     } else {
       rawItems.value.push({
