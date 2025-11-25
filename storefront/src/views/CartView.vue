@@ -9,7 +9,6 @@ import { useCartStore } from '@/stores/CartStore'
 import { useSeoMeta } from '@unhead/vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 
 const router = useRouter()
 const cartStore = useCartStore()
@@ -17,12 +16,12 @@ const loaderStore = useLoaderStore()
 
 const { t } = useI18n()
 
-const items = computed(() => {
-  const itemsInCart = cartStore.cart?.items
-  return itemsInCart?.sort((a, b) => {
-    return new Date(b.created_at || '').getTime() - new Date(a.created_at || '').getTime()
-  })
-})
+// const items = computed(() => {
+//   const itemsInCart = cartStore.cart?.items
+//   return itemsInCart?.sort((a, b) => {
+//     return new Date(b.created_at || '').getTime() - new Date(a.created_at || '').getTime()
+//   })
+// })
 
 const handleSubmit = () => {
   router.push({ name: 'checkout' })
@@ -40,44 +39,28 @@ useSeoMeta({
     <form @submit.prevent="handleSubmit()">
       <div class="columns">
         <div class="column is-two-thirds-tablet is-three-quarters-desktop">
-          <Header :level="1">Shopping Cart</Header>
+          <Header :level="1">{{ t('Shopping Cart') }}</Header>
 
-          <template v-if="loaderStore.isLoadingKey(loaderStore.LOADER_KEYS.INITIALIZE_CART)">
-            <article
-              class="media"
-              v-for="skeleton in 3"
-              :key="skeleton"
-            >
-              <figure class="media-left">
-                <p class="image is-128x128 is-skeleton">
-                  <img alt="Placeholder image" />
-                </p>
-              </figure>
-              <div class="media-content">
-                <div class="skeleton-block mt-5"></div>
-              </div>
-            </article>
+          <template v-if="cartStore.hasItems">
+            <CartItem
+              v-for="item in cartStore.items"
+              :key="item?.productId"
+              :item="item"
+            />
           </template>
 
           <p
-            v-else-if="items?.length === 0"
+            v-else
             class="my-6 has-text-centered"
           >
-            Your cart is empty.
+            {{ t('Your cart is empty.') }}
           </p>
-
-          <CartItem
-            v-else
-            v-for="item in items"
-            :key="item.id"
-            :item="item"
-          />
         </div>
 
         <div class="column is-one-third-tablet is-one-quarter-desktop">
           <CartTotalPrices
             :button="{ name: 'Weiter', icon: 'bag' }"
-            :disabled="items?.length === 0"
+            :disabled="!cartStore.hasItems"
           />
         </div>
       </div>

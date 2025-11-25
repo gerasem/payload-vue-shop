@@ -1,84 +1,90 @@
 <script setup lang="ts">
-// import CartQuantity from '@/components/cart/CartQuantity.vue'
-// import { localePath } from '@/composables/localePath'
-// import { convertToLocale } from '@/utils/priceUtils'
-// import Button from '@/components/form/Button.vue'
-// import { useCartStore } from '@/stores/CartStore'
-// import { HttpTypes } from '@medusajs/types'
-// import { computed, ref, watch } from 'vue'
-// import debounce from 'lodash.debounce'
+import CartQuantity from '@/components/cart/CartQuantity.vue'
+import defaultImage from '@/assets/images/_default-image.svg'
+import type { ICartItem } from '@/interfaces/ICartItem'
+import { localePath } from '@/composables/localePath'
+import { convertToLocale } from '@/utils/priceUtils'
+import Button from '@/components/form/Button.vue'
+import { useCartStore } from '@/stores/CartStore'
+import { formatEuro } from '@/utils/priceUtils'
+import { computed, ref, watch } from 'vue'
+import debounce from 'lodash.debounce'
 
-// const props = defineProps<{
-//   item: HttpTypes.StoreCartLineItem
-// }>()
+const props = defineProps<{
+  item: ICartItem
+}>()
 
-// const cartStore = useCartStore()
+const cartStore = useCartStore()
 
-// const inventoryQuantityFromApi = ref<number | null>(null)
-// const loadingQuantity = ref<boolean>(false)
-// const loadingDelete = ref<boolean>(false)
+const inventoryQuantityFromApi = ref<number | null>(null)
+const loadingQuantity = ref<boolean>(false)
+const loadingDelete = ref<boolean>(false)
 
-// const quantity = defineModel<number>('quantity', { default: 1 })
-// quantity.value = props.item.quantity
+const quantity = defineModel<number>('quantity', { default: 1 })
+quantity.value = props.item.qty
 
-// const deleteItem = async () => {
-//   loadingDelete.value = true
-//   await cartStore.removeItem(props.item)
-//   loadingDelete.value = false
-// }
+const deleteItem = async () => {
+  // loadingDelete.value = true
+  // await cartStore.removeItem(props.item)
+  // loadingDelete.value = false
+}
 
-// const changeItemCount = async () => {
-//   if (!quantityError.value && typeof quantity.value === 'number') {
-//     loadingQuantity.value = true
-//     await cartStore.updateItemQuantity(props.item.id, quantity.value)
-//     loadingQuantity.value = false
-//   }
+const changeItemCount = async () => {
+  // if (!quantityError.value && typeof quantity.value === 'number') {
+  //   loadingQuantity.value = true
+  //   await cartStore.updateItemQuantity(props.item.id, quantity.value)
+  //   loadingQuantity.value = false
+  // }
+  // if (inventoryQuantityFromApi.value === null) {
+  //   inventoryQuantityFromApi.value = await cartStore.getItemQuantity(
+  //     props.item.product_id || '',
+  //     props.item.variant_id || '',
+  //   )
+  // }
+}
 
-//   if (inventoryQuantityFromApi.value === null) {
-//     inventoryQuantityFromApi.value = await cartStore.getItemQuantity(
-//       props.item.product_id || '',
-//       props.item.variant_id || '',
-//     )
-//   }
-// }
+const inventoryQuantity = computed(() => {
+  // if (inventoryQuantityFromApi.value !== null) {
+  //   return inventoryQuantityFromApi.value
+  // }
+  return 1000
+})
 
-// const inventoryQuantity = computed(() => {
-//   if (inventoryQuantityFromApi.value !== null) {
-//     return inventoryQuantityFromApi.value
-//   }
-//   return 1000
-// })
+const quantityError = computed(() => {
+  // if (props.item.variant?.allow_backorder || !props.item.variant?.manage_inventory) {
+  //   return false
+  // }
 
-// const quantityError = computed(() => {
-//   if (props.item.variant?.allow_backorder || !props.item.variant?.manage_inventory) {
-//     return false
-//   }
+  return quantity?.value > inventoryQuantity.value
+})
 
-//   return quantity?.value > inventoryQuantity.value
-// })
+const totalPrice = computed(() => {
+  // if (props.item.total) {
+  //   return props.item.total
+  // }
+  return props.item.unit_price * (props.item.quantity || 1)
+})
 
-// const totalPrice = computed(() => {
-//   if (props.item.total) {
-//     return props.item.total
-//   }
-//   return props.item.unit_price * (props.item.quantity || 1)
-// })
-// watch(
-//   quantity,
-//   debounce(() => {
-//     console.log('changeItemCount debounce')
-//     changeItemCount()
-//   }, 500),
-// )
+const getImage = (imageUrl: string | null | undefined) => {
+  return import.meta.env.VITE_BACKEND_DOMAIN + imageUrl || defaultImage
+}
+
+watch(
+  quantity,
+  debounce(() => {
+    console.log('changeItemCount debounce')
+    changeItemCount()
+  }, 500),
+)
 </script>
 
 <template>
-  <div v-if="false" class="cart__item is-flex">
-    <RouterLink :to="localePath(`item/${item.product_handle}`)">
+  <div class="cart__item is-flex">
+    <RouterLink :to="localePath(`item/${item.slug}`)">
       <div class="cart__image-container">
         <img
-          :src="item.thumbnail"
-          :alt="'item'"
+          :src="getImage(item.image)"
+          :alt="item.title"
           class="cart__image is-block"
         />
       </div>
@@ -87,17 +93,20 @@
     <div class="cart__main">
       <div class="cart__prices is-flex">
         <div class="cart__info">
-          <h4 class="cart__title">{{ item.product_title }} : {{ item.title }}</h4>
+          <h4 class="cart__title">
+            {{ item.title }}
+            <em v-if="item.hasVariant"> : {{ item.variantTitle }} </em>
+          </h4>
 
           <div class="cart__price">
-            {{ convertToLocale({ amount: item.unit_price }) }}
+            {{ formatEuro(item.priceInEUR) }}
             <span
               v-if="loadingQuantity"
               class="loading-spinner"
             ></span>
             <template v-else>
-              <span>x {{ item.quantity }}</span>
-              {{ convertToLocale({ amount: totalPrice }) }}
+              <span>x {{ item.qty }}</span>
+              {{ formatEuro(item.priceInEUR * item.qty) }}
             </template>
           </div>
         </div>

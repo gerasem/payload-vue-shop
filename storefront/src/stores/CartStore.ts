@@ -1,34 +1,16 @@
+import type { ICartItem, ICartItemLS } from '@/interfaces/ICartItem'
 import { useItemStore } from '@/stores/ItemStore'
-import type { IItem } from '@/interfaces/IItem'
 import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
-
-interface CartItemLS {
-  variantId: number | null // null — product has no variants
-  productId: number
-  qty: number
-}
-
-interface CartItemFull {
-  variantId: number | null
-  productId: number
-  qty: number
-  product: IItem
-  variant?: IItem['variants']['docs'][number]
-  priceInEUR: number
-  title: string
-  image?: string
-  slug: string
-}
 
 export const useCartStore = defineStore('cart', () => {
   const itemStore = useItemStore()
 
   // Minimal data stored in localStorage
-  const rawItems = ref<CartItemLS[]>([])
+  const rawItems = ref<ICartItemLS[]>([])
 
   // Full cart items enriched with fresh data from itemStore
-  const items = ref<CartItemFull[]>([])
+  const items = ref<ICartItem[]>([])
 
   // Load cart from localStorage on app start
   function loadFromLS() {
@@ -71,7 +53,7 @@ export const useCartStore = defineStore('cart', () => {
           .flatMap((g) => g.products)
           .find((p) => p.id === raw.productId)
 
-        if (!product) return null
+        if (!product) return null!
 
         const variant = raw.variantId
           ? product.variants?.docs?.find((v) => v.id === raw.variantId)
@@ -83,15 +65,17 @@ export const useCartStore = defineStore('cart', () => {
           variantId: raw.variantId,
           productId: raw.productId,
           qty: raw.qty,
-          product,
-          variant,
-          priceInEUR,
-          title: variant?.title || product.title,
+
+          title: product.title,
           slug: product.slug,
+          priceInEUR,
           image: product.gallery?.[0]?.url,
+
+          hasVariant: !!variant,
+          variantTitle: variant ? variant.options?.map((o) => o.label).join(' — ') : undefined,
         }
       })
-      .filter((item): item is CartItemFull => item !== null)
+      .filter(Boolean) as ICartItem[]
   }
 
   // Universal add-to-cart function (supports products with and without variants)
@@ -101,19 +85,16 @@ export const useCartStore = defineStore('cart', () => {
     variantId: number | null = null,
   ) {
     console.log('CartStore.add', { productId, qty, variantId })
-    if (productId === undefined) return
+    if (!productId || qty <= 0) return
 
-    const existing = rawItems.value.find((item) => {
-      return item.productId === productId && item.variantId === variantId
-    })
-    if (productId !== undefined && existing) {
+    const existing = rawItems.value.find(
+      (i) => i.productId === productId && i.variantId === variantId,
+    )
+
+    if (existing) {
       existing.qty += qty
     } else {
-      rawItems.value.push({
-        variantId,
-        productId,
-        qty,
-      })
+      rawItems.value.push({ productId, variantId, qty })
     }
 
     hydrate() // refresh full cart items
@@ -137,7 +118,6 @@ export const useCartStore = defineStore('cart', () => {
   const count = computed(() => items.value.reduce((sum, i) => sum + i.qty, 0))
   const totalCents = computed(() => items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0))
   const hasItems = computed(() => items.value.length > 0)
-  const isEmpty = computed(() => items.value.length === 0)
 
   return {
     items,
@@ -145,8 +125,6 @@ export const useCartStore = defineStore('cart', () => {
     count,
     totalCents,
     hasItems,
-    isEmpty,
-
     init, // call once in main.ts
     add,
     remove,

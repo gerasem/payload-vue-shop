@@ -5,10 +5,12 @@ import { useToastStore } from '@/stores/ToastStore'
 import Button from '@/components/form/Button.vue'
 import { useCartStore } from '@/stores/CartStore'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 
 const router = useRouter()
 const toastStore = useToastStore()
+const { t } = useI18n()
 
 const props = defineProps<{
   productId: number
@@ -49,9 +51,9 @@ const handleAddToCart = async () => {
     v-if="inventoryQuantity === 0"
     class="notification is-error is-light"
   >
-    Out of Stock
+    {{ t('Out of Stock') }}
   </div>
-  
+
   <div
     v-else
     class="add-to-cart__container"
@@ -89,7 +91,7 @@ const handleAddToCart = async () => {
         data-testid="add-to-cart"
         icon="bag"
       >
-        Add to Cart
+        {{ t('Add to Cart') }}
       </Button>
     </div>
   </div>
