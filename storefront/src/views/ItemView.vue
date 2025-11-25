@@ -2,7 +2,6 @@
 import { getMinPriceFormatted, formatEuro, areAllPricesEqual } from '@/utils/priceUtils'
 import CategoryTitleNarrow from '@/components/category/CategoryTitleNarrow.vue'
 import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
-import ProductActions from '@/components/item-view/ProductActions.vue'
 import OptionSelect from '@/components/item-view/OptionSelect.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
 import AddToCart from '@/components/item-view/AddToCart.vue'
@@ -13,7 +12,6 @@ import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
-import type { IItem } from '@/interfaces/IItem'
 import ApiService from '@/services/api/api'
 import { watch, ref, computed } from 'vue'
 import { useSeoMeta } from '@unhead/vue'
@@ -98,8 +96,8 @@ useSeoMeta({
   <main class="container is-fluid">
     <BreadcrumbItem :category="category" />
 
-    item:
-    <pre>{{ item }}</pre>
+    <!-- item:
+    <pre>{{ item }}</pre> -->
     <div class="columns is-5-tablet is-6-desktop is-8-fullhd is-tablet">
       <div class="column is-three-fifths-widescreen is-half-desktop">
         <Gallery
@@ -119,16 +117,16 @@ useSeoMeta({
           {{ selectedVariant ? selectedVariantPrice : price }}
         </h4>
 
-        <pre>selected variant price --- {{ selectedVariantPrice }} ---</pre>
+        <!-- <pre>selected variant price --- {{ selectedVariantPrice }} ---</pre> -->
 
         <div v-if="item?.enableVariants">
-          <pre>
+          <!-- <pre>
             selected options +++ {{ selectedOptions }} +++
           </pre>
 
           <pre>
             SV {{ selectedVariant }}
-          </pre>
+          </pre> -->
           <OptionSelect
             :item="item"
             v-model="selectedOptions"
@@ -143,22 +141,22 @@ useSeoMeta({
             :inventoryQuantity="selectedVariant?.inventory"
           />
 
-          <div v-else>
-            <div class="notification is-warning is-light mt-2">
-              Please select all options to add this item to your cart.
-            </div>
+          <div
+            v-else
+            class="notification is-warning is-light mt-2"
+          >
+            {{ t('Please select product options.') }}
           </div>
         </div>
 
-        <div v-else>
-          <AddToCart
-            :itemTitle="item?.title"
-            :price="item?.priceInEUR"
-            :variantId="null"
-            :productId="item?.id || 0"
-            :inventoryQuantity="item?.inventory"
-          />
-        </div>
+        <AddToCart
+          v-else
+          :itemTitle="item?.title"
+          :price="item?.priceInEUR"
+          :variantId="null"
+          :productId="item?.id || 0"
+          :inventoryQuantity="item?.inventory"
+        />
       </div>
     </div>
   </main>
