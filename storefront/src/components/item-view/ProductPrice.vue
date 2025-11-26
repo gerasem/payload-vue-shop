@@ -29,8 +29,8 @@
 </script>
 
 <template>
-  <div
-    v-if="false || selectedPrice"
+  <div>
+    <!-- v-if="false || selectedPrice"
     class="is-flex item__price-container"
   >
     <h4
@@ -55,20 +55,20 @@
         </span>
       </p>
 
-      <!--<span class="has-text-info">-{{ selectedPrice.percentage_diff }}%</span>-->
+      <span class="has-text-info">-{{ selectedPrice.percentage_diff }}%</span>
     </div>
 
-    <p v-if="variant">{{ showAvailableCount }}</p>
+    <p v-if="variant">{{ showAvailableCount }}</p> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
-.item {
-  &__price-container {
-    justify-content: space-between;
-  }
-}
-.is-crossed {
-  text-decoration: line-through;
-}
+// .item {
+//   &__price-container {
+//     justify-content: space-between;
+//   }
+// }
+// .is-crossed {
+//   text-decoration: line-through;
+// }
 </style>
