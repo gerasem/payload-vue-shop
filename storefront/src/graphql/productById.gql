@@ -1,5 +1,5 @@
-query AllProducts($locale: LocaleInputType!) {
-  Products(locale: $locale, limit: 10000) {
+query ProductById($id: Int!, $locale: LocaleInputType!) {
+  Products(where: { id: { equals: $id } }, locale: $locale, limit: 1) {
     docs {
       id
       title
@@ -53,7 +53,5 @@ query AllProducts($locale: LocaleInputType!) {
         description
       }
     }
-
-    totalDocs
   }
 }

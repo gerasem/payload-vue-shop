@@ -8,12 +8,12 @@ import AddToCart from '@/components/item-view/AddToCart.vue'
 import { useCategoryStore } from '@/stores/CategoryStore'
 import Gallery from '@/components/gallery/Gallery.vue'
 import { useLoaderStore } from '@/stores/LoaderStore'
+import { watch, ref, computed, onMounted } from 'vue'
 import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
 import ApiService from '@/services/api/api'
-import { watch, ref, computed, onMounted } from 'vue'
 import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 
@@ -67,7 +67,7 @@ const selectedVariant = computed(() => {
 
     let matches = true
 
-    for (const [typeName, selectedValue] of Object.entries(selectedOptions.value)) {
+    for (const [selectedValue] of Object.entries(selectedOptions.value)) {
       const hasMatchingOption = variant.options.some((opt) => opt.value === selectedValue)
 
       if (!hasMatchingOption) {
@@ -76,16 +76,13 @@ const selectedVariant = computed(() => {
       }
     }
 
-    if (matches && variant.options.length === selectedCount) {
-      return true
-    }
-
-    return false
+    return matches && variant.options.length === selectedCount
   })
 })
 
 onMounted(() => {
-  // get item count from api 
+  // get item count from api
+  itemStore.fetchItemById(item.value)
 })
 
 useSeoMeta({
@@ -114,8 +111,6 @@ useSeoMeta({
         <Header :level="1">
           {{ item?.title }}
         </Header>
-
-        <!-- <ProductActions :product="item" /> -->
 
         <h4 class="title is-4">
           {{ selectedVariant ? selectedVariantPrice : price }}
