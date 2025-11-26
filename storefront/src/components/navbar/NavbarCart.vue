@@ -6,8 +6,6 @@ import Icon from '@/components/media/Icon.vue'
 
 const cartStore = useCartStore()
 const loaderStore = useLoaderStore()
-
-
 </script>
 
 <template>
@@ -23,7 +21,7 @@ const loaderStore = useLoaderStore()
     v-else
     class="navbar__icon-link"
     :to="localePath('cart')"
-    title="0"
+    :title="cartStore.totalFormatted"
   >
     <Icon
       icon="bag"

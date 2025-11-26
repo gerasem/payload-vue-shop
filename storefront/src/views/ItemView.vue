@@ -13,7 +13,7 @@ import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
 import ApiService from '@/services/api/api'
-import { watch, ref, computed } from 'vue'
+import { watch, ref, computed, onMounted } from 'vue'
 import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 
@@ -82,6 +82,10 @@ const selectedVariant = computed(() => {
 
     return false
   })
+})
+
+onMounted(() => {
+  // get item count from api 
 })
 
 useSeoMeta({

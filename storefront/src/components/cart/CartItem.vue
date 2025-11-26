@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import CartQuantity from '@/components/cart/CartQuantity.vue'
-import defaultImage from '@/assets/images/_default-image.svg'
 import type { ICartItem } from '@/interfaces/ICartItem'
 import { localePath } from '@/composables/localePath'
-import { convertToLocale } from '@/utils/priceUtils'
 import Button from '@/components/form/Button.vue'
+import { getImage } from '@/composables/getImage'
 import { useCartStore } from '@/stores/CartStore'
 import { formatEuro } from '@/utils/priceUtils'
 import { computed, ref, watch } from 'vue'
-import debounce from 'lodash.debounce'
-
 const props = defineProps<{
   item: ICartItem
 }>()
@@ -25,7 +22,7 @@ quantity.value = props.item.qty
 
 const deleteItem = async () => {
   // loadingDelete.value = true
-  // await cartStore.removeItem(props.item)
+  cartStore.remove(props.item.productId, props.item.variantId)
   // loadingDelete.value = false
 }
 
@@ -43,39 +40,18 @@ const changeItemCount = async () => {
   // }
 }
 
-const inventoryQuantity = computed(() => {
-  // if (inventoryQuantityFromApi.value !== null) {
-  //   return inventoryQuantityFromApi.value
-  // }
-  return 1000
-})
-
 const quantityError = computed(() => {
-  // if (props.item.variant?.allow_backorder || !props.item.variant?.manage_inventory) {
-  //   return false
-  // }
+  if (props.item.inventory === null) {
+    return false
+  }
 
-  return quantity?.value > inventoryQuantity.value
+  return quantity?.value > props.item.inventory
 })
 
-const totalPrice = computed(() => {
-  // if (props.item.total) {
-  //   return props.item.total
-  // }
-  return props.item.unit_price * (props.item.quantity || 1)
+watch(quantity, () => {
+  console.log('changeItemCount')
+  changeItemCount()
 })
-
-const getImage = (imageUrl: string | null | undefined) => {
-  return import.meta.env.VITE_BACKEND_DOMAIN + imageUrl || defaultImage
-}
-
-watch(
-  quantity,
-  debounce(() => {
-    console.log('changeItemCount debounce')
-    changeItemCount()
-  }, 500),
-)
 </script>
 
 <template>
@@ -91,27 +67,20 @@ watch(
     </RouterLink>
 
     <div class="cart__main">
-      <div class="cart__prices is-flex">
-        <div class="cart__info">
-          <h4 class="cart__title">
-            {{ item.title }}
-            <em v-if="item.hasVariant"> : {{ item.variantTitle }} </em>
-          </h4>
+      <div class="cart__info">
+        <h4 class="cart__title">
+          {{ item.title }}
+          <em v-if="item.hasVariant"> : {{ item.variantTitle }} </em>
+        </h4>
 
-          <div class="cart__price">
-            {{ formatEuro(item.priceInEUR) }}
-            <span
-              v-if="loadingQuantity"
-              class="loading-spinner"
-            ></span>
-            <template v-else>
-              <span>x {{ item.qty }}</span>
-              {{ formatEuro(item.priceInEUR * item.qty) }}
-            </template>
-          </div>
+        <div class="cart__price">
+          {{ formatEuro(item.priceInEUR) }}
+          <span>x {{ item.qty }}</span>
+          {{ formatEuro(item.priceInEUR * item.qty) }}
         </div>
+      </div>
 
-        <!-- <div
+      <!-- <div
           v-if="false"
           class="cart__old-price"
         >
@@ -124,23 +93,18 @@ watch(
         >
           %
         </div> -->
-      </div>
     </div>
 
     <CartQuantity
       v-model:quantity.number="quantity"
-      :inventoryQuantity="inventoryQuantity"
+      :inventoryQuantity="item.inventory"
       :quantityError="quantityError"
-      :loading="loadingQuantity"
     />
 
     <Button
       class="is-white"
       icon="x-lg"
       @click="deleteItem()"
-      :class="{
-        'is-loading': loadingDelete,
-      }"
     ></Button>
   </div>
 </template>
@@ -240,6 +204,7 @@ watch(
   &__title {
     font-size: 1rem;
     margin-right: 40px;
+    width: 100%;
 
     @media (max-width: $screen-lg-max) {
       font-size: 0.9rem;

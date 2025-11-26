@@ -2,9 +2,8 @@
 import Button from '@/components/form/Button.vue'
 
 const props = defineProps<{
-  inventoryQuantity: number | null | undefined
+  inventoryQuantity: number | null
   quantityError: boolean
-  loading?: boolean
 }>()
 
 const quantity = defineModel<number>('quantity', { required: true })
@@ -16,7 +15,7 @@ const decrementCount = () => {
 }
 
 const incrementCount = () => {
-  if (props.inventoryQuantity === null || quantity.value < props.inventoryQuantity) {
+  if (props.inventoryQuantity !== null && quantity.value < props.inventoryQuantity) {
     quantity.value++
   }
 }
@@ -31,15 +30,7 @@ const incrementCount = () => {
       @click="decrementCount()"
     ></Button>
 
-    <div
-      v-if="loading"
-      class="cart__spinner"
-    >
-      <span class="loading-spinner"></span>
-    </div>
-
     <input
-      v-else
       v-model.number="quantity"
       inputmode="numeric"
       class="input cart__input"
@@ -54,7 +45,7 @@ const incrementCount = () => {
     <Button
       class="is-white"
       icon="plus-lg"
-      :disabled="inventoryQuantity !== null && quantity >= inventoryQuantity"
+      :disabled="inventoryQuantity && quantity >= inventoryQuantity"
       @click="incrementCount()"
     ></Button>
   </div>
@@ -85,15 +76,6 @@ const incrementCount = () => {
 
     @media (max-width: $screen-lg-max) {
       font-size: 0.8rem;
-      width: 40px;
-    }
-  }
-
-  &__spinner {
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    @media (max-width: $screen-lg-max) {
       width: 40px;
     }
   }

@@ -14,4 +14,5 @@ export interface ICartItem {
   slug: string
   hasVariant: boolean
   variantTitle?: string
+  inventory: number | null
 }

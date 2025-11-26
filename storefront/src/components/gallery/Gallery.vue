@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import defaultImage from '@/assets/images/_default-image.svg'
+import { getImage } from '@/composables/getImage'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { IItem } from '@/interfaces/IItem'
 import 'photoswipe/style.css'
 
-const props = defineProps<{
+defineProps<{
   item: IItem
 }>()
 
@@ -28,10 +28,6 @@ onUnmounted(() => {
     lightbox.value = null
   }
 })
-
-const getImage = (imageUrl: string | null | undefined) => {
-  return import.meta.env.VITE_BACKEND_DOMAIN + imageUrl || defaultImage
-}
 </script>
 
 <template>

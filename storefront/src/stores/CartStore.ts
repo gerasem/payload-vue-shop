@@ -2,6 +2,7 @@ import type { ICartItem, ICartItemLS } from '@/interfaces/ICartItem'
 import { useItemStore } from '@/stores/ItemStore'
 import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
+import { formatEuro } from '@/utils/priceUtils'
 
 export const useCartStore = defineStore('cart', () => {
   const itemStore = useItemStore()
@@ -65,14 +66,13 @@ export const useCartStore = defineStore('cart', () => {
           variantId: raw.variantId,
           productId: raw.productId,
           qty: raw.qty,
-
           title: product.title,
           slug: product.slug,
           priceInEUR,
-          image: product.gallery?.[0]?.url,
-
-          hasVariant: !!variant,
-          variantTitle: variant ? variant.options?.map((o) => o.label).join(' — ') : undefined,
+          image: product.gallery?.[0]?.thumbnailURL ?? product.gallery?.[0]?.url,
+          hasVariant: product.enableVariants,
+          variantTitle: product?.enableVariants ? variant?.title : undefined,
+          inventory: product?.enableVariants ? variant?.inventory : product.inventory,
         }
       })
       .filter(Boolean) as ICartItem[]
@@ -101,7 +101,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Remove item from cart
-  function remove(productId: number, variantId: string | null = null) {
+  function remove(productId: number, variantId: number | null | undefined = null) {
     rawItems.value = rawItems.value.filter(
       (item) => !(item.productId === productId && item.variantId === variantId),
     )
@@ -117,6 +117,7 @@ export const useCartStore = defineStore('cart', () => {
   // Computed getters
   const count = computed(() => items.value.reduce((sum, i) => sum + i.qty, 0))
   const totalCents = computed(() => items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0))
+  const totalFormatted = computed(() => formatEuro(totalCents.value))
   const hasItems = computed(() => items.value.length > 0)
 
   return {
@@ -124,6 +125,7 @@ export const useCartStore = defineStore('cart', () => {
     rawItems,
     count,
     totalCents,
+    totalFormatted,
     hasItems,
     init, // call once in main.ts
     add,
