@@ -1,9 +1,23 @@
 {
-  "hello": "Hallo",
-  "contact": "Kontakt",
-  "cart": "Warenkorb",
-  "from": "Ab",
-  "field_required": "{field} is required",
-  "invalid_email": "Please enter a valid email address",
-  "min_length": "{field} must be at least {length} characters"
+
+  "Payment": "Zahlung",
+  "Shipping Address": "Lieferadresse",
+  "Edit": "Bearbeiten",
+  "Billing Address": "Rechnungsadresse",
+  "Shipping Method": "Versandart",
+  "Payment Method": "Zahlungsmethode",
+  "Your Items": "Ihre Artikel",
+  "From": "Ab",
+  "Please select product options.": "Bitte wählen Sie Produktoptionen aus.",
+  "Name": "Name",
+  "Email": "E-Mail",
+  "Your message": "Ihre Nachricht",
+  "Send": "Senden",
+  "Checkout": "Kasse",
+  "Address": "Adresse",
+  "Shopping Cart": "Warenkorb",
+  "Your cart is empty.": "Ihr Warenkorb ist leer.",
+  "User Cabinet": "Benutzerkonto",
+  "Select Language": "Sprache auswählen",
+  "Nothing found": "Nichts gefunden"
 }

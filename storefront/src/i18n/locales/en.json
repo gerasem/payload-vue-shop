@@ -1,9 +1,23 @@
 {
-  "hello": "Hello",
-  "contact": "Contact",
-  "cart": "Cart",
-  "from": "From",
-  "field_required": "{field} is required",
-  "invalid_email": "Please enter a valid email address",
-  "min_length": "{field} must be at least {length} characters"
+
+  "Payment": "Payment",
+  "Shipping Address": "Shipping Address",
+  "Edit": "Edit",
+  "Billing Address": "Billing Address",
+  "Shipping Method": "Shipping Method",
+  "Payment Method": "Payment Method",
+  "Your Items": "Your Items",
+  "From": "From",
+  "Please select product options.": "Please select product options.",
+  "Name": "Name",
+  "Email": "Email",
+  "Your message": "Your message",
+  "Send": "Send",
+  "Checkout": "Checkout",
+  "Address": "Address",
+  "Shopping Cart": "Shopping Cart",
+  "Your cart is empty.": "Your cart is empty.",
+  "User Cabinet": "User Cabinet",
+  "Select Language": "Select Language",
+  "Nothing found": "Nothing found"
 }
