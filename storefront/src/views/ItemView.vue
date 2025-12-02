@@ -80,9 +80,11 @@ const selectedVariant = computed(() => {
   })
 })
 
-onMounted(() => {
+onMounted(async() => {
   // get item count from api
-  itemStore.fetchItemById(item.value)
+  if(typeof window !== 'undefined' && item.value) {
+    await itemStore.fetchItemById(item.value)
+  }
 })
 
 useSeoMeta({

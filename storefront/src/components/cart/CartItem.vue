@@ -2,16 +2,19 @@
 import CartQuantity from '@/components/cart/CartQuantity.vue'
 import type { ICartItem } from '@/interfaces/ICartItem'
 import { localePath } from '@/composables/localePath'
+import { computed, onMounted, ref, watch } from 'vue'
 import Button from '@/components/form/Button.vue'
 import { getImage } from '@/composables/getImage'
 import { useCartStore } from '@/stores/CartStore'
 import { formatEuro } from '@/utils/priceUtils'
-import { computed, ref, watch } from 'vue'
+import { useItemStore } from '@/stores/ItemStore.ts'
+
 const props = defineProps<{
   item: ICartItem
 }>()
 
 const cartStore = useCartStore()
+const itemStore = useItemStore()
 
 const inventoryQuantityFromApi = ref<number | null>(null)
 const loadingQuantity = ref<boolean>(false)
@@ -51,6 +54,13 @@ const quantityError = computed(() => {
 watch(quantity, () => {
   console.log('changeItemCount')
   changeItemCount()
+})
+
+onMounted(async () => {
+  // get item count from api
+  if (props.item) {
+    await itemStore.fetchItemById(props.item)
+  }
 })
 </script>
 
