@@ -19,13 +19,8 @@ export const useLoaderStore = defineStore('loader', () => {
   }
 
   const LOADER_KEYS = {
-    CATEGORIES: 'CATEGORIES',
-    ITEMS: 'ITEMS',
-    ITEM: 'ITEM',
     ADD_TO_CART: 'ADD_TO_CART',
     EDIT_CART: 'EDIT_CART',
-    DELETE_ITEM: 'DELETE_ITEM',
-    GET_ITEM_QUANTITY: 'GET_ITEM_QUANTITY',
     INITIALIZE_CART: 'INITIALIZE_CART',
     SEND_CONTACT_FORM: 'SEND_CONTACT_FORM',
   }

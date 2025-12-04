@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => {
         const env = loadEnv(mode, process.cwd(), '')
 
         const locales = (env.VITE_LANGUAGES || 'de').split(',')
+        locales.push('/')
         const dynamicRoutes: string[] = []
 
         // 1. Categories
@@ -51,16 +52,15 @@ export default defineConfig(({ mode }) => {
           }
         }
 
-        // const responseItems = await fetch(`${env.VITE_BACKEND_URL}/products?limit=0&depth=2`)
-        // const itemsData = await responseItems.json()
-        // const products = itemsData.docs || []
-        // // 2. Items
-        // const products = await fetchProductsFromPayload()
-        // for (const product of products) {
-        //   for (const locale of locales) {
-        //     dynamicRoutes.push(`/${locale}/item/${product.slug}`)
-        //   }
-        // }
+        const responseItems = await fetch(`${env.VITE_BACKEND_URL}/products?limit=0&depth=2`)
+        const itemsData = await responseItems.json()
+        const products = itemsData.docs || []
+        // 2. Items
+        for (const product of products) {
+          for (const locale of locales) {
+            dynamicRoutes.push(`/${locale}/item/${product.slug}`)
+          }
+        }
 
         // console.log('PRODUCTS/ CATEGORIES', products, categories)
         return [...locales.map((loc) => `/${loc}`), ...dynamicRoutes]

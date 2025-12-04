@@ -54,7 +54,6 @@ export const useContentStore = defineStore('content', () => {
   }
 
   const hydrate = (data) => {
-    // console.log('Data in hydrate', data)
     Object.entries({
       informationBanner,
       header,

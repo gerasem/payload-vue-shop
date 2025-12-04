@@ -2,9 +2,6 @@ import type { RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import { RouterView } from 'vue-router'
 
-
-// const isClient = typeof window !== 'undefined'
-
 const routes: RouteRecordRaw[] = [
   {
     path: `/:locale(${import.meta.env.VITE_LANGUAGES.replace(',', '|')})?`,
@@ -68,58 +65,5 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 ]
-
-// const router: Router = createRouter({
-//   history: isClient
-//     ? createWebHistory(import.meta.env.BASE_URL)
-//     : createMemoryHistory(import.meta.env.BASE_URL),
-//   scrollBehavior(to, from, savedPosition) {
-//     if (savedPosition) {
-//       return savedPosition
-//     } else {
-//       return { top: 0 }
-//     }
-//   },
-//   routes,
-// })
-
-// router.beforeEach((to, from, next) => {
-//   console.log('Lang un url', to.params.locale)
-
-//   const langInLS = localStorage.getItem('lang')
-//   if (langInLS === to.params.locale || (langInLS && to.params.locale === '')) {
-//     console.log('lang in ls, continue')
-//     next()
-//   } else {
-//     if (to.params.locale && typeof to.params.locale === 'string') {
-//       localStorage.setItem('lang', to.params.locale)
-//     } else {
-//       localStorage.setItem('lang', import.meta.env.VITE_DEFAULT_LANGUAGE)
-//     }
-
-//     console.log('SET LANG LS', langInLS)
-
-//     next()
-//   }
-
-//   // const lang = localStorage.getItem('lang')
-
-//   // const SUPPORTED_LANGUAGES = ['en', 'de']
-//   // const DEFAULT_LANGUAGE = 'de'
-
-//   // function normalizeLanguage(lang: string): string {
-//   //   return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANGUAGE
-//   // }
-
-//   // function detectUserLanguage(): string {
-//   //   return navigator.language.split('-')[0]
-//   // }
-// })
-
-// router.afterEach((to, from) => {
-//   const toDepth = to.path.split('/').length
-//   const fromDepth = from.path.split('/').length
-//   to.meta.transition = toDepth < fromDepth ? 'fade-in-right' : 'fade-in-left'
-// })
 
 export default routes

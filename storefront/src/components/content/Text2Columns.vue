@@ -22,15 +22,17 @@ defineProps<{
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .text {
   &__paragraph {
     &--2-columns {
-      column-count: 2;
-      column-gap: 40px;
+      p {
+        column-count: 2;
+        column-gap: 40px;
 
-      @media (max-width: $screen-md-max) {
-        column-count: 1;
+        @media (max-width: $screen-md-max) {
+          column-count: 1;
+        }
       }
     }
   }

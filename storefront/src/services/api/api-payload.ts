@@ -16,7 +16,7 @@ export async function gqlRequest<T>(
   variables: Record<string, any> = {},
   loaderKey?: string,
 ): Promise<T> {
-  console.log('USE LANG From LS', locale)
+  //console.log('USE LANG From LS', locale)
 
   const finalVariables = {
     ...variables,

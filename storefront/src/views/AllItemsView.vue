@@ -38,7 +38,6 @@ useSeoMeta({
 
   <section class="section">
     <div class="container is-fullhd">
-    
       <Text2Columns :text="richTextToHTML(contentStore.allItemsPage?.content || [])"></Text2Columns>
     </div>
   </section>

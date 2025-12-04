@@ -32,7 +32,6 @@ const quantityError = computed(() => {
   return quantity?.value > props.inventoryQuantity
 })
 
-// add to cart
 const handleAddToCart = async () => {
   loaderStore.startLoading(loaderStore.LOADER_KEYS.ADD_TO_CART)
   await cartStore.add(props.productId, quantity.value, props.variantId)

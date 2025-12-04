@@ -1,10 +1,7 @@
 <script setup lang="ts">
-// import ProductPrice from '@/components/item-view/ProductPrice.vue'
 // import OptionSelect from '@/components/item-view/OptionSelect.vue'
 // import AddToCart from '@/components/item-view/AddToCart.vue'
-// import { optionsAsKeymap } from '@/utils/productUtils.ts'
 // import { useLoaderStore } from '@/stores/LoaderStore'
-// import { isEqual } from '@/utils/productUtils.ts'
 // import { ref, computed, onMounted } from 'vue'
 // import type { IItem } from '@/interfaces/IItem'
 

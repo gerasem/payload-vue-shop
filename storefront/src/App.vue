@@ -12,7 +12,7 @@ import { RouterView } from 'vue-router'
   <InformationBanner />
   <Navbar />
   <div id="content">
-    <router-view />
+    <RouterView />
   </div>
 
   <Footer />

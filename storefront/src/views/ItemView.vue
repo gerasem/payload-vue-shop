@@ -5,7 +5,6 @@ import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue'
 import OptionSelect from '@/components/item-view/OptionSelect.vue'
 import Text2Columns from '@/components/content/Text2Columns.vue'
 import AddToCart from '@/components/item-view/AddToCart.vue'
-import { useCategoryStore } from '@/stores/CategoryStore'
 import Gallery from '@/components/gallery/Gallery.vue'
 import { useLoaderStore } from '@/stores/LoaderStore'
 import { watch, ref, computed, onMounted } from 'vue'
@@ -13,11 +12,9 @@ import Header from '@/components/content/Header.vue'
 import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
-import ApiService from '@/services/api/api'
 import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 
-const categoryStore = useCategoryStore()
 const loaderStore = useLoaderStore()
 const itemStore = useItemStore()
 

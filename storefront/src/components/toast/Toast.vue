@@ -8,7 +8,7 @@ import { watch } from 'vue'
 const toastStore = useToastStore()
 const toaster = createToaster({ placement: 'bottom', overlap: false, gap: 15 })
 
-const getClass = (type: string): string => {
+const getClass = (type: string | undefined): string => {
   switch (type) {
     case 'success':
       return 'is-success is-light'

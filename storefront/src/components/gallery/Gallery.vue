@@ -4,6 +4,9 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { IItem } from '@/interfaces/IItem'
 import 'photoswipe/style.css'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 defineProps<{
   item: IItem
@@ -57,7 +60,7 @@ onUnmounted(() => {
       </a>
     </div>
 
-    <p v-else>No images</p>
+    <p v-else>{{ t('No images')}}</p>
   </div>
 </template>
 

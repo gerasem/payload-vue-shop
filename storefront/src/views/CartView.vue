@@ -9,6 +9,7 @@ import { useCartStore } from '@/stores/CartStore'
 import { useSeoMeta } from '@unhead/vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import {computed} from "vue";
 
 const router = useRouter()
 const cartStore = useCartStore()
@@ -21,7 +22,10 @@ const handleSubmit = () => {
 }
 
 useSeoMeta({
-  title: 'Shopping Cart',
+  title: computed(() => t('Shopping Cart')),
+  description: computed(
+      () => t('Shopping Cart'),
+  ),
 })
 </script>
 
