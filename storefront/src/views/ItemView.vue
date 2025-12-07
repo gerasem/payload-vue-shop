@@ -13,6 +13,7 @@ import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
 import { useSeoMeta } from '@unhead/vue'
+import { useRouteData } from '@/composables/useRouteData'
 import { useI18n } from 'vue-i18n'
 
 const loaderStore = useLoaderStore()
@@ -22,10 +23,39 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 
+// Load item (SSG, mount, and route changes)
+useRouteData(
+  () => route.params.handle as string,
+  (slug) => itemStore.fetchItemBySlug(slug)
+)
+
+// Refresh inventory after item loads (client-side only)
+onMounted(async () => {
+  const slug = route.params.handle as string
+  const loadedItem = itemStore.getItemBySlug(slug)
+  if (loadedItem) {
+    await itemStore.fetchItemById(loadedItem)
+  }
+})
+
+// Also refresh on route change
+watch(
+  () => route.params.handle,
+  async (newSlug) => {
+    if (newSlug && typeof newSlug === 'string') {
+      const loadedItem = itemStore.getItemBySlug(newSlug)
+      if (loadedItem) {
+        await itemStore.fetchItemById(loadedItem)
+      }
+    }
+  }
+)
+
+// Use the getter method instead of searching through items array
 const item = computed(() => {
-  return (
-    itemStore.items.flatMap((g) => g.products).find((p) => p.slug === route.params.handle) || null
-  )
+  const slug = route.params.handle as string
+  if (!slug) return null
+  return itemStore.getItemBySlug(slug)
 })
 
 const category = computed(() => {
@@ -75,13 +105,6 @@ const selectedVariant = computed(() => {
 
     return matches && variant.options.length === selectedCount
   })
-})
-
-onMounted(async() => {
-  // get item count from api
-  if(typeof window !== 'undefined' && item.value) {
-    await itemStore.fetchItemById(item.value)
-  }
 })
 
 useSeoMeta({

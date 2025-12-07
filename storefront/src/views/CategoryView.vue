@@ -8,6 +8,7 @@ import { useItemStore } from '@/stores/ItemStore'
 import { richTextToHTML } from '@/utils/richtext'
 import { useRoute, useRouter } from 'vue-router'
 import { useSeoMeta } from '@unhead/vue'
+import { useRouteData } from '@/composables/useRouteData'
 import { watch, computed } from 'vue'
 
 const route = useRoute()
@@ -16,12 +17,21 @@ const router = useRouter()
 const categoryStore = useCategoryStore()
 const itemStore = useItemStore()
 
-const items = computed(() => {
-  return itemStore.items.find((i) => i.category.slug === category.value?.slug)?.products ?? []
-})
-
 const category = computed(() => {
   return categoryStore.categories.find((cat) => cat.slug === route.params.handle) || null
+})
+
+// Load items for this category (SSG, mount, and route changes)
+useRouteData(
+  () => route.params.handle as string,
+  (slug) => itemStore.fetchItemsByCategory(slug)
+)
+
+// Use the getter method instead of searching through items array
+const items = computed(() => {
+  const categorySlug = category.value?.slug
+  if (!categorySlug) return []
+  return itemStore.getItemsByCategory(categorySlug)
 })
 
 watch(category, (value) => {

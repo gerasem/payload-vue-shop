@@ -1,31 +1,161 @@
-// import type { ProductsByCategoryIdQuery } from '@/generated/graphql'
-// import ITEMS_BY_CATEGORY_ID from '@/graphql/itemsByCategoryId.gql'
-import type { AllProductsQuery, ProductByIdQuery } from '@/generated/graphql'
+import type { 
+  ProductByIdQuery,
+  ProductsByCategoryQuery,
+  ProductBySlugQuery
+} from '@/generated/graphql'
 import type { IItem, IItemGrouped } from '@/interfaces/IItem'
 import { gqlRequest } from '@/services/api/api-payload'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 import PRODUCT_BY_ID from '@/graphql/productById.gql'
-import ALL_PRODUCTS from '@/graphql/allProducts.gql'
+import PRODUCTS_BY_CATEGORY from '@/graphql/productsByCategory.gql'
+import PRODUCT_BY_SLUG from '@/graphql/productBySlug.gql'
 
 export const useItemStore = defineStore('item', () => {
-  const items = ref<IItemGrouped[]>([])
+  // Single source of truth - flat storage by slug
+  const itemsBySlug = ref<Map<string, IItem>>(new Map())
+  
+  // Lightweight index: category slug -> array of product slugs
+  const itemSlugsByCategory = ref<Map<string, string[]>>(new Map())
 
-  const fetchItems = async (): Promise<void> => {
-    const products = await gqlRequest<AllProductsQuery>(ALL_PRODUCTS)
+  /**
+   * Helper: Add product to cache and update category index
+   */
+  const addProductToCache = (product: IItem) => {
+    if (!product.slug) return
 
-    const map = new Map<string, { category: IItemGrouped['category']; products: IItemGrouped['products'] }>()
+    // Store product
+    itemsBySlug.value.set(product.slug, product)
 
-    for (const product of products.Products?.docs || []) {
-      const category = product.categories
-      if (!category) continue
+    // Update category index
+    const categorySlug = product.categories?.slug
+    if (categorySlug) {
+      const existingSlugs = itemSlugsByCategory.value.get(categorySlug) || []
+      if (!existingSlugs.includes(product.slug)) {
+        itemSlugsByCategory.value.set(categorySlug, [...existingSlugs, product.slug])
+      }
+    }
+  }
 
-      const slug = category.slug
-      if (!slug) continue
+  /**
+   * Fetch products for a specific category
+   */
+  const fetchItemsByCategory = async (categorySlug: string): Promise<void> => {
+    // Check cache first
+    if (itemSlugsByCategory.value.has(categorySlug)) {
+      return
+    }
 
-      if (!map.has(slug)) {
-        map.set(slug, {
+    // Need to get category ID from categoryStore
+    // Import categoryStore at the top of this method
+    const { useCategoryStore } = await import('./CategoryStore')
+    const categoryStore = useCategoryStore()
+    
+    const category = categoryStore.categories.find(c => c.slug === categorySlug)
+    if (!category?.id) {
+      console.warn(`Category with slug "${categorySlug}" not found`)
+      itemSlugsByCategory.value.set(categorySlug, [])
+      return
+    }
+
+    const products = await gqlRequest<ProductsByCategoryQuery>(
+      PRODUCTS_BY_CATEGORY,
+      { categoryId: category.id }
+    )
+
+    const productList = products.Products?.docs || []
+    
+    if (productList.length === 0) {
+      // Mark category as loaded (even if empty)
+      itemSlugsByCategory.value.set(categorySlug, [])
+      return
+    }
+
+    const slugs: string[] = []
+    
+    for (const product of productList) {
+      addProductToCache(product as IItem)
+      if (product.slug) {
+        slugs.push(product.slug)
+      }
+    }
+
+    itemSlugsByCategory.value.set(categorySlug, slugs)
+  }
+
+  /**
+   * Fetch a single product by slug
+   */
+  const fetchItemBySlug = async (slug: string): Promise<void> => {
+    // Check cache first
+    if (itemsBySlug.value.has(slug)) {
+      return
+    }
+
+    const products = await gqlRequest<ProductBySlugQuery>(
+      PRODUCT_BY_SLUG,
+      { slug }
+    )
+
+    const product = products.Products?.docs[0]
+    if (!product) return
+
+    addProductToCache(product as IItem)
+  }
+
+  /**
+   * Refresh a single product by ID (for inventory updates)
+   */
+  const fetchItemById = async (item: IItem): Promise<void> => {
+    if(item.__isFresh) return
+    
+    const products = await gqlRequest<ProductByIdQuery>(PRODUCT_BY_ID, {id: item.id}, 'GET_PRODUCT_BY_ID')
+    const freshProduct = products.Products?.docs[0] as IItem
+    
+    if(freshProduct && freshProduct.slug) {
+      const freshProductClone = { ...freshProduct } as IItem
+      freshProductClone.__isFresh = true
+      
+      // Update in cache
+      itemsBySlug.value.set(freshProduct.slug, freshProductClone)
+    }
+  }
+
+  /**
+   * Get products for a specific category (from cache)
+   */
+  const getItemsByCategory = (categorySlug: string): IItem[] => {
+    const slugs = itemSlugsByCategory.value.get(categorySlug)
+    if (!slugs) return []
+
+    return slugs
+      .map(slug => itemsBySlug.value.get(slug))
+      .filter((item): item is IItem => item !== undefined)
+  }
+
+  /**
+   * Get a single product by slug (from cache)
+   */
+  const getItemBySlug = (slug: string): IItem | null => {
+    return itemsBySlug.value.get(slug) ?? null
+  }
+
+  /**
+   * Get all items grouped by category (for AllItemsView)
+   * This creates IItemGrouped[] dynamically from flat storage
+   */
+  const getAllItemsGrouped = (): IItemGrouped[] => {
+    const groups = new Map<string, IItemGrouped>()
+
+    for (const item of itemsBySlug.value.values()) {
+      const category = item.categories
+      if (!category?.slug) continue
+
+      const categorySlug = category.slug
+
+      if (!groups.has(categorySlug)) {
+        groups.set(categorySlug, {
           category: {
             slug: category.slug,
             title: category.title ?? '',
@@ -34,51 +164,54 @@ export const useItemStore = defineStore('item', () => {
         })
       }
 
-      map.get(slug)!.products.push(product)
+      groups.get(categorySlug)!.products.push(item)
     }
 
-    items.value = Array.from(map.values())
+    return Array.from(groups.values())
   }
 
-  const fetchItemById = async (item: IItem): Promise<void> => {
-    if(item.__isFresh) return
-    const products = await gqlRequest<ProductByIdQuery>(PRODUCT_BY_ID, {id: item.id}, 'GET_PRODUCT_BY_ID')
-    console.log('refresh product', products.Products?.docs[0])
-    const freshProduct = products.Products?.docs[0] as IItem
-    if(freshProduct) {
-      const freshProductClone = { ...freshProduct } as IItem
-      freshProductClone.__isFresh = true
-      updateProductReactive(freshProductClone)
-    }
-  }
-
-  const updateProductReactive = (freshProduct: IItem) => {
-    let found = false
-
-    for (const group of items.value) {
-      const index = group.products.findIndex(p => p.id === freshProduct.id)
-      if (index !== -1) {
-        group.products.splice(index, 1, freshProduct)
-        found = true
-        break
-      }
+  /**
+   * Hydrate store from SSG initial state
+   */
+  const hydrate = (data: any) => {
+    // Restore flat item storage
+    if (data?.itemsBySlug) {
+      itemsBySlug.value = new Map<string, IItem>(Object.entries(data.itemsBySlug))
     }
 
-    if (!found && items.value.length > 0) {
-      items.value[0].products.push(freshProduct)
+    // Restore category index
+    if (data?.itemSlugsByCategory) {
+      itemSlugsByCategory.value = new Map<string, string[]>(Object.entries(data.itemSlugsByCategory))
     }
   }
 
-  const hydrate = (data) => {
-    if (data?.items) {
-      items.value = data.items
+  /**
+   * Get serializable state for SSG
+   */
+  const getSerializableState = () => {
+    return {
+      itemsBySlug: Object.fromEntries(itemsBySlug.value),
+      itemSlugsByCategory: Object.fromEntries(itemSlugsByCategory.value),
     }
   }
 
   return {
-    items,
-    fetchItems,
+    // Data
+    itemsBySlug,
+    itemSlugsByCategory,
+    
+    // Fetch methods
+    fetchItemsByCategory,
+    fetchItemBySlug,
     fetchItemById,
+    
+    // Getters
+    getItemsByCategory,
+    getItemBySlug,
+    getAllItemsGrouped,
+    
+    // Hydration
     hydrate,
+    getSerializableState,
   }
 })

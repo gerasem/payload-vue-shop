@@ -32,12 +32,11 @@ export default defineConfig(({ mode }) => {
     },
     ssgOptions: {
       script: 'async',
-      //formatting: 'minify',
-      async includedRoutes(paths, routes) {
+      formatting: 'minify',
+      async includedRoutes() {
         const env = loadEnv(mode, process.cwd(), '')
 
         const locales = (env.VITE_LANGUAGES || 'de').split(',')
-        locales.push('/')
         const dynamicRoutes: string[] = []
 
         // 1. Categories
@@ -61,6 +60,8 @@ export default defineConfig(({ mode }) => {
             dynamicRoutes.push(`/${locale}/item/${product.slug}`)
           }
         }
+
+        dynamicRoutes.push('index')
 
         // console.log('PRODUCTS/ CATEGORIES', products, categories)
         return [...locales.map((loc) => `/${loc}`), ...dynamicRoutes]

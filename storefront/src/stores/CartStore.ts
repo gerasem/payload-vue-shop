@@ -43,16 +43,15 @@ export const useCartStore = defineStore('cart', () => {
 
   // Rebuild full cart items using raw data + fresh product info from itemStore
   function hydrate() {
-    if (!itemStore.items.length) {
+    if (itemStore.itemsBySlug.size === 0) {
       items.value = []
       return
     }
 
     items.value = rawItems.value
       .map((raw) => {
-        const product = itemStore.items
-          .flatMap((g) => g.products)
-          .find((p) => p.id === raw.productId)
+        // Find product by ID in the flat slug map
+        const product = Array.from(itemStore.itemsBySlug.values()).find((p) => p.id === raw.productId)
 
         if (!product) return null!
 

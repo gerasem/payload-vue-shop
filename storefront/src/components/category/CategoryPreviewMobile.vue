@@ -1,28 +1,18 @@
 <script setup lang="ts">
 import CategoryPreviewHeader from '@/components/category/CategoryPreviewHeader.vue'
 import type { ICategory } from '@/interfaces/ICategory'
-import type { IItemGrouped } from '@/interfaces/IItem'
-import { useItemStore } from '@/stores/ItemStore'
+import type { IItem } from '@/interfaces/IItem'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import Item from '@/components/item/Item.vue'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 import 'swiper/css'
 
 const { t } = useI18n()
-const props = defineProps<{
+
+defineProps<{
   category: ICategory
+  items: IItem[]
 }>()
-
-const itemStore = useItemStore()
-
-const items = computed(() => {
-  return (
-    itemStore.items
-      .find((i: IItemGrouped) => i.category.slug === props.category.slug)
-      ?.products.slice(0, 4) ?? []
-  )
-})
 </script>
 
 <template>

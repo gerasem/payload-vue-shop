@@ -1,9 +1,7 @@
 import { useCategoryStore } from '@/stores/CategoryStore'
 import { hydrateOrFetch } from '@/utils/hydrateOrFetch'
 import { useContentStore } from '@/stores/ContentStore'
-import { useItemStore } from '@/stores/ItemStore'
 import { useCartStore } from '@/stores/CartStore'
-import { createHead } from '@unhead/vue/client'
 import type { ViteSSGContext } from 'vite-ssg'
 import { createI18n } from 'vue-i18n'
 import { createPinia } from 'pinia'
@@ -61,7 +59,6 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
   const pinia = createPinia()
   const contentStore = useContentStore(pinia)
   const categoryStore = useCategoryStore()
-  const itemStore = useItemStore()
 
   if (import.meta.env.SSR) {
     await Promise.all([
@@ -71,7 +68,6 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
       contentStore.fetchHomePage(),
       contentStore.fetchAllItemsPage(),
       categoryStore.fetchCategories(),
-      itemStore.fetchItems(),
     ])
 
     initialState.content = {
@@ -85,31 +81,24 @@ export const createApp = ViteSSG(App, { routes }, async (context: ViteSSGContext
     initialState.category = {
       categories: categoryStore.categories,
     }
-
-    initialState.items = {
-      items: itemStore.items,
-    }
-
-    // console.log('INITIAL STATE:', initialState)
   } else {
-    hydrateOrFetch(contentStore, initialState, [
-      'informationBanner',
-      'header',
-      'footer',
-      'homePage',
-      'allItemsPage',
-    ])
     await Promise.all([
       hydrateOrFetch(categoryStore, initialState, ['categories']),
-      hydrateOrFetch(itemStore, initialState, ['items']),
+      hydrateOrFetch(contentStore, initialState, [
+        'informationBanner',
+        'header',
+        'footer',
+        'homePage',
+        'allItemsPage',
+      ])
     ])
 
-    const cart = useCartStore()
-    cart.init()
+    const cartStore = useCartStore()
+    cartStore.init()
   }
 
   app.use(pinia)
   app.use(router)
   app.use(i18n)
-  app.use(createHead())
+  // Note: ViteSSG automatically installs @unhead/vue plugin, no need to manually use createHead()
 })
