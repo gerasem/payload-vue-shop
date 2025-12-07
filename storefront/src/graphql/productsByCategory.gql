@@ -1,5 +1,9 @@
-query AllProducts($locale: LocaleInputType!) {
-  Products(locale: $locale, limit: 10000) {
+query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!) {
+  Products(
+    locale: $locale
+    limit: 10000
+    where: { categories: { equals: $categoryId } }
+  ) {
     docs {
       id
       title
@@ -48,7 +52,7 @@ query AllProducts($locale: LocaleInputType!) {
         title
       }
 
-      meta{
+      meta {
         title
         description
       }

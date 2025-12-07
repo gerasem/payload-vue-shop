@@ -1,0 +1,59 @@
+query ProductBySlug($locale: LocaleInputType!, $slug: String!) {
+  Products(locale: $locale, where: { slug: { equals: $slug } }, limit: 1) {
+    docs {
+      id
+      title
+      slug
+      priceInEUR
+      enableVariants
+      description
+      inventory
+      gallery {
+        id
+        url
+        thumbnailURL
+        width
+        height
+        alt
+      }
+      variants {
+        docs {
+          id
+          priceInEUR
+          title
+          options {
+            id
+            label
+            value
+          }
+          inventory
+        }
+      }
+      variantTypes {
+        id
+        label
+        name
+        options {
+          docs {
+            id
+            label
+            value
+          }
+        }
+      }
+
+      categories {
+        id
+        slug
+        title
+      }
+
+      meta {
+        title
+        description
+      }
+    }
+
+    totalDocs
+  }
+}
