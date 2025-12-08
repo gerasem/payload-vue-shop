@@ -46,12 +46,6 @@ query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!) {
         }
       }
 
-      categories {
-        id
-        slug
-        title
-      }
-
       meta {
         title
         description

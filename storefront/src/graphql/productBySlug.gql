@@ -42,12 +42,6 @@ query ProductBySlug($locale: LocaleInputType!, $slug: String!) {
         }
       }
 
-      categories {
-        id
-        slug
-        title
-      }
-
       meta {
         title
         description

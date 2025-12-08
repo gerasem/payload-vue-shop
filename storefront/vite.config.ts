@@ -1,4 +1,3 @@
-import { fetchCategoriesFromPayload, fetchProductsFromPayload } from './src/lib/payload-ssg'
 import graphqlLoader from 'vite-plugin-graphql-loader'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { defineConfig, loadEnv } from 'vite'
