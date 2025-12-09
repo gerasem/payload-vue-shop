@@ -1,21 +1,25 @@
-import type { 
+import type {
   ProductByIdQuery,
   ProductsByCategoryQuery,
-  ProductBySlugQuery
+  ProductBySlugQuery,
+  CategoriesQuery,
 } from '@/generated/graphql'
-import type { IItem, IItemGrouped } from '@/interfaces/IItem'
+import type { IItem, IItemGrouped, IItemsByCategory } from '@/interfaces/IItem'
 import { gqlRequest } from '@/services/api/api-payload'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import PRODUCT_BY_ID from '@/graphql/productById.gql'
 import PRODUCTS_BY_CATEGORY from '@/graphql/productsByCategory.gql'
 import PRODUCT_BY_SLUG from '@/graphql/productBySlug.gql'
+import CATEGORIES_QUERY from '@/graphql/categories.gql'
+import PRODUCT_BY_ID from '@/graphql/productById.gql'
 
 export const useItemStore = defineStore('item', () => {
+  const items = ref<IItem[]>([])
+
   // Single source of truth - flat storage by slug
   const itemsBySlug = ref<Map<string, IItem>>(new Map())
-  
+
   // Lightweight index: category slug -> array of product slugs
   const itemSlugsByCategory = ref<Map<string, string[]>>(new Map())
 
@@ -38,10 +42,24 @@ export const useItemStore = defineStore('item', () => {
     }
   }
 
+  const fetchItemsByCategory = async (
+    categoryId: number,
+    limit: number = 1000,
+  ): Promise<IItemsByCategory | null> => {
+    console.log(`Fetching ${categoryId} items`)
+    const data = await gqlRequest<ProductsByCategoryQuery>(PRODUCTS_BY_CATEGORY, {
+      categoryId,
+      limit,
+    })
+
+    console.log('data', data)
+
+    return data?.Products || null
+  }
   /**
    * Fetch products for a specific category
    */
-  const fetchItemsByCategory = async (categorySlug: string): Promise<void> => {
+  const fetchItemsByCategory1 = async (categorySlug: string): Promise<void> => {
     // Check cache first
     if (itemSlugsByCategory.value.has(categorySlug)) {
       return
@@ -51,21 +69,20 @@ export const useItemStore = defineStore('item', () => {
     // Import categoryStore at the top of this method
     const { useCategoryStore } = await import('./CategoryStore')
     const categoryStore = useCategoryStore()
-    
-    const category = categoryStore.categories.find(c => c.slug === categorySlug)
+
+    const category = categoryStore.categories.find((c) => c.slug === categorySlug)
     if (!category?.id) {
       console.warn(`Category with slug "${categorySlug}" not found`)
       itemSlugsByCategory.value.set(categorySlug, [])
       return
     }
 
-    const products = await gqlRequest<ProductsByCategoryQuery>(
-      PRODUCTS_BY_CATEGORY,
-      { categoryId: category.id }
-    )
+    const products = await gqlRequest<ProductsByCategoryQuery>(PRODUCTS_BY_CATEGORY, {
+      categoryId: category.id,
+    })
 
     const productList = products.Products?.docs || []
-    
+
     if (productList.length === 0) {
       // Mark category as loaded (even if empty)
       itemSlugsByCategory.value.set(categorySlug, [])
@@ -73,7 +90,7 @@ export const useItemStore = defineStore('item', () => {
     }
 
     const slugs: string[] = []
-    
+
     for (const product of productList) {
       addProductToCache(product as IItem)
       if (product.slug) {
@@ -93,10 +110,7 @@ export const useItemStore = defineStore('item', () => {
       return
     }
 
-    const products = await gqlRequest<ProductBySlugQuery>(
-      PRODUCT_BY_SLUG,
-      { slug }
-    )
+    const products = await gqlRequest<ProductBySlugQuery>(PRODUCT_BY_SLUG, { slug })
 
     const product = products.Products?.docs[0]
     if (!product) return
@@ -108,15 +122,19 @@ export const useItemStore = defineStore('item', () => {
    * Refresh a single product by ID (for inventory updates)
    */
   const fetchItemById = async (item: IItem): Promise<void> => {
-    if(item.__isFresh) return
-    
-    const products = await gqlRequest<ProductByIdQuery>(PRODUCT_BY_ID, {id: item.id}, 'GET_PRODUCT_BY_ID')
+    if (item.__isFresh) return
+
+    const products = await gqlRequest<ProductByIdQuery>(
+      PRODUCT_BY_ID,
+      { id: item.id },
+      'GET_PRODUCT_BY_ID',
+    )
     const freshProduct = products.Products?.docs[0] as IItem
-    
-    if(freshProduct && freshProduct.slug) {
+
+    if (freshProduct && freshProduct.slug) {
       const freshProductClone = { ...freshProduct } as IItem
       freshProductClone.__isFresh = true
-      
+
       // Update in cache
       itemsBySlug.value.set(freshProduct.slug, freshProductClone)
     }
@@ -130,7 +148,7 @@ export const useItemStore = defineStore('item', () => {
     if (!slugs) return []
 
     return slugs
-      .map(slug => itemsBySlug.value.get(slug))
+      .map((slug) => itemsBySlug.value.get(slug))
       .filter((item): item is IItem => item !== undefined)
   }
 
@@ -181,7 +199,9 @@ export const useItemStore = defineStore('item', () => {
 
     // Restore category index
     if (data?.itemSlugsByCategory) {
-      itemSlugsByCategory.value = new Map<string, string[]>(Object.entries(data.itemSlugsByCategory))
+      itemSlugsByCategory.value = new Map<string, string[]>(
+        Object.entries(data.itemSlugsByCategory),
+      )
     }
   }
 
@@ -199,17 +219,18 @@ export const useItemStore = defineStore('item', () => {
     // Data
     itemsBySlug,
     itemSlugsByCategory,
-    
+    items,
+
     // Fetch methods
     fetchItemsByCategory,
     fetchItemBySlug,
     fetchItemById,
-    
+
     // Getters
     getItemsByCategory,
     getItemBySlug,
     getAllItemsGrouped,
-    
+
     // Hydration
     hydrate,
     getSerializableState,

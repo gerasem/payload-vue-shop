@@ -20,9 +20,9 @@ const categoryStore = useCategoryStore()
 // Load all categories (SSG and client)
 usePageData(async () => {
   const categories = categoryStore.categories
-  await Promise.all(
-    categories.map(cat => itemStore.fetchItemsByCategory(cat.slug))
-  )
+  //await Promise.all(
+    // categories.map(cat => itemStore.fetchItemsByCategory(cat.slug))
+  //)
 })
 
 // Dynamically group items from flat storage

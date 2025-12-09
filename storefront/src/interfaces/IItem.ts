@@ -1,4 +1,4 @@
-import type { AllProductsQuery } from '@/generated/graphql'
+import type { ProductsByCategoryQuery } from '@/generated/graphql'
 
 export interface IItemGrouped {
   category: {
@@ -8,8 +8,5 @@ export interface IItemGrouped {
   products: IItem[]
 }
 
-type BaseItem = NonNullable<NonNullable<AllProductsQuery['Products']>['docs']>[number]
-
-export interface IItem extends BaseItem {
-  __isFresh?: boolean | null
-}
+export type IItem = NonNullable<NonNullable<ProductsByCategoryQuery['Products']>['docs']>[number]
+export type IItemsByCategory = NonNullable<ProductsByCategoryQuery['Products']>

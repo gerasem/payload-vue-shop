@@ -21,9 +21,9 @@ const itemStore = useItemStore()
 // Load items for all categories (SSG and client)
 usePageData(async () => {
   const categories = categoryStore.categories
-  await Promise.all(
-    categories.map(cat => itemStore.fetchItemsByCategory(cat.slug))
-  )
+  //await Promise.all(
+    // categories.map(cat => itemStore.fetchItemsByCategory(cat.slug))
+  //)
 })
 
 // Get items for a specific category (first 4 items)
