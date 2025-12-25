@@ -2,10 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  imports: {
-    autoImport: false
-  },
-  modules: ['@nuxtjs/i18n'],
+  modules: ['@nuxtjs/i18n', '@nuxt/ui'],
   i18n: {
     locales: [
       { code: 'en', file: 'en.json', name: 'En' },
@@ -15,6 +12,7 @@ export default defineNuxtConfig({
     strategy: 'prefix_except_default',
     langDir: 'locales',
   },
+  css: ['~/assets/css/main.css'],
   devServer: {
     port: 3001
   }
