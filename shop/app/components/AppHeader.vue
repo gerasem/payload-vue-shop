@@ -34,23 +34,27 @@
           Kontakt
         </NuxtLink>
         
-        <!-- User icon -->
+        <div>
+            <!-- User icon -->
         <UButton
           :to="localePath('/cabinet')"
-          icon="i-heroicons-user"
+          icon="i-bi-person"
           color="neutral"
-          variant="ghost"
+          variant="link"
+          size="xl" 
           aria-label="Account"
         />
         
         <!-- Cart icon -->
         <UButton
           :to="localePath('/cart')"
-          icon="i-heroicons-shopping-cart"
+          icon="i-bi-cart"
           color="neutral"
-          variant="ghost"
+          variant="link"
+          size="xl" 
           aria-label="Shopping Cart"
         />
+        </div>
       </div>
     </template>
   </UHeader>
