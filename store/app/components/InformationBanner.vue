@@ -1,5 +1,5 @@
 <template>
-  <header class="hidden md:flex items-center justify-center h-10 bg-[#FAFAFA] text-[#787878] text-[15px] relative">
+  <header class="hidden md:flex items-center justify-center h-10 text-[15px] relative" style="background-color: #f7f7f7; color: #787878;">
     <div class="flex items-center justify-around gap-6 px-3 overflow-x-auto scrollbar-hide whitespace-nowrap w-full">
       <div 
         v-for="(item, index) in bannerItems" 
