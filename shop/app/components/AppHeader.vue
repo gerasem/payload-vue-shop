@@ -1,5 +1,20 @@
+<script setup lang="ts">
+const localePath = useLocalePath()
+
+const navigationLinks = [
+  {
+    label: 'Alle Waren',
+    to: '/items',
+  },
+  {
+    label: 'Kontakt',
+    to: '/contact',
+  }
+]
+</script>
+
 <template>
-  <UHeader toggle-side="left" mode="slideover" toggleSide="left">
+  <UHeader toggle-side="left" mode="slideover">
     <template #left>
     
 
@@ -82,18 +97,3 @@
 
   </UHeader>
 </template>
-
-<script setup lang="ts">
-const localePath = useLocalePath()
-
-const navigationLinks = [
-  {
-    label: 'Alle Waren',
-    to: '/items',
-  },
-  {
-    label: 'Kontakt',
-    to: '/contact',
-  }
-]
-</script>

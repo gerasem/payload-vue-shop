@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <h1>Contact</h1>
-  </div>
-</template>
-
 <script setup lang="ts">
 definePageMeta({
   layout: 'default'
@@ -16,3 +10,9 @@ useHead({
   ]
 })
 </script>
+
+<template>
+  <div>
+    <h1>Contact</h1>
+  </div>
+</template>

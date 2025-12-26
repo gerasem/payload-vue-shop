@@ -1,24 +1,21 @@
-<template>
-  <div>
-    <h1>Category</h1>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue'
-import { capitalize } from '~/utils/formatters'
-
 definePageMeta({
   layout: 'default'
 })
 
 const route = useRoute()
-const categoryName = computed(() => capitalize((route.params.slug as string).replace(/-/g, ' ')))
+const slug = route.params.slug
 
 useHead({
-  title: computed(() => `${categoryName.value} | Store - Shop ${categoryName.value}`),
+  title: `${slug} Category | Store - Browse Products`,
   meta: [
-    { name: 'description', content: computed(() => `Browse our ${categoryName.value} collection. Find the best products in ${categoryName.value} at competitive prices.`) }
+    { name: 'description', content: `Browse all products in the ${slug} category. Find quality items at great prices.` }
   ]
 })
 </script>
+
+<template>
+  <div>
+    <h1>Category: {{ slug }}</h1>
+  </div>
+</template>

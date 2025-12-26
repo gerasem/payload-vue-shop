@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const { locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+const availableLocales = computed(() => locales.value)
+</script>
+
 <template>
   <div class="flex items-center gap-1">
     <NuxtLink 
@@ -15,9 +21,3 @@
     </NuxtLink>
   </div>
 </template>
-
-<script setup lang="ts">
-const { locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
-const availableLocales = computed(() => locales.value)
-</script>
