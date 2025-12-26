@@ -49,3 +49,11 @@
   --ui-container: 1600px;
   --ui-header-height: 100px
 }
+
+/* Fix cursor for buttons and links */
+button,
+a,
+[role="button"],
+.cursor-pointer {
+  cursor: pointer !important;
+}
