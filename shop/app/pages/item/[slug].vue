@@ -9,7 +9,10 @@ const slug = route.params.slug
 useHead({
   title: `${slug} | Store - Product Details`,
   meta: [
-    { name: 'description', content: `View detailed information about ${slug}. Check availability, specifications, and reviews.` }
+    {
+      name: 'description',
+      content: `View detailed information about ${slug}. Check availability, specifications, and reviews.`
+    }
   ]
 })
 </script>

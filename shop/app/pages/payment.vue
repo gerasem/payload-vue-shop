@@ -6,7 +6,11 @@ definePageMeta({
 useHead({
   title: 'Payment | Store - Secure Payment Processing',
   meta: [
-    { name: 'description', content: 'Complete your payment securely. We accept all major credit cards and PayPal for your convenience.' }
+    {
+      name: 'description',
+      content:
+        'Complete your payment securely. We accept all major credit cards and PayPal for your convenience.'
+    }
   ]
 })
 </script>

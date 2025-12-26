@@ -6,8 +6,8 @@ const availableLocales = computed(() => locales.value)
 
 <template>
   <div class="flex items-center gap-1">
-    <NuxtLink 
-      v-for="(locale, index) in availableLocales" 
+    <NuxtLink
+      v-for="(locale, index) in availableLocales"
       :key="locale.code"
       :to="switchLocalePath(locale.code)"
       class="font-medium transition-colors"

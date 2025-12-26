@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
 
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
@@ -31,29 +31,28 @@
   --color-secondary-950: #3f2512;
 
   /* Custom Gray Palette (project-specific shades) */
-  --color-gray-50: #f7f7f7;   /* background-gray */
-  --color-gray-100: #F0F0F0;  /* separator */
+  --color-gray-50: #f7f7f7; /* background-gray */
+  --color-gray-100: #f0f0f0; /* separator */
   --color-gray-200: #e3e3e3;
   --color-gray-300: #c8c8c8;
-  --color-gray-400: #aaaaaa;  /* muted */
-  --color-gray-500: #787878;  /* icons */
+  --color-gray-400: #aaaaaa; /* muted */
+  --color-gray-500: #787878; /* icons */
   --color-gray-600: #5d5d5d;
   --color-gray-700: #454545;
   --color-gray-800: #2f2f2f;
-  --color-gray-900: #1e1e1e;  /* text */
+  --color-gray-900: #1e1e1e; /* text */
   --color-gray-950: #0a0a0a;
-
 }
 
 :root {
   --ui-container: 1600px;
-  --ui-header-height: 100px
+  --ui-header-height: 100px;
 }
 
 /* Fix cursor for buttons and links */
 button,
 a,
-[role="button"],
+[role='button'],
 .cursor-pointer {
   cursor: pointer !important;
 }

@@ -1,9 +1,9 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'primary',    // #eb3e7d
+      primary: 'primary', // #eb3e7d
       secondary: 'secondary', // #dfa44c
-      neutral: 'gray'        // Custom gray palette
+      neutral: 'gray' // Custom gray palette
     }
   }
 })
