@@ -6,8 +6,19 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', file: 'en.json', name: 'En' },
+      { code: 'de', file: 'de.json', name: 'De' }
+    ],
+    defaultLocale: 'de',
+    strategy: 'prefix_except_default',
+    langDir: 'locales',
+  },
 
   devtools: {
     enabled: true
@@ -28,5 +39,8 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+  devServer: {
+    port: 3001
   }
 })

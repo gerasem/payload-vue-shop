@@ -18,6 +18,7 @@
     "@nuxt/scripts": "0.13.2",
     "@nuxt/test-utils": "3.21.0",
     "@nuxt/ui": "^4.3.0",
+    "@nuxtjs/i18n": "10.2.1",
     "@unhead/vue": "^2.0.19",
     "nuxt": "^4.2.2"
   },
