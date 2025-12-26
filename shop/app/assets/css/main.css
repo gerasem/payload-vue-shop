@@ -42,4 +42,10 @@
   --color-gray-800: #2f2f2f;
   --color-gray-900: #1e1e1e;  /* text */
   --color-gray-950: #0a0a0a;
+
+}
+
+:root {
+  --ui-container: 1600px;
+  --ui-header-height: 100px
 }

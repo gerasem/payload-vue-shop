@@ -1,5 +1,5 @@
 <template>
-  <header class="hidden md:flex items-center justify-center h-10 bg-primary-50 text-gray-600 text-sm">
+  <header class="hidden md:flex items-center justify-center h-10 bg-primary-50 text-gray-600 text-base">
     <div class="flex items-center gap-2">
       <UIcon name="i-heroicons-truck" class="w-4 h-4" />
       <span>Free shipping on orders over €50</span>

@@ -4,10 +4,14 @@
       v-for="(locale, index) in availableLocales" 
       :key="locale.code"
       :to="switchLocalePath(locale.code)"
-      class="font-medium hover:text-primary transition-colors text-gray-900"
+      class="font-medium transition-colors"
+      :class="[
+        { 'text-gray-900 cursor-not-allowed hover:text-gray-900 ': locale.code === $i18n.locale },
+        { 'text-gray-400 hover:text-primary ': locale.code !== $i18n.locale }
+      ]"
     >
       {{ locale.name }}
-      <span v-if="index < availableLocales.length - 1" class="mx-1 text-gray-400">/</span>
+      <span v-if="index < availableLocales.length - 1" class="mx-1 text-gray-200">/</span>
     </NuxtLink>
   </div>
 </template>
