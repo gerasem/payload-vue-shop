@@ -4,15 +4,42 @@
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Custom Primary Color Palette - Pink (#eb3e7d) */
+  --color-primary-50: #fef1f7;
+  --color-primary-100: #fee5f0;
+  --color-primary-200: #ffcce3;
+  --color-primary-300: #ffa3cd;
+  --color-primary-400: #ff69aa;
+  --color-primary-500: #eb3e7d;
+  --color-primary-600: #d91d5f;
+  --color-primary-700: #b81450;
+  --color-primary-800: #991548;
+  --color-primary-900: #7f1641;
+  --color-primary-950: #4f0621;
+
+  /* Custom Secondary Color Palette - Amber (#dfa44c) */
+  --color-secondary-50: #fefbf3;
+  --color-secondary-100: #fdf4e1;
+  --color-secondary-200: #fbe7c2;
+  --color-secondary-300: #f8d498;
+  --color-secondary-400: #f3bc6c;
+  --color-secondary-500: #dfa44c;
+  --color-secondary-600: #c88838;
+  --color-secondary-700: #a66c2e;
+  --color-secondary-800: #87572a;
+  --color-secondary-900: #6f4926;
+  --color-secondary-950: #3f2512;
+
+  /* Custom Gray Palette (project-specific shades) */
+  --color-gray-50: #f7f7f7;   /* background-gray */
+  --color-gray-100: #F0F0F0;  /* separator */
+  --color-gray-200: #e3e3e3;
+  --color-gray-300: #c8c8c8;
+  --color-gray-400: #aaaaaa;  /* muted */
+  --color-gray-500: #787878;  /* icons */
+  --color-gray-600: #5d5d5d;
+  --color-gray-700: #454545;
+  --color-gray-800: #2f2f2f;
+  --color-gray-900: #1e1e1e;  /* text */
+  --color-gray-950: #0a0a0a;
 }

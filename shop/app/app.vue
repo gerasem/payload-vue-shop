@@ -27,6 +27,8 @@ useSeoMeta({
 
 <template>
   <UApp>
+    <InformationBanner />
+    
     <UHeader>
       <template #left>
         <NuxtLink to="/">
@@ -37,6 +39,8 @@ useSeoMeta({
       </template>
 
       <template #right>
+        <LanguageSwitcher />
+        
         <UColorModeButton />
 
         <UButton
