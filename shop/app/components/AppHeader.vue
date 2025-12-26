@@ -16,14 +16,13 @@ const navigationLinks = [
 <template>
   <UHeader toggle-side="left" mode="slideover">
     <template #left>
-    
 
       <!-- Logo - centered on mobile, left on desktop -->
       <NuxtLink 
         :to="localePath('/')" 
-        class="flex items-center gap-3 lg:ml-0 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
+        class="flex items-center gap-3 lg:ml-0 lg:mr-5 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
       >
-        <img src="/assets/images/logo.svg" alt="Logo" class="w-35 h-12 -mt-2" />
+        <img src="/assets/images/logo.svg" alt="Logo" class="w-24 h-12 lg:-mt-1 sm:w-35" />
       </NuxtLink>
 
       <!-- Desktop only content -->
