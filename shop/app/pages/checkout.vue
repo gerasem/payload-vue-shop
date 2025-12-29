@@ -3,15 +3,10 @@ definePageMeta({
   layout: 'default'
 })
 
-useHead({
+usePageSeo({
   title: 'Checkout | Store - Complete Your Order',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Complete your purchase securely. Enter your shipping information and payment details to finalize your order.'
-    }
-  ]
+  description:
+    'Complete your purchase securely. Enter your shipping information and payment details to finalize your order.'
 })
 </script>
 

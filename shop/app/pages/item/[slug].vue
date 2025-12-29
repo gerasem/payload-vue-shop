@@ -4,16 +4,19 @@ definePageMeta({
 })
 
 const route = useRoute()
-const slug = route.params.slug
+const slug = computed(() => route.params.slug as string)
 
-useHead({
-  title: `${slug} | Store - Product Details`,
-  meta: [
-    {
-      name: 'description',
-      content: `View detailed information about ${slug}. Check availability, specifications, and reviews.`
-    }
-  ]
+// TODO: Replace with actual server data fetch
+const productData = computed(() => ({
+  title: `${slug.value} | Store - Product Details`,
+  description: `View detailed information about ${slug.value}. Check availability, specifications, and reviews.`,
+  image: '/default-product.jpg' // TODO: Get from server
+}))
+
+usePageSeo({
+  title: computed(() => productData.value.title),
+  description: computed(() => productData.value.description),
+  image: computed(() => productData.value.image)
 })
 </script>
 

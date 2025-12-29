@@ -3,15 +3,10 @@ definePageMeta({
   layout: 'default'
 })
 
-useHead({
+usePageSeo({
   title: 'Contact Us | Store - Get in Touch',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Have questions? Contact us today. Send us a message and our team will get back to you as soon as possible.'
-    }
-  ]
+  description:
+    'Have questions? Contact us today. Send us a message and our team will get back to you as soon as possible.'
 })
 </script>
 
