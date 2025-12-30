@@ -42,5 +42,10 @@ export default defineNuxtConfig({
   },
   devServer: {
     port: 3001
+  },
+  runtimeConfig: {
+    public: {
+      payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000'
+    }
   }
 })

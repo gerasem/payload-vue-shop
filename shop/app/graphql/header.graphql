@@ -1,0 +1,43 @@
+query Header($locale: LocaleInputType!) {
+  Header(locale: $locale) {
+    icon {
+      id
+      svgContent
+    }
+    slogan
+    navItems {
+      id
+      link {
+        label
+        type
+        newTab
+        reference {
+          value {
+            ... on Page {
+              id
+              slug
+            }
+          }
+        }
+        url
+      }
+    }
+    navButtons {
+      id
+      link {
+        label
+        type
+        newTab
+        reference {
+          value {
+            ... on Page {
+              id
+              slug
+            }
+          }
+        }
+        url
+      }
+    }
+  }
+}
