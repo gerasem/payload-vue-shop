@@ -23938,9 +23938,40 @@ export type VersionsVariants = {
   totalPages: Scalars['Int']['output'];
 };
 
+export type FooterQueryVariables = Exact<{
+  locale: LocaleInputType;
+}>;
+
+
+export type FooterQuery = { Footer?: { slogan?: string | null, phone?: string | null, contactLink?: { link?: { label?: string | null, type?: Footer_ContactLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null } | null, socialLink?: { link?: { label?: string | null, type?: Footer_SocialLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Footer_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+
 export type HeaderQueryVariables = Exact<{
   locale: LocaleInputType;
 }>;
 
 
 export type HeaderQuery = { Header?: { slogan?: string | null, icon?: { id: number, svgContent?: string | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null, navButtons?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavButtons_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+
+export type InformationBannerQueryVariables = Exact<{
+  locale: LocaleInputType;
+}>;
+
+
+export type InformationBannerQuery = { InformationBanner?: { items?: Array<{ id?: string | null, text?: string | null, icon?: { id: number, svgContent?: string | null } | null }> | null } | null };
+
+export type PageQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  locale: LocaleInputType;
+}>;
+
+
+export type PageQuery = { Pages?: { docs: Array<{ id: number, title?: string | null, content?: any | null, slug?: string | null, publishedOn?: any | null, updatedAt?: any | null, layout?: Array<
+        | { __typename: 'ArchiveBlock' }
+        | { __typename: 'BannerBlock' }
+        | { __typename: 'CallToActionBlock' }
+        | { __typename: 'CarouselBlock' }
+        | { __typename: 'ContentBlock' }
+        | { __typename: 'FormBlock' }
+        | { __typename: 'MediaBlock' }
+        | { __typename: 'ThreeItemGridBlock' }
+      > | null, meta?: { title?: string | null, description?: string | null, image?: { url?: string | null, alt: string } | null } | null }> } | null };
