@@ -17,5 +17,12 @@ useHead({
     </UMain>
 
     <Footer />
+
+    <!-- Toast notifications positioned at bottom-center -->
+    <UNotifications>
+      <template #title="{ title }">
+        <span class="font-semibold">{{ title }}</span>
+      </template>
+    </UNotifications>
   </UApp>
 </template>
