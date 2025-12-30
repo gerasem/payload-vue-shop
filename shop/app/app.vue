@@ -13,16 +13,30 @@ useHead({
     <Header />
 
     <UMain>
-      <NuxtPage />
+      <NuxtPage :transition="{
+        name: 'page',
+        mode: 'out-in'
+      }" />
     </UMain>
 
     <Footer />
-
-    <!-- Toast notifications positioned at bottom-center -->
-    <UNotifications>
-      <template #title="{ title }">
-        <span class="font-semibold">{{ title }}</span>
-      </template>
-    </UNotifications>
   </UApp>
 </template>
+
+<style>
+/* Page transition animations */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>
