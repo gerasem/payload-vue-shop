@@ -1,4 +1,9 @@
 <script setup lang="ts">
+const route = useRoute()
+
+// Check if current page is homepage
+const isHomePage = computed(() => route.path === '/' || route.path === '/de' || route.path === '/en')
+
 useHead({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
   link: [{ rel: 'icon', href: '/favicon.ico' }],
@@ -11,6 +16,9 @@ useHead({
 <template>
   <UApp>
     <Header />
+    
+    <!-- Category bar - shown on all pages except homepage -->
+    <CategoryBar v-if="!isHomePage" />
 
     <UMain>
       <NuxtPage :transition="{
