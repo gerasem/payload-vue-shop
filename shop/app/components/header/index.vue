@@ -47,7 +47,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
   <UHeader 
     toggle-side="left" 
     mode="slideover"
-    :ui="{ root: 'border-b-0 mt-4 bg-white' }"
+    :ui="{ root: 'border-b-0 my-4 bg-white' }"
   >
     <template #left>
       <!-- Logo - centered on mobile, left on desktop -->
