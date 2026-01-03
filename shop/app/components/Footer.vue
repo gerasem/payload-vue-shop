@@ -1,47 +1,30 @@
 <script setup lang="ts">
+import { usePayloadLink } from '@/composables/usePayloadLink'
+import type { MappedLink } from '@/composables/usePayloadLink'
+import SmartLink from '@/components/SmartLink.vue'
+
 const localePath = useLocalePath()
 
 // Fetch footer data with SSR
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
 
-// Helper to map Payload link (reuse pattern from header)
-const mapLink = (item: any): { label: string, to: string } | null => {
-  const link = item?.link
-  if (!link) return null
-
-  if (link.type === 'reference' && link.reference?.value?.slug) {
-    return {
-      label: link.label || '',
-      to: localePath(`/page/${link.reference.value.slug}`)
-    }
-  }
-
-  if (link.type === 'custom' && link.url) {
-    return {
-      label: link.label || '',
-      to: link.url
-    }
-  }
-
-  return null
-}
-
 // Map navigation links
-const navLinks = computed(
-  () =>
-    footerData.value?.navItems
-      ?.map(mapLink)
-      .filter((link): link is { label: string; to: string } => link !== null) || []
+const navLinks = computed(() =>
+  footerData.value?.navItems
+    ?.map(item => usePayloadLink(item))
+    .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Extract contact data
 const phone = computed(() => footerData.value?.phone || '')
-const contactLink = computed(() =>
-  footerData.value?.contactLink ? mapLink(footerData.value.contactLink) : null
-)
-const socialLink = computed(() =>
-  footerData.value?.socialLink ? mapLink(footerData.value.socialLink) : null
-)
+const contactLink = computed(() => {
+  const link = usePayloadLink({ link: footerData.value?.contactLink })
+  return link
+})
+const socialLink = computed(() => {
+  const link = usePayloadLink({ link: footerData.value?.socialLink })
+  return link
+})
 const slogan = computed(() => footerData.value?.slogan || '')
 </script>
 
@@ -53,14 +36,12 @@ const slogan = computed(() => footerData.value?.slogan || '')
         <!-- Navigation Links -->
         <div class="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3">
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <NuxtLink
+            <SmartLink
               v-for="link in navLinks"
-              :key="link.to"
-              :to="link.to"
+              :key="link.href"
+              :link="link"
               class="text-sm text-gray-900 hover:text-primary transition-colors"
-            >
-              {{ link.label }}
-            </NuxtLink>
+            />
           </div>
         </div>
 
@@ -79,23 +60,17 @@ const slogan = computed(() => footerData.value?.slogan || '')
             {{ phone }}
           </a>
 
-          <NuxtLink
+          <SmartLink
             v-if="contactLink"
-            :to="contactLink.to"
+            :link="contactLink"
             class="block text-sm text-gray-900 hover:text-primary transition-colors"
-          >
-            {{ contactLink.label }}
-          </NuxtLink>
+          />
 
-          <a
+          <SmartLink
             v-if="socialLink"
-            :href="socialLink.to"
-            target="_blank"
-            rel="noopener noreferrer"
+            :link="socialLink"
             class="block text-sm text-primary hover:text-primary-600 transition-colors"
-          >
-            {{ socialLink.label }}
-          </a>
+          />
         </div>
       </div>
     </div>

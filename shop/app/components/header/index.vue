@@ -1,49 +1,29 @@
 <script setup lang="ts">
+import { usePayloadLink } from '@/composables/usePayloadLink'
+import type { MappedLink } from '@/composables/usePayloadLink'
+import SmartLink from '@/components/SmartLink.vue'
+
 const localePath = useLocalePath()
 
 // Fetch header data with SSR
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
 
-// Helper to map Payload link to route
-const mapLink = (item: any): { label: string; to: string } | null => {
-  const link = item?.link
-  if (!link) return null
-
-  if (link.type === 'reference' && link.reference?.value?.slug) {
-    return {
-      label: link.label || '',
-      to: localePath(`/${link.reference.value.slug}`)
-    }
-  }
-
-  if (link.type === 'custom' && link.url) {
-    return {
-      label: link.label || '',
-      to: link.url
-    }
-  }
-
-  return null
-}
-
 // Map navigation links from Payload
-const navigationLinks = computed(
-  () =>
-    headerData.value?.navItems
-      ?.map(mapLink)
-      .filter((link): link is { label: string; to: string } => link !== null) || []
+const navigationLinks = computed(() =>
+  headerData.value?.navItems
+    ?.map(item => usePayloadLink(item))
+    .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Map nav buttons (support multiple buttons)
-const navButtons = computed(
-  () =>
-    headerData.value?.navButtons
-      ?.map(mapLink)
-      .filter((link): link is { label: string; to: string } => link !== null) || []
+const navButtons = computed(() =>
+  headerData.value?.navButtons
+    ?.map(item => usePayloadLink(item))
+    .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Extract other data
-const slogan = computed(() => headerData.value?.slogan || 'Demo project')
+const slogan = computed(() => headerData. value?.slogan || 'Demo project')
 const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 </script>
 
@@ -68,14 +48,12 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         <div class="hidden xl:flex items-center gap-6 text-gray-400">{{ slogan }}</div>
 
         <!-- Main navigation from Payload -->
-        <NuxtLink
+        <SmartLink
           v-for="link in navigationLinks"
-          :key="link.to"
-          :to="link.to"
+          :key="link.href"
+          :link="link"
           class="text-gray-600 hover:text-gray-900 font-medium transition-colors"
-        >
-          {{ link.label }}
-        </NuxtLink>
+        />
       </div>
     </template>
 
@@ -87,14 +65,12 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         </div>
 
         <!-- Nav buttons - hidden on mobile -->
-        <NuxtLink
+        <SmartLink
           v-for="button in navButtons"
-          :key="button.to"
-          :to="button.to"
+          :key="button.href"
+          :link="button"
           class="hidden lg:block text-gray-900 hover:text-primary font-medium transition-colors"
-        >
-          {{ button.label }}
-        </NuxtLink>
+        />
 
         <!-- User & Cart icons - always visible -->
         <div class="flex items-center">
