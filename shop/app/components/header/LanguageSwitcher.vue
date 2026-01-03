@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
+
 const { locales, locale, setLocale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
@@ -13,25 +15,41 @@ const switchLanguage = async (localeCode: string) => {
   const newUrl = switchLocalePath(localeCode as 'en' | 'de')
   window.location.href = newUrl
 }
+
+const items = ref<DropdownMenuItem[]>()
+
+// Get current locale name
+const currentLocaleName = computed(() => 
+  locales.value.find(l => l.code === locale.value)?.name || locale.value
+)
+
+onMounted(() => {
+  items.value = locales.value.map((loc) => ({
+    label: loc.name,
+    value: loc.code,
+    color: loc.code === locale.value ? 'primary' : 'neutral',
+    onSelect() {
+      switchLanguage(loc.code)
+    }
+  }))
+})
 </script>
 
 <template>
   <div class="flex items-center gap-1">
-    <template v-for="(loc, index) in locales" :key="loc.code">
-      <a
-        href="#"
-        class="font-medium transition-colors"
-        :class="[
-          loc.code === locale
-            ? 'text-gray-900 cursor-default hover:text-gray-900'
-            : 'text-gray-400 hover:text-primary cursor-pointer'
-        ]"
-        @click.prevent="switchLanguage(loc.code)"
-      >
-        {{ loc.name }}
-      </a>
-      <span v-if="index < locales.length - 1" class="mx-1 text-gray-200">/</span>
-    </template>
+    <UDropdownMenu
+    :items="items"
+    :content="{
+      align: 'center',
+      side: 'bottom',
+      sideOffset: 8
+    }"
+    :ui="{
+      content: 'w-24'
+    }"
+  >
+    <UButton trailing-icon="i-lucide-chevron-down" color="neutral" variant="ghost" size="xl" >{{ currentLocaleName }}</UButton>
+  </UDropdownMenu>
   </div>
 </template>
 
