@@ -47,7 +47,7 @@
 
 :root {
   --ui-container: 1600px;
-  --ui-header-height: 100px;
+  --ui-header-height: 60px;
 }
 
 /* Fix cursor for buttons and links */

@@ -44,7 +44,11 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 <template>
   <HeaderInformationBanner />
 
-  <UHeader toggle-side="left" mode="slideover">
+  <UHeader 
+    toggle-side="left" 
+    mode="slideover"
+    :ui="{ root: 'border-b-0 mt-4 bg-white' }"
+  >
     <template #left>
       <!-- Logo - centered on mobile, left on desktop -->
       <NuxtLink
@@ -52,7 +56,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         class="flex items-center gap-3 lg:ml-0 lg:mr-5 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
       >
         <!-- Render logo from Payload SVG -->
-        <div v-if="logoSvg" v-html="logoSvg" class="w-24 h-12 lg:-mt-2 sm:w-35 flex items-center" />
+        <div v-if="logoSvg" v-html="logoSvg" class="w-24 h-12 lg:-mt-1 sm:w-35 flex items-center" />
         <img v-else src="/assets/images/logo.svg" alt="Logo" class="w-24 h-12 lg:-mt-1 sm:w-35" />
       </NuxtLink>
 
