@@ -27,13 +27,19 @@ const mapLink = (item: any): { label: string; to: string } | null => {
 }
 
 // Map navigation links from Payload
-const navigationLinks = computed(() => 
-  (headerData.value?.navItems?.map(mapLink).filter((link): link is { label: string; to: string } => link !== null) || [])
+const navigationLinks = computed(
+  () =>
+    headerData.value?.navItems
+      ?.map(mapLink)
+      .filter((link): link is { label: string; to: string } => link !== null) || []
 )
 
 // Map nav buttons (support multiple buttons)
-const navButtons = computed(() => 
-  (headerData.value?.navButtons?.map(mapLink).filter((link): link is { label: string; to: string } => link !== null) || [])
+const navButtons = computed(
+  () =>
+    headerData.value?.navButtons
+      ?.map(mapLink)
+      .filter((link): link is { label: string; to: string } => link !== null) || []
 )
 
 // Extract other data
@@ -44,11 +50,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 <template>
   <HeaderInformationBanner />
 
-  <UHeader 
-    toggle-side="left" 
-    mode="slideover"
-    :ui="{ root: 'border-b-0 my-4 bg-white' }"
-  >
+  <UHeader toggle-side="left" mode="slideover" :ui="{ root: 'border-b-0 my-4 bg-white' }">
     <template #left>
       <!-- Logo - centered on mobile, left on desktop -->
       <NuxtLink
@@ -132,4 +134,3 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
     </template>
   </UHeader>
 </template>
-

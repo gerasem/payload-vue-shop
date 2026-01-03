@@ -9,7 +9,7 @@ export async function usePayloadPage(slug: string) {
   const { locale } = useI18n()
   const data = await usePayloadQuery<PageQuery>(pageQuery, {
     slug,
-    locale: locale.value,
+    locale: locale.value
   })
   return data.Pages?.docs?.[0] || null
 }

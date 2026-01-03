@@ -29,18 +29,20 @@ export async function usePayloadQuery<T = any>(
     if (response.errors) {
       const errorMessage = response.errors[0]?.message || 'GraphQL query failed'
       console.error('GraphQL errors:', response.errors)
-      
+
       toast.add({
         id: `graphql-error-${Date.now()}`,
         title: 'API Error',
         description: errorMessage,
         color: 'error',
-        actions: [{
-          label: 'Reload Page',
-          onClick: () => window.location.reload()
-        }]
+        actions: [
+          {
+            label: 'Reload Page',
+            onClick: () => window.location.reload()
+          }
+        ]
       })
-      
+
       throw new Error(errorMessage)
     }
 
@@ -48,7 +50,7 @@ export async function usePayloadQuery<T = any>(
   } catch (error: any) {
     // Handle network errors and other fetch errors
     console.error('Payload API error:', error)
-    
+
     // Only show toast if it's not already a GraphQL error (to avoid duplicate toasts)
     if (!error.message?.includes('GraphQL')) {
       toast.add({
@@ -56,13 +58,15 @@ export async function usePayloadQuery<T = any>(
         title: 'Connection Error',
         description: error.message || 'Failed to connect to API',
         color: 'error',
-        actions: [{
-          label: 'Reload Page',
-          onClick: () => window.location.reload()
-        }]
+        actions: [
+          {
+            label: 'Reload Page',
+            onClick: () => window.location.reload()
+          }
+        ]
       })
     }
-    
+
     throw error
   }
 }

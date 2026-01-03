@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // Fetch banner data with SSR
-const { data: bannerData } = await useAsyncData('payload-info-banner', () => usePayloadInformationBanner())
+const { data: bannerData } = await useAsyncData('payload-info-banner', () =>
+  usePayloadInformationBanner()
+)
 </script>
 
 <template>

@@ -2,19 +2,12 @@
 import CategoryCard from './category/CategoryCard.vue'
 
 // Fetch categories with SSR
-const { data: categories } = await useAsyncData(
-  'home-categories',
-  () => usePayloadCategories()
-)
+const { data: categories } = await useAsyncData('home-categories', () => usePayloadCategories())
 </script>
 
 <template>
   <div v-if="categories && categories.length" class="category-grid">
-    <CategoryCard
-      v-for="category in categories"
-      :key="category.id"
-      :category="category"
-    />
+    <CategoryCard v-for="category in categories" :key="category.id" :category="category" />
   </div>
 </template>
 

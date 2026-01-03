@@ -4,7 +4,7 @@ const FORMAT = {
   BOLD: 1,
   ITALIC: 2,
   UNDERLINE: 4,
-  STRIKETHROUGH: 8,
+  STRIKETHROUGH: 8
 }
 
 function wrapFormat(text: string, format: number): string {
@@ -44,9 +44,7 @@ export function richTextToHTML(node: LexicalNode): string {
         break
 
       case 'heading':
-        const tag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(n.tag)
-          ? n.tag
-          : 'h2' 
+        const tag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(n.tag) ? n.tag : 'h2'
         html += `<${tag}>`
         n.children?.forEach(traverse)
         html += `</${tag}>`

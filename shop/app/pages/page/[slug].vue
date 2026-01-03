@@ -5,9 +5,8 @@ const route = useRoute()
 const slug = computed(() => route.params.slug as string)
 
 // Fetch page data with SSR
-const { data: pageData } = await useAsyncData(
-  `page-${slug.value}`,
-  () => usePayloadPage(slug.value)
+const { data: pageData } = await useAsyncData(`page-${slug.value}`, () =>
+  usePayloadPage(slug.value)
 )
 
 // Handle page not found
@@ -27,7 +26,7 @@ usePageSeo({
 })
 
 // Convert rich text to HTML
-const contentHTML = computed(() => 
+const contentHTML = computed(() =>
   pageData.value?.content ? richTextToHTML(pageData.value.content) : ''
 )
 </script>
@@ -37,10 +36,10 @@ const contentHTML = computed(() =>
     <article v-if="pageData">
       <!-- Page Title -->
       <h1 class="text-4xl md:text-5xl font-bold mb-8">{{ pageData.title }}</h1>
-      
+
       <!-- Page Content (Rich Text) -->
-      <div 
-        v-if="contentHTML" 
+      <div
+        v-if="contentHTML"
         class="prose prose-lg prose-gray max-w-none mb-12"
         v-html="contentHTML"
       />
@@ -49,7 +48,11 @@ const contentHTML = computed(() =>
       <div v-if="pageData.layout && pageData.layout.length" class="space-y-12">
         <!-- TODO: Render layout blocks dynamically -->
         <!-- This will need block components for each block type -->
-        <div v-for="(block, index) in pageData.layout" :key="index" class="border-l-4 border-gray-200 pl-6">
+        <div
+          v-for="(block, index) in pageData.layout"
+          :key="index"
+          class="border-l-4 border-gray-200 pl-6"
+        >
           <p class="text-sm text-gray-500 font-mono">Block: {{ block.__typename }}</p>
         </div>
       </div>

@@ -10,13 +10,12 @@ const route = useRoute()
 const slug = computed(() => route.params.slug as string)
 
 // Fetch category data first to get ID
-const { data: categories } = await useAsyncData(
-  'categories-for-products',
-  () => usePayloadCategories()
+const { data: categories } = await useAsyncData('categories-for-products', () =>
+  usePayloadCategories()
 )
 
 // Find current category
-const currentCategory = computed(() => 
+const currentCategory = computed(() =>
   categories.value?.find((cat: any) => cat.slug === slug.value)
 )
 
@@ -29,13 +28,10 @@ if (!currentCategory.value) {
 }
 
 // Fetch products for this category
-const { data: productsData } = await useAsyncData(
-  `products-${slug.value}`,
-  async () => {
-    if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
-    return usePayloadProducts(currentCategory.value.id)
-  }
-)
+const { data: productsData } = await useAsyncData(`products-${slug.value}`, async () => {
+  if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
+  return usePayloadProducts(currentCategory.value.id)
+})
 
 const products = computed(() => productsData.value?.products || [])
 
@@ -61,12 +57,11 @@ usePageSeo({
     </div>
 
     <!-- Products Grid -->
-    <div v-if="products.length > 0" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
-      <ProductCard
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-      />
+    <div
+      v-if="products.length > 0"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12"
+    >
+      <ProductCard v-for="product in products" :key="product.id" :product="product" />
     </div>
 
     <!-- Empty State -->
@@ -75,14 +70,8 @@ usePageSeo({
     </div>
 
     <!-- Category Description (2 columns) -->
-    <div 
-      v-if="descriptionHTML" 
-      class="prose prose-gray max-w-none"
-    >
-      <div 
-        class="columns-1 md:columns-2 gap-8"
-        v-html="descriptionHTML"
-      />
+    <div v-if="descriptionHTML" class="prose prose-gray max-w-none">
+      <div class="columns-1 md:columns-2 gap-8" v-html="descriptionHTML" />
     </div>
   </div>
 </template>

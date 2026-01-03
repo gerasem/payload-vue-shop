@@ -2,10 +2,7 @@
 const localePath = useLocalePath()
 
 // Fetch categories with SSR
-const { data: categories } = await useAsyncData(
-  'payload-categories',
-  () => usePayloadCategories()
-)
+const { data: categories } = await useAsyncData('payload-categories', () => usePayloadCategories())
 </script>
 
 <template>

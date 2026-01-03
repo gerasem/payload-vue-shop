@@ -5,13 +5,13 @@
  */
 export function formatEuro(cents: number | null | undefined): string {
   if (cents === null || cents === undefined) return '—'
-  
+
   const euroFormatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   })
-  
+
   return euroFormatter.format(cents / 100)
 }

@@ -22,10 +22,7 @@ const formattedPrice = computed(() => {
 </script>
 
 <template>
-  <NuxtLink
-    :to="localePath(`/item/${product.slug}`)"
-    class="group block"
-  >
+  <NuxtLink :to="localePath(`/item/${product.slug}`)" class="group block">
     <!-- Product Image -->
     <div class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
       <img

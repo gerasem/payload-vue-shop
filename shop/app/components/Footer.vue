@@ -27,14 +27,21 @@ const mapLink = (item: any): { label: string; to: string } | null => {
 }
 
 // Map navigation links
-const navLinks = computed(() => 
-  (footerData.value?.navItems?.map(mapLink).filter((link): link is { label: string; to: string } => link !== null) || [])
+const navLinks = computed(
+  () =>
+    footerData.value?.navItems
+      ?.map(mapLink)
+      .filter((link): link is { label: string; to: string } => link !== null) || []
 )
 
 // Extract contact data
 const phone = computed(() => footerData.value?.phone || '')
-const contactLink = computed(() => footerData.value?.contactLink ? mapLink(footerData.value.contactLink) : null)
-const socialLink = computed(() => footerData.value?.socialLink ? mapLink(footerData.value.socialLink) : null)
+const contactLink = computed(() =>
+  footerData.value?.contactLink ? mapLink(footerData.value.contactLink) : null
+)
+const socialLink = computed(() =>
+  footerData.value?.socialLink ? mapLink(footerData.value.socialLink) : null
+)
 const slogan = computed(() => footerData.value?.slogan || '')
 </script>
 
@@ -54,35 +61,33 @@ const slogan = computed(() => footerData.value?.slogan || '')
             >
               {{ link.label }}
             </NuxtLink>
-            
-            
           </div>
         </div>
 
         <!-- Slogan inline with links -->
-            <div v-if="slogan" class="text-sm text-gray-400 cursor-default">
-              {{ slogan }}
-            </div>
+        <div v-if="slogan" class="text-sm text-gray-400 cursor-default">
+          {{ slogan }}
+        </div>
 
         <!-- Contact Column -->
         <div class="space-y-2 md:text-right">
-          <a 
+          <a
             v-if="phone"
             :href="`tel:${phone.replace(/\s/g, '')}`"
             class="block text-sm font-semibold text-gray-900 hover:text-primary transition-colors"
           >
             {{ phone }}
           </a>
-          
-          <NuxtLink 
+
+          <NuxtLink
             v-if="contactLink"
             :to="contactLink.to"
             class="block text-sm text-gray-900 hover:text-primary transition-colors"
           >
             {{ contactLink.label }}
           </NuxtLink>
-          
-          <a 
+
+          <a
             v-if="socialLink"
             :href="socialLink.to"
             target="_blank"

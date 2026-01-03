@@ -9,11 +9,11 @@ const config = useRuntimeConfig()
 
 // Get image URL with fallback
 const imageUrl = computed(() => {
-  return props.category.image?.sizes?.categoryPreview?.url 
+  return props.category.image?.sizes?.categoryPreview?.url
     ? `${config.public.payloadUrl}${props.category.image.sizes.categoryPreview.url}`
-    : props.category.image?.url 
-    ? `${config.public.payloadUrl}${props.category.image.url}`
-    : '/placeholder-category.jpg'
+    : props.category.image?.url
+      ? `${config.public.payloadUrl}${props.category.image.url}`
+      : '/placeholder-category.jpg'
 })
 </script>
 

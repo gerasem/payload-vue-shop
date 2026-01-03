@@ -22,16 +22,36 @@ defineProps<{
 }
 
 /* Calculate sticky top position for each category (1st, 2nd, 3rd, etc.) */
-.category-title:nth-child(2) { top: 48px; }  /* First title */
-.category-title:nth-child(4) { top: calc(48px + 52px * 1); }
-.category-title:nth-child(6) { top: calc(48px + 52px * 2); }
-.category-title:nth-child(8) { top: calc(48px + 52px * 3); }
-.category-title:nth-child(10) { top: calc(48px + 52px * 4); }
-.category-title:nth-child(12) { top: calc(48px + 52px * 5); }
-.category-title:nth-child(14) { top: calc(48px + 52px * 6); }
-.category-title:nth-child(16) { top: calc(48px + 52px * 7); }
-.category-title:nth-child(18) { top: calc(48px + 52px * 8); }
-.category-title:nth-child(20) { top: calc(48px + 52px * 9); }
+.category-title:nth-child(2) {
+  top: 48px;
+} /* First title */
+.category-title:nth-child(4) {
+  top: calc(48px + 52px * 1);
+}
+.category-title:nth-child(6) {
+  top: calc(48px + 52px * 2);
+}
+.category-title:nth-child(8) {
+  top: calc(48px + 52px * 3);
+}
+.category-title:nth-child(10) {
+  top: calc(48px + 52px * 4);
+}
+.category-title:nth-child(12) {
+  top: calc(48px + 52px * 5);
+}
+.category-title:nth-child(14) {
+  top: calc(48px + 52px * 6);
+}
+.category-title:nth-child(16) {
+  top: calc(48px + 52px * 7);
+}
+.category-title:nth-child(18) {
+  top: calc(48px + 52px * 8);
+}
+.category-title:nth-child(20) {
+  top: calc(48px + 52px * 9);
+}
 
 /* On mobile, disable sticky behavior */
 @media (max-width: 768px) {

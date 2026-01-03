@@ -1,9 +1,5 @@
 query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!) {
-  Products(
-    locale: $locale
-    limit: 10000
-    where: { categories: { equals: $categoryId } }
-  ) {
+  Products(locale: $locale, limit: 10000, where: { categories: { equals: $categoryId } }) {
     docs {
       id
       title
