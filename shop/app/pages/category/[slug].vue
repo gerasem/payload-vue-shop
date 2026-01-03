@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import ProductCard from '@/components/product/ProductCard.vue'
+import ItemCard from '@/components/item/ItemCard.vue'
 import { richTextToHTML } from '@/utils/richtext'
+import type { ICategory } from '@/types'
 
 definePageMeta({
   layout: 'default'
@@ -16,7 +17,7 @@ const { data: categories } = await useAsyncData('categories-for-products', () =>
 
 // Find current category
 const currentCategory = computed(() =>
-  categories.value?.find((cat: any) => cat.slug === slug.value)
+  categories.value?.find((cat: ICategory) => cat.slug === slug.value)
 )
 
 // Redirect to 404 if category not found
@@ -33,7 +34,7 @@ const { data: productsData } = await useAsyncData(`products-${slug.value}`, asyn
   return usePayloadProducts(currentCategory.value.id)
 })
 
-const products = computed(() => productsData.value?.products || [])
+const items = computed(() => productsData.value?.products || [])
 
 // Convert rich text description to HTML
 const descriptionHTML = computed(() => {
@@ -56,12 +57,12 @@ usePageSeo({
       </h1>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Items Grid -->
     <div
-      v-if="products.length > 0"
+      v-if="items.length > 0"
       class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12"
     >
-      <ProductCard v-for="product in products" :key="product.id" :product="product" />
+      <ItemCard v-for="item in items" :key="item.id" :item="item" />
     </div>
 
     <!-- Empty State -->

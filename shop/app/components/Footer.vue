@@ -5,7 +5,7 @@ const localePath = useLocalePath()
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
 
 // Helper to map Payload link (reuse pattern from header)
-const mapLink = (item: any): { label: string; to: string } | null => {
+const mapLink = (item: any): { label: string, to: string } | null => {
   const link = item?.link
   if (!link) return null
 

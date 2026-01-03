@@ -1,41 +1,42 @@
 <script setup lang="ts">
 import { formatEuro } from '@/utils/price'
+import type { IItem } from '@/types'
 
 const config = useRuntimeConfig()
 const localePath = useLocalePath()
 
 const props = defineProps<{
-  product: any
+  item: IItem
 }>()
 
 // Get first image from gallery
 const imageUrl = computed(() => {
-  const firstImage = props.product.gallery?.[0]
+  const firstImage = props.item.gallery?.[0]
   if (!firstImage?.url) return '/placeholder-product.jpg'
   return `${config.public.payloadUrl}${firstImage.url}`
 })
 
 // Format price (from cents to EUR)
 const formattedPrice = computed(() => {
-  return formatEuro(props.product.priceInEUR)
+  return formatEuro(props.item.priceInEUR)
 })
 </script>
 
 <template>
-  <NuxtLink :to="localePath(`/item/${product.slug}`)" class="group block">
-    <!-- Product Image -->
+  <NuxtLink :to="localePath(`/item/${item.slug}`)" class="group block">
+    <!-- Item Image -->
     <div class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
       <img
         :src="imageUrl"
-        :alt="product.gallery?.[0]?.alt || product.title"
+        :alt="item.gallery?.[0]?.alt || item.title || ''"
         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
-    <!-- Product Info -->
+    <!-- Item Info -->
     <div class="flex justify-between items-start gap-2">
       <h3 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors">
-        {{ product.title }}
+        {{ item.title }}
       </h3>
       <span class="text-sm font-bold text-gray-900 whitespace-nowrap">
         {{ formattedPrice }}

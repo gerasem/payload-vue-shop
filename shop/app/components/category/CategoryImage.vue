@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { ICategory } from '@/types'
+
 const localePath = useLocalePath()
 
 const props = defineProps<{
-  category: any
+  category: ICategory
 }>()
 
 const config = useRuntimeConfig()
@@ -24,7 +26,7 @@ const imageUrl = computed(() => {
   >
     <img
       :src="imageUrl"
-      :alt="category.image?.alt || category.title"
+      :alt="category.image?.alt || category.title || ''"
       class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
     />
   </NuxtLink>

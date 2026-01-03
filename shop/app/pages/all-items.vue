@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProductCard from '@/components/product/ProductCard.vue'
+import ItemCard from '@/components/item/ItemCard.vue'
 
 definePageMeta({
   layout: 'default'
@@ -12,7 +12,7 @@ const { data: productsData } = await useAsyncData('all-products', async () => {
   return { products: [], totalDocs: 0 }
 })
 
-const products = computed(() => productsData.value?.products || [])
+const items = computed(() => productsData.value?.products || [])
 
 usePageSeo({
   title: 'All Products | Store - Browse Our Complete Catalog',
@@ -29,12 +29,12 @@ usePageSeo({
       <p class="text-gray-600">Browse our complete product catalog</p>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Items Grid -->
     <div
-      v-if="products.length > 0"
+      v-if="items.length > 0"
       class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
     >
-      <ProductCard v-for="product in products" :key="product.id" :product="product" />
+      <ItemCard v-for="item in items" :key="item.id" :item="item" />
     </div>
 
     <!-- Empty State -->

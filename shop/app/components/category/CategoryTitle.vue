@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { ICategory } from '@/types'
+
 const localePath = useLocalePath()
 
 defineProps<{
-  category: any
+  category: ICategory
 }>()
 </script>
 
