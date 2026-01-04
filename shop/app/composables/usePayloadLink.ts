@@ -1,6 +1,6 @@
 /**
  * Composable for mapping Payload CMS link objects to usable link data
- * Handles both internal (reference) and custom URL links
+ * Handles both internal (reference) and external (custom) links
  */
 
 export interface MappedLink {
@@ -12,6 +12,10 @@ export interface MappedLink {
 
 /**
  * Maps a Payload CMS link to a usable link object
+ * 
+ * Link types:
+ * - reference: Internal links to pages (always internal)
+ * - custom: External URLs (always external, e.g. https://google.com)
  */
 export function usePayloadLink(item: any): MappedLink | null {
   const localePath = useLocalePath()
@@ -26,21 +30,18 @@ export function usePayloadLink(item: any): MappedLink | null {
       label: link.label || '',
       href: localePath(`/${link.reference.value.slug}`),
       isExternal: false,
-      openInNewTab: link.newTab === true // Only true if explicitly set to true
+      openInNewTab: link.newTab === true
     }
   }
   
-  // Handle custom URL links (can be internal relative URLs or external URLs)
+  // Handle custom external URLs
   if (link.type === 'custom' && link.url) {
-    // Detect if it's actually an external link (different domain)
-    const isExternal = link.url.startsWith('http://') || link.url.startsWith('https://')
-    
     return {
       label: link.label || '',
       href: link.url,
-      isExternal,
-      // Open in new tab if: explicitly set to true OR if null/undefined and is external URL
-      openInNewTab: link.newTab === true || (link.newTab !== false && isExternal)
+      isExternal: true, // Always external
+      // Open in new tab if explicitly true OR if not explicitly false (default behavior for external)
+      openInNewTab: link.newTab === true || link.newTab !== false
     }
   }
   

@@ -9,21 +9,23 @@ const localePath = useLocalePath()
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
 
 // Map navigation links from Payload
-const navigationLinks = computed(() =>
-  headerData.value?.navItems
-    ?.map(item => usePayloadLink(item))
-    .filter((link): link is MappedLink => link !== null) || []
+const navigationLinks = computed(
+  () =>
+    headerData.value?.navItems
+      ?.map(item => usePayloadLink(item))
+      .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Map nav buttons (support multiple buttons)
-const navButtons = computed(() =>
-  headerData.value?.navButtons
-    ?.map(item => usePayloadLink(item))
-    .filter((link): link is MappedLink => link !== null) || []
+const navButtons = computed(
+  () =>
+    headerData.value?.navButtons
+      ?.map(item => usePayloadLink(item))
+      .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Extract other data
-const slogan = computed(() => headerData. value?.slogan || 'Demo project')
+const slogan = computed(() => headerData.value?.slogan)
 const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 </script>
 
@@ -39,7 +41,6 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
       >
         <!-- Render logo from Payload SVG -->
         <div v-if="logoSvg" v-html="logoSvg" class="w-24 h-12 lg:-mt-1 sm:w-35 flex items-center" />
-        <img v-else src="/assets/images/logo.svg" alt="Logo" class="w-24 h-12 lg:-mt-1 sm:w-35" />
       </NuxtLink>
 
       <!-- Desktop only content -->

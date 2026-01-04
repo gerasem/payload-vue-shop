@@ -13,9 +13,7 @@ const config = useRuntimeConfig()
 const imageUrl = computed(() => {
   return props.category.image?.sizes?.categoryPreview?.url
     ? `${config.public.payloadUrl}${props.category.image.sizes.categoryPreview.url}`
-    : props.category.image?.url
-      ? `${config.public.payloadUrl}${props.category.image.url}`
-      : '/placeholder-category.jpg'
+    : `${config.public.payloadUrl}${props.category.image.url}`
 })
 </script>
 
