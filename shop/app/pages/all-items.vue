@@ -1,40 +1,37 @@
 <script setup lang="ts">
-import ItemCard from '@/components/item/ItemCard.vue'
+import CategorySection from '@/components/category/CategorySection.vue'
 
 definePageMeta({
   layout: 'default'
 })
 
-// Fetch all products without category filter
-const { data: productsData } = await useAsyncData('all-products', async () => {
-  // You'll need to create a GraphQL query for all products
-  // For now, this is a placeholder
-  return { products: [], totalDocs: 0 }
+// Fetch all categories with their items (4 per category) - SSR friendly single query
+const { data: categoriesWithItems } = await useAsyncData('all-items', async () => {
+  return usePayloadCategoriesWithItems(4)
 })
-
-const items = computed(() => productsData.value?.products || [])
 
 usePageSeo({
   title: 'All Products | Store - Browse Our Complete Catalog',
   description:
-    'Browse our complete product catalog. Find the perfect item from our wide selection of quality products across all categories.'
+    'Browse our complete product catalog. Discover the best products from all our categories.'
 })
 </script>
 
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Page Header -->
-    <div class="mb-8">
+    <div class="mb-6">
       <h1 class="text-3xl font-bold text-gray-900 mb-2">All Items</h1>
-      <p class="text-gray-600">Browse our complete product catalog</p>
     </div>
 
-    <!-- Items Grid -->
-    <div
-      v-if="items.length > 0"
-      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
-    >
-      <ItemCard v-for="item in items" :key="item.id" :item="item" />
+    <!-- Category Sections -->
+    <div v-if="categoriesWithItems && categoriesWithItems.length > 0">
+      <CategorySection
+        v-for="section in categoriesWithItems"
+        :key="section.category.id"
+        :category="section.category"
+        :items="section.items"
+      />
     </div>
 
     <!-- Empty State -->

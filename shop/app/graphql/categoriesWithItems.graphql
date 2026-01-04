@@ -1,0 +1,48 @@
+query CategoriesWithItems($locale: LocaleInputType!) {
+  Categories(locale: $locale) {
+    docs {
+      id
+      title
+      slug
+      description
+      image {
+        id
+        alt
+        url
+        filename
+        width
+        height
+        sizes {
+          categoryPreview {
+            url
+            width
+            height
+            mimeType
+            filename
+          }
+        }
+      }
+    }
+  }
+  Products(locale: $locale, limit: 100) {
+    docs {
+      id
+      title
+      slug
+      priceInEUR
+      description
+      categories {
+        id
+      }
+      gallery {
+        id
+        url
+        thumbnailURL
+        width
+        height
+        alt
+      }
+    }
+    totalDocs
+  }
+}
