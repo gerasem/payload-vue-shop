@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { formatEuro } from '@/utils/price'
+import { getMinPriceFormatted, areAllPricesEqual } from '@/utils/price'
 import type { IItem } from '@/types'
 
 const config = useRuntimeConfig()
 const localePath = useLocalePath()
+const { t } = useI18n()
 
 const props = defineProps<{
   item: IItem
@@ -16,9 +17,14 @@ const imageUrl = computed(() => {
   return `${config.public.payloadUrl}${firstImage.url}`
 })
 
-// Format price (from cents to EUR)
+// Format price with translated "from" prefix if variants have different prices
 const formattedPrice = computed(() => {
-  return formatEuro(props.item.priceInEUR)
+  const minPrice = getMinPriceFormatted(props.item)
+  if (minPrice === '—') return minPrice
+
+  const allEqual = areAllPricesEqual(props.item)
+  
+  return allEqual ? minPrice : `${t('priceFrom')} ${minPrice}`
 })
 </script>
 

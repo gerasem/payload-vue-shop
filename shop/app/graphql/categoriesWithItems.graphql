@@ -34,6 +34,13 @@ query CategoriesWithItems($locale: LocaleInputType!) {
       categories {
         id
       }
+      enableVariants
+      variants {
+        docs {
+          id
+          priceInEUR
+        }
+      }
       gallery {
         id
         url
