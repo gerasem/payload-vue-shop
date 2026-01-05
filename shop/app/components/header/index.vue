@@ -2,8 +2,10 @@
 import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
 import SmartLink from '@/components/SmartLink.vue'
+import { useCartStore } from '@/stores/useCartStore'
 
 const localePath = useLocalePath()
+const cartStore = useCartStore()
 
 // Fetch header data with SSR
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
@@ -85,15 +87,25 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
             aria-label="Account"
           />
 
-          <!-- Cart icon -->
-          <UButton
-            :to="localePath('/cart')"
-            icon="i-bi-cart"
-            color="neutral"
-            variant="link"
-            size="xl"
-            aria-label="Shopping Cart"
-          />
+          <!-- Cart icon with badge -->
+          <div class="relative">
+            <UButton
+              :to="localePath('/cart')"
+              icon="i-bi-cart"
+              color="neutral"
+              variant="link"
+              size="xl"
+              :title="cartStore.totalFormatted"
+              aria-label="Shopping Cart"
+            />
+            <UBadge
+              v-if="cartStore.count > 0"
+              :label="String(cartStore.count)"
+              color="primary"
+              size="xs"
+              class="absolute -right-1 -top-1"
+            />
+          </div>
         </div>
       </div>
     </template>

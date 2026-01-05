@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { useCartStore } from '@/stores/useCartStore'
+
 const route = useRoute()
+const cartStore = useCartStore()
+
+// On client-side, initialize cart from localStorage
+onMounted(() => {
+  cartStore.init()
+})
 
 // Check if current page is homepage
 const isHomePage = computed(

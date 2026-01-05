@@ -5,6 +5,7 @@ import VariantSelector from '@/components/item/VariantSelector.vue'
 import InventoryBadge from '@/components/item/InventoryBadge.vue'
 import type { IItem } from '@/types'
 import { richTextToHTML } from '@/utils/richtext'
+import { useCartStore } from '@/stores/useCartStore'
 
 definePageMeta({
   layout: 'default'
@@ -13,6 +14,8 @@ definePageMeta({
 const route = useRoute()
 const localePath = useLocalePath()
 const { t } = useI18n()
+const toast = useToast()
+const cartStore = useCartStore()
 
 // Fetch product data (SSR)
 const { data: product } = await useAsyncData(
@@ -130,6 +133,35 @@ watch(selectedVariant, () => {
   quantity.value = 1
 })
 
+// Add to cart function
+const adding = ref(false)
+
+async function addToCart() {
+  if (!canAddToCart.value) return
+
+  adding.value = true
+
+  await cartStore.add(
+    product.value!.id,
+    quantity.value,
+    selectedVariant.value?.id || null
+  )
+
+  adding.value = false
+
+  // Show success toast
+  const variantInfo = selectedVariant.value ? ` (${selectedVariant.value.title})` : ''
+  toast.add({
+    title: t('Added to cart'),
+    description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
+    icon: 'i-heroicons-check-circle',
+    color: 'success'
+  })
+
+  // Reset quantity
+  quantity.value = 1
+}
+
 // SEO
 usePageSeo({
   title: product.value?.meta?.title || product.value?.title || 'Product',
@@ -205,12 +237,14 @@ usePageSeo({
           
           <!-- Add to Cart Button -->
           <UButton
-            :disabled="!canAddToCart || quantity > (inventoryQuantity || 0)"
+            :disabled="!canAddToCart || quantity > (inventoryQuantity || 0) || adding"
+            :loading="adding"
             size="lg"
             class="flex-1"
             icon="i-heroicons-shopping-cart"
+            @click="addToCart"
           >
-            Add to Cart
+            {{ adding ? t('Adding...') : t('Add to Cart') }}
           </UButton>
         </div>
       </div>
