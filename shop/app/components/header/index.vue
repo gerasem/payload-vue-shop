@@ -2,10 +2,17 @@
 import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
 import SmartLink from '@/components/SmartLink.vue'
-import { useCartStore } from '@/stores/useCartStore'
+import type { useCartStore as useCartStoreType } from '@/stores/useCartStore'
 
 const localePath = useLocalePath()
-const cartStore = useCartStore()
+
+// Initialize cart store on client-side only to avoid SSR errors
+const cartStore = ref<ReturnType<typeof useCartStoreType> | null>(null)
+
+onMounted(async () => {
+  const { useCartStore } = await import('@/stores/useCartStore')
+  cartStore.value = useCartStore()
+})
 
 // Fetch header data with SSR
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
@@ -95,11 +102,11 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
               color="neutral"
               variant="link"
               size="xl"
-              :title="cartStore.totalFormatted"
+              :title="cartStore?.totalFormatted || ''"
               aria-label="Shopping Cart"
             />
             <UBadge
-              v-if="cartStore.count > 0"
+              v-if="cartStore && cartStore.count > 0"
               :label="String(cartStore.count)"
               color="primary"
               size="xs"

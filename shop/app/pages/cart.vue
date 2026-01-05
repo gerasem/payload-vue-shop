@@ -8,7 +8,9 @@ const cartStore = useCartStore()
 
 definePageMeta({
   layout: 'default',
-  // Disable SSR for cart page to avoid Pinia initialization issues
+  // Disable SSR completely for cart page
+  // This is necessary because cart components (CartItem, CartSummary, etc.)
+  // all access the Pinia store, which causes SSR initialization errors
   ssr: false
 })
 
@@ -25,13 +27,8 @@ usePageSeo({
       {{ t('Shopping Cart') }}
     </h1>
 
-    <!-- Loading state for SSR -->
-    <div v-if="!cartStore" class="py-12 text-center">
-      <p class="text-gray-600">Loading cart...</p>
-    </div>
-
     <!-- Empty cart state -->
-    <div v-else-if="!cartStore.hasItems" class="py-12 text-center">
+    <div v-if="!cartStore.hasItems" class="py-12 text-center">
       <UIcon name="i-heroicons-shopping-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
       <p class="mb-4 text-lg text-gray-600">
         {{ t('Your cart is empty.') }}

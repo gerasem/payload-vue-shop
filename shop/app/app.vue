@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useCartStore } from '@/stores/useCartStore'
+import type { useCartStore as useCartStoreType } from '@/stores/useCartStore'
 
 const route = useRoute()
-const cartStore = useCartStore()
 
-// On client-side, initialize cart from localStorage
-onMounted(() => {
+// Initialize cart store on client-side only
+onMounted(async () => {
+  const { useCartStore } = await import('@/stores/useCartStore')
+  const cartStore = useCartStore()
   cartStore.init()
 })
 
