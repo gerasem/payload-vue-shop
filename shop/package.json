@@ -22,7 +22,8 @@
     "@nuxt/ui": "^4.3.0",
     "@nuxtjs/i18n": "10.2.1",
     "@unhead/vue": "^2.0.19",
-    "nuxt": "^4.2.2"
+    "nuxt": "^4.2.2",
+    "photoswipe": "^5.4.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^6.1.0",

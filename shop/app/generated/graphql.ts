@@ -23973,6 +23973,14 @@ export type InformationBannerQueryVariables = Exact<{
 
 export type InformationBannerQuery = { InformationBanner?: { items?: Array<{ id?: string | null, text?: string | null, icon?: { id: number, svgContent?: string | null } | null }> | null } | null };
 
+export type ItemBySlugQueryVariables = Exact<{
+  locale: LocaleInputType;
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ItemBySlugQuery = { Products?: { docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, description?: any | null, inventory?: number | null, enableVariants?: boolean | null, categories?: { id: number, title?: string | null, slug: string } | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null, width?: number | null, height?: number | null, alt: string }> | null, variants?: { docs: Array<{ id: number, title?: string | null, priceInEUR?: number | null, inventory?: number | null, options?: Array<{ id: number, label: string, value: string }> | null }> } | null, variantTypes?: Array<{ id: number, label: string, name: string, options?: { docs: Array<{ id: number, label: string, value: string }> } | null }> | null, meta?: { title?: string | null, description?: string | null } | null }> } | null };
+
 export type PageQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale: LocaleInputType;
