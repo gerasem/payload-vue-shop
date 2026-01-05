@@ -202,7 +202,7 @@ usePageSeo({
           v-if="product?.enableVariants && !canAddToCart"
           color="yellow"
           variant="subtle"
-          title="Please select all product options"
+          :title="t('Please select all product options')"
         />
 
         <!-- Quantity Selector -->
