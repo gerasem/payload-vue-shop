@@ -5,16 +5,19 @@ const localePath = useLocalePath()
 
 defineProps<{
   category: ICategory
+  clickable?: boolean
 }>()
 </script>
 
 <template>
-  <NuxtLink
-    :to="localePath(`/category/${category.slug}`)"
-    class="category-title sticky z-10 block py-3 text-gray-900 hover:text-primary font-semibold text-lg transition-colors"
+  <component 
+    :is="clickable ? 'div' : 'NuxtLink'"
+    :to="!clickable ? localePath(`/category/${category.slug}`) : undefined"
+    class="category-title sticky z-10 block py-3 text-gray-900 font-semibold text-lg transition-colors"
+    :class="{ 'hover:text-primary': !clickable }"
   >
     {{ category.title }}
-  </NuxtLink>
+  </component>
 </template>
 
 <style scoped>

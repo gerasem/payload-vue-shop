@@ -5,6 +5,7 @@ const localePath = useLocalePath()
 
 const props = defineProps<{
   category: ICategory
+  clickable?: boolean
 }>()
 
 const config = useRuntimeConfig()
@@ -18,8 +19,9 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-  <NuxtLink
-    :to="localePath(`/category/${category.slug}`)"
+  <component
+    :is="clickable ? 'div' : 'NuxtLink'"
+    :to="!clickable ? localePath(`/category/${category.slug}`) : undefined"
     class="block relative aspect-video rounded-lg overflow-hidden group"
   >
     <img
@@ -27,5 +29,5 @@ const imageUrl = computed(() => {
       :alt="category.image?.alt || category.title || ''"
       class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
     />
-  </NuxtLink>
+  </component>
 </template>

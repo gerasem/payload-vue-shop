@@ -20,5 +20,6 @@
   "Out of stock": "Out of stock",
   "Only {count} left": "Only {count} left",
   "In stock": "In stock",
-  "Please select all product options": "Please select all product options"
+  "Please select all product options": "Please select all product options",
+  "Go to {categoryName}": "Go to {categoryName}"
 }

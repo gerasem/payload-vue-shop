@@ -3,6 +3,7 @@ import type { ICategory, IItem } from '@/types'
 import ItemCard from '@/components/item/ItemCard.vue'
 
 const localePath = useLocalePath()
+const { t } = useI18n()
 
 defineProps<{
   category: ICategory
@@ -17,16 +18,18 @@ defineProps<{
       <h2 class="text-2xl font-bold text-gray-900">
         {{ category.title }}
       </h2>
-      <NuxtLink
+      <UButton
         :to="localePath(`/category/${category.slug}`)"
-        class="text-primary hover:text-primary-600 font-medium text-sm transition-colors"
+        color="primary"
+        variant="outline"
+        size="sm"
       >
-        Show all →
-      </NuxtLink>
+        {{ t('Go to {categoryName}', { categoryName: category.title }) }} →
+      </UButton>
     </div>
 
-    <!-- Items Grid (4 items max) -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+    <!-- Items Grid (6 items max, 3 per row) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
       <ItemCard v-for="item in items" :key="item.id" :item="item" />
     </div>
   </section>

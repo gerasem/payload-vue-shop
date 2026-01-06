@@ -20,5 +20,6 @@
   "Out of stock": "Nicht auf Lager",
   "Only {count} left": "Nur noch {count} übrig",
   "In stock": "Auf Lager",
-  "Please select all product options": "Bitte alle Produktoptionen auswählen"
+  "Please select all product options": "Bitte alle Produktoptionen auswählen",
+  "Go to {categoryName}": "Zu {categoryName} gehen"
 }
