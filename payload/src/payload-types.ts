@@ -401,6 +401,10 @@ export interface CallToActionBlock {
 export interface Page {
   id: number;
   title: string;
+  /**
+   * Content pages use /page/slug routing. System pages use direct /slug routing.
+   */
+  pageType: 'content' | 'system';
   publishedOn?: string | null;
   layout?:
     | (
@@ -1200,6 +1204,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  pageType?: T;
   publishedOn?: T;
   layout?:
     | T

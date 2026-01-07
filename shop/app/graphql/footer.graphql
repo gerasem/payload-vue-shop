@@ -14,6 +14,7 @@ query Footer($locale: LocaleInputType!) {
             ... on Page {
               id
               slug
+              pageType
             }
           }
         }
@@ -32,6 +33,7 @@ query Footer($locale: LocaleInputType!) {
             ... on Page {
               id
               slug
+              pageType
             }
           }
         }
@@ -51,6 +53,7 @@ query Footer($locale: LocaleInputType!) {
             ... on Page {
               id
               slug
+              pageType
             }
           }
         }

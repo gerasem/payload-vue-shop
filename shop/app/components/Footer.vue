@@ -8,23 +8,10 @@ const localePath = useLocalePath()
 // Fetch footer data with SSR
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
 
-// Map navigation links with /page/ prefix for footer
+// Map navigation links using pageType from Payload
 const navLinks = computed(() =>
   footerData.value?.navItems
-    ?.map(item => {
-      const link = usePayloadLink(item)
-      if (!link) return null
-      
-      // Add /page/ prefix for internal footer links to documents
-      if (!link.isExternal && !link.href.startsWith('/page/')) {
-        return {
-          ...link,
-          href: link.href.replace(/^\/([^/]+)/, '/page/$1')
-        }
-      }
-      
-      return link
-    })
+    ?.map(item => usePayloadLink(item))
     .filter((link): link is MappedLink => link !== null) || []
 )
 

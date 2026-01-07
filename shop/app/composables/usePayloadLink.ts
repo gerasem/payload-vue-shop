@@ -14,8 +14,12 @@ export interface MappedLink {
  * Maps a Payload CMS link to a usable link object
  * 
  * Link types:
- * - reference: Internal links to pages (always internal)
+ * - reference: Internal links to pages (prefix based on pageType)
  * - custom: External URLs (always external, e.g. https://google.com)
+ * 
+ * Page types:
+ * - content: Pages with text content, use /page/slug routing
+ * - system: Special pages like /all-items, use direct /slug routing
  */
 export function usePayloadLink(item: any): MappedLink | null {
   const localePath = useLocalePath()
@@ -26,9 +30,15 @@ export function usePayloadLink(item: any): MappedLink | null {
   
   // Handle internal reference links (to pages/posts)
   if (link.type === 'reference' && link.reference?.value?.slug) {
+    const page = link.reference.value
+    const pageType = page.pageType || 'content' // Default to content if not specified
+    
+    // Content pages get /page/ prefix, system pages use direct routing
+    const basePath = pageType === 'content' ? `/page/${page.slug}` : `/${page.slug}`
+    
     return {
       label: link.label || '',
-      href: localePath(`/${link.reference.value.slug}`),
+      href: localePath(basePath),
       isExternal: false,
       openInNewTab: link.newTab === true
     }

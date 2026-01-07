@@ -11961,6 +11961,7 @@ export type Page = {
   id: Scalars['Int']['output'];
   layout?: Maybe<Array<Page_Layout>>;
   meta?: Maybe<Page_Meta>;
+  pageType?: Maybe<Page_PageType>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -11975,6 +11976,11 @@ export type PageContentArgs = {
 export enum PageUpdate__Status_MutationInput {
   Draft = 'draft',
   Published = 'published'
+}
+
+export enum PageUpdate_PageType_MutationInput {
+  Content = 'content',
+  System = 'system'
 }
 
 export type PageVersion = {
@@ -12003,6 +12009,7 @@ export type PageVersion_Version = {
   generateSlug?: Maybe<Scalars['Boolean']['output']>;
   layout?: Maybe<Array<PageVersion_Version_Layout>>;
   meta?: Maybe<PageVersion_Version_Meta>;
+  pageType?: Maybe<PageVersion_Version_PageType>;
   publishedOn?: Maybe<Scalars['DateTime']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -12031,6 +12038,11 @@ export type PageVersion_Version_MetaImageArgs = {
 export enum PageVersion_Version__Status {
   Draft = 'draft',
   Published = 'published'
+}
+
+export enum PageVersion_Version_PageType {
+  Content = 'content',
+  System = 'system'
 }
 
 export enum PageVersion_PublishedLocale {
@@ -12139,6 +12151,29 @@ export type Page_Meta__Title_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export enum Page_PageType {
+  Content = 'content',
+  System = 'system'
+}
+
+export enum Page_PageType_Input {
+  Content = 'content',
+  System = 'system'
+}
+
+export enum Page_PageType_MutationInput {
+  Content = 'content',
+  System = 'system'
+}
+
+export type Page_PageType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Page_PageType_Input>>>;
+  equals?: InputMaybe<Page_PageType_Input>;
+  in?: InputMaybe<Array<InputMaybe<Page_PageType_Input>>>;
+  not_equals?: InputMaybe<Page_PageType_Input>;
+  not_in?: InputMaybe<Array<InputMaybe<Page_PageType_Input>>>;
+};
+
 export type Page_PublishedOn_Operator = {
   equals?: InputMaybe<Scalars['DateTime']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -12192,6 +12227,7 @@ export type Page_Where = {
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
+  pageType?: InputMaybe<Page_PageType_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
@@ -12209,6 +12245,7 @@ export type Page_Where_And = {
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
+  pageType?: InputMaybe<Page_PageType_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
@@ -12226,6 +12263,7 @@ export type Page_Where_Or = {
   meta__description?: InputMaybe<Page_Meta__Description_Operator>;
   meta__image?: InputMaybe<Page_Meta__Image_Operator>;
   meta__title?: InputMaybe<Page_Meta__Title_Operator>;
+  pageType?: InputMaybe<Page_PageType_Operator>;
   publishedOn?: InputMaybe<Page_PublishedOn_Operator>;
   slug?: InputMaybe<Page_Slug_Operator>;
   title?: InputMaybe<Page_Title_Operator>;
@@ -12273,6 +12311,7 @@ export type PagesDocAccessFields = {
   generateSlug?: Maybe<PagesDocAccessFields_GenerateSlug>;
   layout?: Maybe<PagesDocAccessFields_Layout>;
   meta?: Maybe<PagesDocAccessFields_Meta>;
+  pageType?: Maybe<PagesDocAccessFields_PageType>;
   publishedOn?: Maybe<PagesDocAccessFields_PublishedOn>;
   slug?: Maybe<PagesDocAccessFields_Slug>;
   title?: Maybe<PagesDocAccessFields_Title>;
@@ -12469,6 +12508,29 @@ export type PagesDocAccessFields_Meta_Title_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type PagesDocAccessFields_PageType = {
+  create?: Maybe<PagesDocAccessFields_PageType_Create>;
+  delete?: Maybe<PagesDocAccessFields_PageType_Delete>;
+  read?: Maybe<PagesDocAccessFields_PageType_Read>;
+  update?: Maybe<PagesDocAccessFields_PageType_Update>;
+};
+
+export type PagesDocAccessFields_PageType_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_PageType_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_PageType_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesDocAccessFields_PageType_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
 export type PagesDocAccessFields_PublishedOn = {
   create?: Maybe<PagesDocAccessFields_PublishedOn_Create>;
   delete?: Maybe<PagesDocAccessFields_PublishedOn_Delete>;
@@ -12568,6 +12630,7 @@ export type PagesFields = {
   generateSlug?: Maybe<PagesFields_GenerateSlug>;
   layout?: Maybe<PagesFields_Layout>;
   meta?: Maybe<PagesFields_Meta>;
+  pageType?: Maybe<PagesFields_PageType>;
   publishedOn?: Maybe<PagesFields_PublishedOn>;
   slug?: Maybe<PagesFields_Slug>;
   title?: Maybe<PagesFields_Title>;
@@ -12761,6 +12824,29 @@ export type PagesFields_Meta_Title_Read = {
 };
 
 export type PagesFields_Meta_Title_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_PageType = {
+  create?: Maybe<PagesFields_PageType_Create>;
+  delete?: Maybe<PagesFields_PageType_Delete>;
+  read?: Maybe<PagesFields_PageType_Read>;
+  update?: Maybe<PagesFields_PageType_Update>;
+};
+
+export type PagesFields_PageType_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_PageType_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_PageType_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PagesFields_PageType_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
@@ -22502,6 +22588,7 @@ export type MutationPageInput = {
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPage_MetaInput>;
+  pageType: Page_PageType_MutationInput;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
@@ -22515,6 +22602,7 @@ export type MutationPageUpdateInput = {
   generateSlug?: InputMaybe<Scalars['Boolean']['input']>;
   layout?: InputMaybe<Scalars['JSON']['input']>;
   meta?: InputMaybe<MutationPageUpdate_MetaInput>;
+  pageType?: InputMaybe<PageUpdate_PageType_MutationInput>;
   publishedOn?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -23194,6 +23282,19 @@ export type VersionsPage_Version__Meta__Title_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export enum VersionsPage_Version__PageType_Input {
+  Content = 'content',
+  System = 'system'
+}
+
+export type VersionsPage_Version__PageType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<VersionsPage_Version__PageType_Input>>>;
+  equals?: InputMaybe<VersionsPage_Version__PageType_Input>;
+  in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__PageType_Input>>>;
+  not_equals?: InputMaybe<VersionsPage_Version__PageType_Input>;
+  not_in?: InputMaybe<Array<InputMaybe<VersionsPage_Version__PageType_Input>>>;
+};
+
 export type VersionsPage_Version__PublishedOn_Operator = {
   equals?: InputMaybe<Scalars['DateTime']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -23254,6 +23355,7 @@ export type VersionsPage_Where = {
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
+  version__pageType?: InputMaybe<VersionsPage_Version__PageType_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
@@ -23278,6 +23380,7 @@ export type VersionsPage_Where_And = {
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
+  version__pageType?: InputMaybe<VersionsPage_Version__PageType_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
@@ -23302,6 +23405,7 @@ export type VersionsPage_Where_Or = {
   version__meta__description?: InputMaybe<VersionsPage_Version__Meta__Description_Operator>;
   version__meta__image?: InputMaybe<VersionsPage_Version__Meta__Image_Operator>;
   version__meta__title?: InputMaybe<VersionsPage_Version__Meta__Title_Operator>;
+  version__pageType?: InputMaybe<VersionsPage_Version__PageType_Operator>;
   version__publishedOn?: InputMaybe<VersionsPage_Version__PublishedOn_Operator>;
   version__slug?: InputMaybe<VersionsPage_Version__Slug_Operator>;
   version__title?: InputMaybe<VersionsPage_Version__Title_Operator>;
@@ -23957,7 +24061,7 @@ export type FooterQueryVariables = Exact<{
 }>;
 
 
-export type FooterQuery = { Footer?: { slogan?: string | null, phone?: string | null, contactLink?: { link?: { label?: string | null, type?: Footer_ContactLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null } | null, socialLink?: { link?: { label?: string | null, type?: Footer_SocialLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Footer_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+export type FooterQuery = { Footer?: { slogan?: string | null, phone?: string | null, contactLink?: { link?: { label?: string | null, type?: Footer_ContactLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null, pageType?: Page_PageType | null } | null } | null } | null } | null, socialLink?: { link?: { label?: string | null, type?: Footer_SocialLink_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null, pageType?: Page_PageType | null } | null } | null } | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Footer_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null, pageType?: Page_PageType | null } | null } | null } | null }> | null } | null };
 
 export type HeaderQueryVariables = Exact<{
   locale: LocaleInputType;
@@ -23997,6 +24101,14 @@ export type PageQuery = { Pages?: { docs: Array<{ id: number, title?: string | n
         | { __typename: 'MediaBlock' }
         | { __typename: 'ThreeItemGridBlock' }
       > | null, meta?: { title?: string | null, description?: string | null, image?: { url?: string | null, alt: string } | null } | null }> } | null };
+
+export type ProductByIdQueryVariables = Exact<{
+  locale: LocaleInputType;
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type ProductByIdQuery = { Products?: { docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, inventory?: number | null, enableVariants?: boolean | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null }> | null, variants?: { docs: Array<{ id: number, title?: string | null, priceInEUR?: number | null, inventory?: number | null }> } | null }> } | null };
 
 export type ProductsByCategoryQueryVariables = Exact<{
   locale: LocaleInputType;
