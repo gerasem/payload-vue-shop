@@ -2,19 +2,9 @@
 import CategoryCard from './category/CategoryCard.vue'
 import type { ICategory } from '@/types'
 
-const props = defineProps<{
-  modelValue: number | null
+defineProps<{
   categories: ICategory[]
-  clickable?: boolean
 }>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: number): void
-}>()
-
-function selectCategory(categoryId: number) {
-  emit('update:modelValue', categoryId)
-}
 </script>
 
 <template>
@@ -23,9 +13,6 @@ function selectCategory(categoryId: number) {
       v-for="category in categories" 
       :key="category.id" 
       :category="category"
-      :is-active="modelValue === category.id"
-      :clickable="clickable"
-      @click="selectCategory(category.id)"
     />
   </div>
 </template>

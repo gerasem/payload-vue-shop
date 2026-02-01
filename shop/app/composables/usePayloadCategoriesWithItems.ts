@@ -45,6 +45,5 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
     }
   })
   
-  // Filter out categories with no products
-  return result.filter((item) => item.items.length > 0)
+  return result
 }

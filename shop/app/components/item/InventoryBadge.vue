@@ -6,7 +6,8 @@ const props = defineProps<{
 const { t } = useI18n()
 
 const status = computed(() => {
-  if (props.quantity === null || props.quantity === undefined || props.quantity <= 0) {
+  // Only explicitly 0 means out of stock
+  if (props.quantity === 0) {
     return {
       label: t('Out of stock'),
       color: 'error' as const,
@@ -14,7 +15,8 @@ const status = computed(() => {
     }
   }
   
-  if (props.quantity <= 5) {
+  // Low stock warning (only if quantity is defined and distinct from 0)
+  if (props.quantity !== null && props.quantity !== undefined && props.quantity <= 5) {
     return {
       label: t('Only {count} left', { count: props.quantity }),
       color: 'warning' as const,
@@ -22,6 +24,7 @@ const status = computed(() => {
     }
   }
   
+  // Unlimited (null/undefined) or > 5
   return {
     label: t('In stock'),
     color: 'success' as const,

@@ -95,15 +95,18 @@ const canAddToCart = computed(() => {
   }
 
   // Otherwise just check inventory
-  return (inventoryQuantity.value ?? 0) > 0
+  const qty = inventoryQuantity.value
+  // If null/undefined (unlimited) OR > 0
+  return qty === null || qty === undefined || qty > 0
 })
 
 // Quantity management
 const quantity = ref(1)
 
 function increaseQuantity() {
-  const maxQuantity = inventoryQuantity.value || 1
-  if (quantity.value < maxQuantity) {
+  const max = inventoryQuantity.value
+  // Increase if unlimited (null/undefined) OR current < max
+  if (max === null || max === undefined || quantity.value < max) {
     quantity.value++
   }
 }
@@ -115,16 +118,16 @@ function decreaseQuantity() {
 }
 
 function validateQuantity() {
-  const maxQuantity = inventoryQuantity.value || 1
+  const max = inventoryQuantity.value
   
   // Ensure quantity is at least 1
   if (quantity.value < 1) {
     quantity.value = 1
   }
   
-  // Ensure quantity doesn't exceed inventory
-  if (quantity.value > maxQuantity) {
-    quantity.value = maxQuantity
+  // Ensure quantity doesn't exceed inventory (only if constrained)
+  if (max !== null && max !== undefined && quantity.value > max) {
+    quantity.value = max
   }
 }
 
@@ -220,7 +223,7 @@ usePageSeo({
               v-model.number="quantity"
               type="number"
               min="1"
-              :max="inventoryQuantity || 1"
+              :max="inventoryQuantity || undefined"
               class="w-20 text-center"
               @input="validateQuantity"
               @blur="validateQuantity"
@@ -230,14 +233,14 @@ usePageSeo({
               size="md"
               color="gray"
               variant="outline"
-              :disabled="quantity >= (inventoryQuantity || 1)"
+              :disabled="inventoryQuantity !== null && inventoryQuantity !== undefined && quantity >= inventoryQuantity"
               @click="increaseQuantity"
             />
           </div>
           
           <!-- Add to Cart Button -->
           <UButton
-            :disabled="!canAddToCart || quantity > (inventoryQuantity || 0) || adding"
+            :disabled="!canAddToCart || (inventoryQuantity !== null && inventoryQuantity !== undefined && quantity > inventoryQuantity) || adding"
             :loading="adding"
             size="lg"
             class="flex-1"

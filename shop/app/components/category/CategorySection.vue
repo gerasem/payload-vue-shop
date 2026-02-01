@@ -14,22 +14,20 @@ defineProps<{
 <template>
   <section class="mb-12">
     <!-- Category Header -->
-    <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center justify-between mb-6 group">
       <h2 class="text-2xl font-bold text-gray-900">
         {{ category.title }}
       </h2>
-      <UButton
+      <NuxtLink
         :to="localePath(`/category/${category.slug}`)"
-        color="primary"
-        variant="outline"
-        size="sm"
+        class="text-gray-500 hover:text-gray-900 text-sm transition-all duration-200 opacity-0 group-hover:opacity-100"
       >
-        {{ t('Go to {categoryName}', { categoryName: category.title }) }} →
-      </UButton>
+        {{ t('View all', 'Alle ansehen') }} →
+      </NuxtLink>
     </div>
 
-    <!-- Items Grid (6 items max, 3 per row) -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+    <!-- Items Grid (4 items max, 4 per row on desktop) -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
       <ItemCard v-for="item in items" :key="item.id" :item="item" />
     </div>
   </section>

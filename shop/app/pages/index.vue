@@ -2,25 +2,9 @@
 import CategoryGrid from '@/components/CategoryGrid.vue'
 import CategorySection from '@/components/category/CategorySection.vue'
 
-// Fetch all categories with their items (6 per category) - SSR friendly
+// Fetch all categories with their items (4 per category) - SSR friendly
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
-  return usePayloadCategoriesWithItems(6)
-})
-
-// Selected category state (default to first category)
-const selectedCategoryId = ref<number | null>(null)
-
-// Set default selected category on mount
-onMounted(() => {
-  if (categoriesWithItems.value && categoriesWithItems.value.length > 0) {
-    selectedCategoryId.value = categoriesWithItems.value[0]!.category.id
-  }
-})
-
-// Get currently selected category data
-const selectedCategoryData = computed(() => {
-  if (!selectedCategoryId.value || !categoriesWithItems.value) return null
-  return categoriesWithItems.value.find(cat => cat.category.id === selectedCategoryId.value)
+  return usePayloadCategoriesWithItems(4)
 })
 
 // Get all categories for the sidebar
@@ -42,24 +26,21 @@ usePageSeo({
       <!-- Left sidebar: Category Grid -->
       <aside class="col-span-3">
         <CategoryGrid 
-          v-model="selectedCategoryId"
           :categories="categories"
-          clickable
+          :model-value="null" 
         />
       </aside>
 
-      <!-- Main content area: Selected category products -->
+      <!-- Main content area: All categories -->
       <main class="col-span-9">
-        <CategorySection
-          v-if="selectedCategoryData"
-          :category="selectedCategoryData.category"
-          :items="selectedCategoryData.items"
-        />
-        
-        <!-- Loading/Empty state -->
-        <div v-else class="bg-gray-50 rounded-lg p-8 text-center text-gray-500">
-          <p>Loading categories...</p>
-        </div>
+        <template v-if="categoriesWithItems && categoriesWithItems.length > 0">
+          <CategorySection
+            v-for="categoryData in categoriesWithItems"
+            :key="categoryData.category.id"
+            :category="categoryData.category"
+            :items="categoryData.items"
+          />
+        </template>
       </main>
     </div>
   </div>
