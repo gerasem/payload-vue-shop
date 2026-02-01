@@ -38,9 +38,9 @@ usePageSeo({
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Grid layout: categories on left, content on right -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid grid-cols-12 gap-8">
       <!-- Left sidebar: Category Grid -->
-      <aside class="lg:col-span-4 xl:col-span-3">
+      <aside class="col-span-3">
         <CategoryGrid 
           v-model="selectedCategoryId"
           :categories="categories"
@@ -49,7 +49,7 @@ usePageSeo({
       </aside>
 
       <!-- Main content area: Selected category products -->
-      <main class="lg:col-span-8 xl:col-span-9">
+      <main class="col-span-9">
         <CategorySection
           v-if="selectedCategoryData"
           :category="selectedCategoryData.category"

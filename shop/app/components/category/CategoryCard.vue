@@ -25,22 +25,21 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .category-card {
   cursor: pointer;
   transition: all 0.2s ease;
   border-left: 3px solid transparent;
   opacity: 0.6;
-}
 
-.category-card:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-  opacity: 1;
-}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    opacity: 1;
+  }
 
-.category-card--active {
-  border-left-color: var(--ui-primary);
-  background-color: rgba(var(--ui-primary-rgb), 0.05);
-  opacity: 1;
+  &--active {
+    background-color: rgba(var(--ui-primary-rgb), 0.05);
+    opacity: 1;
+  }
 }
 </style>

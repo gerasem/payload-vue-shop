@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { useCartStore as useCartStoreType } from '@/stores/useCartStore'
+import  { useCartStore } from '@/stores/useCartStore'
 
 const route = useRoute()
 
 // Initialize cart store on client-side only
 onMounted(async () => {
-  const { useCartStore } = await import('@/stores/useCartStore')
   const cartStore = useCartStore()
   cartStore.init()
 })
@@ -19,7 +18,7 @@ useHead({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
   link: [{ rel: 'icon', href: '/favicon.ico' }],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'de'
   }
 })
 </script>

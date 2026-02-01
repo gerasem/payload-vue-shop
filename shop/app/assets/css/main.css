@@ -3,7 +3,7 @@
 @import './font.css';
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: 'Montserrat', sans-serif;
 
   /* Custom Primary Color Palette - Pink (#eb3e7d) */
   --color-primary-50: #fef1f7;
@@ -48,6 +48,7 @@
 :root {
   --ui-container: 1600px;
   --ui-header-height: 60px;
+  --ui-radius: 0;
 }
 
 /* Fix cursor for buttons and links */
