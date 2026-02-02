@@ -203,7 +203,7 @@ usePageSeo({
         <!-- Warning if variants not selected -->
         <UAlert
           v-if="product?.enableVariants && !canAddToCart"
-          color="yellow"
+          color="warning"
           variant="subtle"
           :title="t('Please select all product options')"
         />
@@ -214,7 +214,7 @@ usePageSeo({
             <UButton
               icon="i-heroicons-minus"
               size="md"
-              color="gray"
+              color="neutral"
               variant="outline"
               :disabled="quantity <= 1"
               @click="decreaseQuantity"
@@ -231,7 +231,7 @@ usePageSeo({
             <UButton
               icon="i-heroicons-plus"
               size="md"
-              color="gray"
+              color="neutral"
               variant="outline"
               :disabled="inventoryQuantity !== null && inventoryQuantity !== undefined && quantity >= inventoryQuantity"
               @click="increaseQuantity"
