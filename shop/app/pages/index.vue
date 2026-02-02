@@ -22,7 +22,7 @@ usePageSeo({
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Grid layout: categories on left, content on right -->
-    <div class="grid grid-cols-12 gap-8">
+    <div class="grid grid-cols-16 gap-12">
       <!-- Left sidebar: Category Grid -->
       <aside class="col-span-3">
         <CategoryGrid 
@@ -32,7 +32,7 @@ usePageSeo({
       </aside>
 
       <!-- Main content area: All categories -->
-      <main class="col-span-9">
+      <main class="col-span-13">
         <template v-if="categoriesWithItems && categoriesWithItems.length > 0">
           <CategorySection
             v-for="categoryData in categoriesWithItems"
