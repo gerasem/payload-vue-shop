@@ -24,7 +24,7 @@ query CategoriesWithItems($locale: LocaleInputType!) {
       }
     }
   }
-  Products(locale: $locale, limit: 100) {
+  Products(locale: $locale, limit: 1000) {
     docs {
       id
       title
