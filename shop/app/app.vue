@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import  { useCartStore } from '@/stores/useCartStore'
+import { useCartStore } from '@/stores/useCartStore'
 
 const route = useRoute()
 

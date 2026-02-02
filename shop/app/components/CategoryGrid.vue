@@ -9,11 +9,7 @@ defineProps<{
 
 <template>
   <div v-if="categories && categories.length" class="category-grid">
-    <CategoryCard 
-      v-for="category in categories" 
-      :key="category.id" 
-      :category="category"
-    />
+    <CategoryCard v-for="category in categories" :key="category.id" :category="category" />
   </div>
 </template>
 

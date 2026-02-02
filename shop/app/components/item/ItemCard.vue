@@ -23,7 +23,7 @@ const formattedPrice = computed(() => {
   if (minPrice === '—') return minPrice
 
   const allEqual = areAllPricesEqual(props.item)
-  
+
   return allEqual ? minPrice : `${t('priceFrom')} ${minPrice}`
 })
 </script>

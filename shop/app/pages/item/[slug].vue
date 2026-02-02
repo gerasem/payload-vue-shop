@@ -18,13 +18,10 @@ const toast = useToast()
 const cartStore = useCartStore()
 
 // Fetch product data (SSR)
-const { data: product } = await useAsyncData(
-  `item-${route.params.slug}`,
-  async () => {
-    const slug = route.params.slug as string
-    return await usePayloadItemBySlug(slug)
-  }
-)
+const { data: product } = await useAsyncData(`item-${route.params.slug}`, async () => {
+  const slug = route.params.slug as string
+  return await usePayloadItemBySlug(slug)
+})
 
 // Handle 404
 if (!product.value) {
@@ -46,7 +43,7 @@ const selectedVariant = computed(() => {
   const selectedCount = Object.keys(selectedOptions.value).length
   if (selectedCount === 0) return null
 
-  return product.value.variants.docs.find((variant) => {
+  return product.value.variants.docs.find(variant => {
     if (!variant?.options || variant.options.length === 0) return false
 
     let matches = true
@@ -119,12 +116,12 @@ function decreaseQuantity() {
 
 function validateQuantity() {
   const max = inventoryQuantity.value
-  
+
   // Ensure quantity is at least 1
   if (quantity.value < 1) {
     quantity.value = 1
   }
-  
+
   // Ensure quantity doesn't exceed inventory (only if constrained)
   if (max !== null && max !== undefined && quantity.value > max) {
     quantity.value = max
@@ -144,11 +141,7 @@ async function addToCart() {
 
   adding.value = true
 
-  await cartStore.add(
-    product.value!.id,
-    quantity.value,
-    selectedVariant.value?.id || null
-  )
+  await cartStore.add(product.value!.id, quantity.value, selectedVariant.value?.id || null)
 
   adding.value = false
 
@@ -233,14 +226,24 @@ usePageSeo({
               size="md"
               color="neutral"
               variant="outline"
-              :disabled="inventoryQuantity !== null && inventoryQuantity !== undefined && quantity >= inventoryQuantity"
+              :disabled="
+                inventoryQuantity !== null &&
+                inventoryQuantity !== undefined &&
+                quantity >= inventoryQuantity
+              "
               @click="increaseQuantity"
             />
           </div>
-          
+
           <!-- Add to Cart Button -->
           <UButton
-            :disabled="!canAddToCart || (inventoryQuantity !== null && inventoryQuantity !== undefined && quantity > inventoryQuantity) || adding"
+            :disabled="
+              !canAddToCart ||
+              (inventoryQuantity !== null &&
+                inventoryQuantity !== undefined &&
+                quantity > inventoryQuantity) ||
+              adding
+            "
             :loading="adding"
             size="lg"
             class="flex-1"

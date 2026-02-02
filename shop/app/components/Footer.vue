@@ -9,10 +9,11 @@ const localePath = useLocalePath()
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
 
 // Map navigation links using pageType from Payload
-const navLinks = computed(() =>
-  footerData.value?.navItems
-    ?.map(item => usePayloadLink(item))
-    .filter((link): link is MappedLink => link !== null) || []
+const navLinks = computed(
+  () =>
+    footerData.value?.navItems
+      ?.map(item => usePayloadLink(item))
+      .filter((link): link is MappedLink => link !== null) || []
 )
 
 // Extract contact data

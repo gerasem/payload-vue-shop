@@ -5,14 +5,17 @@ import 'photoswipe/style.css'
 const config = useRuntimeConfig()
 
 const props = defineProps<{
-  images: Array<{
-    id: number
-    url: string
-    thumbnailURL?: string
-    alt?: string
-    width?: number
-    height?: number
-  }> | null | undefined
+  images:
+    | Array<{
+        id: number
+        url: string
+        thumbnailURL?: string
+        alt?: string
+        width?: number
+        height?: number
+      }>
+    | null
+    | undefined
 }>()
 
 // PhotoSwipe lightbox
@@ -23,7 +26,7 @@ onMounted(() => {
     lightbox.value = new PhotoSwipeLightbox({
       gallery: '#product-gallery',
       children: 'a',
-      pswpModule: () => import('photoswipe'),
+      pswpModule: () => import('photoswipe')
     })
     lightbox.value.init()
   }
@@ -62,12 +65,7 @@ onUnmounted(() => {
       />
     </a>
   </div>
-  <p
-    v-else
-    class="text-center text-gray-400"
-  >
-    No images
-  </p>
+  <p v-else class="text-center text-gray-400">No images</p>
 </template>
 
 <style scoped>

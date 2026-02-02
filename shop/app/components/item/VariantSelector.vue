@@ -1,17 +1,20 @@
 <script setup lang="ts">
 const props = defineProps<{
-  variantTypes: Array<{
-    id: number
-    label: string
-    name: string
-    options?: {
-      docs: Array<{
+  variantTypes:
+    | Array<{
         id: number
         label: string
-        value: string
+        name: string
+        options?: {
+          docs: Array<{
+            id: number
+            label: string
+            value: string
+          }>
+        }
       }>
-    }
-  }> | null | undefined
+    | null
+    | undefined
   modelValue: Record<string, string>
 }>()
 
@@ -22,20 +25,14 @@ const emit = defineEmits<{
 function selectOption(typeName: string, value: string) {
   emit('update:modelValue', {
     ...props.modelValue,
-    [typeName]: value,
+    [typeName]: value
   })
 }
 </script>
 
 <template>
-  <div
-    v-if="variantTypes && variantTypes.length > 0"
-    class="space-y-4"
-  >
-    <div
-      v-for="type in variantTypes"
-      :key="type.id"
-    >
+  <div v-if="variantTypes && variantTypes.length > 0" class="space-y-4">
+    <div v-for="type in variantTypes" :key="type.id">
       <label class="mb-2 block text-sm font-medium text-gray-700">
         {{ type.label }}
       </label>

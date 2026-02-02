@@ -33,11 +33,7 @@ usePageSeo({
       <p class="mb-4 text-lg text-gray-600">
         {{ t('Your cart is empty.') }}
       </p>
-      <UButton
-        :to="localePath('/all-items')"
-        color="primary"
-        size="lg"
-      >
+      <UButton :to="localePath('/all-items')" color="primary" size="lg">
         {{ t('Continue Shopping') }}
       </UButton>
     </div>

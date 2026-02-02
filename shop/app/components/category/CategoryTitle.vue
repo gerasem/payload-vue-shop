@@ -31,8 +31,8 @@ defineProps<{
 
   /* On mobile, disable sticky behavior */
   @media (max-width: 768px) {
-      position: static;
-      background: white;
+    position: static;
+    background: white;
   }
 }
 </style>

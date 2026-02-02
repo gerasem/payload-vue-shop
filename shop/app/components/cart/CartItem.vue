@@ -17,7 +17,11 @@ const quantity = ref(props.item.qty)
 // Computed inventory status
 const isOutOfStock = computed(() => props.item.inventory === 0)
 const isLowStock = computed(
-  () => props.item.inventory !== null && props.item.inventory !== undefined && props.item.inventory > 0 && props.item.inventory <= 5
+  () =>
+    props.item.inventory !== null &&
+    props.item.inventory !== undefined &&
+    props.item.inventory > 0 &&
+    props.item.inventory <= 5
 )
 const hasUnlimitedStock = computed(
   () => props.item.inventory === null || props.item.inventory === undefined
@@ -105,9 +109,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
           <!-- Inventory status -->
           <div class="mt-2">
-            <UBadge v-if="isOutOfStock" color="error" size="xs">
-              Out of Stock
-            </UBadge>
+            <UBadge v-if="isOutOfStock" color="error" size="xs"> Out of Stock </UBadge>
             <UBadge v-else-if="isLowStock" color="warning" size="xs">
               Only {{ item.inventory }} left
             </UBadge>
@@ -141,9 +143,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
         <!-- Price -->
         <div class="text-right">
-          <p class="text-sm text-gray-500">
-            {{ formatEuro(item.priceInEUR) }} × {{ quantity }}
-          </p>
+          <p class="text-sm text-gray-500">{{ formatEuro(item.priceInEUR) }} × {{ quantity }}</p>
           <p class="text-base font-medium text-gray-900">
             {{ formatEuro(lineTotal) }}
           </p>

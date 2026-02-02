@@ -3,14 +3,14 @@
  */
 export function formatEuro(cents: number | null | undefined): string {
   if (cents === null || cents === undefined) return '—'
-  
+
   const euroFormatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   })
-  
+
   return euroFormatter.format(cents / 100)
 }
 
@@ -73,5 +73,5 @@ export function areAllPricesEqual(product: any): boolean {
   if (prices.length === 0) return true
 
   // Check if all prices are the same
-  return prices.every((price) => price === prices[0])
+  return prices.every(price => price === prices[0])
 }

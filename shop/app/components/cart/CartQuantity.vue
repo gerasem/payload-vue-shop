@@ -13,13 +13,11 @@ const emit = defineEmits<{
 
 const quantity = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value)
 })
 
 // Check if unlimited stock
-const hasUnlimitedStock = computed(
-  () => props.inventory === null || props.inventory === undefined
-)
+const hasUnlimitedStock = computed(() => props.inventory === null || props.inventory === undefined)
 
 const maxQuantity = computed(() => {
   if (hasUnlimitedStock.value) return 999

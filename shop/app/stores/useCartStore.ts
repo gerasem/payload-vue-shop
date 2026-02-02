@@ -45,11 +45,11 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     // Fetch all products needed for cart
-    const productIds = [...new Set(rawItems.value.map((item) => item.productId))]
+    const productIds = [...new Set(rawItems.value.map(item => item.productId))]
     const products = await fetchProductsForCart(productIds)
 
     items.value = rawItems.value
-      .map((raw) => {
+      .map(raw => {
         const product = products.get(raw.productId)
 
         if (!product) {
@@ -73,14 +73,14 @@ export const useCartStore = defineStore('cart', () => {
           priceInEUR,
           image: product.gallery?.[0]?.thumbnailURL ?? product.gallery?.[0]?.url,
           variantTitle: product.enableVariants ? variant?.title : undefined,
-          inventory,
+          inventory
         }
       })
       .filter(Boolean) as ICartItem[]
 
     // Remove items that failed to hydrate
-    const validProductIds = new Set(items.value.map((item) => item.productId))
-    rawItems.value = rawItems.value.filter((raw) => validProductIds.has(raw.productId))
+    const validProductIds = new Set(items.value.map(item => item.productId))
+    rawItems.value = rawItems.value.filter(raw => validProductIds.has(raw.productId))
   }
 
   // Helper function to fetch products by IDs
@@ -124,12 +124,12 @@ export const useCartStore = defineStore('cart', () => {
         const result = await $fetch(`${config.public.payloadUrl}/api/graphql`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             query,
-            variables: { locale, id },
-          }),
+            variables: { locale, id }
+          })
         })
 
         const product = (result as any)?.data?.Products?.docs?.[0]
@@ -153,7 +153,7 @@ export const useCartStore = defineStore('cart', () => {
     if (!productId || qty <= 0) return
 
     const existing = rawItems.value.find(
-      (i) => i.productId === productId && i.variantId === variantId
+      i => i.productId === productId && i.variantId === variantId
     )
 
     if (existing) {
@@ -171,9 +171,7 @@ export const useCartStore = defineStore('cart', () => {
     variantId: number | null | undefined,
     qty: number
   ) {
-    const item = rawItems.value.find(
-      (i) => i.productId === productId && i.variantId === variantId
-    )
+    const item = rawItems.value.find(i => i.productId === productId && i.variantId === variantId)
 
     if (item) {
       item.qty = Math.max(1, qty) // Ensure at least 1
@@ -184,7 +182,7 @@ export const useCartStore = defineStore('cart', () => {
   // Remove item from cart
   async function remove(productId: number, variantId: number | null | undefined = null) {
     rawItems.value = rawItems.value.filter(
-      (item) => !(item.productId === productId && item.variantId === variantId)
+      item => !(item.productId === productId && item.variantId === variantId)
     )
     await hydrate()
   }
@@ -213,6 +211,6 @@ export const useCartStore = defineStore('cart', () => {
     updateQuantity,
     remove,
     clear,
-    hydrate,
+    hydrate
   }
 })

@@ -20,7 +20,7 @@ const imageUrl = computed(() => {
 <template>
   <NuxtLink
     :to="localePath(`/category/${category.slug}`)"
-    class="block relative aspect-video rounded-lg overflow-hidden group"
+    class="block relative aspect-video rounded-lg overflow-hidden group bg-gray-100"
   >
     <img
       :src="imageUrl"

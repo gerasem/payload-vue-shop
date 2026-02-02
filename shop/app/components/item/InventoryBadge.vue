@@ -14,7 +14,7 @@ const status = computed(() => {
       show: true
     }
   }
-  
+
   // Low stock warning (only if quantity is defined and distinct from 0)
   if (props.quantity !== null && props.quantity !== undefined && props.quantity <= 5) {
     return {
@@ -23,7 +23,7 @@ const status = computed(() => {
       show: true
     }
   }
-  
+
   // Unlimited (null/undefined) or > 5
   return {
     label: t('In stock'),
@@ -34,12 +34,7 @@ const status = computed(() => {
 </script>
 
 <template>
-  <UBadge 
-    v-if="status.show"
-    :color="status.color"
-    variant="subtle"
-    size="md"
-  >
+  <UBadge v-if="status.show" :color="status.color" variant="subtle" size="md">
     {{ status.label }}
   </UBadge>
 </template>

@@ -33,9 +33,7 @@ const cartStore = useCartStore()
       </p>
     </div>
     <div v-else class="mb-4 rounded-md bg-green-50 p-3">
-      <p class="text-sm font-medium text-green-700">
-        ✓ {{ t('Free shipping applied!') }}
-      </p>
+      <p class="text-sm font-medium text-green-700">✓ {{ t('Free shipping applied!') }}</p>
     </div>
 
     <!-- Checkout button -->
@@ -50,13 +48,7 @@ const cartStore = useCartStore()
     </UButton>
 
     <!-- Continue shopping link -->
-    <UButton
-      :to="localePath('/all-items')"
-      variant="link"
-      color="neutral"
-      block
-      class="mt-4"
-    >
+    <UButton :to="localePath('/all-items')" variant="link" color="neutral" block class="mt-4">
       {{ t('Continue Shopping') }}
     </UButton>
   </div>

@@ -71,7 +71,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
       <div class="flex items-center gap-8">
         <!-- Language switcher - hidden on mobile -->
         <div class="hidden md:block">
-          <HeaderLanguageSwitcher v-if="false"/>
+          <HeaderLanguageSwitcher v-if="false" />
         </div>
 
         <!-- Nav buttons - hidden on mobile -->
@@ -124,7 +124,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 
         <!-- Language switcher in mobile menu -->
         <div class="pt-4 border-t border-gray-200">
-          <HeaderLanguageSwitcher v-if="false"/>
+          <HeaderLanguageSwitcher v-if="false" />
         </div>
       </div>
     </template>
