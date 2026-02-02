@@ -7,6 +7,7 @@ const props = defineProps<{
   item: ICartItem
 }>()
 
+const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
 const config = useRuntimeConfig()
@@ -71,9 +72,7 @@ function removeItem() {
 // Image URL helper
 const imageUrl = computed(() => {
   if (!props.item.image) return ''
-  return props.item.image.startsWith('http')
-    ? props.item.image
-    : `${config.public.payloadUrl}${props.item.image}`
+  return `${config.public.payloadUrl}${props.item.image}`
 })
 
 // Line total
@@ -109,7 +108,9 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
           <!-- Inventory status -->
           <div class="mt-2">
-            <UBadge v-if="isOutOfStock" color="error" size="xs"> Out of Stock </UBadge>
+            <UBadge v-if="isOutOfStock" color="error" size="xs">
+              {{ t('Out of stock') }}
+            </UBadge>
             <UBadge v-else-if="isLowStock" color="warning" size="xs">
               Only {{ item.inventory }} left
             </UBadge>
@@ -143,7 +144,9 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
         <!-- Price -->
         <div class="text-right">
-          <p class="text-sm text-gray-500">{{ formatEuro(item.priceInEUR) }} × {{ quantity }}</p>
+          <p class="text-sm text-gray-500">
+            {{ formatEuro(item.priceInEUR) }} × {{ quantity }}
+          </p>
           <p class="text-base font-medium text-gray-900">
             {{ formatEuro(lineTotal) }}
           </p>

@@ -2,7 +2,6 @@
 import AllItemsCatalog from '@/components/AllItemsCatalog.vue'
 
 // Fetch page data for SEO (optional, to keep title from CMS if desired)
-const route = useRoute()
 const { data: pageData } = await useAsyncData('page-all-items', () => usePayloadPage('all-items'))
 
 usePageSeo({

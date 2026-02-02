@@ -22,7 +22,7 @@ defineProps<{
         :to="localePath(`/category/${category.slug}`)"
         class="text-gray-500 hover:text-gray-900 text-sm transition-all duration-200 opacity-0 group-hover:opacity-100"
       >
-        {{ t('View all', 'Alle ansehen') }} →
+        {{ t('View all') }} →
       </NuxtLink>
     </div>
 

@@ -13,14 +13,14 @@ const props = defineProps<{
 // Get first image from gallery
 const imageUrl = computed(() => {
   const firstImage = props.item.gallery?.[0]
-  if (!firstImage?.url) return '/placeholder-product.jpg'
+  if (!firstImage?.url) return ''
   return `${config.public.payloadUrl}${firstImage.url}`
 })
 
 // Format price with translated "from" prefix if variants have different prices
 const formattedPrice = computed(() => {
   const minPrice = getMinPriceFormatted(props.item)
-  if (minPrice === '—') return minPrice
+  if (minPrice === '-') return minPrice
 
   const allEqual = areAllPricesEqual(props.item)
 

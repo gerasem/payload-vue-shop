@@ -70,7 +70,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
     <template #right>
       <div class="flex items-center gap-8">
         <!-- Language switcher - hidden on mobile -->
-        <div class="hidden md:block">
+        <div v-if="false" class="hidden md:block">
           <HeaderLanguageSwitcher v-if="false" />
         </div>
 
@@ -123,8 +123,8 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         <UNavigationMenu :items="navigationLinks" orientation="vertical" class="-mx-2.5" />
 
         <!-- Language switcher in mobile menu -->
-        <div class="pt-4 border-t border-gray-200">
-          <HeaderLanguageSwitcher v-if="false" />
+        <div v-if="false" class="pt-4 border-t border-gray-200">
+          <HeaderLanguageSwitcher />
         </div>
       </div>
     </template>
