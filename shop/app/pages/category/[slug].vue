@@ -31,7 +31,7 @@ if (!currentCategory.value) {
 // Fetch products for this category
 const { data: productsData } = await useAsyncData(`products-${slug.value}`, async () => {
   if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
-  return usePayloadProducts(currentCategory.value.id)
+  return usePayloadProducts(String(currentCategory.value.id))
 })
 
 const items = computed(() => productsData.value?.products || [])
@@ -77,9 +77,9 @@ usePageSeo({
   </div>
 </template>
 
-<style scoped>
+<style>
 /* Rich text styling */
-.prose :deep(h2) {
+.prose h2 {
   font-size: 1.5rem;
   font-weight: 700;
   color: #111827;
@@ -87,7 +87,7 @@ usePageSeo({
   margin-bottom: 1rem;
 }
 
-.prose :deep(h3) {
+.prose h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: #111827;
@@ -95,32 +95,32 @@ usePageSeo({
   margin-bottom: 0.75rem;
 }
 
-.prose :deep(p) {
+.prose p {
   color: #374151;
   margin-bottom: 1rem;
   line-height: 1.75;
 }
 
-.prose :deep(ul),
-.prose :deep(ol) {
+.prose ul,
+.prose ol {
   margin-bottom: 1rem;
   margin-left: 1.5rem;
 }
 
-.prose :deep(li) {
+.prose li {
   margin-bottom: 0.5rem;
 }
 
-.prose :deep(a) {
+.prose a {
   color: var(--color-primary);
   text-decoration: none;
 }
 
-.prose :deep(a:hover) {
+.prose a:hover {
   text-decoration: underline;
 }
 
-.prose :deep(strong) {
+.prose strong {
   font-weight: 600;
 }
 </style>
