@@ -78,6 +78,7 @@ onUnmounted(() => {
 
     img {
       max-height: 80vh;
+      object-fit: cover;
     }
   }
 
