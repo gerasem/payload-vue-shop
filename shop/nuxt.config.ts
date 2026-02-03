@@ -23,7 +23,11 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/de/**': { prerender: true },
+    '/en/**': { prerender: true },
+    '/item/**': { prerender: true },
+    '/category/**': { prerender: true }
   },
   devServer: {
     port: 3001

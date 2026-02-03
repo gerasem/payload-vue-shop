@@ -6,10 +6,8 @@ import type { PageQuery } from '@/generated/graphql'
  * Returns page with content, layout blocks and metadata
  */
 export async function usePayloadPage(slug: string) {
-  const { locale } = useI18n()
   const data = await usePayloadQuery<PageQuery>(pageQuery, {
-    slug,
-    locale: locale.value
+    slug
   })
   return data.Pages?.docs?.[0] || null
 }

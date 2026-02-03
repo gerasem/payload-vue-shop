@@ -8,7 +8,8 @@ export async function usePayloadQuery<T = any>(
   variables: Record<string, any> = {}
 ): Promise<T> {
   const config = useRuntimeConfig()
-  const { locale } = useI18n()
+  const { $i18n } = useNuxtApp()
+  const locale = $i18n.locale
   const toast = useToast()
 
   try {

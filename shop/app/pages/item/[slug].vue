@@ -6,6 +6,7 @@ import InventoryBadge from '@/components/item/InventoryBadge.vue'
 import type { IItem } from '@/types'
 import { richTextToHTML } from '@/utils/richtext'
 import { useCartStore } from '@/stores/useCartStore'
+import { useLiveInventory } from '@/composables/useLiveInventory'
 
 definePageMeta({
   layout: 'default'
@@ -77,8 +78,36 @@ const displayPrice = computed(() => {
   return `${t('priceFrom')} ${getMinPriceFormatted(product.value)}`
 })
 
+// Live inventory state
+const liveInventory = ref<number | null>(null)
+
+// Check live inventory on mount (for base product) or when variant changes
+async function updateInventory() {
+  const idToCheck = selectedVariant.value?.id || product.value?.id
+  if (idToCheck) {
+    liveInventory.value = await useLiveInventory(idToCheck)
+  }
+}
+
+onMounted(() => {
+  if (!product.value?.enableVariants) {
+    updateInventory()
+  }
+})
+
+watch(selectedVariant, () => {
+    liveInventory.value = null // Reset while fetching
+    if (selectedVariant.value) {
+      updateInventory()
+    }
+})
+
 // Inventory quantity
 const inventoryQuantity = computed(() => {
+  // Use live value if available, otherwise fall back to static data
+  if (liveInventory.value !== null) {
+      return liveInventory.value
+  }
   return selectedVariant.value?.inventory ?? product.value?.inventory
 })
 
