@@ -22,8 +22,10 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
   </div>
 </template>
 
-<style scoped>
-.category-link.router-link-active {
-  color: var(--color-primary);
+<style scoped lang="scss">
+.category-link {
+  &.router-link-active {
+    color: var(--color-primary);
+  }
 }
 </style>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getMinPriceFormatted, areAllPricesEqual, formatEuro } from '@/utils/price'
 import ItemGallery from '@/components/item/ItemGallery.vue'
 import VariantSelector from '@/components/item/VariantSelector.vue'
 import InventoryBadge from '@/components/item/InventoryBadge.vue'
@@ -32,51 +31,8 @@ if (!product.value) {
   })
 }
 
-// Variant selection state
-const selectedOptions = ref<Record<string, string>>({})
-
-// Find selected variant based on options
-const selectedVariant = computed(() => {
-  if (!product.value?.enableVariants || !product.value?.variants?.docs) {
-    return null
-  }
-
-  const selectedCount = Object.keys(selectedOptions.value).length
-  if (selectedCount === 0) return null
-
-  return product.value.variants.docs.find(variant => {
-    if (!variant?.options || variant.options.length === 0) return false
-
-    let matches = true
-
-    // Fixed: use [, selectedValue] to get VALUE from entries, not key
-    for (const [, selectedValue] of Object.entries(selectedOptions.value)) {
-      const hasMatchingOption = variant.options.some((opt: any) => opt.value === selectedValue)
-
-      if (!hasMatchingOption) {
-        matches = false
-        break
-      }
-    }
-
-    return matches && variant.options.length === selectedCount
-  })
-})
-
-// Price display
-const displayPrice = computed(() => {
-  // If variant is selected, show variant price
-  if (selectedVariant.value) {
-    return formatEuro(selectedVariant.value.priceInEUR)
-  }
-
-  // Otherwise show product price or "from" price
-  if (areAllPricesEqual(product.value)) {
-    return formatEuro(product.value?.priceInEUR)
-  }
-
-  return `${t('priceFrom')} ${getMinPriceFormatted(product.value)}`
-})
+// Variant logic extracted to composable
+const { selectedOptions, selectedVariant, displayPrice } = useProductVariants(product)
 
 // Live inventory state
 const liveInventory = ref<number | null>(null)

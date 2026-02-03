@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { ICartItemRaw, ICartItem } from '@/types'
 import { formatEuro } from '@/utils/price'
+import { usePayloadProductsByIds } from '@/composables/usePayloadProductsByIds'
 
 export const useCartStore = defineStore('cart', () => {
   // Minimal data stored in localStorage
@@ -84,64 +85,10 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Helper function to fetch products by IDs
+  // Helper function to fetch products by IDs
   async function fetchProductsForCart(productIds: number[]) {
-    const productsMap = new Map()
-    const nuxtApp = useNuxtApp()
-    const config = useRuntimeConfig()
-    const locale = nuxtApp.$i18n.locale.value
-
-    // Fetch each product individually using direct $fetch
-    for (const id of productIds) {
-      try {
-        const query = `
-          query ProductById($locale: LocaleInputType!, $id: Int!) {
-            Products(locale: $locale, where: { id: { equals: $id } }, limit: 1) {
-              docs {
-                id
-                title
-                slug
-                priceInEUR
-                inventory
-                enableVariants
-                gallery {
-                  id
-                  url
-                  thumbnailURL
-                }
-                variants {
-                  docs {
-                    id
-                    title
-                    priceInEUR
-                    inventory
-                  }
-                }
-              }
-            }
-          }
-        `
-
-        const result = await $fetch(`${config.public.payloadUrl}/api/graphql`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            query,
-            variables: { locale, id }
-          })
-        })
-
-        const product = (result as any)?.data?.Products?.docs?.[0]
-        if (product) {
-          productsMap.set(id, product)
-        }
-      } catch (error) {
-        console.error(`Failed to fetch product ${id}:`, error)
-      }
-    }
-
-    return productsMap
+    // Wrapper for usePayloadProductsByIds to maintain interface or simple internal helper
+    return await usePayloadProductsByIds(productIds)
   }
 
   // Add item to cart (or update quantity if exists)

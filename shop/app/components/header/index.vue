@@ -2,17 +2,12 @@
 import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
 import SmartLink from '@/components/SmartLink.vue'
-import type { useCartStore as useCartStoreType } from '@/stores/useCartStore'
+import { useCartStore } from '@/stores/useCartStore'
 
 const localePath = useLocalePath()
 
 // Initialize cart store on client-side only to avoid SSR errors
-const cartStore = ref<ReturnType<typeof useCartStoreType> | null>(null)
-
-onMounted(async () => {
-  const { useCartStore } = await import('@/stores/useCartStore')
-  cartStore.value = useCartStore()
-})
+const cartStore = useCartStore()
 
 // Fetch header data with SSR
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
@@ -70,9 +65,9 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
     <template #right>
       <div class="flex items-center gap-8">
         <!-- Language switcher - hidden on mobile -->
-        <div v-if="false" class="hidden md:block">
+        <!-- <div v-if="false" class="hidden md:block">
           <HeaderLanguageSwitcher v-if="false" />
-        </div>
+        </div> -->
 
         <!-- Nav buttons - hidden on mobile -->
         <SmartLink
@@ -123,9 +118,9 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         <UNavigationMenu :items="navigationLinks" orientation="vertical" class="-mx-2.5" />
 
         <!-- Language switcher in mobile menu -->
-        <div v-if="false" class="pt-4 border-t border-gray-200">
+        <!-- <div v-if="false" class="pt-4 border-t border-gray-200">
           <HeaderLanguageSwitcher />
-        </div>
+        </div> -->
       </div>
     </template>
   </UHeader>

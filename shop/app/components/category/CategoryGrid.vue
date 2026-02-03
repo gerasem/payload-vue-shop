@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CategoryCard from './category/CategoryCard.vue'
+import CategoryCard from './CategoryCard.vue'
 import type { ICategory } from '@/types'
 
 defineProps<{
