@@ -68,37 +68,38 @@ onUnmounted(() => {
   <p v-else class="text-center text-gray-400">No images</p>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .gallery {
   column-count: 2;
   column-gap: 15px;
-}
 
-.gallery--one-image {
-  column-count: 1;
-}
+  &--one-image {
+    column-count: 1;
 
-.gallery--one-image img {
-  max-height: 80vh;
-}
+    img {
+      max-height: 80vh;
+    }
+  }
 
-.gallery__item {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  margin-bottom: 15px;
-  break-inside: avoid;
-  cursor: zoom-in;
-  transition: opacity 0.2s;
-}
+  &__item {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 15px;
+    break-inside: avoid;
+    cursor: zoom-in;
+    transition: opacity 0.2s;
 
-.gallery__item:hover {
-  opacity: 0.85;
-}
+    &:hover {
+      opacity: 0.85;
+    }
 
-.gallery__item img {
-  background-color: #f3f4f6;
-  width: 100%;
-  height: auto;
-  display: block;
+    img {
+      background-color: #f3f4f6;
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+  }
 }
 </style>
