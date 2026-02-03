@@ -25,6 +25,7 @@ useHead({
 
 <template>
   <UApp>
+    <NuxtLoadingIndicator color="#dfa44c" />
     <Header />
 
     <!-- Category bar - shown on all pages except homepage -->
