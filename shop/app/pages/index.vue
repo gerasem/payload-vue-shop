@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import CategoryGrid from '@/components/category/CategoryGrid.vue'
 import CategorySection from '@/components/category/CategorySection.vue'
+import Text2Columns from '@/components/content/Text2Columns.vue'
+import { richTextToHTML } from '@/utils/richtext'
 
 // Fetch all categories with their items (4 per category) - SSR friendly
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
   return usePayloadCategoriesWithItems(4)
 })
+
+// Fetch home page content
+const { data: homePage } = await useAsyncData('home-page-content', () => usePayloadPage('home'))
 
 // Get all categories for the sidebar
 const categories = computed(() => {
@@ -38,6 +43,12 @@ usePageSeo({
             :items="categoryData.items"
           />
         </template>
+
+        <!-- SEO Text from Home Page -->
+        <Text2Columns
+          v-if="homePage?.content"
+          :text="richTextToHTML(homePage.content)"
+        />
       </main>
     </div>
   </div>

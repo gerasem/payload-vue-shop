@@ -43,7 +43,7 @@ defineProps<{
     </div>
 
     <!-- Desktop Grid -->
-    <div class="hidden md:grid md:grid-cols-4 md:gap-6">
+    <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6">
       <ItemCard v-for="item in items" :key="item.id" :item="item" />
     </div>
   </section>
