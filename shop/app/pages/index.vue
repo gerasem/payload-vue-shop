@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CategoryGrid from '@/components/CategoryGrid.vue'
+import CategoryGrid from '@/components/category/CategoryGrid.vue'
 import CategorySection from '@/components/category/CategorySection.vue'
 
 // Fetch all categories with their items (4 per category) - SSR friendly

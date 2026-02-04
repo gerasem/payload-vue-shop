@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AllItemsCatalog from '@/components/AllItemsCatalog.vue'
+import AllItemsCatalog from '@/components/catalog/AllItemsCatalog.vue'
 
 // Fetch page data for SEO (optional, to keep title from CMS if desired)
 const { data: pageData } = await useAsyncData('page-all-items', () => usePayloadPage('all-items'))
