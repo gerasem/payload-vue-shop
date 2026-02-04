@@ -252,7 +252,22 @@ usePageSeo({
             {{ adding ? t('Adding...') : t('Add to Cart') }}
           </UButton>
         </div>
+
+
+        <!-- Shipping Terms (Storefront Replication) -->
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500">
+          <p>{{ t('Free shipping over 50€') }}</p>
+          <NuxtLink :to="localePath('/page/delivery')" class="text-primary hover:underline">
+            {{ t('Shipping conditions') }}
+          </NuxtLink>
+        </div>
       </div>
+    </div>
+
+    <!-- Description (Storefront Replication) -->
+    <div v-if="product?.description" class="mt-12 prose dark:prose-invert max-w-none">
+      <h3 class="text-xl font-bold mb-4">{{ t('Description') }}</h3>
+      <div v-html="richTextToHTML(product.description)" />
     </div>
   </div>
 </template>
