@@ -16,7 +16,7 @@ const status = computed(() => {
   }
 
   // Low stock warning (only if quantity is defined and distinct from 0)
-  if (props.quantity !== null && props.quantity !== undefined && props.quantity <= 5) {
+  if (props.quantity !== null && props.quantity !== undefined && props.quantity <= 3) {
     return {
       label: t('Only {count} left', { count: props.quantity }),
       color: 'warning' as const,
@@ -28,7 +28,7 @@ const status = computed(() => {
   return {
     label: t('In stock'),
     color: 'success' as const,
-    show: true
+    show: false
   }
 })
 </script>
