@@ -89,25 +89,25 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
             aria-label="Account"
           />
 
-          <!-- Cart icon with badge -->
-          <div class="relative">
-            <UButton
-              :to="localePath('/cart')"
-              icon="i-bi-cart"
-              color="neutral"
-              variant="link"
-              size="xl"
-              :title="cartStore?.totalFormatted || ''"
-              aria-label="Shopping Cart"
+          <!-- Cart icon with count -->
+          <NuxtLink
+            :to="localePath('/cart')"
+            class="flex items-center gap-1.5 transition-opacity hover:opacity-80"
+            :title="cartStore?.totalFormatted || ''"
+            aria-label="Shopping Cart"
+          >
+            <UIcon
+              name="i-bi-cart"
+              class="w-7 h-7"
+              :class="(cartStore?.count || 0) > 0 ? 'text-secondary-500' : 'text-gray-500'"
             />
-            <UBadge
+            <span
               v-if="cartStore && cartStore.count > 0"
-              :label="String(cartStore.count)"
-              color="primary"
-              size="xs"
-              class="absolute -right-1 -top-1"
-            />
-          </div>
+              class="text-base font-normal text-gray-900 dark:text-gray-100"
+            >
+              {{ cartStore.count }}
+            </span>
+          </NuxtLink>
         </div>
       </div>
     </template>
