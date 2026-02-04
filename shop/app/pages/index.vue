@@ -20,16 +20,16 @@ usePageSeo({
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Grid layout: categories on left, content on right -->
-    <div class="grid grid-cols-16 gap-12">
+    <div class="lg:grid lg:grid-cols-16 lg:gap-12">
       <!-- Left sidebar: Category Grid -->
-      <aside class="col-span-3">
+      <aside class="hidden lg:block lg:col-span-3">
         <CategoryGrid :categories="categories" :model-value="null" />
       </aside>
 
       <!-- Main content area: All categories -->
-      <main class="col-span-13">
+      <main class="lg:col-span-13">
         <template v-if="categoriesWithItems && categoriesWithItems.length > 0">
           <CategorySection
             v-for="categoryData in categoriesWithItems"

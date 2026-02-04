@@ -28,8 +28,8 @@ useHead({
     <NuxtLoadingIndicator color="#dfa44c" />
     <Header />
 
-    <!-- Category bar - shown on all pages except homepage -->
-    <CategoryBar v-if="!isHomePage" />
+    <!-- Category bar - shown on all pages (hidden on desktop for homepage to avoid duplicate with sidebar) -->
+    <CategoryBar :class="{ 'lg:hidden': isHomePage }" />
 
     <UMain>
       <NuxtPage

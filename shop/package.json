@@ -26,6 +26,7 @@
     "nuxt": "^4.2.2",
     "photoswipe": "^5.4.4",
     "pinia": "^3.0.4",
+    "swiper": "^12.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
