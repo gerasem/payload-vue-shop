@@ -25,7 +25,8 @@
     "@unhead/vue": "^2.0.19",
     "nuxt": "^4.2.2",
     "photoswipe": "^5.4.4",
-    "pinia": "^3.0.4"
+    "pinia": "^3.0.4",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^6.1.0",

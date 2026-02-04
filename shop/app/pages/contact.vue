@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { z } from 'zod'
+import { useI18n } from 'vue-i18n'
+import type { FormSubmitEvent } from '#ui/types'
 import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
 
@@ -24,6 +27,15 @@ const socialLink = computed(() =>
   footerData.value?.socialLink ? usePayloadLink(footerData.value.socialLink) : null
 )
 
+// Form validation schema
+const schema = z.object({
+  name: z.string().min(2, t('Name is too short')),
+  email: z.string().email(t('Invalid email')),
+  message: z.string().min(10, t('Message is too short'))
+})
+
+type Schema = z.output<typeof schema>
+
 // Form state
 const form = reactive({
   name: '',
@@ -33,7 +45,7 @@ const form = reactive({
 
 const loading = ref(false)
 
-async function onSubmit() {
+async function onSubmit(event: FormSubmitEvent<Schema>) {
   loading.value = true
 
   // Simulate sending
@@ -133,39 +145,36 @@ usePageSeo({
 
       <!-- Contact Form -->
       <UCard class="h-fit">
-        <form @submit.prevent="onSubmit" class="space-y-6">
-          <UFormGroup :label="t('Name')" required>
+        <UForm :schema="schema" :state="form" class="space-y-6" @submit="onSubmit">
+          <UFormField :label="t('Name')" name="name" required>
             <UInput
               v-model="form.name"
               icon="i-heroicons-user"
               :placeholder="t('Your name')"
-              required
             />
-          </UFormGroup>
+          </UFormField>
 
-          <UFormGroup :label="t('Email')" required>
+          <UFormField :label="t('Email')" name="email" required>
             <UInput
               v-model="form.email"
               type="email"
               icon="i-heroicons-envelope"
               :placeholder="t('your@email.com')"
-              required
             />
-          </UFormGroup>
+          </UFormField>
 
-          <UFormGroup :label="t('Message')" required>
+          <UFormField :label="t('Message')" name="message" required>
             <UTextarea
               v-model="form.message"
               :rows="4"
               :placeholder="t('How can we help you?')"
-              required
             />
-          </UFormGroup>
+          </UFormField>
 
           <UButton type="submit" block size="lg" :loading="loading">
             {{ t('Send Message') }}
           </UButton>
-        </form>
+        </UForm>
       </UCard>
     </div>
   </div>

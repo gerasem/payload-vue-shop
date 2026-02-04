@@ -32,13 +32,13 @@ const onSubmit = () => {
       </template>
 
       <form class="space-y-6" @submit.prevent="onSubmit">
-        <UFormGroup label="Email" name="email" required>
+        <UFormField label="Email" name="email" required>
           <UInput v-model="state.email" type="email" placeholder="name@company.com" autocomplete="email" />
-        </UFormGroup>
+        </UFormField>
 
-        <UFormGroup label="Password" name="password" required>
+        <UFormField label="Password" name="password" required>
           <UInput v-model="state.password" type="password" placeholder="••••••••" autocomplete="current-password" />
-        </UFormGroup>
+        </UFormField>
 
         <div class="flex items-center justify-between">
           <UCheckbox v-model="state.remember" label="Remember me" />
