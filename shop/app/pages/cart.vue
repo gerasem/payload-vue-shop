@@ -27,7 +27,7 @@ usePageSeo({
       {{ t('Shopping Cart') }}
     </h1>
 
-    <!-- Empty cart state -->
+    <!-- Empty cart state (ONLY if we know for sure it's empty from LS) -->
     <div v-if="!cartStore.hasItems" class="py-12 text-center">
       <UIcon name="i-heroicons-shopping-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
       <p class="mb-4 text-lg text-gray-600">
@@ -36,6 +36,22 @@ usePageSeo({
       <UButton :to="localePath('/all-items')" color="primary" size="lg">
         {{ t('Continue Shopping') }}
       </UButton>
+    </div>
+
+    <!-- Loading state (Hydrating items from API) -->
+    <div v-else-if="cartStore.isHydrating" class="grid gap-8 lg:grid-cols-3">
+      <div class="lg:col-span-2 space-y-4">
+        <div v-for="i in 3" :key="i" class="flex gap-4 p-4 border rounded-lg">
+          <USkeleton class="h-24 w-24 rounded-md" />
+          <div class="flex-1 space-y-2">
+            <USkeleton class="h-4 w-3/4" />
+            <USkeleton class="h-4 w-1/2" />
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <USkeleton class="h-64 rounded-lg" />
+      </div>
     </div>
 
     <!-- Cart with items -->

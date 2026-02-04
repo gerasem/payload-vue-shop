@@ -1,14 +1,18 @@
-import { defineStore } from 'pinia'
+import { defineStore, skipHydrate } from 'pinia'
 import type { ICartItemRaw, ICartItem } from '@/types'
 import { formatEuro } from '@/utils/price'
 import { usePayloadProductsByIds } from '@/composables/usePayloadProductsByIds'
 
 export const useCartStore = defineStore('cart', () => {
   // Minimal data stored in localStorage
-  const rawItems = ref<ICartItemRaw[]>([])
+  // skipHydrate ensures the client value (from LS) isn't overwritten by the empty server value
+  const rawItems = ref<ICartItemRaw[]>(skipHydrate([]))
 
   // Full cart items enriched with product data
   const items = ref<ICartItem[]>([])
+
+  // Flag to check if we have loaded from LS
+  const isInitialized = ref(false)
 
   // Load cart from localStorage on app start
   function loadFromLS() {
@@ -23,10 +27,18 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  // Load immediately on client side to avoid flash of empty content
+  if (import.meta.client) {
+    loadFromLS()
+    isInitialized.value = true
+  }
+
   // Persist rawItems to localStorage whenever it changes
   watch(
     rawItems,
     () => {
+      // Don't save if we haven't loaded yet (prevents overwriting LS with empty array on init)
+      if (!isInitialized.value) return
       localStorage.setItem('payload-cart', JSON.stringify(rawItems.value))
     },
     { deep: true }
@@ -34,54 +46,62 @@ export const useCartStore = defineStore('cart', () => {
 
   // Initialize the cart — call once on app bootstrap
   async function init() {
-    loadFromLS()
+    // Data is already loaded from LS by the immediate check above
     await hydrate()
   }
 
+  // Hydration state
+  const isHydrating = ref(false)
+
   // Rebuild full cart items using raw data + fresh product info
   async function hydrate() {
+    // If no raw items, clear hydrated items
     if (rawItems.value.length === 0) {
       items.value = []
       return
     }
 
-    // Fetch all products needed for cart
-    const productIds = [...new Set(rawItems.value.map(item => item.productId))]
-    const products = await fetchProductsForCart(productIds)
+    isHydrating.value = true
 
-    items.value = rawItems.value
-      .map(raw => {
-        const product = products.get(raw.productId)
+    try {
+      // Fetch all products needed for cart
+      const productIds = [...new Set(rawItems.value.map(item => item.productId))]
+      const products = await fetchProductsForCart(productIds)
 
-        if (!product) {
-          console.warn(`Product ${raw.productId} not found, removing from cart`)
-          return null
-        }
+      items.value = rawItems.value
+        .map(raw => {
+          const product = products.get(raw.productId)
 
-        const variant = raw.variantId
-          ? product.variants?.docs?.find((v: any) => v.id === raw.variantId)
-          : null
+          // If product fetch failed (or deleted), we temporarily hide it from "items" (view)
+          // BUT we do NOT remove it from "rawItems" (storage) to prevent data loss on network error.
+          if (!product) {
+            console.warn(`Product ${raw.productId} not found during hydration`)
+            return null
+          }
 
-        const priceInEUR = variant?.priceInEUR ?? product.priceInEUR ?? 0
-        const inventory = product.enableVariants ? variant?.inventory : product.inventory
+          const variant = raw.variantId
+            ? product.variants?.docs?.find((v: any) => v.id === raw.variantId)
+            : null
 
-        return {
-          variantId: raw.variantId,
-          productId: raw.productId,
-          qty: raw.qty,
-          title: product.title || 'Unknown Product',
-          slug: product.slug || '',
-          priceInEUR,
-          image: product.gallery?.[0]?.thumbnailURL ?? product.gallery?.[0]?.url,
-          variantTitle: product.enableVariants ? variant?.title : undefined,
-          inventory
-        }
-      })
-      .filter(Boolean) as ICartItem[]
+          const priceInEUR = variant?.priceInEUR ?? product.priceInEUR ?? 0
+          const inventory = product.enableVariants ? variant?.inventory : product.inventory
 
-    // Remove items that failed to hydrate
-    const validProductIds = new Set(items.value.map(item => item.productId))
-    rawItems.value = rawItems.value.filter(raw => validProductIds.has(raw.productId))
+          return {
+            variantId: raw.variantId,
+            productId: raw.productId,
+            qty: raw.qty,
+            title: product.title || 'Unknown Product',
+            slug: product.slug || '',
+            priceInEUR,
+            image: product.gallery?.[0]?.thumbnailURL ?? product.gallery?.[0]?.url,
+            variantTitle: product.enableVariants ? variant?.title : undefined,
+            inventory
+          }
+        })
+        .filter(Boolean) as ICartItem[]
+    } finally {
+      isHydrating.value = false
+    }
   }
 
   // Helper function to fetch products by IDs
@@ -141,10 +161,12 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Computed getters
-  const count = computed(() => items.value.reduce((sum, i) => sum + i.qty, 0))
+  // Computed getters
+  // Use rawItems for count/hasItems so they display INSTANTLY from localStorage
+  const count = computed(() => rawItems.value.reduce((sum, i) => sum + i.qty, 0))
   const totalInEUR = computed(() => items.value.reduce((sum, i) => sum + i.priceInEUR * i.qty, 0))
   const totalFormatted = computed(() => formatEuro(totalInEUR.value))
-  const hasItems = computed(() => items.value.length > 0)
+  const hasItems = computed(() => rawItems.value.length > 0)
 
   return {
     items,
@@ -158,6 +180,7 @@ export const useCartStore = defineStore('cart', () => {
     updateQuantity,
     remove,
     clear,
+    isHydrating,
     hydrate
   }
 })
