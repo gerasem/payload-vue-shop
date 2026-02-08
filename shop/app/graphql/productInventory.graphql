@@ -1,0 +1,15 @@
+query ProductInventory($locale: LocaleInputType!, $id: Int!) {
+  Products(locale: $locale, where: { id: { equals: $id } }, limit: 1) {
+    docs {
+      id
+      inventory
+      enableVariants
+      variants {
+        docs {
+          id
+          inventory
+        }
+      }
+    }
+  }
+}

@@ -63,6 +63,26 @@ export const Pages: CollectionConfig = {
       localized: true,
     },
     {
+      name: 'pageType',
+      type: 'select',
+      required: true,
+      defaultValue: 'content',
+      admin: {
+        position: 'sidebar',
+        description: 'Content pages use /page/slug routing. System pages use direct /slug routing.',
+      },
+      options: [
+        {
+          label: 'Content Page',
+          value: 'content',
+        },
+        {
+          label: 'System Page',
+          value: 'system',
+        },
+      ],
+    },
+    {
       name: 'publishedOn',
       type: 'date',
       admin: {
