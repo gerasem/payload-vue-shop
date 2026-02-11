@@ -58,3 +58,39 @@ a,
 .cursor-pointer {
   cursor: pointer !important;
 }
+
+/* Hide the default cookie-control plugin UI elements (modal, floating button)
+   but NOT .cookieControl__Bar — that wraps our custom #bar slot content */
+.cookieControl__Modal,
+.cookieControl__ControlButton {
+  display: none !important;
+}
+
+/* Reset the default styling of the plugin's bar wrapper so our custom banner isn't affected.
+   Using targeted resets instead of `all: unset` to preserve CSS custom properties for Nuxt UI. */
+.cookieControl__Bar {
+  display: block !important;
+  position: static !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  width: auto !important;
+  font-family: inherit !important;
+  color: inherit !important;
+
+  /* Override the plugin's button CSS custom properties */
+  --cookie-control-barButtonBackground: transparent;
+  --cookie-control-barButtonColor: inherit;
+  --cookie-control-barButtonBackgroundHover: transparent;
+}
+
+/* Neutralize the plugin's forced button styling so UButton can use its own colors */
+.cookieControl__Bar button {
+  background: revert-layer !important;
+  color: revert-layer !important;
+  border: revert-layer !important;
+  padding: revert-layer !important;
+}

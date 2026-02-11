@@ -8,8 +8,35 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
     '@nuxtjs/i18n',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@dargmuesli/nuxt-cookie-control'
   ],
+
+  cookieControl: {
+    cookieExpiryOffsetMs: 1000 * 60 * 60 * 24 * 365, // one year
+    isControlButtonEnabled: false, // hide the floating cookie icon — we use custom #bar slot only
+    cookies: {
+      necessary: [
+        {
+          id: 'necessary',
+          name: {
+            de: 'Technisch notwendige Cookies',
+            en: 'Technically necessary cookies'
+          },
+        }
+      ],
+      optional: [
+        {
+          id: 'analytics',
+          name: {
+            de: 'Analyse-Cookies',
+            en: 'Analytics cookies'
+          },
+        }
+      ]
+    },
+    locales: ['de', 'en'],
+  },
 
   devtools: {
     enabled: true
@@ -24,7 +51,6 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true },
-    '/de/**': { prerender: true },
     '/en/**': { prerender: true },
     '/item/**': { prerender: true },
     '/category/**': { prerender: true },
@@ -47,7 +73,7 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: 'en', file: 'en.json', name: 'En' },
+      //{ code: 'en', file: 'en.json', name: 'En' },
       { code: 'de', file: 'de.json', name: 'De' }
     ],
     defaultLocale: 'de',

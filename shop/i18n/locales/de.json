@@ -22,5 +22,19 @@
   "In stock": "Auf Lager",
   "Please select all product options": "Bitte alle Produktoptionen auswählen",
   "Go to {categoryName}": "Zu {categoryName} gehen",
-  "View all": "Alle anzeigen"
+  "View all": "Alle anzeigen",
+  "Your Data. Your Choice.": "Deine Daten. Deine Wahl.",
+  "cookie_intro1": "Wenn du nur das Nötigste wählst, erfassen wir mit Cookies und ähnlichen Technologien Informationen zu deinem Gerät und deinem Nutzungsverhalten auf unserer Website. Diese brauchen wir, um dir bspw. ein sicheres Login und Basisfunktionen wie den Warenkorb zu ermöglichen.",
+  "cookie_intro2": "Wenn du allem zustimmst, können wir diese Daten darüber hinaus nutzen, um dir personalisierte Angebote zu zeigen, unsere Webseite zu verbessern und gezielte Werbung auf unseren und anderen Webseiten oder Apps anzuzeigen. Dazu können bestimmte Daten auch an Dritte und Werbepartner weitergegeben werden.",
+  "Imprint": "Impressum",
+  "Privacy Policy": "Datenschutzerklärung",
+  "Accept all": "Allem zustimmen",
+  "Only necessary": "Nur das Nötigste",
+  "Settings": "Einstellungen",
+  "Customize Cookies": "Cookies anpassen",
+  "Save selection": "Auswahl speichern",
+  "Strictly necessary": "Unbedingt erforderlich",
+  "Marketing / Analytics": "Marketing / Analyse",
+  "cookie_necessary_desc": "Technisch notwendige Cookies gewährleisten die Grundfunktionen der Website und können nicht deaktiviert werden.",
+  "cookie_analytics_desc": "Analyse-Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren, um sie zu verbessern."
 }

@@ -21,5 +21,19 @@
   "Only {count} left": "Only {count} left",
   "In stock": "In stock",
   "Please select all product options": "Please select all product options",
-  "Go to {categoryName}": "Go to {categoryName}"
+  "Go to {categoryName}": "Go to {categoryName}",
+  "Your Data. Your Choice.": "Your Data. Your Choice.",
+  "cookie_intro1": "If you choose only the necessary, we collect information about your device and usage behavior on our website using cookies and similar technologies. We need these to enable secure login and basic functions like the shopping cart.",
+  "cookie_intro2": "If you agree to everything, we can use this data further to show you personalized offers, improve our website, and display targeted advertising on our and other websites or apps. Certain data may also be shared with third parties and advertising partners.",
+  "Imprint": "Imprint",
+  "Privacy Policy": "Privacy Policy",
+  "Accept all": "Accept all",
+  "Only necessary": "Only necessary",
+  "Settings": "Settings",
+  "Customize Cookies": "Customize Cookies",
+  "Save selection": "Save selection",
+  "Strictly necessary": "Strictly necessary",
+  "Marketing / Analytics": "Marketing / Analytics",
+  "cookie_necessary_desc": "Technically necessary cookies ensure the basic functions of the website and cannot be deactivated.",
+  "cookie_analytics_desc": "Analytics cookies help us understand how visitors interact with our website in order to improve it."
 }

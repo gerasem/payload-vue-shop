@@ -10,9 +10,11 @@
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
     "format": "prettier --write app/",
-    "gql:gen": "graphql-codegen --config codegen.yml"
+    "gql:gen": "graphql-codegen --config codegen.yml",
+    "test": "vitest"
   },
   "dependencies": {
+    "@dargmuesli/nuxt-cookie-control": "^9.1.15",
     "@iconify-json/lucide": "^1.2.82",
     "@iconify-json/simple-icons": "^1.2.63",
     "@nuxt/hints": "1.0.0-alpha.5",
@@ -34,11 +36,14 @@
     "@graphql-codegen/typescript": "^5.0.7",
     "@graphql-codegen/typescript-operations": "^5.0.7",
     "@nuxt/eslint": "^1.12.1",
+    "@vue/test-utils": "^2.4.6",
     "eslint": "^9.39.2",
     "graphql": "^16.12.0",
+    "happy-dom": "^20.6.1",
     "prettier": "^3.7.4",
     "sass": "^1.97.3",
     "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
     "vue-tsc": "^3.2.1"
   },
   "packageManager": "pnpm@10.26.1"
