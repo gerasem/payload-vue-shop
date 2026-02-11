@@ -7,6 +7,14 @@ const FORMAT = {
   STRIKETHROUGH: 8
 }
 
+function escapeHTML(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 function wrapFormat(text: string, format: number): string {
   let result = text
   if (format & FORMAT.BOLD) result = `<strong>${result}</strong>`
@@ -40,7 +48,7 @@ export function richTextToHTML(node: LexicalNode): string {
         break
 
       case 'text':
-        html += wrapFormat(n.text, n.format || 0)
+        html += wrapFormat(escapeHTML(n.text), n.format || 0)
         break
 
       case 'heading':

@@ -32,16 +32,21 @@
   --color-secondary-950: #3f2512;
 
   /* Custom Gray Palette (project-specific shades) */
-  --color-gray-50: #f7f7f7; /* background-gray */
-  --color-gray-100: #f0f0f0; /* separator */
+  --color-gray-50: #f7f7f7;
+  /* background-gray */
+  --color-gray-100: #f0f0f0;
+  /* separator */
   --color-gray-200: #e3e3e3;
   --color-gray-300: #c8c8c8;
-  --color-gray-400: #aaaaaa; /* muted */
-  --color-gray-500: #787878; /* icons */
+  --color-gray-400: #aaaaaa;
+  /* muted */
+  --color-gray-500: #787878;
+  /* icons */
   --color-gray-600: #5d5d5d;
   --color-gray-700: #454545;
   --color-gray-800: #2f2f2f;
-  --color-gray-900: #1e1e1e; /* text */
+  --color-gray-900: #1e1e1e;
+  /* text */
   --color-gray-950: #0a0a0a;
 }
 
@@ -93,4 +98,50 @@ a,
   color: revert-layer !important;
   border: revert-layer !important;
   padding: revert-layer !important;
+}
+
+/* Rich text (Lexical) styling — shared by all pages rendering CMS content */
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  color: #374151;
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.prose strong {
+  font-weight: 600;
 }

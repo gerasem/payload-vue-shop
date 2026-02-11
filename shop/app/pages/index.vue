@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import CategoryGrid from '@/components/category/CategoryGrid.vue'
-import CategorySection from '@/components/category/CategorySection.vue'
-import Text2Columns from '@/components/content/Text2Columns.vue'
-import { richTextToHTML } from '@/utils/richtext'
 
 // Fetch all categories with their items (4 per category) - SSR friendly
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {

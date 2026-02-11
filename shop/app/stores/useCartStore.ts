@@ -66,7 +66,7 @@ export const useCartStore = defineStore('cart', () => {
     try {
       // Fetch all products needed for cart
       const productIds = [...new Set(rawItems.value.map(item => item.productId))]
-      const products = await fetchProductsForCart(productIds)
+      const products = await usePayloadProductsByIds(productIds)
 
       items.value = rawItems.value
         .map(raw => {
@@ -104,12 +104,6 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  // Helper function to fetch products by IDs
-  // Helper function to fetch products by IDs
-  async function fetchProductsForCart(productIds: number[]) {
-    // Wrapper for usePayloadProductsByIds to maintain interface or simple internal helper
-    return await usePayloadProductsByIds(productIds)
-  }
 
   // Add item to cart (or update quantity if exists)
   async function add(
@@ -160,7 +154,6 @@ export const useCartStore = defineStore('cart', () => {
     items.value = []
   }
 
-  // Computed getters
   // Computed getters
   // Use rawItems for count/hasItems so they display INSTANTLY from localStorage
   const count = computed(() => rawItems.value.reduce((sum, i) => sum + i.qty, 0))

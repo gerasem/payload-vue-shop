@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useCartStore } from '@/stores/useCartStore'
 
 const route = useRoute()
 
@@ -14,11 +13,13 @@ const isHomePage = computed(
     () => route.path === '/' || route.path === '/de' || route.path === '/en'
 )
 
+const { locale } = useI18n()
+
 useHead({
     meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     link: [{ rel: 'icon', href: '/favicon.ico' }],
     htmlAttrs: {
-        lang: 'de'
+        lang: locale
     }
 })
 </script>

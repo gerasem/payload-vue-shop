@@ -11,24 +11,19 @@ export interface PageSeoOptions {
  * Supports both static values and reactive refs/computed values
  */
 export function usePageSeo(options: PageSeoOptions) {
-  const title = toValue(options.title)
-  const description = toValue(options.description)
-  const image = options.image ? toValue(options.image) : undefined
-
   useSeoMeta({
-    title,
-    description,
-    ogTitle: title,
-    ogDescription: description,
-    ...(image && {
-      ogImage: image,
-      twitterImage: image
+    title: options.title,
+    description: options.description,
+    ogTitle: options.title,
+    ogDescription: options.description,
+    ...(options.image && {
+      ogImage: options.image,
+      twitterImage: options.image
     }),
     twitterCard: 'summary_large_image'
   })
 
-  // Also set the page title using useHead for better compatibility
   useHead({
-    title
+    title: options.title
   })
 }

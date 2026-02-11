@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
-import SmartLink from '@/components/SmartLink.vue'
-import { useCartStore } from '@/stores/useCartStore'
 
 const localePath = useLocalePath()
 

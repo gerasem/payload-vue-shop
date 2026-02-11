@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import { useI18n } from 'vue-i18n'
 import type { FormSubmitEvent } from '#ui/types'
-import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
 
 definePageMeta({
@@ -20,11 +18,11 @@ const phone = computed(() => footerData.value?.phone)
 
 // Map single links
 const contactLink = computed(() =>
-  footerData.value?.contactLink ? usePayloadLink(footerData.value.contactLink) : null
+  footerData.value?.contactLink ? usePayloadLink({ link: footerData.value.contactLink }) : null
 )
 
 const socialLink = computed(() =>
-  footerData.value?.socialLink ? usePayloadLink(footerData.value.socialLink) : null
+  footerData.value?.socialLink ? usePayloadLink({ link: footerData.value.socialLink }) : null
 )
 
 // Form validation schema
@@ -159,7 +157,7 @@ usePageSeo({
               v-model="form.email"
               type="email"
               icon="i-heroicons-envelope"
-              :placeholder="t('your@email.com')"
+              placeholder="your@email.com"
             />
           </UFormField>
 

@@ -1,23 +1,32 @@
 /**
+ * Minimal product shape accepted by price utilities.
+ * Works with both IItem (list query) and IProductFull (detail query).
+ */
+interface ProductLike {
+  priceInEUR?: number | null
+  enableVariants?: boolean | null
+  variants?: { docs: Array<{ priceInEUR?: number | null } | null> } | null
+}
+
+/**
  * Format cents to EUR in German locale
  */
+const euroFormatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})
+
 export function formatEuro(cents: number | null | undefined): string {
   if (cents === null || cents === undefined) return '—'
-
-  const euroFormatter = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })
-
   return euroFormatter.format(cents / 100)
 }
 
 /**
  * Get minimum price from product and its variants (in cents)
  */
-export function getMinPriceInCents(product: any): number | null {
+export function getMinPriceInCents(product: ProductLike | null | undefined): number | null {
   if (!product) return null
 
   const prices: number[] = []
@@ -42,7 +51,7 @@ export function getMinPriceInCents(product: any): number | null {
 /**
  * Get formatted minimum price
  */
-export function getMinPriceFormatted(product: any): string {
+export function getMinPriceFormatted(product: ProductLike | null | undefined): string {
   const minPriceCents = getMinPriceInCents(product)
   if (minPriceCents === null) return '—'
 
@@ -52,7 +61,7 @@ export function getMinPriceFormatted(product: any): string {
 /**
  * Check if all prices (product + variants) are equal
  */
-export function areAllPricesEqual(product: any): boolean {
+export function areAllPricesEqual(product: ProductLike | null | undefined): boolean {
   if (!product) return false
 
   const prices: number[] = []

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { getMinPriceFormatted, areAllPricesEqual } from '@/utils/price'
 import type { IItem } from '@/types'
 
-const config = useRuntimeConfig()
 const localePath = useLocalePath()
 const { t } = useI18n()
 
@@ -14,7 +12,7 @@ const props = defineProps<{
 const imageUrl = computed(() => {
   const firstImage = props.item.gallery?.[0]
   if (!firstImage?.url) return ''
-  return `${config.public.payloadUrl}${firstImage.url}`
+  return usePayloadImageUrl(firstImage.url)
 })
 
 // Format price with translated "from" prefix if variants have different prices

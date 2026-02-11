@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import ItemGallery from '@/components/item/ItemGallery.vue'
-import VariantSelector from '@/components/item/VariantSelector.vue'
-import InventoryBadge from '@/components/item/InventoryBadge.vue'
 import type { IItem } from '@/types'
-import { richTextToHTML } from '@/utils/richtext'
-import { useCartStore } from '@/stores/useCartStore'
-import { useLiveInventory } from '@/composables/useLiveInventory'
 
 definePageMeta({
   layout: 'default'

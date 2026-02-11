@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { usePayloadLink } from '@/composables/usePayloadLink'
 import type { MappedLink } from '@/composables/usePayloadLink'
-import SmartLink from '@/components/SmartLink.vue'
 
 // Fetch footer data with SSR
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())

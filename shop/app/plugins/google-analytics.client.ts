@@ -1,6 +1,9 @@
 export default defineNuxtPlugin(() => {
     const { cookiesEnabledIds } = useCookieControl()
-    const gaId = 'G-XXXXXXXXXX' // Placeholder ID
+    const config = useRuntimeConfig()
+    const gaId = config.public.googleAnalyticsId as string
+
+    if (!gaId) return // No GA ID configured
 
     const loadGoogleAnalytics = () => {
         // Check if script is already loaded

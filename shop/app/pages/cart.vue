@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useCartStore } from '@/stores/useCartStore'
-import { usePageSeo } from '@/composables/usePageSeo'
 
 const { t } = useI18n()
 const localePath = useLocalePath()

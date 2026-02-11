@@ -45,7 +45,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000'
+      payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
+      googleAnalyticsId: ''
     }
   },
 

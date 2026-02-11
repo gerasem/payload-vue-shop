@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import ItemCard from '@/components/item/ItemCard.vue'
-import { richTextToHTML } from '@/utils/richtext'
 import type { ICategory } from '@/types'
 
 definePageMeta({
@@ -8,6 +6,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const { t } = useI18n()
 const slug = computed(() => route.params.slug as string)
 
 // Fetch category data first to get ID
@@ -67,7 +66,7 @@ usePageSeo({
 
     <!-- Empty State -->
     <div v-else class="text-center py-12 mb-12">
-      <p class="text-gray-500">No products found in this category.</p>
+      <p class="text-gray-500">{{ t('No products in category') }}</p>
     </div>
 
     <!-- Category Description (2 columns) -->
@@ -77,50 +76,3 @@ usePageSeo({
   </div>
 </template>
 
-<style>
-/* Rich text styling */
-.prose h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111827;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.prose h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.prose p {
-  color: #374151;
-  margin-bottom: 1rem;
-  line-height: 1.75;
-}
-
-.prose ul,
-.prose ol {
-  margin-bottom: 1rem;
-  margin-left: 1.5rem;
-}
-
-.prose li {
-  margin-bottom: 0.5rem;
-}
-
-.prose a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.prose a:hover {
-  text-decoration: underline;
-}
-
-.prose strong {
-  font-weight: 600;
-}
-</style>

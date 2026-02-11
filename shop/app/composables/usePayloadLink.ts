@@ -34,7 +34,7 @@ export function usePayloadLink(item: any): MappedLink | null {
     const pageType = page.pageType || 'content' // Default to content if not specified
 
     // Content pages get /page/ prefix, system pages use direct routing
-    const basePath = pageType === 'system' ? `/page/${page.slug}` : `/${page.slug}`
+    const basePath = pageType === 'content' ? `/page/${page.slug}` : `/${page.slug}`
 
     return {
       label: link.label || '',
