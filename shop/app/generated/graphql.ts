@@ -24110,6 +24110,14 @@ export type ProductByIdQueryVariables = Exact<{
 
 export type ProductByIdQuery = { Products?: { docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, inventory?: number | null, enableVariants?: boolean | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null }> | null, variants?: { docs: Array<{ id: number, title?: string | null, priceInEUR?: number | null, inventory?: number | null }> } | null }> } | null };
 
+export type ProductInventoryQueryVariables = Exact<{
+  locale: LocaleInputType;
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type ProductInventoryQuery = { Products?: { docs: Array<{ id: number, inventory?: number | null, enableVariants?: boolean | null, variants?: { docs: Array<{ id: number, inventory?: number | null }> } | null }> } | null };
+
 export type ProductsByCategoryQueryVariables = Exact<{
   locale: LocaleInputType;
   categoryId: Scalars['JSON']['input'];

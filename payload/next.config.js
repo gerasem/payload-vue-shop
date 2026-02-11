@@ -8,14 +8,18 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://loc
 const nextConfig = {
   images: {
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
-        const url = new URL(item)
+      ...[NEXT_PUBLIC_SERVER_URL, process.env.S3_ENDPOINT].filter(Boolean).map((item) => {
+        try {
+          const url = new URL(item)
 
-        return {
-          hostname: url.hostname,
-          protocol: url.protocol.replace(':', ''),
+          return {
+            hostname: url.hostname,
+            protocol: url.protocol.replace(':', ''),
+          }
+        } catch {
+          return null
         }
-      }),
+      }).filter(Boolean),
     ],
   },
   reactStrictMode: true,

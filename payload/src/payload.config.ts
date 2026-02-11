@@ -1,4 +1,5 @@
 // storage-adapter-import-placeholder
+import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 
@@ -89,6 +90,20 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET || '',
+      config: {
+        endpoint: process.env.S3_ENDPOINT,
+        region: process.env.S3_REGION,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -103,7 +118,12 @@ export default buildConfig({
     defaultLocale: 'de',
     fallback: true,
   },
-  cors: ['http://localhost:8000', 'http://localhost:3000', 'http://localhost:3001'],
+  cors: [
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    process.env.NEXT_PUBLIC_SERVER_URL || '',
+  ].filter(Boolean),
   graphQL: {
     disablePlaygroundInProduction: false,
   },

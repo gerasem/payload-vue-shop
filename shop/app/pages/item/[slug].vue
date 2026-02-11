@@ -33,23 +33,22 @@ const liveInventory = ref<number | null>(null)
 
 // Check live inventory on mount (for base product) or when variant changes
 async function updateInventory() {
-  const idToCheck = selectedVariant.value?.id || product.value?.id
-  if (idToCheck) {
-    liveInventory.value = await useLiveInventory(idToCheck)
+  const productId = product.value?.id
+  const variantId = selectedVariant.value?.id
+  
+  if (productId) {
+    liveInventory.value = await useLiveInventory(productId, variantId)
   }
 }
 
 onMounted(() => {
-  if (!product.value?.enableVariants) {
-    updateInventory()
-  }
+  // Always fetch inventory on mount to get fresh data
+  updateInventory()
 })
 
 watch(selectedVariant, () => {
     liveInventory.value = null // Reset while fetching
-    if (selectedVariant.value) {
-      updateInventory()
-    }
+    updateInventory()
 })
 
 // Inventory quantity
@@ -61,8 +60,17 @@ const inventoryQuantity = computed(() => {
   return selectedVariant.value?.inventory ?? product.value?.inventory
 })
 
+// Check if out of stock
+const isOutOfStock = computed(() => {
+  const qty = inventoryQuantity.value
+  return qty !== null && qty !== undefined && qty === 0
+})
+
 // Check if can add to cart
 const canAddToCart = computed(() => {
+  // If Out of Stock, cannot add
+  if (isOutOfStock.value) return false
+
   // If has variants, must select all options
   if (product.value?.enableVariants) {
     const requiredOptions = product.value?.variantTypes?.length || 0
@@ -70,10 +78,7 @@ const canAddToCart = computed(() => {
     return selectedCount === requiredOptions && !!selectedVariant.value
   }
 
-  // Otherwise just check inventory
-  const qty = inventoryQuantity.value
-  // If null/undefined (unlimited) OR > 0
-  return qty === null || qty === undefined || qty > 0
+  return true
 })
 
 // Quantity management
@@ -174,14 +179,23 @@ usePageSeo({
 
         <!-- Warning if variants not selected -->
         <UAlert
-          v-if="product?.enableVariants && !canAddToCart"
+          v-if="product?.enableVariants && !canAddToCart && !isOutOfStock"
           color="warning"
           variant="subtle"
           :title="t('Please select all product options')"
         />
+        
+        <!-- Out of stock message -->
+         <UAlert
+          v-if="isOutOfStock"
+          color="error"
+          variant="subtle"
+          :title="t('This product is currently out of stock')"
+          icon="i-heroicons-exclamation-circle"
+        />
 
-        <!-- Quantity Selector -->
-        <div class="flex items-center gap-4">
+        <!-- Quantity Selector & Add to Cart -->
+        <div v-if="!isOutOfStock" class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <UButton
               icon="i-heroicons-minus"
@@ -232,7 +246,22 @@ usePageSeo({
             {{ adding ? t('Adding...') : t('Add to Cart') }}
           </UButton>
         </div>
+
+
+        <!-- Shipping Terms (Storefront Replication) -->
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500">
+          <p>{{ t('Free shipping over 50€') }}</p>
+          <NuxtLink :to="localePath('/page/delivery')" class="text-primary hover:underline">
+            {{ t('Shipping conditions') }}
+          </NuxtLink>
+        </div>
       </div>
+    </div>
+
+    <!-- Description (Storefront Replication) -->
+    <div v-if="product?.description" class="mt-12 prose dark:prose-invert max-w-none">
+      <h3 class="text-xl font-bold mb-4">{{ t('Description') }}</h3>
+      <div v-html="richTextToHTML(product.description)" />
     </div>
   </div>
 </template>

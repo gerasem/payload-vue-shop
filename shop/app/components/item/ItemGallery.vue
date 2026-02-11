@@ -44,7 +44,7 @@ onUnmounted(() => {
   <div
     v-if="images && images.length > 0"
     id="product-gallery"
-    class="gallery"
+    class="gallery flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto md:overflow-visible scroll-smooth snap-x md:snap-none"
     :class="{ 'gallery--one-image': images.length === 1 }"
   >
     <a
@@ -55,13 +55,14 @@ onUnmounted(() => {
       :data-pswp-height="image.height"
       target="_blank"
       rel="noreferrer"
-      class="gallery__item"
+      class="gallery__item min-w-[85vw] md:min-w-0 snap-center"
     >
       <img
         :src="`${config.public.payloadUrl}${image.thumbnailURL || image.url}`"
         :alt="image.alt || `Product image ${index + 1}`"
         :width="image.width"
         :height="image.height"
+        class="w-full h-auto object-cover aspect-[3/4] md:aspect-auto rounded-lg"
       />
     </a>
   </div>
@@ -70,23 +71,22 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .gallery {
-  column-count: 2;
-  column-gap: 15px;
-
+  // One image special case
   &--one-image {
-    column-count: 1;
+    display: block; // Override grid/flex
+
+    .gallery__item {
+      width: 100%;
+    }
 
     img {
       max-height: 80vh;
       object-fit: cover;
+      width: 100%;
     }
   }
 
   &__item {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    margin-bottom: 15px;
-    break-inside: avoid;
     cursor: zoom-in;
     transition: opacity 0.2s;
 
@@ -96,11 +96,15 @@ onUnmounted(() => {
 
     img {
       background-color: #f3f4f6;
-      width: 100%;
-      height: auto;
       display: block;
-      object-fit: cover;
     }
+  }
+
+  // Hide scrollbar for clean look on mobile
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

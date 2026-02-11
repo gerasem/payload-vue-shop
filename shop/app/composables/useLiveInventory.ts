@@ -1,17 +1,34 @@
+import productInventoryQuery from '@/graphql/productInventory.graphql?raw'
+import type { ProductInventoryQuery } from '@/generated/graphql'
+
 /**
- * Stub for fetching real-time inventory
- * This will eventually call a dedicated API endpoint (e.g. /api/inventory/:id)
- * that bypasses the static cache.
+ * Fetch live inventory from server
+ * Returns null if unlimited, or number
  */
-export async function useLiveInventory(productId: number | string): Promise<number | null> {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500))
+export async function useLiveInventory(productId: number, variantId?: number | null): Promise<number | null> {
+  if (!productId) return null
 
-    // TODO: Replace with actual API call
-    // const data = await $fetch<{ inventory: number }>(`/api/inventory/${productId}`)
-    // return data.inventory
+  try {
+    const { data } = await useAsyncData(`inventory-${productId}-${variantId || 'base'}`, async () => {
+      const result = await usePayloadQuery<ProductInventoryQuery>(productInventoryQuery, { id: productId })
+      return result
+    })
+    
+    // If used on client side after initial load, we might need to refresh or just use usePayloadQuery directly without useAsyncData caching
+    // But since this is a specific action, let's use usePayloadQuery directly to ensure fresh data
+    const result = await usePayloadQuery<ProductInventoryQuery>(productInventoryQuery, { id: productId })
+    
+    const product = result.Products?.docs?.[0]
+    if (!product) return null
 
-    // Return a mock value for now (random between 0 and 10 to test UI)
-    console.log(`[Stub] Fetching live inventory for product ${productId}`)
-    return Math.floor(Math.random() * 10) + 1
+    if (variantId) {
+      const variant = product.variants?.docs?.find((v: any) => v.id === variantId)
+      return variant?.inventory ?? null
+    }
+
+    return product.inventory ?? null
+  } catch (e) {
+    console.error('Failed to fetch inventory', e)
+    return null
+  }
 }
