@@ -67,9 +67,9 @@ export const plugins: Plugin[] = [
   }),
   ecommercePlugin({
     access: {
-      adminOnly,
+      isAdmin: adminOnly,
       adminOnlyFieldAccess,
-      adminOrCustomerOwner,
+      isDocumentOwner: adminOrCustomerOwner,
       adminOrPublishedStatus,
       customerOnlyFieldAccess,
     },
