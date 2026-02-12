@@ -16,6 +16,7 @@ query Header($locale: LocaleInputType!) {
             ... on Page {
               id
               slug
+              pageType
             }
           }
         }
@@ -33,6 +34,7 @@ query Header($locale: LocaleInputType!) {
             ... on Page {
               id
               slug
+              pageType
             }
           }
         }

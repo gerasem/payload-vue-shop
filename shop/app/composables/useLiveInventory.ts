@@ -2,22 +2,15 @@ import productInventoryQuery from '@/graphql/productInventory.graphql?raw'
 import type { ProductInventoryQuery } from '@/generated/graphql'
 
 /**
- * Fetch live inventory from server
- * Returns null if unlimited, or number
+ * Fetch live inventory from the server (always fresh, no caching).
+ * Returns null if unlimited, or a number.
  */
 export async function useLiveInventory(productId: number, variantId?: number | null): Promise<number | null> {
   if (!productId) return null
 
   try {
-    const { data } = await useAsyncData(`inventory-${productId}-${variantId || 'base'}`, async () => {
-      const result = await usePayloadQuery<ProductInventoryQuery>(productInventoryQuery, { id: productId })
-      return result
-    })
-    
-    // If used on client side after initial load, we might need to refresh or just use usePayloadQuery directly without useAsyncData caching
-    // But since this is a specific action, let's use usePayloadQuery directly to ensure fresh data
     const result = await usePayloadQuery<ProductInventoryQuery>(productInventoryQuery, { id: productId })
-    
+
     const product = result.Products?.docs?.[0]
     if (!product) return null
 
@@ -28,7 +21,7 @@ export async function useLiveInventory(productId: number, variantId?: number | n
 
     return product.inventory ?? null
   } catch (e) {
-    console.error('Failed to fetch inventory', e)
+    console.error('Failed to fetch live inventory:', e)
     return null
   }
 }
