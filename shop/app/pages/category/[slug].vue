@@ -27,11 +27,25 @@ if (!currentCategory.value) {
   })
 }
 
+// Sort state
+const sort = ref('popularity')
+const priceRange = ref<[number, number]>([0, 50000])
+
 // Fetch products for this category
-const { data: productsData } = await useAsyncData(`products-${slug.value}`, async () => {
-  if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
-  return usePayloadProducts(String(currentCategory.value.id))
-})
+const { data: productsData } = await useAsyncData(
+  `products-${slug.value}`,
+  async () => {
+    if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
+    return usePayloadProducts(
+      String(currentCategory.value.id),
+      sort.value,
+      priceRange.value
+    )
+  },
+  {
+    watch: [sort, priceRange]
+  }
+)
 
 const items = computed(() => productsData.value?.products || [])
 
@@ -57,6 +71,8 @@ usePageSeo({
     </div>
 
     <!-- Items Grid -->
+    <CategoryFilters v-model="sort" v-model:price-range="priceRange" />
+
     <div
       v-if="items.length > 0"
       class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12"

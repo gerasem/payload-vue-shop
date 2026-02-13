@@ -4,9 +4,16 @@ import type { ProductsByCategoryQuery } from '@/generated/graphql'
 /**
  * Fetch products by category ID
  */
-export async function usePayloadProducts(categoryId: string) {
+export async function usePayloadProducts(
+  categoryId: string,
+  sort: string = 'popularity',
+  priceRange: [number, number] | null = null
+) {
   const data = await usePayloadQuery<ProductsByCategoryQuery>(productsByCategoryQuery, {
-    categoryId
+    categoryId,
+    minPrice: priceRange?.[0],
+    maxPrice: priceRange?.[1],
+    sort: sort === 'popularity' ? undefined : sort
   })
 
   return {

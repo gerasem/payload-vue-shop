@@ -1,5 +1,16 @@
-query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!) {
-  Products(locale: $locale, limit: 10000, where: { categories: { equals: $categoryId } }) {
+query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!, $minPrice: Float, $maxPrice: Float, $sort: String) {
+  Products(
+    locale: $locale,
+    limit: 10000,
+    sort: $sort,
+    where: {
+      AND: [
+        { categories: { equals: $categoryId } },
+        { priceInEUR: { greater_than_equal: $minPrice } },
+        { priceInEUR: { less_than_equal: $maxPrice } }
+      ]
+    }
+  ) {
     docs {
       id
       title
