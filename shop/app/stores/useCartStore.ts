@@ -27,10 +27,11 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  // Load immediately on client side to avoid flash of empty content
-  if (import.meta.client) {
+  // Initialize the cart — call once on app bootstrap (client-side)
+  async function init() {
     loadFromLS()
     isInitialized.value = true
+    await hydrate()
   }
 
   // Persist rawItems to localStorage whenever it changes
@@ -43,12 +44,6 @@ export const useCartStore = defineStore('cart', () => {
     },
     { deep: true }
   )
-
-  // Initialize the cart — call once on app bootstrap
-  async function init() {
-    // Data is already loaded from LS by the immediate check above
-    await hydrate()
-  }
 
   // Hydration state
   const isHydrating = ref(false)
@@ -174,6 +169,7 @@ export const useCartStore = defineStore('cart', () => {
     remove,
     clear,
     isHydrating,
+    isInitialized,
     hydrate
   }
 })
