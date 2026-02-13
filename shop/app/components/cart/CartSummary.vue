@@ -22,11 +22,15 @@ withDefaults(defineProps<{
     <!-- Subtotal -->
     <div class="mb-4 flex justify-between border-b border-gray-200 pb-4">
       <span class="text-gray-600">{{ t('Subtotal') }}</span>
-      <span class="font-semibold text-gray-900">{{ cartStore.totalFormatted }}</span>
+      <USkeleton v-if="cartStore.isHydrating" class="h-6 w-24" />
+      <span v-else class="font-semibold text-gray-900">{{ cartStore.totalFormatted }}</span>
     </div>
 
     <!-- Free shipping message -->
-    <div v-if="cartStore.totalInEUR < 50" class="mb-4 rounded-md bg-blue-50 p-3">
+    <div v-if="cartStore.isHydrating" class="mb-4">
+      <USkeleton class="h-12 w-full rounded-md" />
+    </div>
+    <div v-else-if="cartStore.totalInEUR < 50" class="mb-4 rounded-md bg-blue-50 p-3">
       <p class="text-sm text-blue-700">
         {{ t('Free shipping over 50€') }}
       </p>

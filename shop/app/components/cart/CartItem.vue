@@ -144,12 +144,18 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
         <!-- Price -->
         <div class="text-right">
-          <p class="text-sm text-gray-500">
-            {{ formatEuro(item.priceInEUR) }} × {{ quantity }}
-          </p>
-          <p class="text-base font-medium text-gray-900">
-            {{ formatEuro(lineTotal) }}
-          </p>
+          <template v-if="cartStore.isHydrating">
+            <USkeleton class="h-4 w-24 mb-1 ml-auto" />
+            <USkeleton class="h-6 w-16 ml-auto" />
+          </template>
+          <template v-else>
+            <p class="text-sm text-gray-500">
+              {{ formatEuro(item.priceInEUR) }} × {{ quantity }}
+            </p>
+            <p class="text-base font-medium text-gray-900">
+              {{ formatEuro(lineTotal) }}
+            </p>
+          </template>
         </div>
       </div>
     </div>

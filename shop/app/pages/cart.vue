@@ -41,7 +41,7 @@ usePageSeo({
     </div>
 
     <!-- Loading state (Hydrating items from API) -->
-    <div v-else-if="cartStore.isHydrating" class="grid gap-8 lg:grid-cols-3">
+    <div v-else-if="cartStore.isHydrating && cartStore.items.length === 0" class="grid gap-8 lg:grid-cols-3">
       <div class="lg:col-span-2 space-y-4">
         <div v-for="i in 3" :key="i" class="flex gap-4 p-4 border rounded-lg">
           <USkeleton class="h-24 w-24 rounded-md" />
