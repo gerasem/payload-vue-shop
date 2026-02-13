@@ -280,7 +280,6 @@ usePageSeo({
 
     <!-- Description (Storefront Replication) -->
     <div v-if="product?.description" class="mt-12">
-      <h3 class="text-xl font-bold mb-4">{{ t('Description') }}</h3>
       <Text2Columns :text="richTextToHTML(product.description)" />
     </div>
   </div>

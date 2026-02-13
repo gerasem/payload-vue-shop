@@ -5,6 +5,12 @@ import { formatEuro } from '@/utils/price'
 const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
+
+withDefaults(defineProps<{
+  showCheckoutButton?: boolean
+}>(), {
+  showCheckoutButton: true
+})
 </script>
 
 <template>
@@ -38,6 +44,7 @@ const cartStore = useCartStore()
 
     <!-- Checkout button -->
     <UButton
+      v-if="showCheckoutButton"
       :to="localePath('/checkout')"
       color="primary"
       size="lg"

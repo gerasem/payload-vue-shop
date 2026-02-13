@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import Text2Columns from '~/components/content/Text2Columns.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
+
+// Fetch cart page content
+const { data: page } = await useAsyncData('cart-page-content', () => usePayloadPage('warenkorb'))
 
 definePageMeta({
   layout: 'default',
@@ -14,15 +18,15 @@ definePageMeta({
 
 // SEO
 usePageSeo({
-  title: t('Shopping Cart'),
-  description: t('Review your cart items and proceed to checkout')
+  title: page.value?.meta?.title || page.value?.title || t('Shopping Cart'),
+  description: page.value?.meta?.description || t('Review your cart items and proceed to checkout')
 })
 </script>
 
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <h1 class="mb-8 text-3xl font-bold text-gray-900">
-      {{ t('Shopping Cart') }}
+      {{ page?.title || t('Shopping Cart') }}
     </h1>
 
     <!-- Empty cart state (ONLY if we know for sure it's empty from LS) -->
@@ -53,6 +57,7 @@ usePageSeo({
     </div>
 
     <!-- Cart with items -->
+    <!-- Cart with items -->
     <div v-else class="grid gap-8 lg:grid-cols-3">
       <!-- Cart items list -->
       <div class="lg:col-span-2 space-y-4">
@@ -64,8 +69,16 @@ usePageSeo({
       </div>
 
       <!-- Cart summary sidebar -->
-      <div class="lg:col-span-1">
+      <div class="lg:col-span-1 h-fit">
         <CartSummary />
+      </div>
+
+      <!-- SEO Text from Cart Page -->
+      <div class="lg:col-span-2">
+        <Text2Columns
+          v-if="page?.content"
+          :text="richTextToHTML(page.content)"
+        />
       </div>
     </div>
   </div>
