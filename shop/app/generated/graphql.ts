@@ -31,6 +31,7 @@ export type Access = {
   media?: Maybe<MediaAccess>;
   orders?: Maybe<OrdersAccess>;
   pages?: Maybe<PagesAccess>;
+  payload_kv?: Maybe<Payload_KvAccess>;
   payload_locked_documents?: Maybe<Payload_Locked_DocumentsAccess>;
   payload_preferences?: Maybe<Payload_PreferencesAccess>;
   products?: Maybe<ProductsAccess>;
@@ -1385,6 +1386,7 @@ export type Cart = {
   id: Scalars['Int']['output'];
   items?: Maybe<Array<Cart_Items>>;
   purchasedAt?: Maybe<Scalars['DateTime']['output']>;
+  secret?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Cart_Status>;
   subtotal?: Maybe<Scalars['Float']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1527,6 +1529,17 @@ export type Cart_PurchasedAt_Operator = {
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type Cart_Secret_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export enum Cart_Status {
   Abandoned = 'abandoned',
   Active = 'active',
@@ -1587,6 +1600,7 @@ export type Cart_Where = {
   items__quantity?: InputMaybe<Cart_Items__Quantity_Operator>;
   items__variant?: InputMaybe<Cart_Items__Variant_Operator>;
   purchasedAt?: InputMaybe<Cart_PurchasedAt_Operator>;
+  secret?: InputMaybe<Cart_Secret_Operator>;
   status?: InputMaybe<Cart_Status_Operator>;
   subtotal?: InputMaybe<Cart_Subtotal_Operator>;
   updatedAt?: InputMaybe<Cart_UpdatedAt_Operator>;
@@ -1604,6 +1618,7 @@ export type Cart_Where_And = {
   items__quantity?: InputMaybe<Cart_Items__Quantity_Operator>;
   items__variant?: InputMaybe<Cart_Items__Variant_Operator>;
   purchasedAt?: InputMaybe<Cart_PurchasedAt_Operator>;
+  secret?: InputMaybe<Cart_Secret_Operator>;
   status?: InputMaybe<Cart_Status_Operator>;
   subtotal?: InputMaybe<Cart_Subtotal_Operator>;
   updatedAt?: InputMaybe<Cart_UpdatedAt_Operator>;
@@ -1621,6 +1636,7 @@ export type Cart_Where_Or = {
   items__quantity?: InputMaybe<Cart_Items__Quantity_Operator>;
   items__variant?: InputMaybe<Cart_Items__Variant_Operator>;
   purchasedAt?: InputMaybe<Cart_PurchasedAt_Operator>;
+  secret?: InputMaybe<Cart_Secret_Operator>;
   status?: InputMaybe<Cart_Status_Operator>;
   subtotal?: InputMaybe<Cart_Subtotal_Operator>;
   updatedAt?: InputMaybe<Cart_UpdatedAt_Operator>;
@@ -1666,6 +1682,7 @@ export type CartsDocAccessFields = {
   customer?: Maybe<CartsDocAccessFields_Customer>;
   items?: Maybe<CartsDocAccessFields_Items>;
   purchasedAt?: Maybe<CartsDocAccessFields_PurchasedAt>;
+  secret?: Maybe<CartsDocAccessFields_Secret>;
   status?: Maybe<CartsDocAccessFields_Status>;
   subtotal?: Maybe<CartsDocAccessFields_Subtotal>;
   updatedAt?: Maybe<CartsDocAccessFields_UpdatedAt>;
@@ -1886,6 +1903,29 @@ export type CartsDocAccessFields_PurchasedAt_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type CartsDocAccessFields_Secret = {
+  create?: Maybe<CartsDocAccessFields_Secret_Create>;
+  delete?: Maybe<CartsDocAccessFields_Secret_Delete>;
+  read?: Maybe<CartsDocAccessFields_Secret_Read>;
+  update?: Maybe<CartsDocAccessFields_Secret_Update>;
+};
+
+export type CartsDocAccessFields_Secret_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsDocAccessFields_Secret_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsDocAccessFields_Secret_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsDocAccessFields_Secret_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
 export type CartsDocAccessFields_Status = {
   create?: Maybe<CartsDocAccessFields_Status_Create>;
   delete?: Maybe<CartsDocAccessFields_Status_Delete>;
@@ -1961,6 +2001,7 @@ export type CartsFields = {
   customer?: Maybe<CartsFields_Customer>;
   items?: Maybe<CartsFields_Items>;
   purchasedAt?: Maybe<CartsFields_PurchasedAt>;
+  secret?: Maybe<CartsFields_Secret>;
   status?: Maybe<CartsFields_Status>;
   subtotal?: Maybe<CartsFields_Subtotal>;
   updatedAt?: Maybe<CartsFields_UpdatedAt>;
@@ -2178,6 +2219,29 @@ export type CartsFields_PurchasedAt_Read = {
 };
 
 export type CartsFields_PurchasedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsFields_Secret = {
+  create?: Maybe<CartsFields_Secret_Create>;
+  delete?: Maybe<CartsFields_Secret_Delete>;
+  read?: Maybe<CartsFields_Secret_Read>;
+  update?: Maybe<CartsFields_Secret_Update>;
+};
+
+export type CartsFields_Secret_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsFields_Secret_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsFields_Secret_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CartsFields_Secret_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
@@ -9592,6 +9656,7 @@ export type Mutation = {
   createMedia?: Maybe<Media>;
   createOrder?: Maybe<Order>;
   createPage?: Maybe<Page>;
+  createPayloadKv?: Maybe<PayloadKv>;
   createPayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   createPayloadPreference?: Maybe<PayloadPreference>;
   createProduct?: Maybe<Product>;
@@ -9609,6 +9674,7 @@ export type Mutation = {
   deleteMedia?: Maybe<Media>;
   deleteOrder?: Maybe<Order>;
   deletePage?: Maybe<Page>;
+  deletePayloadKv?: Maybe<PayloadKv>;
   deletePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   deletePayloadPreference?: Maybe<PayloadPreference>;
   deleteProduct?: Maybe<Product>;
@@ -9626,6 +9692,7 @@ export type Mutation = {
   duplicateMedia?: Maybe<Media>;
   duplicateOrder?: Maybe<Order>;
   duplicatePage?: Maybe<Page>;
+  duplicatePayloadKv?: Maybe<PayloadKv>;
   duplicatePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   duplicatePayloadPreference?: Maybe<PayloadPreference>;
   duplicateProduct?: Maybe<Product>;
@@ -9654,6 +9721,7 @@ export type Mutation = {
   updateMedia?: Maybe<Media>;
   updateOrder?: Maybe<Order>;
   updatePage?: Maybe<Page>;
+  updatePayloadKv?: Maybe<PayloadKv>;
   updatePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   updatePayloadPreference?: Maybe<PayloadPreference>;
   updateProduct?: Maybe<Product>;
@@ -9718,6 +9786,13 @@ export type MutationCreateOrderArgs = {
 
 export type MutationCreatePageArgs = {
   data: MutationPageInput;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+};
+
+
+export type MutationCreatePayloadKvArgs = {
+  data: MutationPayloadKvInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
 };
@@ -9834,6 +9909,12 @@ export type MutationDeletePageArgs = {
 };
 
 
+export type MutationDeletePayloadKvArgs = {
+  id: Scalars['Int']['input'];
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationDeletePayloadLockedDocumentArgs = {
   id: Scalars['Int']['input'];
   trash?: InputMaybe<Scalars['Boolean']['input']>;
@@ -9932,6 +10013,12 @@ export type MutationDuplicateOrderArgs = {
 
 export type MutationDuplicatePageArgs = {
   data: MutationPageInput;
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationDuplicatePayloadKvArgs = {
+  data: MutationPayloadKvInput;
   id: Scalars['Int']['input'];
 };
 
@@ -10125,6 +10212,16 @@ export type MutationUpdateOrderArgs = {
 export type MutationUpdatePageArgs = {
   autosave?: InputMaybe<Scalars['Boolean']['input']>;
   data: MutationPageUpdateInput;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['Int']['input'];
+  locale?: InputMaybe<LocaleInputType>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationUpdatePayloadKvArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationPayloadKvUpdateInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['Int']['input'];
   locale?: InputMaybe<LocaleInputType>;
@@ -12972,6 +13069,221 @@ export type PagesUpdateDocAccess = {
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
+export type PayloadKv = {
+  data: Scalars['JSON']['output'];
+  id: Scalars['Int']['output'];
+  key: Scalars['String']['output'];
+};
+
+export type PayloadKvCreateAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvCreateDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvDeleteAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvDeleteDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvDocAccessFields = {
+  data?: Maybe<PayloadKvDocAccessFields_Data>;
+  key?: Maybe<PayloadKvDocAccessFields_Key>;
+};
+
+export type PayloadKvDocAccessFields_Data = {
+  create?: Maybe<PayloadKvDocAccessFields_Data_Create>;
+  delete?: Maybe<PayloadKvDocAccessFields_Data_Delete>;
+  read?: Maybe<PayloadKvDocAccessFields_Data_Read>;
+  update?: Maybe<PayloadKvDocAccessFields_Data_Update>;
+};
+
+export type PayloadKvDocAccessFields_Data_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Data_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Data_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Data_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Key = {
+  create?: Maybe<PayloadKvDocAccessFields_Key_Create>;
+  delete?: Maybe<PayloadKvDocAccessFields_Key_Delete>;
+  read?: Maybe<PayloadKvDocAccessFields_Key_Read>;
+  update?: Maybe<PayloadKvDocAccessFields_Key_Update>;
+};
+
+export type PayloadKvDocAccessFields_Key_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Key_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Key_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvDocAccessFields_Key_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields = {
+  data?: Maybe<PayloadKvFields_Data>;
+  key?: Maybe<PayloadKvFields_Key>;
+};
+
+export type PayloadKvFields_Data = {
+  create?: Maybe<PayloadKvFields_Data_Create>;
+  delete?: Maybe<PayloadKvFields_Data_Delete>;
+  read?: Maybe<PayloadKvFields_Data_Read>;
+  update?: Maybe<PayloadKvFields_Data_Update>;
+};
+
+export type PayloadKvFields_Data_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Data_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Data_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Data_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Key = {
+  create?: Maybe<PayloadKvFields_Key_Create>;
+  delete?: Maybe<PayloadKvFields_Key_Delete>;
+  read?: Maybe<PayloadKvFields_Key_Read>;
+  update?: Maybe<PayloadKvFields_Key_Update>;
+};
+
+export type PayloadKvFields_Key_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Key_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Key_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvFields_Key_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadKvReadAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvReadDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvUpdateAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKvUpdateDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type PayloadKv_Data_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  intersects?: InputMaybe<Scalars['JSON']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  within?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+export type PayloadKv_Id_Operator = {
+  equals?: InputMaybe<Scalars['Int']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Int']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Int']['input']>;
+  less_than?: InputMaybe<Scalars['Int']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Int']['input']>;
+  not_equals?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PayloadKv_Key_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PayloadKv_Where = {
+  AND?: InputMaybe<Array<InputMaybe<PayloadKv_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<PayloadKv_Where_Or>>>;
+  data?: InputMaybe<PayloadKv_Data_Operator>;
+  id?: InputMaybe<PayloadKv_Id_Operator>;
+  key?: InputMaybe<PayloadKv_Key_Operator>;
+};
+
+export type PayloadKv_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<PayloadKv_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<PayloadKv_Where_Or>>>;
+  data?: InputMaybe<PayloadKv_Data_Operator>;
+  id?: InputMaybe<PayloadKv_Id_Operator>;
+  key?: InputMaybe<PayloadKv_Key_Operator>;
+};
+
+export type PayloadKv_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<PayloadKv_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<PayloadKv_Where_Or>>>;
+  data?: InputMaybe<PayloadKv_Data_Operator>;
+  id?: InputMaybe<PayloadKv_Id_Operator>;
+  key?: InputMaybe<PayloadKv_Key_Operator>;
+};
+
+export type PayloadKvs = {
+  docs: Array<PayloadKv>;
+  hasNextPage: Scalars['Boolean']['output'];
+  hasPrevPage: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page: Scalars['Int']['output'];
+  pagingCounter: Scalars['Int']['output'];
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs: Scalars['Int']['output'];
+  totalPages: Scalars['Int']['output'];
+};
+
 export type PayloadLockedDocument = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   document?: Maybe<PayloadLockedDocument_Document_Relationship>;
@@ -14278,7 +14590,6 @@ export type Product_PriceInEurEnabled_Operator = {
 
 export type Product_PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
   greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
   less_than?: InputMaybe<Scalars['Float']['input']>;
@@ -15516,6 +15827,8 @@ export type Query = {
   Orders?: Maybe<Orders>;
   Page?: Maybe<Page>;
   Pages?: Maybe<Pages>;
+  PayloadKv?: Maybe<PayloadKv>;
+  PayloadKvs?: Maybe<PayloadKvs>;
   PayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   PayloadLockedDocuments?: Maybe<PayloadLockedDocuments>;
   PayloadPreference?: Maybe<PayloadPreference>;
@@ -15542,6 +15855,7 @@ export type Query = {
   countForms?: Maybe<CountForms>;
   countOrders?: Maybe<CountOrders>;
   countPages?: Maybe<CountPages>;
+  countPayloadKvs?: Maybe<CountPayloadKvs>;
   countPayloadLockedDocuments?: Maybe<CountPayloadLockedDocuments>;
   countPayloadPreferences?: Maybe<CountPayloadPreferences>;
   countProducts?: Maybe<CountProducts>;
@@ -15563,6 +15877,7 @@ export type Query = {
   docAccessMedia?: Maybe<MediaDocAccess>;
   docAccessOrder?: Maybe<OrdersDocAccess>;
   docAccessPage?: Maybe<PagesDocAccess>;
+  docAccessPayloadKv?: Maybe<Payload_KvDocAccess>;
   docAccessPayloadLockedDocument?: Maybe<Payload_Locked_DocumentsDocAccess>;
   docAccessPayloadPreference?: Maybe<Payload_PreferencesDocAccess>;
   docAccessProduct?: Maybe<ProductsDocAccess>;
@@ -15782,6 +16097,30 @@ export type QueryPagesArgs = {
   sort?: InputMaybe<Scalars['String']['input']>;
   trash?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<Page_Where>;
+};
+
+
+export type QueryPayloadKvArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  id: Scalars['Int']['input'];
+  locale?: InputMaybe<LocaleInputType>;
+  select?: InputMaybe<Scalars['Boolean']['input']>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryPayloadKvsArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pagination?: InputMaybe<Scalars['Boolean']['input']>;
+  select?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PayloadKv_Where>;
 };
 
 
@@ -16071,6 +16410,14 @@ export type QueryCountPagesArgs = {
 };
 
 
+export type QueryCountPayloadKvsArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PayloadKv_Where>;
+};
+
+
 export type QueryCountPayloadLockedDocumentsArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
@@ -16187,6 +16534,11 @@ export type QueryDocAccessOrderArgs = {
 
 
 export type QueryDocAccessPageArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryDocAccessPayloadKvArgs = {
   id: Scalars['Int']['input'];
 };
 
@@ -22033,6 +22385,10 @@ export type CountPages = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CountPayloadKvs = {
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
 export type CountPayloadLockedDocuments = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
@@ -22197,6 +22553,7 @@ export type MutationCartInput = {
   customer?: InputMaybe<Scalars['Int']['input']>;
   items?: InputMaybe<Array<InputMaybe<MutationCart_ItemsInput>>>;
   purchasedAt?: InputMaybe<Scalars['String']['input']>;
+  secret?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Cart_Status_MutationInput>;
   subtotal?: InputMaybe<Scalars['Float']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -22208,6 +22565,7 @@ export type MutationCartUpdateInput = {
   customer?: InputMaybe<Scalars['Int']['input']>;
   items?: InputMaybe<Array<InputMaybe<MutationCartUpdate_ItemsInput>>>;
   purchasedAt?: InputMaybe<Scalars['String']['input']>;
+  secret?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<CartUpdate_Status_MutationInput>;
   subtotal?: InputMaybe<Scalars['Float']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -22621,6 +22979,16 @@ export type MutationPage_MetaInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MutationPayloadKvInput = {
+  data: Scalars['JSON']['input'];
+  key: Scalars['String']['input'];
+};
+
+export type MutationPayloadKvUpdateInput = {
+  data?: InputMaybe<Scalars['JSON']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type MutationPayloadLockedDocumentInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   document?: InputMaybe<PayloadLockedDocument_DocumentRelationshipInput>;
@@ -22959,6 +23327,22 @@ export type PagesDocAccess = {
   read?: Maybe<PagesReadDocAccess>;
   readVersions?: Maybe<PagesReadVersionsDocAccess>;
   update?: Maybe<PagesUpdateDocAccess>;
+};
+
+export type Payload_KvAccess = {
+  create?: Maybe<PayloadKvCreateAccess>;
+  delete?: Maybe<PayloadKvDeleteAccess>;
+  fields?: Maybe<PayloadKvFields>;
+  read?: Maybe<PayloadKvReadAccess>;
+  update?: Maybe<PayloadKvUpdateAccess>;
+};
+
+export type Payload_KvDocAccess = {
+  create?: Maybe<PayloadKvCreateDocAccess>;
+  delete?: Maybe<PayloadKvDeleteDocAccess>;
+  fields?: Maybe<PayloadKvDocAccessFields>;
+  read?: Maybe<PayloadKvReadDocAccess>;
+  update?: Maybe<PayloadKvUpdateDocAccess>;
 };
 
 export type Payload_Locked_DocumentsAccess = {
@@ -23619,7 +24003,6 @@ export type VersionsProduct_Version__PriceInEurEnabled_Operator = {
 
 export type VersionsProduct_Version__PriceInEur_Operator = {
   equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   greater_than?: InputMaybe<Scalars['Float']['input']>;
   greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
   less_than?: InputMaybe<Scalars['Float']['input']>;
@@ -24068,7 +24451,7 @@ export type HeaderQueryVariables = Exact<{
 }>;
 
 
-export type HeaderQuery = { Header?: { slogan?: string | null, icon?: { id: number, svgContent?: string | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null, navButtons?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavButtons_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null } | null } | null } | null }> | null } | null };
+export type HeaderQuery = { Header?: { slogan?: string | null, icon?: { id: number, svgContent?: string | null } | null, navItems?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavItems_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null, pageType?: Page_PageType | null } | null } | null } | null }> | null, navButtons?: Array<{ id?: string | null, link?: { label?: string | null, type?: Header_NavButtons_Link_Type | null, newTab?: boolean | null, url?: string | null, reference?: { value?: { id: number, slug?: string | null, pageType?: Page_PageType | null } | null } | null } | null }> | null } | null };
 
 export type InformationBannerQueryVariables = Exact<{
   locale: LocaleInputType;
@@ -24124,4 +24507,4 @@ export type ProductsByCategoryQueryVariables = Exact<{
 }>;
 
 
-export type ProductsByCategoryQuery = { Products?: { totalDocs: number, docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, description?: any | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null, width?: number | null, height?: number | null, alt: string }> | null }> } | null };
+export type ProductsByCategoryQuery = { Products?: { totalDocs: number, docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, description?: any | null, enableVariants?: boolean | null, variants?: { docs: Array<{ id: number, priceInEUR?: number | null }> } | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null, width?: number | null, height?: number | null, alt: string }> | null }> } | null };

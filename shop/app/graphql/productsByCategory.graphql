@@ -6,6 +6,13 @@ query ProductsByCategory($locale: LocaleInputType!, $categoryId: JSON!) {
       slug
       priceInEUR
       description
+      enableVariants
+      variants {
+        docs {
+          id
+          priceInEUR
+        }
+      }
       gallery {
         id
         url

@@ -28,6 +28,22 @@ if (!product.value) {
 // Variant logic extracted to composable
 const { selectedOptions, selectedVariant, displayPrice } = useProductVariants(product)
 
+// Handle variant selection from VariantList
+function onVariantSelect(variant: { id: number; options?: Array<{ id: number; label: string; value: string }> | null }) {
+  if (!variant.options || !product.value?.variantTypes) return
+  const newOptions: Record<string, string> = {}
+  for (const opt of variant.options) {
+    // Find which variantType this option belongs to
+    const matchingType = product.value.variantTypes.find(type =>
+      type.options?.docs?.some(doc => doc.value === opt.value)
+    )
+    if (matchingType) {
+      newOptions[matchingType.name] = opt.value
+    }
+  }
+  selectedOptions.value = newOptions
+}
+
 // Live inventory state
 const liveInventory = ref<number | null>(null)
 
@@ -168,14 +184,17 @@ usePageSeo({
         </div>
 
         <!-- Inventory Badge -->
-        <InventoryBadge :quantity="inventoryQuantity" />
+        <ItemInventoryBadge :quantity="inventoryQuantity" />
 
-        <!-- Variant Selector -->
-        <VariantSelector
+        <!-- Variant List -->
+        <ItemVariantList
           v-if="product?.enableVariants"
-          :variant-types="product?.variantTypes"
-          v-model="selectedOptions"
+          :variants="product?.variants?.docs"
+          :selected-variant-id="selectedVariant?.id ?? null"
+          :base-price="product?.priceInEUR"
+          @select="onVariantSelect"
         />
+
 
         <!-- Warning if variants not selected -->
         <UAlert
@@ -185,9 +204,9 @@ usePageSeo({
           :title="t('Please select all product options')"
         />
         
-        <!-- Out of stock message -->
+        <!-- Out of stock message (only for variant products, simple products use InventoryBadge) -->
          <UAlert
-          v-if="isOutOfStock"
+          v-if="product?.enableVariants && isOutOfStock"
           color="error"
           variant="subtle"
           :title="t('This product is currently out of stock')"
@@ -195,7 +214,7 @@ usePageSeo({
         />
 
         <!-- Quantity Selector & Add to Cart -->
-        <div v-if="!isOutOfStock" class="flex items-center gap-4">
+        <div v-if="!isOutOfStock && canAddToCart" class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <UButton
               icon="i-heroicons-minus"

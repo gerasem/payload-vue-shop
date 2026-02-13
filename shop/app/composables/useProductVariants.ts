@@ -3,7 +3,7 @@ import { getMinPriceFormatted, areAllPricesEqual, formatEuro } from '@/utils/pri
 
 export function useProductVariants(product: Ref<IItem | IProductFull | null | undefined>) {
   const { t } = useI18n()
-  
+
   // Selected options state
   const selectedOptions = ref<Record<string, string>>({})
 
@@ -42,7 +42,7 @@ export function useProductVariants(product: Ref<IItem | IProductFull | null | un
   // Display price logic
   const displayPrice = computed(() => {
     if (selectedVariant.value) {
-      return formatEuro(selectedVariant.value.priceInEUR)
+      return formatEuro(selectedVariant.value.priceInEUR ?? product.value?.priceInEUR)
     }
 
     if (areAllPricesEqual(product.value)) {

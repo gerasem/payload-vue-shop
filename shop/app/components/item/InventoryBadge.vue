@@ -34,7 +34,15 @@ const status = computed(() => {
 </script>
 
 <template>
-  <UBadge v-if="status.show" :color="status.color" variant="subtle" size="md">
+  <!-- Out of stock: alert style -->
+  <UAlert
+    v-if="quantity === 0"
+    color="error"
+    variant="subtle"
+    :title="t('Out of stock')"
+  />
+  <!-- Low stock: badge -->
+  <UBadge v-else-if="status.show" :color="status.color" variant="subtle" size="md">
     {{ status.label }}
   </UBadge>
 </template>
