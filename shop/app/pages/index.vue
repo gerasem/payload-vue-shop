@@ -45,6 +45,9 @@ usePageSeo({
           v-if="homePage?.content"
           :text="richTextToHTML(homePage.content)"
         />
+
+        <!-- Conversion Boxes -->
+        <HomeConversionBoxes />
       </main>
     </div>
   </div>
