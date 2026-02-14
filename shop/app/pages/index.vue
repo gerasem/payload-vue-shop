@@ -47,7 +47,7 @@ usePageSeo({
         />
 
         <!-- Conversion Boxes -->
-        <HomeConversionBoxes />
+        <HomeConversionBoxes :boxes="homePage?.conversionBoxes" />
       </main>
     </div>
   </div>

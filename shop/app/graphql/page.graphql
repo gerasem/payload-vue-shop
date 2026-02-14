@@ -10,13 +10,22 @@ query Page($slug: String!, $locale: LocaleInputType!) {
       slug
       publishedOn
       updatedAt
-      meta {
+        meta {
         title
         description
         image {
           url
           alt
         }
+      }
+      conversionBoxes {
+        title
+        description
+        image {
+          url
+          alt
+        }
+        id
       }
     }
   }

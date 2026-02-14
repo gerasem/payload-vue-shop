@@ -138,6 +138,31 @@ export const Pages: CollectionConfig = {
               label: 'Content',
               localized: true,
             },
+            {
+              name: 'conversionBoxes',
+              type: 'array',
+              label: 'Conversion Boxes (Home Page)',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'description',
+                  type: 'textarea',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: true,
+                },
+              ],
+            },
           ],
           label: 'Content',
         },

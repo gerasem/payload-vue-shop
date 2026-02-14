@@ -1,38 +1,28 @@
 <script setup lang="ts">
+import type { IPage } from '@/types'
+
 const { t } = useI18n()
 
-// Dummy data for conversion boxes
-const boxes = [
-  {
-    id: 1,
-    title: 'Бесплатная доставка', // Free shipping
-    description: 'от €1,000', // from €1,000
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2040&auto=format&fit=crop', // Gift/Delivery related
-    alt: 'Free delivery'
-  },
-  {
-    id: 2,
-    title: 'Особый дизайн', // Special design
-    description: 'Создадим приглашения, идеально подходящие именно для вашей свадьбы. Это займет 1-2 недели\n\nот 125р / шт', 
-    image: 'https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?q=80&w=2069&auto=format&fit=crop', // Textures/Design related
-    alt: 'Special design'
-  }
-]
+// Define props
+defineProps<{
+  boxes?: NonNullable<IPage['docs'][0]['conversionBoxes']> | null
+}>()
 </script>
 
 <template>
-  <div class="my-12">
+  <div v-if="boxes && boxes.length > 0" class="my-12">
     <div class="grid gap-6 md:grid-cols-2">
       <div 
         v-for="box in boxes" 
-        :key="box.id"
+        :key="box.id || box.title"
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex h-full"
       >
         <!-- Image Section (Left, 40-50%) -->
         <div class="w-1/2 md:w-5/12 relative">
           <img 
-            :src="box.image" 
-            :alt="box.alt"
+            v-if="box.image && typeof box.image === 'object' && 'url' in box.image"
+            :src="usePayloadImageUrl(box.image.url)" 
+            :alt="box.image.alt || box.title || ''"
             class="absolute inset-0 w-full h-full object-cover"
           />
         </div>

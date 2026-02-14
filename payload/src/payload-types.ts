@@ -435,6 +435,14 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  conversionBoxes?:
+    | {
+        title: string;
+        description: string;
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -1239,6 +1247,14 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
       };
   content?: T;
+  conversionBoxes?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
