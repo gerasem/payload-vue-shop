@@ -4,9 +4,6 @@ query Page($slug: String!, $locale: LocaleInputType!) {
       id
       title
       content
-      layout {
-        __typename
-      }
       slug
       publishedOn
       updatedAt

@@ -1,15 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-import { Banner } from '@/blocks/Banner/config'
-import { Carousel } from '@/blocks/Carousel/config'
-import { ThreeItemGrid } from '@/blocks/ThreeItemGrid/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { adminOnly } from '@/access/adminOnly'
-import { Archive } from '@/blocks/ArchiveBlock/config'
-import { CallToAction } from '@/blocks/CallToAction/config'
-import { Content } from '@/blocks/Content/config'
-import { FormBlock } from '@/blocks/Form/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { slugField } from 'payload'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import {
@@ -108,21 +100,6 @@ export const Pages: CollectionConfig = {
         {
           fields: [
             {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [
-                CallToAction,
-                Content,
-                MediaBlock,
-                Archive,
-                Carousel,
-                ThreeItemGrid,
-                Banner,
-                FormBlock,
-              ],
-              required: false,
-            },
-            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -142,6 +119,9 @@ export const Pages: CollectionConfig = {
               name: 'conversionBoxes',
               type: 'array',
               label: 'Conversion Boxes (Home Page)',
+              admin: {
+                condition: (_, siblingData) => siblingData?.slug === 'home',
+              },
               fields: [
                 {
                   name: 'title',
