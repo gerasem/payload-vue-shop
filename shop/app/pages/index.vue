@@ -41,7 +41,7 @@ usePageSeo({
         </template>
 
         <!-- SEO Text from Home Page -->
-        <Text2Columns
+        <ContentText2Columns
           v-if="homePage?.content"
           :text="richTextToHTML(homePage.content)"
         />

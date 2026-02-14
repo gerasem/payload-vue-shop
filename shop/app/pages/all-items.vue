@@ -18,6 +18,6 @@ usePageSeo({
     </div>
 
     <!-- Render Catalog instead of generic page content -->
-    <AllItemsCatalog />
+    <CatalogAllItemsCatalog />
   </div>
 </template>

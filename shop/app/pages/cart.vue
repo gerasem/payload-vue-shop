@@ -74,12 +74,11 @@ usePageSeo({
       </div>
 
       <!-- SEO Text from Cart Page -->
-      <div class="lg:col-span-2">
-        <Text2Columns
-          v-if="page?.content"
-          :text="richTextToHTML(page.content)"
-        />
-      </div>
+      <!-- Cart Page Content -->
+      <ContentText2Columns
+        v-if="cartPage?.content"
+        :text="richTextToHTML(cartPage.content)"
+      />
     </div>
   </div>
 </template>

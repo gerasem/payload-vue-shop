@@ -41,7 +41,7 @@ function handleFormSubmit(formData: any) {
 
         <!-- SEO Text from Checkout Page (Below Form) -->
         <div class="single-column-text">
-            <Text2Columns
+            <ContentText2Columns
             v-if="page?.content"
             :text="richTextToHTML(page.content)"
             />

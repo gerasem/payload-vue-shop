@@ -30,16 +30,18 @@ defineProps<{
 
     <!-- Mobile Swiper -->
     <div class="md:hidden -mx-4">
-      <swiper
-        :slides-per-view="1.4"
-        :space-between="16"
-        :slides-offset-before="16"
-        :slides-offset-after="16"
-      >
-        <swiper-slide v-for="item in items" :key="item.id">
-          <ItemCard :item="item" />
-        </swiper-slide>
-      </swiper>
+      <ClientOnly>
+        <swiper
+          :slides-per-view="1.4"
+          :space-between="16"
+          :slides-offset-before="16"
+          :slides-offset-after="16"
+        >
+          <swiper-slide v-for="item in items" :key="item.id">
+            <ItemCard :item="item" />
+          </swiper-slide>
+        </swiper>
+      </ClientOnly>
     </div>
 
     <!-- Desktop Grid -->

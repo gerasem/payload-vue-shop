@@ -87,31 +87,33 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           />
 
           <div class="flex items-center justify-center min-w-[32px]">
-            <UIcon
-              v-if="!cartStore.isInitialized"
-              name="i-heroicons-arrow-path"
-              class="w-5 h-5 animate-spin text-gray-400"
-            />
-            
-            <NuxtLink
-              v-else
-              :to="localePath('/cart')"
-              class="flex items-center gap-1.5 transition-opacity hover:opacity-80"
-              :title="cartStore?.totalFormatted || ''"
-              aria-label="Shopping Cart"
-            >
-              <UIcon
-                name="i-bi-cart"
-                class="w-7 h-7"
-              :class="(cartStore?.count || 0) > 0 ? 'text-secondary-500' : 'text-gray-500'"
-              />
-              <span
-                v-if="cartStore && cartStore.count > 0"
-                class="text-base font-normal text-gray-900 dark:text-gray-100"
+            <ClientOnly>
+              <template #fallback>
+                <UIcon
+                  name="i-heroicons-arrow-path"
+                  class="w-5 h-5 animate-spin text-gray-400"
+                />
+              </template>
+              
+              <NuxtLink
+                :to="localePath('/cart')"
+                class="flex items-center gap-1.5 transition-opacity hover:opacity-80"
+                :title="cartStore?.totalFormatted || ''"
+                aria-label="Shopping Cart"
               >
-                {{ cartStore.count }}
-              </span>
-            </NuxtLink>
+                <UIcon
+                  name="i-bi-cart"
+                  class="w-7 h-7"
+                  :class="(cartStore?.count || 0) > 0 ? 'text-secondary-500' : 'text-gray-500'"
+                />
+                <span
+                  v-if="cartStore && cartStore.count > 0"
+                  class="text-base font-normal text-gray-900 dark:text-gray-100"
+                >
+                  {{ cartStore.count }}
+                </span>
+              </NuxtLink>
+            </ClientOnly>
           </div>
         </div>
       </div>
