@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
 import type { MappedLink } from '@/composables/usePayloadLink'
+import FormBuilder from '@/components/form/Builder.vue'
 
 definePageMeta({
   layout: 'default'
@@ -25,43 +24,64 @@ const socialLink = computed(() =>
   footerData.value?.socialLink ? usePayloadLink({ link: footerData.value.socialLink }) : null
 )
 
-// Form validation schema
-const schema = z.object({
-  name: z.string().min(2, t('Name is too short')),
-  email: z.string().email(t('Invalid email')),
-  message: z.string().min(10, t('Message is too short'))
+// Fetch Dynamic Form Definition
+const config = useRuntimeConfig()
+const payloadUrl = config.public.payloadUrl || 'http://localhost:3000'
+
+const { data: formsData, error: formsError } = await useFetch<any>(`${payloadUrl}/api/forms`, {
+  params: {
+    'where[title][like]': 'Contact',
+    limit: 1
+  }
 })
 
-type Schema = z.output<typeof schema>
-
-// Form state
-const form = reactive({
-  name: '',
-  email: '',
-  message: ''
-})
+const contactForm = computed(() => formsData.value?.docs?.[0])
+const formFields = computed(() => contactForm.value?.fields || [])
 
 const loading = ref(false)
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+async function onSubmit(formData: Record<string, any>) {
+  if (!contactForm.value) return
+
   loading.value = true
 
-  // Simulate sending
-  await new Promise(resolve => setTimeout(resolve, 1500))
+  try {
+    // Transform flat object to Payload Form Builder submission format
+    // Array of { field: 'name', value: 'value' }
+    const submissionData = Object.entries(formData).map(([key, value]) => ({
+      field: key,
+      value
+    }))
 
-  loading.value = false
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        formId: contactForm.value.id,
+        submissionData
+      }
+    })
 
-  toast.add({
-    title: t('Message sent'),
-    description: t('We will get back to you shortly.'),
-    icon: 'i-heroicons-check-circle',
-    color: 'success'
-  })
+    toast.add({
+      title: t('Message sent'),
+      description: contactForm.value.confirmationMessage 
+        ? undefined // Let the server handle rich text or just show generic? 
+        : t('We will get back to you shortly.'),
+      // For now, use generic success message as confirmationMessage is rich text
+      icon: 'i-heroicons-check-circle',
+      color: 'success'
+    })
 
-  // Reset form
-  form.name = ''
-  form.email = ''
-  form.message = ''
+  } catch (error: any) {
+    console.error('Submission failed', error)
+    toast.add({
+      title: t('Error'),
+      description: error.statusMessage || t('Failed to send message'),
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'error'
+    })
+  } finally {
+    loading.value = false
+  }
 }
 
 usePageSeo({
@@ -143,36 +163,20 @@ usePageSeo({
 
       <!-- Contact Form -->
       <UCard class="h-fit">
-        <UForm :schema="schema" :state="form" class="space-y-6" @submit="onSubmit">
-          <UFormField :label="t('Name')" name="name" required>
-            <UInput
-              v-model="form.name"
-              icon="i-heroicons-user"
-              :placeholder="t('Your name')"
-            />
-          </UFormField>
-
-          <UFormField :label="t('Email')" name="email" required>
-            <UInput
-              v-model="form.email"
-              type="email"
-              icon="i-heroicons-envelope"
-              placeholder="your@email.com"
-            />
-          </UFormField>
-
-          <UFormField :label="t('Message')" name="message" required>
-            <UTextarea
-              v-model="form.message"
-              :rows="4"
-              :placeholder="t('How can we help you?')"
-            />
-          </UFormField>
-
-          <UButton type="submit" block size="lg" :loading="loading">
-            {{ t('Send Message') }}
-          </UButton>
-        </UForm>
+        <div v-if="formsError" class="text-red-500">
+          {{ t('Failed to load contact form.') }}
+        </div>
+        <div v-else-if="!contactForm && !formsError">
+          {{ t('Loading form...') }}
+        </div>
+        
+        <FormBuilder
+          v-else
+          :fields="formFields"
+          :submit-label="contactForm.submitButtonLabel || t('Send Message')"
+          :loading="loading"
+          @submit="onSubmit"
+        />
       </UCard>
     </div>
   </div>
