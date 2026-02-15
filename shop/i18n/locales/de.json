@@ -86,5 +86,9 @@
   "Password reset email sent": "E-Mail zum Zurücksetzen des Passworts gesendet",
   "Failed to send reset email": "Fehler beim Senden der E-Mail",
   "We have sent a password reset link to your email.": "Wir haben einen Link zum Zurücksetzen des Passworts an Ihre E-Mail gesendet.",
-  "Back to Login": "Zurück zum Login"
+  "Back to Login": "Zurück zum Login",
+  "First Name": "Vorname",
+  "Last Name": "Nachname",
+  "Name is required": "Vorname ist erforderlich",
+  "Surname is required": "Nachname ist erforderlich"
 }

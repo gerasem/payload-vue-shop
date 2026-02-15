@@ -59,12 +59,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  async function register(email: string, password: string) {
+  async function register(email: string, password: string, name: string, surname: string) {
     loading.value = true
     try {
       await apiCall('/api/users', {
         method: 'POST',
-        body: { email, password, passwordConfirm: password }
+        body: { email, password, passwordConfirm: password, name, surname }
       })
       // Auto login after registration
       await login(email, password)
