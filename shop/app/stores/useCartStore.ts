@@ -8,6 +8,9 @@ export const useCartStore = defineStore('cart', () => {
   // skipHydrate ensures the client value (from LS) isn't overwritten by the empty server value
   const rawItems = ref<ICartItemRaw[]>(skipHydrate([]))
 
+  const userStore = useUserStore()
+  const serverCartId = ref<number | null>(null)
+
   // Full cart items enriched with product data
   const items = ref<ICartItem[]>([])
 
@@ -31,6 +34,12 @@ export const useCartStore = defineStore('cart', () => {
   async function init() {
     loadFromLS()
     isInitialized.value = true
+
+    // If user is already logged in, fetch server cart
+    if (userStore.loggedIn) {
+      await fetchServerCart()
+    }
+
     await hydrate()
   }
 
@@ -44,6 +53,122 @@ export const useCartStore = defineStore('cart', () => {
     },
     { deep: true }
   )
+
+  // Watch for user login to merge/fetch cart
+  watch(() => userStore.loggedIn, async (loggedIn) => {
+    if (loggedIn) {
+      await mergeGuestCart()
+    } else {
+      // On logout, clear local items
+      items.value = []
+      rawItems.value = []
+      serverCartId.value = null
+    }
+  })
+
+  // === Server Sync Logic ===
+
+  // Helper to get headers with cookie
+  const getHeaders = () => {
+    const headers = useRequestHeaders(['cookie'])
+    return headers
+  }
+
+  async function fetchServerCart() {
+    if (!userStore.user) return
+
+    try {
+      // Fetch cart for current user
+      // Assuming 'carts' collection has 'customer' field
+      const { docs } = await $fetch<{ docs: any[] }>('/api/carts', {
+        baseURL: useRuntimeConfig().public.payloadUrl as string,
+        params: {
+          'where[customer][equals]': userStore.user.id,
+          'depth': 0 // We only need IDs primarily, but depth 0 gives structure
+        },
+        headers: getHeaders()
+      })
+
+      if (docs && docs.length > 0) {
+        const cart = docs[0]
+        serverCartId.value = cart.id
+        
+        // Map server items to rawItems
+        if (cart.items) {
+           rawItems.value = cart.items.map((i: any) => ({
+             productId: typeof i.product === 'object' ? i.product.id : i.product,
+             variantId: typeof i.variant === 'object' ? i.variant.id : i.variant,
+             qty: i.quantity
+           }))
+        }
+      }
+    } catch (e) {
+      console.error('Failed to fetch server cart', e)
+    }
+  }
+
+  async function saveToServer() {
+    if (!userStore.loggedIn || !userStore.user) return
+
+    try {
+      const payload = {
+        customer: userStore.user.id,
+        items: rawItems.value.map(i => ({
+          product: i.productId,
+          variant: i.variantId,
+          quantity: i.qty
+        }))
+      }
+
+      const headers = getHeaders()
+
+      if (serverCartId.value) {
+        // Update existing cart
+        await $fetch(`/api/carts/${serverCartId.value}`, {
+          baseURL: useRuntimeConfig().public.payloadUrl as string,
+          method: 'PATCH',
+          body: payload,
+          headers
+        })
+      } else {
+        // Create new cart
+        const newCart = await $fetch<{ id: number }>('/api/carts', {
+           baseURL: useRuntimeConfig().public.payloadUrl as string,
+           method: 'POST',
+           body: payload,
+           headers
+        })
+        serverCartId.value = newCart.id
+      }
+    } catch (e) {
+      console.error('Failed to save cart to server', e)
+    }
+  }
+
+  async function mergeGuestCart() {
+    // 1. Fetch server cart first to see what's there
+    // Save local items to a temp var.
+    const localItems = [...rawItems.value] // Copy guest items
+    
+    await fetchServerCart() // This updates rawItems with server data
+    
+    if (localItems.length === 0) return 
+
+    // Merge logic
+    localItems.forEach(localItem => {
+      const existing = rawItems.value.find(
+        i => i.productId === localItem.productId && i.variantId === localItem.variantId
+      )
+      if (existing) {
+        existing.qty += localItem.qty
+      } else {
+        rawItems.value.push(localItem)
+      }
+    })
+
+    await saveToServer()
+    await hydrate() // Refresh UI
+  }
 
   // Hydration state
   const isHydrating = ref(false)
@@ -118,6 +243,11 @@ export const useCartStore = defineStore('cart', () => {
       rawItems.value.push({ productId, variantId, qty })
     }
 
+    // Sync if logged in
+    if (userStore.loggedIn) {
+      await saveToServer()
+    }
+
     await hydrate()
   }
 
@@ -131,6 +261,11 @@ export const useCartStore = defineStore('cart', () => {
 
     if (item) {
       item.qty = Math.max(1, qty) // Ensure at least 1
+      
+      if (userStore.loggedIn) {
+        await saveToServer()
+      }
+
       await hydrate()
     }
   }
@@ -140,13 +275,22 @@ export const useCartStore = defineStore('cart', () => {
     rawItems.value = rawItems.value.filter(
       item => !(item.productId === productId && item.variantId === variantId)
     )
+
+    if (userStore.loggedIn) {
+      await saveToServer()
+    }
+
     await hydrate()
   }
 
   // Clear entire cart
-  function clear() {
+  async function clear() {
     rawItems.value = []
     items.value = []
+
+    if (userStore.loggedIn) {
+      await saveToServer()
+    }
   }
 
   // Computed getters
