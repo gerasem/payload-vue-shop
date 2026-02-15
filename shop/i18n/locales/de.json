@@ -79,5 +79,12 @@
   "Passwords do not match": "Passwörter stimmen nicht überein",
   "Account created successfully": "Konto erfolgreich erstellt",
   "Registration failed": "Registrierung fehlgeschlagen",
-  "Already have an account?": "Haben Sie bereits ein Konto?"
+  "Already have an account?": "Haben Sie bereits ein Konto?",
+  "Forgot Password": "Passwort vergessen",
+  "Reset Password": "Passwort zurücksetzen",
+  "Enter your email to reset your password": "Geben Sie Ihre E-Mail ein, um Ihr Passwort zurückzusetzen",
+  "Password reset email sent": "E-Mail zum Zurücksetzen des Passworts gesendet",
+  "Failed to send reset email": "Fehler beim Senden der E-Mail",
+  "We have sent a password reset link to your email.": "Wir haben einen Link zum Zurücksetzen des Passworts an Ihre E-Mail gesendet.",
+  "Back to Login": "Zurück zum Login"
 }

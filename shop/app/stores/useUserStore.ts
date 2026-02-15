@@ -76,6 +76,21 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function forgotPassword(email: string) {
+    loading.value = true
+    try {
+      await apiCall('/api/users/forgot-password', {
+        method: 'POST',
+        body: { email }
+      })
+    } catch (err: any) {
+      console.error('Forgot password error:', err)
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function fetchUser(headers: any = {}) {
     try {
       const data = await apiCall<{ user: User }>('/api/users/me', {}, headers)
@@ -96,6 +111,7 @@ export const useUserStore = defineStore('user', () => {
     login,
     logout,
     register,
+    forgotPassword,
     fetchUser
   }
 })
