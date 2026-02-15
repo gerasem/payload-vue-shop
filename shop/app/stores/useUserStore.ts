@@ -59,6 +59,23 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function register(email: string, password: string) {
+    loading.value = true
+    try {
+      await apiCall('/api/users', {
+        method: 'POST',
+        body: { email, password, passwordConfirm: password }
+      })
+      // Auto login after registration
+      await login(email, password)
+    } catch (err: any) {
+      console.error('Registration error:', err)
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function fetchUser(headers: any = {}) {
     try {
       const data = await apiCall<{ user: User }>('/api/users/me', {}, headers)
@@ -78,6 +95,7 @@ export const useUserStore = defineStore('user', () => {
     loading,
     login,
     logout,
+    register,
     fetchUser
   }
 })

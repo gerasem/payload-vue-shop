@@ -73,5 +73,11 @@
   "Password": "Passwort",
   "Don’t have an account yet?": "Noch kein Konto?",
   "Enter your email": "Geben Sie Ihre E-Mail-Adresse ein",
-  "Enter your password": "Geben Sie Ihr Passwort ein"
+  "Enter your password": "Geben Sie Ihr Passwort ein",
+  "Create an account": "Konto erstellen",
+  "Confirm Password": "Passwort bestätigen",
+  "Passwords do not match": "Passwörter stimmen nicht überein",
+  "Account created successfully": "Konto erfolgreich erstellt",
+  "Registration failed": "Registrierung fehlgeschlagen",
+  "Already have an account?": "Haben Sie bereits ein Konto?"
 }
