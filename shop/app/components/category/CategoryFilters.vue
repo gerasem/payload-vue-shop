@@ -1,17 +1,47 @@
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: string
   priceRange: [number, number]
-}>()
+  min?: number // In cents
+  max?: number // In cents
+}>(), {
+  min: 0,
+  max: 50000 // Default 500 EUR
+})
 
 const emit = defineEmits(['update:modelValue', 'update:priceRange'])
 
 const { t } = useI18n()
 
+// Helper values in Euros
+const minEuro = computed(() => Math.floor(props.min / 100))
+const maxEuro = computed(() => Math.ceil(props.max / 100))
+
 // Price range local state (in Euros)
 const localPrice = computed({
   get: () => [props.priceRange[0] / 100, props.priceRange[1] / 100],
-  set: (value) => emit('update:priceRange', [Math.round(value[0] * 100), Math.round(value[1] * 100)])
+  set: (value: number[]) => {
+    if (value && value.length === 2 && typeof value[0] === 'number' && typeof value[1] === 'number') {
+      emit('update:priceRange', [Math.round(value[0] * 100), Math.round(value[1] * 100)])
+    }
+  }
+})
+
+// Helper computed for inputs to ensure reactivity triggers the main computed setter
+const minPrice = computed({
+  get: () => localPrice.value[0] ?? minEuro.value,
+  set: (val) => {
+    const currentMax = localPrice.value[1] ?? maxEuro.value
+    localPrice.value = [Number(val), currentMax]
+  }
+})
+
+const maxPrice = computed({
+  get: () => localPrice.value[1] ?? maxEuro.value,
+  set: (val) => {
+    const currentMin = localPrice.value[0] ?? minEuro.value
+    localPrice.value = [currentMin, Number(val)]
+  }
 })
 
 const sortOptions = computed(() => [
@@ -33,23 +63,25 @@ const selectedSort = computed({
     <div class="flex flex-col gap-2 w-full sm:w-1/2 md:w-1/3">
       <span class="text-sm font-medium text-gray-700">{{ t('Price Range (€)') }}</span>
       <div class="flex items-center gap-2">
-        <UInput
-          v-model="localPrice[0]"
-          type="number"
+        <UInputNumber
+          v-model="minPrice"
           size="sm"
           class="w-20"
-          :min="0"
-          :max="localPrice[1]"
-          :step="0.01"
+          :min="minEuro"
+          :max="maxPrice"
+          :increment="false"
+          :decrement="false"
+  
         />
-        <USlider v-model="localPrice" :min="0" :max="500" :step="1" />
-        <UInput
-          v-model="localPrice[1]"
-          type="number"
+        <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.01" />
+        <UInputNumber
+          v-model="maxPrice"
           size="sm"
           class="w-20"
-          :min="localPrice[0]"
-          :step="0.01"
+          :min="minPrice"
+          :max="maxEuro"
+          :increment="false"
+          :decrement="false"
         />
       </div>
     </div>
