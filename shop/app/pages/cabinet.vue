@@ -7,6 +7,7 @@ definePageMeta({
 })
 
 const { t } = useI18n()
+const userStore = useUserStore()
 
 usePageSeo({
   title: t('Log in to your account'),
@@ -26,20 +27,51 @@ const state = reactive({
   remember: false
 })
 
-const loading = ref(false)
 
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
-  loading.value = true
-  // TODO: Implement login logic
-  console.log('Login attempt', event.data)
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  loading.value = false
+  try {
+    await userStore.login(event.data.email, event.data.password)
+  } catch (e) {
+    // Error handled in store
+  }
 }
+
+
 </script>
 
 <template>
   <div class="flex min-h-[50vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <UCard class="w-full max-w-md">
+    
+    <!-- Dashboard (Logged In) -->
+    <UCard v-if="userStore.loggedIn" class="w-full max-w-md text-center">
+      <template #header>
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+          {{ t('My Account') }}
+        </h1>
+      </template>
+      
+      <div class="space-y-4">
+        <p class="text-lg">
+          {{ t('Hello') }}, <strong>{{ userStore.user?.email }}</strong>
+        </p>
+        <p class="text-gray-500">
+          {{ t('Welcome to your personal cabinet.') }}
+        </p>
+        
+        <UButton 
+          block 
+          color="neutral" 
+          variant="outline" 
+          :loading="userStore.loading"
+          @click="userStore.logout"
+        >
+          {{ t('Sign out') }}
+        </UButton>
+      </div>
+    </UCard>
+
+    <!-- Login Form (Logged Out) -->
+    <UCard v-else class="w-full max-w-md">
       <template #header>
         <div class="text-center">
           <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -64,7 +96,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
           </UButton>
         </div>
 
-        <UButton type="submit" block color="primary" size="lg" :loading="loading">
+        <UButton type="submit" block color="primary" size="lg" :loading="userStore.loading">
           {{ t('Sign in') }}
         </UButton>
 
