@@ -86,7 +86,8 @@ export const useCartStore = defineStore('cart', () => {
           'where[customer][equals]': userStore.user.id,
           'depth': 0 // We only need IDs primarily, but depth 0 gives structure
         },
-        headers: getHeaders()
+        headers: getHeaders(),
+        credentials: 'include'
       })
 
       if (docs && docs.length > 0) {
@@ -96,8 +97,8 @@ export const useCartStore = defineStore('cart', () => {
         // Map server items to rawItems
         if (cart.items) {
            rawItems.value = cart.items.map((i: any) => ({
-             productId: typeof i.product === 'object' ? i.product.id : i.product,
-             variantId: typeof i.variant === 'object' ? i.variant.id : i.variant,
+             productId: (i.product && typeof i.product === 'object') ? i.product.id : i.product,
+             variantId: (i.variant && typeof i.variant === 'object') ? i.variant.id : i.variant,
              qty: i.quantity
            }))
         }
@@ -128,7 +129,8 @@ export const useCartStore = defineStore('cart', () => {
           baseURL: useRuntimeConfig().public.payloadUrl as string,
           method: 'PATCH',
           body: payload,
-          headers
+          headers,
+          credentials: 'include'
         })
       } else {
         // Create new cart
@@ -136,7 +138,8 @@ export const useCartStore = defineStore('cart', () => {
            baseURL: useRuntimeConfig().public.payloadUrl as string,
            method: 'POST',
            body: payload,
-           headers
+           headers,
+           credentials: 'include'
         })
         serverCartId.value = newCart.id
       }

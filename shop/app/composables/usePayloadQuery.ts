@@ -17,6 +17,7 @@ export async function usePayloadQuery<T = any>(
       `${config.public.payloadUrl}/api/graphql`,
       {
         method: 'POST',
+        credentials: 'include',
         body: {
           query,
           variables: {

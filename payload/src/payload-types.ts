@@ -188,7 +188,6 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
-  surname: string;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
     docs?: (number | Order)[];
@@ -968,7 +967,6 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
-  surname?: T;
   roles?: T;
   orders?: T;
   cart?: T;

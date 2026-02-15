@@ -1,0 +1,24 @@
+query Orders($userId: JSON!) {
+  Orders(where: { customer: { equals: $userId } }, sort: "-createdAt") {
+    docs {
+      id
+      createdAt
+      amount
+      status
+      items {
+        product {
+          title
+          slug
+          priceInEUR
+          meta {
+            image {
+              url
+              alt
+            }
+          }
+        }
+        quantity
+      }
+    }
+  }
+}

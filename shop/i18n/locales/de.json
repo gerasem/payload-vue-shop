@@ -89,6 +89,9 @@
   "Back to Login": "Zurück zum Login",
   "First Name": "Vorname",
   "Last Name": "Nachname",
-  "Name is required": "Vorname ist erforderlich",
-  "Surname is required": "Nachname ist erforderlich"
+  "Name is required": "Name ist erforderlich",
+  "Surname is required": "Nachname ist erforderlich",
+  "Order History": "Bestellhistorie",
+  "Profile": "Profil",
+  "No orders found.": "Keine Bestellungen gefunden."
 }

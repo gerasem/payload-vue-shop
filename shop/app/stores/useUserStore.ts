@@ -4,6 +4,7 @@ interface User {
   id: number
   email: string
   name?: string
+  surname?: string
   roles?: string[]
 }
 
@@ -59,12 +60,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  async function register(email: string, password: string, name: string, surname: string) {
+  async function register(email: string, password: string, name: string) {
     loading.value = true
     try {
       await apiCall('/api/users', {
         method: 'POST',
-        body: { email, password, passwordConfirm: password, name, surname }
+        body: { email, password, passwordConfirm: password, name }
       })
       // Auto login after registration
       await login(email, password)

@@ -18,7 +18,6 @@ usePageSeo({
 
 const schema = z.object({
   name: z.string().min(1, t('Name is required')),
-  surname: z.string().min(1, t('Surname is required')),
   email: z.string().email(t('Invalid email')),
   password: z.string().min(6, t('Password is too short')),
   confirmPassword: z.string()
@@ -31,7 +30,6 @@ type Schema = z.output<typeof schema>
 
 const state = reactive({
   name: '',
-  surname: '',
   email: '',
   password: '',
   confirmPassword: ''
@@ -39,7 +37,7 @@ const state = reactive({
 
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   try {
-    await userStore.register(event.data.email, event.data.password, event.data.name, event.data.surname)
+    await userStore.register(event.data.email, event.data.password, event.data.name)
     toast.add({
       title: t('Success'),
       description: t('Account created successfully'),
@@ -68,15 +66,9 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       </template>
 
       <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
-        <div class="grid grid-cols-2 gap-4">
-          <UFormField :label="t('First Name')" name="name" required>
-            <UInput v-model="state.name" type="text" placeholder="Max" autocomplete="given-name" />
-          </UFormField>
-
-          <UFormField :label="t('Last Name')" name="surname" required>
-            <UInput v-model="state.surname" type="text" placeholder="Mustermann" autocomplete="family-name" />
-          </UFormField>
-        </div>
+        <UFormField :label="t('Name')" name="name" required>
+          <UInput v-model="state.name" type="text" placeholder="Max Mustermann" autocomplete="name" />
+        </UFormField>
 
         <UFormField :label="t('Email')" name="email" required>
           <UInput v-model="state.email" type="email" placeholder="name@company.com" autocomplete="email" />
