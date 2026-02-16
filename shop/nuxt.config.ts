@@ -46,7 +46,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
-      googleAnalyticsId: ''
+      googleAnalyticsId: '',
+      shippingCost: 500, // 5.00 EUR in cents
+      freeShippingThreshold: 5000 // 50.00 EUR in cents
     }
   },
 

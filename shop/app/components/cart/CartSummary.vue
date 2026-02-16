@@ -8,8 +8,10 @@ const cartStore = useCartStore()
 
 withDefaults(defineProps<{
   showCheckoutButton?: boolean
+  showTotal?: boolean
 }>(), {
-  showCheckoutButton: true
+  showCheckoutButton: true,
+  showTotal: true
 })
 </script>
 
@@ -26,23 +28,37 @@ withDefaults(defineProps<{
       <span v-else class="font-semibold text-gray-900">{{ cartStore.totalFormatted }}</span>
     </div>
 
+    <!-- Shipping -->
+    <div v-if="showTotal" class="mb-4 flex justify-between border-b border-gray-200 pb-4">
+      <span class="text-gray-600">{{ t('Shipping') }}</span>
+      <span v-if="cartStore.shippingTotal === 0" class="font-medium text-green-600">{{ t('Free') }}</span>
+      <span v-else class="font-medium text-gray-900">{{ cartStore.shippingFormatted }}</span>
+    </div>
+
+    <!-- Total -->
+    <div v-if="showTotal" class="mb-6 flex justify-between font-bold text-lg">
+      <span>{{ t('Total') }}</span>
+      <USkeleton v-if="cartStore.isHydrating" class="h-8 w-32" />
+      <span v-else>{{ cartStore.grandTotalFormatted }}</span>
+    </div>
+
     <!-- Free shipping message -->
     <div v-if="cartStore.isHydrating" class="mb-4">
       <USkeleton class="h-12 w-full rounded-md" />
     </div>
-    <div v-else-if="cartStore.totalInEUR < 50" class="mb-4 rounded-md bg-blue-50 p-3">
+    <div v-else-if="cartStore.totalInEUR < cartStore.freeShippingThreshold" class="mb-4 rounded-md bg-blue-50 p-3">
       <p class="text-sm text-blue-700">
-        {{ t('Free shipping over 50€') }}
+        {{ t('Free shipping over {amount}', { amount: formatEuro(cartStore.freeShippingThreshold) }) }}
       </p>
       <p class="mt-1 text-xs text-blue-600">
         {{
           t('Add {amount} more to qualify', {
-            amount: formatEuro(50 - cartStore.totalInEUR)
+            amount: formatEuro(cartStore.freeShippingThreshold - cartStore.totalInEUR)
           })
         }}
       </p>
     </div>
-    <div v-else class="mb-4 rounded-md bg-green-50 p-3">
+    <div v-else-if="showTotal" class="mb-4 rounded-md bg-green-50 p-3">
       <p class="text-sm font-medium text-green-700">✓ {{ t('Free shipping applied!') }}</p>
     </div>
 

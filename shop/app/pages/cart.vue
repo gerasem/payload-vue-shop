@@ -70,14 +70,14 @@ usePageSeo({
 
       <!-- Cart summary sidebar -->
       <div class="lg:col-span-1 h-fit">
-        <CartSummary />
+        <CartSummary :show-total="false" />
       </div>
 
       <!-- SEO Text from Cart Page -->
       <!-- Cart Page Content -->
       <ContentText2Columns
-        v-if="cartPage?.content"
-        :text="richTextToHTML(cartPage.content)"
+        v-if="page?.content"
+        :text="richTextToHTML(page.content)"
       />
     </div>
   </div>

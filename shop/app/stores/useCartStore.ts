@@ -303,6 +303,22 @@ export const useCartStore = defineStore('cart', () => {
   const totalFormatted = computed(() => formatEuro(totalInEUR.value))
   const hasItems = computed(() => rawItems.value.length > 0)
 
+  // Shipping Logic
+  const config = useRuntimeConfig()
+  const shippingCost = config.public.shippingCost as number || 500
+  const freeShippingThreshold = config.public.freeShippingThreshold as number || 5000
+
+  const shippingTotal = computed(() => {
+    if (totalInEUR.value >= freeShippingThreshold) {
+      return 0
+    }
+    return shippingCost
+  })
+
+  const grandTotal = computed(() => totalInEUR.value + shippingTotal.value)
+  const grandTotalFormatted = computed(() => formatEuro(grandTotal.value))
+  const shippingFormatted = computed(() => formatEuro(shippingTotal.value))
+
   return {
     items,
     rawItems,
@@ -310,6 +326,12 @@ export const useCartStore = defineStore('cart', () => {
     totalInEUR,
     totalFormatted,
     hasItems,
+    // Shipping fields
+    shippingTotal,
+    shippingFormatted,
+    grandTotal,
+    grandTotalFormatted,
+    freeShippingThreshold,
     init,
     add,
     updateQuantity,
