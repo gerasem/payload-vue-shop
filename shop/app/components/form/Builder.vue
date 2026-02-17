@@ -34,13 +34,17 @@ const emit = defineEmits<{
 const state = reactive<Record<string, any>>({})
 
 // Initialize form state
-watch(() => props.fields, (newFields) => {
-  newFields.forEach(field => {
-    if (field.name && !(field.name in state)) {
-      state[field.name] = field.defaultValue ?? ''
-    }
-  })
-}, { immediate: true })
+watch(
+  () => props.fields,
+  newFields => {
+    newFields.forEach(field => {
+      if (field.name && !(field.name in state)) {
+        state[field.name] = field.defaultValue ?? ''
+      }
+    })
+  },
+  { immediate: true }
+)
 
 // Helper to get display label
 function getLabel(field: FormField): string {
@@ -78,24 +82,24 @@ const schema = computed(() => {
         // Handle empty string from input as undefined/null for optional numbers
         // z.preprocess converts input before validation
         validator = z.preprocess(
-          (val) => (val === '' ? undefined : Number(val)), 
+          val => (val === '' ? undefined : Number(val)),
           z.number({ invalid_type_error: `${label} must be a number` })
         )
         break
       case 'checkbox':
-         validator = z.boolean()
-         break
+        validator = z.boolean()
+        break
       default:
         validator = z.string()
     }
 
     if (field.required) {
       if (field.blockType === 'text' || field.blockType === 'textarea') {
-         validator = validator.min(1, `${label} is required`)
+        validator = validator.min(1, `${label} is required`)
       }
       if (field.blockType === 'checkbox') {
-         // Checkbox required usually means it must be true
-         validator = z.literal(true, { errorMap: () => ({ message: `${label} is required` }) })
+        // Checkbox required usually means it must be true
+        validator = z.literal(true, { errorMap: () => ({ message: `${label} is required` }) })
       }
     } else {
       validator = validator.optional().or(z.literal(''))
@@ -115,10 +119,10 @@ function onSubmit(event: FormSubmitEvent<any>) {
 <template>
   <UForm :schema="schema" :state="state" class="flex flex-wrap -mx-2" @submit="onSubmit">
     <template v-for="field in fields" :key="field.name">
-      <UFormField 
-        v-if="field.blockType !== 'message'" 
-        :label="getLabel(field)" 
-        :name="field.name" 
+      <UFormField
+        v-if="field.blockType !== 'message'"
+        :label="getLabel(field)"
+        :name="field.name"
         :required="field.required"
         class="px-2 mb-6"
         :style="{ width: field.width ? `${field.width}%` : '100%' }"
@@ -169,14 +173,13 @@ function onSubmit(event: FormSubmitEvent<any>) {
           :placeholder="getLabel(field)"
           class="w-full"
         />
-        
+
         <!-- Checkbox -->
         <UCheckbox
-           v-else-if="field.blockType === 'checkbox'"
-           v-model="state[field.name]"
-           :label="getLabel(field)"
+          v-else-if="field.blockType === 'checkbox'"
+          v-model="state[field.name]"
+          :label="getLabel(field)"
         />
-
       </UFormField>
     </template>
 

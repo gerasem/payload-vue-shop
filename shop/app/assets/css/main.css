@@ -68,23 +68,23 @@ a,
    but NOT .cookieControl__Bar — that wraps our custom #bar slot content */
 .cookieControl__Modal,
 .cookieControl__ControlButton {
-  display: none !important;
+  display: none;
 }
 
 /* Reset the default styling of the plugin's bar wrapper so our custom banner isn't affected.
    Using targeted resets instead of `all: unset` to preserve CSS custom properties for Nuxt UI. */
 .cookieControl__Bar {
-  display: block !important;
-  position: static !important;
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  max-width: none !important;
-  width: auto !important;
-  font-family: inherit !important;
-  color: inherit !important;
+  display: block;
+  position: static;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  max-width: none;
+  width: auto;
+  font-family: inherit;
+  color: inherit;
 
   /* Override the plugin's button CSS custom properties */
   --cookie-control-barButtonBackground: transparent;
@@ -94,10 +94,10 @@ a,
 
 /* Neutralize the plugin's forced button styling so UButton can use its own colors */
 .cookieControl__Bar button {
-  background: revert-layer !important;
-  color: revert-layer !important;
-  border: revert-layer !important;
-  padding: revert-layer !important;
+  background: revert-layer;
+  color: revert-layer;
+  border: revert-layer;
+  padding: revert-layer;
 }
 
 /* Rich text (Lexical) styling — shared by all pages rendering CMS content */

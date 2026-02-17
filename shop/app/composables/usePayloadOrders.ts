@@ -3,7 +3,7 @@ import type { OrdersQuery } from '@/generated/graphql'
 
 export const usePayloadOrders = async () => {
   const userStore = useUserStore()
-  
+
   // Ensure user is loaded
   if (!userStore.user?.id) return { orders: [] }
 

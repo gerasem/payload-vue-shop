@@ -2,23 +2,29 @@
 import { formatEuro } from '@/utils/price'
 
 const props = defineProps<{
-  variants: Array<{
-    id: number
-    title?: string | null
-    priceInEUR?: number | null
-    inventory?: number | null
-    options?: Array<{
-      id: number
-      label: string
-      value: string
-    }> | null
-  }> | null | undefined
+  variants:
+    | Array<{
+        id: number
+        title?: string | null
+        priceInEUR?: number | null
+        inventory?: number | null
+        options?: Array<{
+          id: number
+          label: string
+          value: string
+        }> | null
+      }>
+    | null
+    | undefined
   selectedVariantId?: number | null
   basePrice?: number | null
 }>()
 
 const emit = defineEmits<{
-  (e: 'select', variant: typeof props.variants extends Array<infer T> | null | undefined ? T : never): void
+  (
+    e: 'select',
+    variant: typeof props.variants extends Array<infer T> | null | undefined ? T : never
+  ): void
 }>()
 
 const { t } = useI18n()
@@ -65,12 +71,7 @@ function inventoryStatus(qty: number | null | undefined) {
         <!-- Title & Price -->
         <div class="variant-card__header">
           <span class="variant-card__title">{{ variantLabel(variant) }}</span>
-          <UBadge
-            v-if="variant.inventory === 0"
-            color="error"
-            variant="subtle"
-            size="xs"
-          >
+          <UBadge v-if="variant.inventory === 0" color="error" variant="subtle" size="xs">
             {{ t('Out of stock') }}
           </UBadge>
           <span class="variant-card__price">{{ formatEuro(variant.priceInEUR ?? basePrice) }}</span>

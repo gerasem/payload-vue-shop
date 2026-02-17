@@ -51,7 +51,9 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          <h1
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+          >
             {{ t('Forgot Password') }}
           </h1>
           <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -71,7 +73,12 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
       <UForm v-else :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
         <UFormField :label="t('Email')" name="email" required>
-          <UInput v-model="state.email" type="email" placeholder="name@company.com" autocomplete="email" />
+          <UInput
+            v-model="state.email"
+            type="email"
+            placeholder="name@company.com"
+            autocomplete="email"
+          />
         </UFormField>
 
         <UButton type="submit" block color="primary" size="lg" :loading="userStore.loading">

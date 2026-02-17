@@ -12,16 +12,16 @@ defineProps<{
 <template>
   <div v-if="boxes && boxes.length > 0" class="my-12">
     <div class="grid gap-6 md:grid-cols-2">
-      <div 
-        v-for="box in boxes" 
+      <div
+        v-for="box in boxes"
         :key="box.id || box.title"
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex h-full"
       >
         <!-- Image Section (Left, 40-50%) -->
         <div class="w-1/2 md:w-5/12 relative">
-          <img 
+          <img
             v-if="box.image && typeof box.image === 'object' && 'url' in box.image"
-            :src="usePayloadImageUrl(box.image.url)" 
+            :src="usePayloadImageUrl(box.image.url)"
             :alt="box.image.alt || box.title || ''"
             class="absolute inset-0 w-full h-full object-cover"
           />
@@ -29,12 +29,12 @@ defineProps<{
 
         <!-- Content Section (Right) -->
         <div class="w-1/2 md:w-7/12 p-6 flex flex-col justify-center">
-            <h3 class="text-2xl font-serif text-gray-900 mb-2 leading-tight">
-              {{ box.title }}
-            </h3>
-            <div class="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
-              {{ box.description }}
-            </div>
+          <h3 class="text-2xl font-serif text-gray-900 mb-2 leading-tight">
+            {{ box.title }}
+          </h3>
+          <div class="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
+            {{ box.description }}
+          </div>
         </div>
       </div>
     </div>

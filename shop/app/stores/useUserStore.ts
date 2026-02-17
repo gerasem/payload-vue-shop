@@ -14,7 +14,6 @@ export const useUserStore = defineStore('user', () => {
   const loading = ref(false)
   const config = useRuntimeConfig()
 
-
   // Helper for API calls using $fetch directly
   const apiCall = async <T>(url: string, options: any = {}, headers: any = {}) => {
     return await $fetch<T>(url, {

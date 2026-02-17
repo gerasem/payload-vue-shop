@@ -33,7 +33,7 @@ function handleFormSubmit(formData: any) {
     </h1>
 
     <!-- Empty cart redirection/message could go here if needed, but for now we assume user has items or just show empty summary -->
-    
+
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Checkout Form (Left Column) -->
       <div class="lg:col-span-2 space-y-8">
@@ -41,10 +41,7 @@ function handleFormSubmit(formData: any) {
 
         <!-- SEO Text from Checkout Page (Below Form) -->
         <div class="single-column-text">
-            <ContentText2Columns
-            v-if="page?.content"
-            :text="richTextToHTML(page.content)"
-            />
+          <ContentText2Columns v-if="page?.content" :text="richTextToHTML(page.content)" />
         </div>
       </div>
 

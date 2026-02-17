@@ -55,16 +55,19 @@ export const useCartStore = defineStore('cart', () => {
   )
 
   // Watch for user login to merge/fetch cart
-  watch(() => userStore.loggedIn, async (loggedIn) => {
-    if (loggedIn) {
-      await mergeGuestCart()
-    } else {
-      // On logout, clear local items
-      items.value = []
-      rawItems.value = []
-      serverCartId.value = null
+  watch(
+    () => userStore.loggedIn,
+    async loggedIn => {
+      if (loggedIn) {
+        await mergeGuestCart()
+      } else {
+        // On logout, clear local items
+        items.value = []
+        rawItems.value = []
+        serverCartId.value = null
+      }
     }
-  })
+  )
 
   // === Server Sync Logic ===
 
@@ -84,7 +87,7 @@ export const useCartStore = defineStore('cart', () => {
         baseURL: useRuntimeConfig().public.payloadUrl as string,
         params: {
           'where[customer][equals]': userStore.user.id,
-          'depth': 0 // We only need IDs primarily, but depth 0 gives structure
+          depth: 0 // We only need IDs primarily, but depth 0 gives structure
         },
         headers: getHeaders(),
         credentials: 'include'
@@ -93,14 +96,14 @@ export const useCartStore = defineStore('cart', () => {
       if (docs && docs.length > 0) {
         const cart = docs[0]
         serverCartId.value = cart.id
-        
+
         // Map server items to rawItems
         if (cart.items) {
-           rawItems.value = cart.items.map((i: any) => ({
-             productId: (i.product && typeof i.product === 'object') ? i.product.id : i.product,
-             variantId: (i.variant && typeof i.variant === 'object') ? i.variant.id : i.variant,
-             qty: i.quantity
-           }))
+          rawItems.value = cart.items.map((i: any) => ({
+            productId: i.product && typeof i.product === 'object' ? i.product.id : i.product,
+            variantId: i.variant && typeof i.variant === 'object' ? i.variant.id : i.variant,
+            qty: i.quantity
+          }))
         }
       }
     } catch (e) {
@@ -135,11 +138,11 @@ export const useCartStore = defineStore('cart', () => {
       } else {
         // Create new cart
         const newCart = await $fetch<{ id: number }>('/api/carts', {
-           baseURL: useRuntimeConfig().public.payloadUrl as string,
-           method: 'POST',
-           body: payload,
-           headers,
-           credentials: 'include'
+          baseURL: useRuntimeConfig().public.payloadUrl as string,
+          method: 'POST',
+          body: payload,
+          headers,
+          credentials: 'include'
         })
         serverCartId.value = newCart.id
       }
@@ -152,10 +155,10 @@ export const useCartStore = defineStore('cart', () => {
     // 1. Fetch server cart first to see what's there
     // Save local items to a temp var.
     const localItems = [...rawItems.value] // Copy guest items
-    
+
     await fetchServerCart() // This updates rawItems with server data
-    
-    if (localItems.length === 0) return 
+
+    if (localItems.length === 0) return
 
     // Merge logic
     localItems.forEach(localItem => {
@@ -227,7 +230,6 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-
   // Add item to cart (or update quantity if exists)
   async function add(
     productId: number | undefined,
@@ -264,7 +266,7 @@ export const useCartStore = defineStore('cart', () => {
 
     if (item) {
       item.qty = Math.max(1, qty) // Ensure at least 1
-      
+
       if (userStore.loggedIn) {
         await saveToServer()
       }
@@ -305,8 +307,8 @@ export const useCartStore = defineStore('cart', () => {
 
   // Shipping Logic
   const config = useRuntimeConfig()
-  const shippingCost = config.public.shippingCost as number || 500
-  const freeShippingThreshold = config.public.freeShippingThreshold as number || 5000
+  const shippingCost = (config.public.shippingCost as number) || 500
+  const freeShippingThreshold = (config.public.freeShippingThreshold as number) || 5000
 
   const shippingTotal = computed(() => {
     if (totalInEUR.value >= freeShippingThreshold) {

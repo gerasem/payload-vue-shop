@@ -89,12 +89,9 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           <div class="flex items-center justify-center min-w-[32px]">
             <ClientOnly>
               <template #fallback>
-                <UIcon
-                  name="i-heroicons-arrow-path"
-                  class="w-5 h-5 animate-spin text-gray-400"
-                />
+                <UIcon name="i-heroicons-arrow-path" class="w-5 h-5 animate-spin text-gray-400" />
               </template>
-              
+
               <NuxtLink
                 :to="localePath('/cart')"
                 class="flex items-center gap-1.5 transition-opacity hover:opacity-80"

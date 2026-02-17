@@ -16,15 +16,17 @@ usePageSeo({
   description: t('Create an account to manage your orders.')
 })
 
-const schema = z.object({
-  name: z.string().min(1, t('Name is required')),
-  email: z.string().email(t('Invalid email')),
-  password: z.string().min(6, t('Password is too short')),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: t('Passwords do not match'),
-  path: ['confirmPassword']
-})
+const schema = z
+  .object({
+    name: z.string().min(1, t('Name is required')),
+    email: z.string().email(t('Invalid email')),
+    password: z.string().min(6, t('Password is too short')),
+    confirmPassword: z.string()
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: t('Passwords do not match'),
+    path: ['confirmPassword']
+  })
 
 type Schema = z.output<typeof schema>
 
@@ -59,7 +61,9 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          <h1
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+          >
             {{ t('Create an account') }}
           </h1>
         </div>
@@ -67,19 +71,39 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
       <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
         <UFormField :label="t('Name')" name="name" required>
-          <UInput v-model="state.name" type="text" placeholder="Max Mustermann" autocomplete="name" />
+          <UInput
+            v-model="state.name"
+            type="text"
+            placeholder="Max Mustermann"
+            autocomplete="name"
+          />
         </UFormField>
 
         <UFormField :label="t('Email')" name="email" required>
-          <UInput v-model="state.email" type="email" placeholder="name@company.com" autocomplete="email" />
+          <UInput
+            v-model="state.email"
+            type="email"
+            placeholder="name@company.com"
+            autocomplete="email"
+          />
         </UFormField>
 
         <UFormField :label="t('Password')" name="password" required>
-          <UInput v-model="state.password" type="password" placeholder="••••••••" autocomplete="new-password" />
+          <UInput
+            v-model="state.password"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
         </UFormField>
 
         <UFormField :label="t('Confirm Password')" name="confirmPassword" required>
-          <UInput v-model="state.confirmPassword" type="password" placeholder="••••••••" autocomplete="new-password" />
+          <UInput
+            v-model="state.confirmPassword"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
         </UFormField>
 
         <UButton type="submit" block color="primary" size="lg" :loading="userStore.loading">
@@ -87,7 +111,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
         </UButton>
 
         <p class="text-sm font-light text-center text-gray-500 dark:text-gray-400">
-          {{ t('Already have an account?') }} 
+          {{ t('Already have an account?') }}
           <UButton variant="link" :padded="false" color="primary" to="/cabinet">
             {{ t('Sign in') }}
           </UButton>

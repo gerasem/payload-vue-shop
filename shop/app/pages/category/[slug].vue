@@ -37,11 +37,7 @@ const { data: productsData } = await useAsyncData(
   async () => {
     if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
     // Pass null for priceRange to fetch all products in category
-    return usePayloadProducts(
-      String(currentCategory.value.id),
-      sort.value,
-      null 
-    )
+    return usePayloadProducts(String(currentCategory.value.id), sort.value, null)
   },
   {
     watch: [sort] // Only re-fetch on sort change (or maybe even sort client side?)
@@ -65,21 +61,23 @@ const maxProductPrice = computed(() => {
 
 // Initialize price range once data is loaded
 // Watch for data changes to set initial range if not set
-watch(productsData, (data) => {
-  if (data?.products?.length && !priceRange.value) {
-     priceRange.value = [minProductPrice.value, maxProductPrice.value]
-  }
-}, { immediate: true })
-
+watch(
+  productsData,
+  data => {
+    if (data?.products?.length && !priceRange.value) {
+      priceRange.value = [minProductPrice.value, maxProductPrice.value]
+    }
+  },
+  { immediate: true }
+)
 
 const items = computed(() => {
   let filtered = allItems.value
 
   // Client-side price filtering
   if (priceRange.value) {
-    filtered = filtered.filter(item => 
-      item.priceInEUR >= priceRange.value![0] && 
-      item.priceInEUR <= priceRange.value![1]
+    filtered = filtered.filter(
+      item => item.priceInEUR >= priceRange.value![0] && item.priceInEUR <= priceRange.value![1]
     )
   }
 
@@ -108,10 +106,10 @@ usePageSeo({
     </div>
 
     <!-- Items Grid -->
-    <CategoryFilters 
+    <CategoryFilters
       v-if="priceRange && allItems.length > 0"
-      v-model="sort" 
-      v-model:price-range="priceRange" 
+      v-model="sort"
+      v-model:price-range="priceRange"
       :min="minProductPrice"
       :max="maxProductPrice"
     />
@@ -134,4 +132,3 @@ usePageSeo({
     </div>
   </div>
 </template>
-

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 // Fetch all categories with their items (4 per category) - SSR friendly
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
   return usePayloadCategoriesWithItems(4)
@@ -41,10 +40,7 @@ usePageSeo({
         </template>
 
         <!-- SEO Text from Home Page -->
-        <ContentText2Columns
-          v-if="homePage?.content"
-          :text="richTextToHTML(homePage.content)"
-        />
+        <ContentText2Columns v-if="homePage?.content" :text="richTextToHTML(homePage.content)" />
 
         <!-- Conversion Boxes -->
         <HomeConversionBoxes :boxes="homePage?.conversionBoxes" />

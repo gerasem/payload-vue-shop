@@ -27,7 +27,6 @@ const state = reactive({
   remember: false
 })
 
-
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   try {
     await userStore.login(event.data.email, event.data.password)
@@ -41,7 +40,7 @@ const loadingOrders = ref(false)
 
 async function fetchOrders() {
   if (!userStore.loggedIn) return
-  
+
   loadingOrders.value = true
   try {
     const { orders: fetchedOrders } = await usePayloadOrders()
@@ -60,13 +59,16 @@ onMounted(() => {
   }
 })
 
-watch(() => userStore.loggedIn, (loggedIn) => {
-  if (loggedIn) {
-    fetchOrders()
-  } else {
-    orders.value = []
+watch(
+  () => userStore.loggedIn,
+  loggedIn => {
+    if (loggedIn) {
+      fetchOrders()
+    } else {
+      orders.value = []
+    }
   }
-})
+)
 
 function formatPrice(amount: number | null | undefined) {
   if (amount == null) return '€0.00'
@@ -75,85 +77,99 @@ function formatPrice(amount: number | null | undefined) {
 
 function getOrderStatusColor(status: string | null | undefined) {
   switch (status) {
-    case 'completed': return 'primary'
-    case 'processing': return 'info'
-    case 'cancelled': return 'error'
-    case 'refunded': return 'warning'
-    default: return 'neutral'
+    case 'completed':
+      return 'primary'
+    case 'processing':
+      return 'info'
+    case 'cancelled':
+      return 'error'
+    case 'refunded':
+      return 'warning'
+    default:
+      return 'neutral'
   }
 }
 </script>
 
 <template>
   <div class="flex min-h-[50vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
         {{ t('My Account') }}
       </h1>
-      
+
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Profile Card -->
-          <UCard class="h-full">
-            <template #header>
-              <h3 class="font-semibold">{{ t('Profile') }}</h3>
-            </template>
-            <div class="space-y-4">
-               <p class="text-sm text-gray-500">{{ t('Email') }}</p>
-               <p class="font-medium">{{ userStore.user?.email }}</p>
-               
-               <p class="text-sm text-gray-500">{{ t('Name') }}</p>
-               <p class="font-medium">{{ userStore.user?.name }}</p>
+        <!-- Profile Card -->
+        <UCard class="h-full">
+          <template #header>
+            <h3 class="font-semibold">{{ t('Profile') }}</h3>
+          </template>
+          <div class="space-y-4">
+            <p class="text-sm text-gray-500">{{ t('Email') }}</p>
+            <p class="font-medium">{{ userStore.user?.email }}</p>
 
-               <div class="pt-4">
-                <UButton 
-                  block 
-                  color="neutral" 
-                  variant="outline" 
-                  :loading="userStore.loading"
-                  @click="userStore.logout"
-                >
-                  {{ t('Sign out') }}
-                </UButton>
-               </div>
+            <p class="text-sm text-gray-500">{{ t('Name') }}</p>
+            <p class="font-medium">{{ userStore.user?.name }}</p>
+
+            <div class="pt-4">
+              <UButton
+                block
+                color="neutral"
+                variant="outline"
+                :loading="userStore.loading"
+                @click="userStore.logout"
+              >
+                {{ t('Sign out') }}
+              </UButton>
             </div>
-          </UCard>
+          </div>
+        </UCard>
 
-          <!-- Orders Card -->
-          <UCard class="md:col-span-1 lg:col-span-2 h-full">
-            <template #header>
-              <h3 class="font-semibold">{{ t('Order History') }}</h3>
-            </template>
-            
-            <div v-if="loadingOrders" class="flex justify-center py-8">
-              <UIcon name="i-heroicons-arrow-path" class="animate-spin text-2xl text-gray-400" />
-            </div>
+        <!-- Orders Card -->
+        <UCard class="md:col-span-1 lg:col-span-2 h-full">
+          <template #header>
+            <h3 class="font-semibold">{{ t('Order History') }}</h3>
+          </template>
 
-            <div v-else-if="orders.length > 0" class="space-y-4">
-              <div v-for="order in orders" :key="order.id" class="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700">
-                <div>
-                  <p class="font-medium">Order #{{ order.id }}</p>
-                  <p class="text-sm text-gray-500">{{ new Date(order.createdAt).toLocaleDateString() }}</p>
-                </div>
-                <div class="text-right">
-                  <p class="font-bold">{{ formatPrice(order.amount) }}</p>
-                  <UBadge :color="getOrderStatusColor(order.status)" variant="subtle">{{ order.status }}</UBadge>
-                </div>
+          <div v-if="loadingOrders" class="flex justify-center py-8">
+            <UIcon name="i-heroicons-arrow-path" class="animate-spin text-2xl text-gray-400" />
+          </div>
+
+          <div v-else-if="orders.length > 0" class="space-y-4">
+            <div
+              v-for="order in orders"
+              :key="order.id"
+              class="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700"
+            >
+              <div>
+                <p class="font-medium">Order #{{ order.id }}</p>
+                <p class="text-sm text-gray-500">
+                  {{ new Date(order.createdAt).toLocaleDateString() }}
+                </p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold">{{ formatPrice(order.amount) }}</p>
+                <UBadge :color="getOrderStatusColor(order.status)" variant="subtle">{{
+                  order.status
+                }}</UBadge>
               </div>
             </div>
+          </div>
 
-            <div v-else class="text-center py-8 text-gray-500">
-              {{ t('No orders found.') }}
-            </div>
-          </UCard>
-        </div>
+          <div v-else class="text-center py-8 text-gray-500">
+            {{ t('No orders found.') }}
+          </div>
+        </UCard>
       </div>
+    </div>
 
     <UCard v-else class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          <h1
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+          >
             {{ t('Sign in to your account') }}
           </h1>
         </div>
@@ -161,11 +177,21 @@ function getOrderStatusColor(status: string | null | undefined) {
 
       <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
         <UFormField :label="t('Email')" name="email" required>
-          <UInput v-model="state.email" type="email" placeholder="name@company.com" autocomplete="email" />
+          <UInput
+            v-model="state.email"
+            type="email"
+            placeholder="name@company.com"
+            autocomplete="email"
+          />
         </UFormField>
 
         <UFormField :label="t('Password')" name="password" required>
-          <UInput v-model="state.password" type="password" placeholder="••••••••" autocomplete="current-password" />
+          <UInput
+            v-model="state.password"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
         </UFormField>
 
         <div class="flex items-center justify-between">
@@ -180,7 +206,7 @@ function getOrderStatusColor(status: string | null | undefined) {
         </UButton>
 
         <p class="text-sm font-light text-center text-gray-500 dark:text-gray-400">
-          {{ t('Don’t have an account yet?') }} 
+          {{ t('Don’t have an account yet?') }}
           <UButton variant="link" :padded="false" color="primary" to="/auth/register">
             {{ t('Sign up') }}
           </UButton>

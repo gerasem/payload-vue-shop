@@ -1,13 +1,16 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-  modelValue: string
-  priceRange: [number, number]
-  min?: number // In cents
-  max?: number // In cents
-}>(), {
-  min: 0,
-  max: 50000 // Default 500 EUR
-})
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    priceRange: [number, number]
+    min?: number // In cents
+    max?: number // In cents
+  }>(),
+  {
+    min: 0,
+    max: 50000 // Default 500 EUR
+  }
+)
 
 const emit = defineEmits(['update:modelValue', 'update:priceRange'])
 
@@ -21,7 +24,12 @@ const maxEuro = computed(() => Math.ceil(props.max / 100))
 const localPrice = computed({
   get: () => [props.priceRange[0] / 100, props.priceRange[1] / 100],
   set: (value: number[]) => {
-    if (value && value.length === 2 && typeof value[0] === 'number' && typeof value[1] === 'number') {
+    if (
+      value &&
+      value.length === 2 &&
+      typeof value[0] === 'number' &&
+      typeof value[1] === 'number'
+    ) {
       emit('update:priceRange', [Math.round(value[0] * 100), Math.round(value[1] * 100)])
     }
   }
@@ -30,7 +38,7 @@ const localPrice = computed({
 // Helper computed for inputs to ensure reactivity triggers the main computed setter
 const minPrice = computed({
   get: () => localPrice.value[0] ?? minEuro.value,
-  set: (val) => {
+  set: val => {
     const currentMax = localPrice.value[1] ?? maxEuro.value
     localPrice.value = [Number(val), currentMax]
   }
@@ -38,7 +46,7 @@ const minPrice = computed({
 
 const maxPrice = computed({
   get: () => localPrice.value[1] ?? maxEuro.value,
-  set: (val) => {
+  set: val => {
     const currentMin = localPrice.value[0] ?? minEuro.value
     localPrice.value = [currentMin, Number(val)]
   }
@@ -53,12 +61,14 @@ const sortOptions = computed(() => [
 // Use a computed property for v-model binding
 const selectedSort = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value)
 })
 </script>
 
 <template>
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-4 mb-8">
+  <div
+    class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-4 mb-8"
+  >
     <!-- Left: Price Range -->
     <div class="flex flex-col gap-2 w-full sm:w-1/2 md:w-1/3">
       <span class="text-sm font-medium text-gray-700">{{ t('Price Range (€)') }}</span>
@@ -71,7 +81,6 @@ const selectedSort = computed({
           :max="maxPrice"
           :increment="false"
           :decrement="false"
-  
         />
         <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.01" />
         <UInputNumber

@@ -30,7 +30,10 @@ import Text2Columns from '~/components/content/Text2Columns.vue'
 const { selectedOptions, selectedVariant, displayPrice } = useProductVariants(product)
 
 // Handle variant selection from VariantList
-function onVariantSelect(variant: { id: number; options?: Array<{ id: number; label: string; value: string }> | null }) {
+function onVariantSelect(variant: {
+  id: number
+  options?: Array<{ id: number; label: string; value: string }> | null
+}) {
   if (!variant.options || !product.value?.variantTypes) return
   const newOptions: Record<string, string> = {}
   for (const opt of variant.options) {
@@ -52,7 +55,7 @@ const liveInventory = ref<number | null>(null)
 async function updateInventory() {
   const productId = product.value?.id
   const variantId = selectedVariant.value?.id
-  
+
   if (productId) {
     liveInventory.value = await useLiveInventory(productId, variantId)
   }
@@ -64,15 +67,15 @@ onMounted(() => {
 })
 
 watch(selectedVariant, () => {
-    liveInventory.value = null // Reset while fetching
-    updateInventory()
+  liveInventory.value = null // Reset while fetching
+  updateInventory()
 })
 
 // Inventory quantity
 const inventoryQuantity = computed(() => {
   // Use live value if available, otherwise fall back to static data
   if (liveInventory.value !== null) {
-      return liveInventory.value
+    return liveInventory.value
   }
   return selectedVariant.value?.inventory ?? product.value?.inventory
 })
@@ -196,7 +199,6 @@ usePageSeo({
           @select="onVariantSelect"
         />
 
-
         <!-- Warning if variants not selected -->
         <UAlert
           v-if="product?.enableVariants && !canAddToCart && !isOutOfStock"
@@ -204,9 +206,9 @@ usePageSeo({
           variant="subtle"
           :title="t('Please select all product options')"
         />
-        
+
         <!-- Out of stock message (only for variant products, simple products use InventoryBadge) -->
-         <UAlert
+        <UAlert
           v-if="product?.enableVariants && isOutOfStock"
           color="error"
           variant="subtle"
@@ -266,7 +268,6 @@ usePageSeo({
             {{ adding ? t('Adding...') : t('Add to Cart') }}
           </UButton>
         </div>
-
 
         <!-- Shipping Terms (Storefront Replication) -->
         <div class="pt-4 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500">

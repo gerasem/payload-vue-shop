@@ -39,15 +39,17 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UCard>
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ t('Contact Information') }}</h2>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+        {{ t('Contact Information') }}
+      </h2>
     </div>
-    
+
     <UForm :schema="schema" :state="form" class="space-y-4" @submit="onSubmit">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <UFormField :label="t('First Name')" name="firstName" required>
           <UInput v-model="form.firstName" icon="i-heroicons-user" />
         </UFormField>
-        
+
         <UFormField :label="t('Last Name')" name="lastName" required>
           <UInput v-model="form.lastName" icon="i-heroicons-user" />
         </UFormField>
@@ -62,19 +64,23 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormField>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-         <UFormField :label="t('Postal Code')" name="postalCode" required>
+        <UFormField :label="t('Postal Code')" name="postalCode" required>
           <UInput v-model="form.postalCode" icon="i-heroicons-map-pin" />
         </UFormField>
-        
+
         <UFormField :label="t('City')" name="city" required>
           <UInput v-model="form.city" icon="i-heroicons-building-office" />
         </UFormField>
       </div>
 
       <UFormField :label="t('Country')" name="country" required>
-        <USelect v-model="form.country" :options="['DE', 'AT', 'CH']" icon="i-heroicons-globe-alt" />
+        <USelect
+          v-model="form.country"
+          :options="['DE', 'AT', 'CH']"
+          icon="i-heroicons-globe-alt"
+        />
       </UFormField>
-      
+
       <UFormField :label="t('Phone')" name="phone">
         <UInput v-model="form.phone" type="tel" icon="i-heroicons-phone" />
       </UFormField>

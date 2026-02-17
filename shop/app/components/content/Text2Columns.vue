@@ -6,8 +6,7 @@ defineProps<{
 
 <template>
   <div class="text-2-columns my-12 w-full">
-    <div class="text-content text-gray-600 block w-full" v-html="text">
-    </div>
+    <div class="text-content text-gray-600 block w-full" v-html="text"></div>
   </div>
 </template>
 
@@ -33,7 +32,7 @@ p {
 }
 
 @media (min-width: 768px) {
-  .text-content p{
+  .text-content p {
     column-count: 2;
     column-gap: 40px;
   }

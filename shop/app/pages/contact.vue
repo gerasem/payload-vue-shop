@@ -9,7 +9,9 @@ const { t } = useI18n()
 const toast = useToast()
 
 // Fetch contact page content
-const { data: contactPage } = await useAsyncData('contact-page-content', () => usePayloadPage('contact'))
+const { data: contactPage } = await useAsyncData('contact-page-content', () =>
+  usePayloadPage('contact')
+)
 
 // Fetch Dynamic Form Definition
 const config = useRuntimeConfig()
@@ -33,9 +35,9 @@ const submitted = ref(false)
 // Payload v3 usually returns { root: { children: [...] } }
 const successMessageHtml = computed(() => {
   const msg = contactForm.value?.confirmationMessage
-  
+
   if (!msg) return t('We will get back to you shortly.')
-  
+
   // If it's just a string, return it
   if (typeof msg === 'string') return msg
 
@@ -43,7 +45,7 @@ const successMessageHtml = computed(() => {
   if (msg.root) {
     return richTextToHTML(msg)
   }
-  
+
   return t('We will get back to you shortly.')
 })
 
@@ -67,11 +69,10 @@ async function onSubmit(formData: Record<string, any>) {
         submissionData
       }
     })
-    
+
     // Show success message instead of toast
     submitted.value = true
     window.scrollTo({ top: 0, behavior: 'smooth' })
-
   } catch (error: any) {
     console.error('Submission failed', error)
     toast.add({
@@ -97,10 +98,10 @@ usePageSeo({
       <!-- Contact Information -->
       <div>
         <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ t('Contact Us') }}</h1>
-        
+
         <!-- Dynamic Page Content -->
-        <div 
-          v-if="contactPage?.content" 
+        <div
+          v-if="contactPage?.content"
           class="text-gray-500 text-lg mb-8 prose max-w-none"
           v-html="richTextToHTML(contactPage.content)"
         ></div>
@@ -121,7 +122,7 @@ usePageSeo({
         <div v-else-if="!contactForm && !formsError">
           {{ t('Loading form...') }}
         </div>
-        
+
         <!-- Success Message -->
         <div v-else-if="submitted" class="text-center py-8">
           <div class="mb-4 text-secondary">
@@ -129,7 +130,7 @@ usePageSeo({
           </div>
           <h3 class="text-2xl font-bold mb-4">{{ t('Thank you!') }}</h3>
           <div class="prose max-w-none text-gray-600" v-html="successMessageHtml"></div>
-          
+
           <UButton class="mt-8" variant="outline" @click="submitted = false">
             {{ t('Send another message') }}
           </UButton>

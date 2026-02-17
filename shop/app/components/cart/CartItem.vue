@@ -149,9 +149,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
             <USkeleton class="h-6 w-16 ml-auto" />
           </template>
           <template v-else>
-            <p class="text-sm text-gray-500">
-              {{ formatEuro(item.priceInEUR) }} × {{ quantity }}
-            </p>
+            <p class="text-sm text-gray-500">{{ formatEuro(item.priceInEUR) }} × {{ quantity }}</p>
             <p class="text-base font-medium text-gray-900">
               {{ formatEuro(lineTotal) }}
             </p>
