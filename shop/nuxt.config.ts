@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   ],
 
   cookieControl: {
+    isCssEnabled: false,
     cookieExpiryOffsetMs: 1000 * 60 * 60 * 24 * 365, // one year
     isControlButtonEnabled: false, // hide the floating cookie icon — we use custom #bar slot only
     cookies: {

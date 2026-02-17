@@ -7,59 +7,57 @@ const analyticsConsent = ref(false)
 
 const { necessary, optional } = moduleOptions.cookies
 
-const acceptAll = () => {
+const applyCookies = (cookiesToEnable: typeof necessary) => {
   isConsentGiven.value = true
-  cookiesEnabled.value = [...necessary, ...optional]
-  cookiesEnabledIds.value = [...necessary, ...optional].map(c => c.id)
+  cookiesEnabled.value = cookiesToEnable
+  cookiesEnabledIds.value = cookiesToEnable.map(c => c.id)
   isSettingsOpen.value = false
 }
 
+const acceptAll = () => {
+  applyCookies([...necessary, ...optional])
+}
+
 const acceptNecessary = () => {
-  isConsentGiven.value = true
-  cookiesEnabled.value = [...necessary]
-  cookiesEnabledIds.value = necessary.map(c => c.id)
-  isSettingsOpen.value = false
+  applyCookies([...necessary])
 }
 
 const saveSettings = () => {
   const enabledOptional = analyticsConsent.value ? optional.filter(c => c.id === 'analytics') : []
-  isConsentGiven.value = true
-  cookiesEnabled.value = [...necessary, ...enabledOptional]
-  cookiesEnabledIds.value = [...necessary, ...enabledOptional].map(c => c.id)
-  isSettingsOpen.value = false
+  applyCookies([...necessary, ...enabledOptional])
 }
 </script>
 
 <template>
   <CookieControl>
     <template #bar>
-      <div v-if="!isConsentGiven" class="cookie-banner">
+      <div v-if="!isConsentGiven" class="fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] py-6 animate-slide-up">
         <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="cookie-banner__layout">
+          <div class="flex flex-col gap-8 items-start lg:flex-row">
             <!-- Text Content -->
-            <div class="cookie-banner__text">
-              <h2 class="cookie-banner__title">
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold text-gray-900 mb-4">
                 {{ t('Your Data. Your Choice.') }}
               </h2>
-              <p class="cookie-banner__body">
+              <p class="text-sm leading-[1.625] text-gray-700 mb-4 lg:mb-0">
                 {{ t('cookie_intro1') }}
               </p>
-              <p class="cookie-banner__body">
+              <p class="text-sm leading-[1.625] text-gray-700 mb-6 lg:mb-0">
                 {{ t('cookie_intro2') }}
               </p>
 
-              <div class="cookie-banner__links">
-                <NuxtLink to="/page/impressum" class="cookie-banner__link">
+              <div class="mt-4 flex gap-6 text-sm">
+                <NuxtLink to="/page/impressum" class="text-primary-500 hover:underline">
                   {{ t('Imprint') }}
                 </NuxtLink>
-                <NuxtLink to="/page/datenschutz" class="cookie-banner__link">
+                <NuxtLink to="/page/datenschutz" class="text-primary-500 hover:underline">
                   {{ t('Privacy Policy') }}
                 </NuxtLink>
               </div>
             </div>
 
             <!-- Actions -->
-            <div class="cookie-banner__actions">
+            <div class="w-full flex flex-col gap-3 shrink-0 lg:w-80">
               <UButton
                 color="primary"
                 block
@@ -98,49 +96,49 @@ const saveSettings = () => {
   </CookieControl>
 
   <!-- Settings Modal -->
-  <div v-if="isSettingsOpen" class="cookie-modal-overlay" @click.self="isSettingsOpen = false">
-    <div class="cookie-modal">
-      <div class="cookie-modal__header">
-        <h3 class="cookie-modal__title">
+  <div v-if="isSettingsOpen" class="fixed inset-0 z-[10001] bg-black/50 flex items-center justify-center animate-fade-in" @click.self="isSettingsOpen = false">
+    <div class="bg-white rounded-xl max-w-[520px] w-[90%] max-h-[90vh] overflow-y-auto p-6 shadow-[0_20px_60px_rgba(0,0,0,0.15)] animate-scale-in">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-900">
           {{ t('Customize Cookies') }}
         </h3>
-        <button class="cookie-modal__close" @click="isSettingsOpen = false">✕</button>
+        <button class="flex items-center justify-center w-8 h-8 rounded-md border-none bg-transparent text-gray-500 text-base cursor-pointer hover:bg-gray-100 transition-colors duration-150" @click="isSettingsOpen = false">✕</button>
       </div>
 
-      <p class="cookie-modal__description">
+      <p class="text-sm text-gray-700 mb-6">
         {{ t('cookie_intro1') }}
       </p>
 
-      <div class="cookie-modal__options">
+      <div class="flex flex-col gap-6 mb-8">
         <!-- Necessary -->
-        <div class="cookie-option">
-          <div class="cookie-option__info">
-            <div class="cookie-option__name">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="font-medium text-gray-900 mb-1">
               {{ t('Strictly necessary') }}
             </div>
-            <p class="cookie-option__desc">
+            <p class="text-xs text-gray-500">
               {{ t('cookie_necessary_desc') }}
             </p>
           </div>
-          <label class="cookie-toggle cookie-toggle--disabled">
-            <input type="checkbox" checked disabled />
-            <span class="cookie-toggle__slider" />
+          <label class="relative inline-block w-[44px] h-[24px] shrink-0 mt-[2px] opacity-60 cursor-not-allowed">
+            <input type="checkbox" checked disabled class="peer sr-only" />
+            <span class="absolute cursor-not-allowed inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]" />
           </label>
         </div>
 
         <!-- Analytics -->
-        <div class="cookie-option">
-          <div class="cookie-option__info">
-            <div class="cookie-option__name">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="font-medium text-gray-900 mb-1">
               {{ t('Marketing / Analytics') }}
             </div>
-            <p class="cookie-option__desc">
+            <p class="text-xs text-gray-500">
               {{ t('cookie_analytics_desc') }}
             </p>
           </div>
-          <label class="cookie-toggle">
-            <input v-model="analyticsConsent" type="checkbox" />
-            <span class="cookie-toggle__slider" />
+          <label class="relative inline-block w-[44px] h-[24px] shrink-0 mt-[2px]">
+            <input v-model="analyticsConsent" type="checkbox" class="peer sr-only" />
+            <span class="absolute cursor-pointer inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]" />
           </label>
         </div>
       </div>
@@ -158,238 +156,19 @@ const saveSettings = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-$color-text: #1e1e1e;
-$color-text-secondary: #454545;
-$color-text-muted: #787878;
-$color-primary: #eb3e7d;
-$color-border: #e3e3e3;
-$color-bg-hover: #f0f0f0;
-
-// Banner
-.cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  background: #fff;
-  border-top: 1px solid $color-border;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem 0;
+<style scoped>
+.animate-slide-up {
   animation: slideUp 0.35s ease-out;
-
-  &__layout {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
-
-    @media (min-width: 1024px) {
-      flex-direction: row;
-    }
-  }
-
-  &__text {
-    flex: 1;
-  }
-
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $color-text;
-    margin-bottom: 1rem;
-  }
-
-  &__body {
-    font-size: 0.875rem;
-    line-height: 1.625;
-    color: $color-text-secondary;
-    margin-bottom: 1rem;
-
-    &:last-of-type {
-      margin-bottom: 1.5rem;
-
-      @media (min-width: 1024px) {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  &__links {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.875rem;
-  }
-
-  &__link {
-    color: $color-primary;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__actions {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    flex-shrink: 0;
-
-    @media (min-width: 1024px) {
-      width: 20rem;
-    }
-  }
 }
 
-// Settings Modal
-.cookie-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 10001;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.animate-fade-in {
   animation: fadeIn 0.2s ease-out;
 }
 
-.cookie-modal {
-  background: #fff;
-  border-radius: 12px;
-  max-width: 520px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 1.5rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+.animate-scale-in {
   animation: scaleIn 0.25s ease-out;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-
-  &__title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $color-text;
-  }
-
-  &__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: none;
-    background: transparent;
-    color: $color-text-muted;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-
-    &:hover {
-      background: $color-bg-hover;
-    }
-  }
-
-  &__description {
-    font-size: 0.875rem;
-    color: $color-text-secondary;
-    margin-bottom: 1.5rem;
-  }
-
-  &__options {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
 }
 
-// Cookie option row
-.cookie-option {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-
-  &__info {
-    flex: 1;
-  }
-
-  &__name {
-    font-weight: 500;
-    color: $color-text;
-    margin-bottom: 0.25rem;
-  }
-
-  &__desc {
-    font-size: 0.75rem;
-    color: $color-text-muted;
-  }
-}
-
-// Toggle switch
-.cookie-toggle {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-  flex-shrink: 0;
-  margin-top: 2px;
-
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  &__slider {
-    position: absolute;
-    cursor: pointer;
-    inset: 0;
-    background: #c8c8c8;
-    border-radius: 24px;
-    transition: background-color 0.25s ease;
-
-    &::before {
-      content: '';
-      position: absolute;
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background: #fff;
-      border-radius: 50%;
-      transition: transform 0.25s ease;
-    }
-  }
-
-  input:checked + &__slider {
-    background: $color-primary;
-  }
-
-  input:checked + &__slider::before {
-    transform: translateX(20px);
-  }
-
-  &--disabled {
-    opacity: 0.6;
-
-    .cookie-toggle__slider {
-      cursor: not-allowed;
-    }
-  }
-}
-
-// Animations
 @keyframes slideUp {
   from {
     transform: translateY(100%);
