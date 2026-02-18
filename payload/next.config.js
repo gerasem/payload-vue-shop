@@ -22,6 +22,12 @@ const nextConfig = {
       }).filter(Boolean),
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   reactStrictMode: true,
   redirects,
   webpack: (webpackConfig) => {

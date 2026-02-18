@@ -128,12 +128,14 @@ export default buildConfig({
     'http://localhost:3000',
     'http://localhost:3001',
     process.env.NEXT_PUBLIC_SERVER_URL || '',
+    process.env.FRONTEND_URL || '',
   ].filter(Boolean),
   csrf: [
     'http://localhost:8000',
     'http://localhost:3000',
     'http://localhost:3001',
     process.env.NEXT_PUBLIC_SERVER_URL || '',
+    process.env.FRONTEND_URL || '',
   ].filter(Boolean),
   graphQL: {
     disablePlaygroundInProduction: false,
