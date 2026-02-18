@@ -15,9 +15,8 @@ const { data: contactPage } = await useAsyncData('contact-page-content', () =>
 
 // Fetch Dynamic Form Definition
 const config = useRuntimeConfig()
-const payloadUrl = config.public.payloadUrl || 'http://localhost:3000'
 
-const { data: formsData, error: formsError } = await useFetch<any>(`${payloadUrl}/api/forms`, {
+const { data: formsData, error: formsError } = await usePayloadFetch<any>('/api/forms', {
   params: {
     'where[title][like]': 'Contact',
     limit: 1
@@ -62,7 +61,7 @@ async function onSubmit(formData: Record<string, any>) {
       value
     }))
 
-    await $fetch('/api/contact', {
+    await $payloadFetch('/api/contact', {
       method: 'POST',
       body: {
         formId: contactForm.value.id,

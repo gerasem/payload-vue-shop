@@ -38,7 +38,8 @@ export default defineEventHandler(async event => {
 
   try {
     // Forward directly to Payload Form Builder API
-    const response = await $fetch(`${payloadUrl}/api/form-submissions`, {
+    const response = await $fetch('/api/form-submissions', {
+      baseURL: payloadUrl as string,
       method: 'POST',
       body: {
         form: result.data.formId,

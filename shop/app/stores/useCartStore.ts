@@ -71,26 +71,17 @@ export const useCartStore = defineStore('cart', () => {
 
   // === Server Sync Logic ===
 
-  // Helper to get headers with cookie
-  const getHeaders = () => {
-    const headers = useRequestHeaders(['cookie'])
-    return headers
-  }
-
   async function fetchServerCart() {
     if (!userStore.user) return
 
     try {
       // Fetch cart for current user
       // Assuming 'carts' collection has 'customer' field
-      const { docs } = await $fetch<{ docs: any[] }>('/api/carts', {
-        baseURL: useRuntimeConfig().public.payloadUrl as string,
+      const { docs } = await $payloadFetch<{ docs: any[] }>('/api/carts', {
         params: {
           'where[customer][equals]': userStore.user.id,
           depth: 0 // We only need IDs primarily, but depth 0 gives structure
-        },
-        headers: getHeaders(),
-        credentials: 'include'
+        }
       })
 
       if (docs && docs.length > 0) {
@@ -124,25 +115,17 @@ export const useCartStore = defineStore('cart', () => {
         }))
       }
 
-      const headers = getHeaders()
-
       if (serverCartId.value) {
         // Update existing cart
-        await $fetch(`/api/carts/${serverCartId.value}`, {
-          baseURL: useRuntimeConfig().public.payloadUrl as string,
+        await $payloadFetch(`/api/carts/${serverCartId.value}`, {
           method: 'PATCH',
-          body: payload,
-          headers,
-          credentials: 'include'
+          body: payload
         })
       } else {
         // Create new cart
-        const newCart = await $fetch<{ id: number }>('/api/carts', {
-          baseURL: useRuntimeConfig().public.payloadUrl as string,
+        const newCart = await $payloadFetch<{ id: number }>('/api/carts', {
           method: 'POST',
-          body: payload,
-          headers,
-          credentials: 'include'
+          body: payload
         })
         serverCartId.value = newCart.id
       }

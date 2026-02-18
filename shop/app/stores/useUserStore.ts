@@ -14,29 +14,18 @@ export const useUserStore = defineStore('user', () => {
   const loading = ref(false)
   const config = useRuntimeConfig()
 
-  // Helper for API calls using $fetch directly
-  const apiCall = async <T>(url: string, options: any = {}, headers: any = {}) => {
-    return await $fetch<T>(url, {
-      baseURL: config.public.payloadUrl as string,
-      credentials: 'include',
-      headers: {
-        ...headers,
-        ...options.headers
-      },
-      ...options
-    })
-  }
+  // Helper for API calls was replaced by usePayloadFetch
 
   async function login(email: string, password: string) {
     loading.value = true
     try {
       // $fetch throws on error automatically
-      const data = await apiCall<{ user: User; token?: string }>('/api/users/login', {
+      const data = await $payloadFetch<{ user: User; token?: string }>('/api/users/login', {
         method: 'POST',
         body: { email, password }
       })
 
-      if (data && data.user) {
+      if (data?.user) {
         user.value = data.user
       }
     } catch (err: any) {
@@ -50,7 +39,7 @@ export const useUserStore = defineStore('user', () => {
   async function logout() {
     loading.value = true
     try {
-      await apiCall('/api/users/logout', { method: 'POST' })
+      await $payloadFetch('/api/users/logout', { method: 'POST' })
       user.value = null
     } catch (err) {
       console.error('Logout error:', err)
@@ -62,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
   async function register(email: string, password: string, name: string) {
     loading.value = true
     try {
-      await apiCall('/api/users', {
+      await $payloadFetch('/api/users', {
         method: 'POST',
         body: { email, password, passwordConfirm: password, name }
       })
@@ -79,7 +68,7 @@ export const useUserStore = defineStore('user', () => {
   async function forgotPassword(email: string) {
     loading.value = true
     try {
-      await apiCall('/api/users/forgot-password', {
+      await $payloadFetch('/api/users/forgot-password', {
         method: 'POST',
         body: { email }
       })
@@ -93,8 +82,10 @@ export const useUserStore = defineStore('user', () => {
 
   async function fetchUser(headers: any = {}) {
     try {
-      const data = await apiCall<{ user: User }>('/api/users/me', {}, headers)
-      if (data && data.user) {
+      const data = await $payloadFetch<{ user: User }>('/api/users/me', {
+       headers
+      })
+      if (data?.user) {
         user.value = data.user
       } else {
         user.value = null
