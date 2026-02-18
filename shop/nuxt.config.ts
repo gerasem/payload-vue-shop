@@ -9,8 +9,26 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxtjs/i18n',
     '@pinia/nuxt',
-    '@dargmuesli/nuxt-cookie-control'
+    '@dargmuesli/nuxt-cookie-control',
+    '@nuxtjs/sitemap'
   ],
+
+  site: {
+    url: process.env.SITE_URL || 'http://localhost:3001'
+  },
+
+  sitemap: {
+    sources: [
+      '/api/sitemap-routes'
+    ],
+    exclude: [
+      '/auth/**',
+      '/warenkorb',
+      '/checkout',
+      '/payment',
+      '/cabinet/**'
+    ]
+  },
 
   cookieControl: {
     isCssEnabled: false,
