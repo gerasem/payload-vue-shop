@@ -12,9 +12,10 @@ export interface CategoryWithItems {
  * Returns array of categories with up to 4 items each
  */
 export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
-  const data = await usePayloadQuery<CategoriesWithItemsQuery>(categoriesWithItemsQuery)
-  // Fetch sort order
-  const settings = await useShopSettings()
+  const [data, settings] = await Promise.all([
+    usePayloadQuery<CategoriesWithItemsQuery>(categoriesWithItemsQuery),
+    useShopSettings()
+  ])
   
   const orderedCategories = settings?.categoryOrder || []
 
@@ -60,7 +61,7 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
       const fullCategory = categoryMap.get(categoryData.id)
       
       // Check for manually selected products
-      const manualProducts = item.highlightedProducts?.docs
+      const manualProducts = item.highlightedProducts
       const hasManualProducts = manualProducts && manualProducts.length > 0
 
       if (fullCategory) {

@@ -6,15 +6,17 @@ import type { CategoriesQuery } from '@/generated/graphql'
  * Returns minimal category data (id, title, slug)
  */
 export async function usePayloadCategories() {
-  const data = await usePayloadQuery<CategoriesQuery>(categoriesQuery)
-  const settings = await useShopSettings()
+  const [data, settings] = await Promise.all([
+    usePayloadQuery<CategoriesQuery>(categoriesQuery),
+    useShopSettings()
+  ])
   
   const orderedCategories = settings?.categoryOrder || []
   const categories = data?.Categories?.docs || []
   
-  console.log('usePayloadCategories: settings', settings)
-  console.log('usePayloadCategories: orderedCategories', orderedCategories)
-  console.log('usePayloadCategories: ALL categories', categories)
+
+  
+  console.log('usePayloadCategories: settings fetched', settings)
 
   if (orderedCategories.length === 0) {
     console.log('usePayloadCategories: No order defined, returning all')

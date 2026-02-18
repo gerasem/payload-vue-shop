@@ -7,9 +7,13 @@ export async function usePayloadQuery<T = any>(
   query: string,
   variables: Record<string, any> = {}
 ): Promise<T | null> {
+  // Capture context at start of function
+  const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
-  const { $i18n } = useNuxtApp()
-  const locale = $i18n.locale
+  
+  // Safe access to i18n
+  const i18n = nuxtApp.$i18n
+  const locale = unref(i18n.locale)
   const toast = useToast()
 
   try {
@@ -17,12 +21,12 @@ export async function usePayloadQuery<T = any>(
       `${config.public.payloadUrl}/api/graphql`,
       {
         method: 'POST',
-        credentials: 'include',
+        // credentials: 'include', // Only needed if using cookies/session
         body: {
           query,
           variables: {
             ...variables,
-            locale: locale.value
+            locale
           }
         }
       }
