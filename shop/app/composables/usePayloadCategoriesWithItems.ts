@@ -53,13 +53,27 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
   // 1. Process ordered categories first
   if (orderedCategories.length > 0) {
     orderedCategories.forEach((item: any) => {
-      // The structure is now { category: { id, ... }, id: ... } due to array field
+      // The structure is now { category: { id, ... }, highlightedProducts: { docs: [...] } }
       const categoryData = item.category
       if (!categoryData) return
 
       const fullCategory = categoryMap.get(categoryData.id)
+      
+      // Check for manually selected products
+      const manualProducts = item.highlightedProducts?.docs
+      const hasManualProducts = manualProducts && manualProducts.length > 0
+
       if (fullCategory) {
-        result.push(processCategory(fullCategory as ICategory))
+        if (hasManualProducts) {
+          // Use manual products
+          result.push({
+            category: fullCategory as ICategory,
+            items: manualProducts as IItem[]
+          })
+        } else {
+          // Fallback to auto-fetched products
+          result.push(processCategory(fullCategory as ICategory))
+        }
         processedIds.add(fullCategory.id)
       }
     })

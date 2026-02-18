@@ -6,6 +6,22 @@ query ShopSettings {
         title
         slug
       }
+      highlightedProducts {
+        id
+        title
+        slug
+        priceInEUR
+        enableVariants
+        variants {
+          docs {
+            priceInEUR
+          }
+        }
+        gallery {
+          url
+          alt
+        }
+      }
     }
   }
 }

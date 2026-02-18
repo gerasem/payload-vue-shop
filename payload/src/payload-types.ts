@@ -1596,6 +1596,10 @@ export interface ShopSetting {
   categoryOrder?:
     | {
         category: number | Category;
+        /**
+         * Select products to display for this category. If empty, standard logic applies.
+         */
+        highlightedProducts?: (number | Product)[] | null;
         id?: string | null;
       }[]
     | null;
@@ -1717,6 +1721,7 @@ export interface ShopSettingsSelect<T extends boolean = true> {
     | T
     | {
         category?: T;
+        highlightedProducts?: T;
         id?: T;
       };
   updatedAt?: T;

@@ -22,6 +22,23 @@ export const ShopSettings: GlobalConfig = {
           relationTo: 'categories',
           required: true,
         },
+        {
+          name: 'highlightedProducts',
+          type: 'relationship',
+          relationTo: 'products',
+          hasMany: true,
+          label: 'Highlighted Products',
+          filterOptions: ({ siblingData }) => {
+            return {
+              categories: {
+                equals: siblingData?.category,
+              },
+            }
+          },
+          admin: {
+            description: 'Select products to display for this category. If empty, standard logic applies.',
+          },
+        },
       ],
 
     },
