@@ -6,7 +6,7 @@
 export async function usePayloadQuery<T = any>(
   query: string,
   variables: Record<string, any> = {}
-): Promise<T> {
+): Promise<T | null> {
   const config = useRuntimeConfig()
   const { $i18n } = useNuxtApp()
   const locale = $i18n.locale
@@ -47,7 +47,8 @@ export async function usePayloadQuery<T = any>(
         })
       }
 
-      throw new Error(errorMessage)
+      // Return null instead of throwing
+      return null
     }
 
     return response.data
@@ -66,6 +67,7 @@ export async function usePayloadQuery<T = any>(
       })
     }
 
-    throw error
+    // Return null instead of throwing to prevent app crash
+    return null
   }
 }

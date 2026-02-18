@@ -23,7 +23,7 @@ export default defineNuxtConfig({
           name: {
             de: 'Technisch notwendige Cookies',
             en: 'Technically necessary cookies'
-          },
+          }
         }
       ],
       optional: [
@@ -32,11 +32,11 @@ export default defineNuxtConfig({
           name: {
             de: 'Analyse-Cookies',
             en: 'Analytics cookies'
-          },
+          }
         }
       ]
     },
-    locales: ['de', 'en'],
+    locales: ['de', 'en']
   },
 
   devtools: {

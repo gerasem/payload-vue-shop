@@ -7,5 +7,5 @@ import type { CategoriesQuery } from '@/generated/graphql'
  */
 export async function usePayloadCategories() {
   const data = await usePayloadQuery<CategoriesQuery>(categoriesQuery)
-  return data.Categories?.docs || []
+  return data?.Categories?.docs || []
 }

@@ -16,7 +16,7 @@ export async function usePayloadProductsByIds(ids: number[]): Promise<Map<number
     ids.map(async id => {
       try {
         const data = await usePayloadQuery<ProductByIdQuery>(productByIdQuery, { id })
-        const product = data.Products?.docs?.[0]
+        const product = data?.Products?.docs?.[0]
         if (product) {
           map.set(id, product as IProductFull)
         }

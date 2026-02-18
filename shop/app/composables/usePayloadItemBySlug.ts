@@ -10,7 +10,7 @@ export async function usePayloadItemBySlug(slug: string): Promise<IProductFull |
     slug
   })
 
-  const product = data.Products?.docs?.[0]
+  const product = data?.Products?.docs?.[0]
 
   return product ? (product as IProductFull) : null
 }

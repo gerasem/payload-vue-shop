@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const body = await readBody(event)
   const config = useRuntimeConfig()
   const payloadUrl = config.public.payloadUrl || 'http://localhost:3000'
@@ -8,10 +8,12 @@ export default defineEventHandler(async (event) => {
   // Generic schema expecting formId and submissionData array
   const schema = z.object({
     formId: z.number().or(z.string()),
-    submissionData: z.array(z.object({
-      field: z.string(),
-      value: z.any()
-    })),
+    submissionData: z.array(
+      z.object({
+        field: z.string(),
+        value: z.any()
+      })
+    ),
     honey: z.string().optional() // Honeypot field (if still used)
   })
 
@@ -45,18 +47,17 @@ export default defineEventHandler(async (event) => {
     })
 
     return { success: true, data: response }
-
   } catch (error: any) {
     console.error('Contact submission error:', error)
     // Payload might return useful validation errors
     if (error.data && error.data.errors) {
-       throw createError({
+      throw createError({
         statusCode: 400,
         statusMessage: 'Form Validation Failed',
         data: error.data.errors
       })
     }
-    
+
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to send message',

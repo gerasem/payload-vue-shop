@@ -7,5 +7,5 @@ import type { FooterQuery } from '@/generated/graphql'
  */
 export async function usePayloadFooter() {
   const data = await usePayloadQuery<FooterQuery>(footerQuery)
-  return data.Footer
+  return data?.Footer || null
 }

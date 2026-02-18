@@ -14,6 +14,8 @@ export interface CategoryWithItems {
 export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
   const data = await usePayloadQuery<CategoriesWithItemsQuery>(categoriesWithItemsQuery)
 
+  if (!data) return []
+
   const categories = data.Categories?.docs || []
   const allProducts = data.Products?.docs || []
 

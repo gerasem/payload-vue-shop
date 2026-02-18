@@ -16,7 +16,7 @@ export async function useLiveInventory(
       id: productId
     })
 
-    const product = result.Products?.docs?.[0]
+    const product = result?.Products?.docs?.[0]
     if (!product) return null
 
     if (variantId) {

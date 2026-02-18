@@ -7,5 +7,5 @@ import type { InformationBannerQuery } from '@/generated/graphql'
  */
 export async function usePayloadInformationBanner() {
   const data = await usePayloadQuery<InformationBannerQuery>(informationBannerQuery)
-  return data.InformationBanner
+  return data?.InformationBanner
 }

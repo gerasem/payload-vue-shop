@@ -17,7 +17,7 @@ export async function usePayloadProducts(
   })
 
   return {
-    products: data.Products?.docs || [],
-    totalDocs: data.Products?.totalDocs || 0
+    products: data?.Products?.docs || [],
+    totalDocs: data?.Products?.totalDocs || 0
   }
 }

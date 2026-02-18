@@ -7,5 +7,5 @@ import type { HeaderQuery } from '@/generated/graphql'
  */
 export async function usePayloadHeader() {
   const data = await usePayloadQuery<HeaderQuery>(headerQuery)
-  return data.Header
+  return data?.Header || null
 }
