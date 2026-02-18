@@ -1,0 +1,11 @@
+query ShopSettings {
+  ShopSetting {
+    categoryOrder {
+      category {
+        id
+        title
+        slug
+      }
+    }
+  }
+}

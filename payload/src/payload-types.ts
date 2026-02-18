@@ -134,11 +134,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     'information-banner': InformationBanner;
+    'shop-settings': ShopSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'information-banner': InformationBannerSelect<false> | InformationBannerSelect<true>;
+    'shop-settings': ShopSettingsSelect<false> | ShopSettingsSelect<true>;
   };
   locale: 'de' | 'en';
   user: User;
@@ -1587,6 +1589,21 @@ export interface InformationBanner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop-settings".
+ */
+export interface ShopSetting {
+  id: number;
+  categoryOrder?:
+    | {
+        category: number | Category;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1685,6 +1702,21 @@ export interface InformationBannerSelect<T extends boolean = true> {
     | {
         text?: T;
         icon?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop-settings_select".
+ */
+export interface ShopSettingsSelect<T extends boolean = true> {
+  categoryOrder?:
+    | T
+    | {
+        category?: T;
         id?: T;
       };
   updatedAt?: T;

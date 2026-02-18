@@ -27,6 +27,7 @@ import { Footer } from '@/globals/Footer'
 import { Header } from '@/globals/Header'
 import { plugins } from './plugins'
 import { InformationBanner } from '@/globals/InformationBanner'
+import { ShopSettings } from '@/globals/ShopSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -86,7 +87,7 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Header, Footer, InformationBanner],
+  globals: [Header, Footer, InformationBanner, ShopSettings],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
