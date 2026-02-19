@@ -189,7 +189,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  name: string;
+  name?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
     docs?: (number | Order)[];

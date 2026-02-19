@@ -30,7 +30,7 @@ export const Users: CollectionConfig = {
       name: 'name',
       type: 'text',
       label: 'Name',
-      required: true,
+      required: false, // Changed to false to fix migration error
     },
     {
       name: 'roles',
