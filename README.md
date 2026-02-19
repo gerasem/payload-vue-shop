@@ -1,56 +1,74 @@
-# Demo Online Store 🚀🔥
+# Payload + Nuxt 3 E-commerce Demo
 
-Welcome to the **Demo Online Store**! This project is a fast, sleek, and modern example of an e-commerce application built with the latest technologies, showcasing the power of **Vue.js and Payload CMS**. 🛍️✨
+A modern, full-stack e-commerce demonstration built with **Payload CMS** (headless backend) and **Nuxt 3** (frontend).
 
-## Tech Stack 🔧
+🚀 **Live Demo:** [https://payload-vue-shop.vercel.app/](https://payload-vue-shop.vercel.app/)
 
-- **Frontend Framework**: Vue.js 3
-- **Backend Framework**: Payload CMS
-- **State Management**: Pinia
-- **Routing**: Vue Router
-- **Localization**: vue-i18n
-- **Build Tool**: Vite
-- **TypeScript**: Strongly typed codebase for reliability and scalability.
-- **SCSS**: Modular and maintainable styling.
-- **Bulma SCSS Framework**: Old, but good
+## Tech Stack
 
-## Installation 💻
+### Backend (`/payload`)
+- **CMS:** Payload CMS (v3.0+)
+- **Database:** PostgreSQL (Supabase)
+- **API:** GraphQL & REST
+- **Hosting:** Vercel (Serverless)
 
-To get started, follow these steps:
+### Frontend (`/shop`)
+- **Framework:** Nuxt 3 (Vue.js)
+- **Styling:** Tailwind CSS + Nuxt UI
+- **Data Fetching:** GraphQL
+- **State Management:** Pinia
 
-1. **Install a Payload CMS and Vue.js Storefront**
+## Project Structure
 
-   ```bash
-   cd /payload
-   rename .env.template file (DATABASE_URI, PAYLOAD_SECRET)
-   npm i
+This monorepo contains the following main directories:
 
-   cd /storefront
-   rename .env.template file
-   npm run gql:gen
-   npm i
-   ```
+- `payload/` - The backend CMS application. Manages products, categories, pages, and users.
+- `shop/` - The frontend storefront application. Consumes data from Payload via GraphQL.
+- *(Note: `storefront/` is a legacy version and should be ignored)*
 
-2. **Run Payload CMS**
+## Getting Started
 
-   ```bash
-   cd payload
-   npm run dev
-   ```
+### Prerequisites
+- Node.js (v18+)
+- PostgreSQL database
 
-3. **Run frontend (vue app)**
+### Installation
 
-   ```bash
-   cd /storefront
-   npm run dev
-   ```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/payload-vue-shop.git
+    cd payload-vue-shop
+    ```
 
-## License 📜
+2.  **Setup Backend:**
+    ```bash
+    cd payload
+    cp .env.example .env
+    # Fill in your DATABASE_URI and PAYLOAD_SECRET
+    npm install
+    npm run dev
+    ```
 
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
+3.  **Setup Frontend:**
+    ```bash
+    # In a new terminal
+    cd ../shop
+    cp .env.example .env
+    # Set NUXT_PUBLIC_PAYLOAD_URL=http://localhost:3000
+    npm install
+    npm run dev
+    ```
 
----
+## Features
 
-### Demo Online Store 🌟
+- **Dynamic Content:** Pages, products, and categories managed via Payload CMS.
+- **Custom Shop Settings:** Global settings for category ordering and featured products.
+- **Responsive Design:** Mobile-first approach using Tailwind CSS.
+- **Modern UI:** Built with Nuxt UI components.
+- **SEO Friendly:** Server-side rendering (SSR) with Nuxt.
 
-This is not a functional e-commerce platform but a demonstration project designed for learning and experimentation with modern web development technologies. Enjoy exploring and customizing it to fit your needs! 🚀🔥
+## Deployment
+
+The project is deployed on **Vercel** as two separate projects (Backend & Frontend).
+- Backend runs as a Next.js application.
+- Frontend runs as a Nuxt application.
