@@ -10,7 +10,7 @@ export async function usePayloadQuery<T = any>(
   // Capture context at start of function
   const nuxtApp = useNuxtApp()
   const config = useRuntimeConfig()
-  
+
   // Safe access to i18n
   const i18n = nuxtApp.$i18n
   const locale = unref(i18n.locale)

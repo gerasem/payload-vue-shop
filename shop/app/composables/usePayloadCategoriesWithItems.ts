@@ -16,7 +16,7 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
     usePayloadQuery<CategoriesWithItemsQuery>(categoriesWithItemsQuery),
     useShopSettings()
   ])
-  
+
   const orderedCategories = settings?.categoryOrder || []
 
   if (!data) return []
@@ -59,7 +59,7 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
       if (!categoryData) return
 
       const fullCategory = categoryMap.get(categoryData.id)
-      
+
       // Check for manually selected products
       const manualProducts = item.highlightedProducts
       const hasManualProducts = manualProducts && manualProducts.length > 0

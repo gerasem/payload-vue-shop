@@ -83,7 +83,7 @@ export const useUserStore = defineStore('user', () => {
   async function fetchUser(headers: any = {}) {
     try {
       const data = await $payloadFetch<{ user: User }>('/api/users/me', {
-       headers
+        headers
       })
       if (data?.user) {
         user.value = data.user

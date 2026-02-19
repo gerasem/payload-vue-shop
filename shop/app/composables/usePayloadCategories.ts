@@ -10,12 +10,10 @@ export async function usePayloadCategories() {
     usePayloadQuery<CategoriesQuery>(categoriesQuery),
     useShopSettings()
   ])
-  
+
   const orderedCategories = settings?.categoryOrder || []
   const categories = data?.Categories?.docs || []
-  
 
-  
   console.log('usePayloadCategories: settings fetched', settings)
 
   if (orderedCategories.length === 0) {

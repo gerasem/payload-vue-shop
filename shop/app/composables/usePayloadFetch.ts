@@ -4,10 +4,7 @@ import type { UseFetchOptions } from 'nuxt/app'
  * Wrapper around useFetch for Payload CMS API calls
  * Automatically handles Base URL, credentials, and headers
  */
-export async function usePayloadFetch<T>(
-  url: string,
-  options: UseFetchOptions<T> = {}
-) {
+export async function usePayloadFetch<T>(url: string, options: UseFetchOptions<T> = {}) {
   const config = useRuntimeConfig()
   const { $i18n } = useNuxtApp()
   const headers = useRequestHeaders(['cookie'])
@@ -34,10 +31,7 @@ export async function usePayloadFetch<T>(
  * Wrapper around $fetch for Payload CMS API calls (non-reactive)
  * Useful for actions like form submissions, login, etc.
  */
-export async function $payloadFetch<T>(
-  url: string,
-  options: any = {}
-) {
+export async function $payloadFetch<T>(url: string, options: any = {}) {
   const config = useRuntimeConfig()
   const headers = useRequestHeaders(['cookie'])
 

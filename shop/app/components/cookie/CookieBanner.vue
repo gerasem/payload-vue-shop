@@ -39,7 +39,10 @@ const saveSettings = () => {
 <template>
   <CookieControl>
     <template #bar>
-      <div v-if="!isConsentGiven && isReady" class="fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] py-6 animate-slide-up">
+      <div
+        v-if="!isConsentGiven && isReady"
+        class="fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] py-6 animate-slide-up"
+      >
         <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex flex-col gap-8 items-start lg:flex-row">
             <!-- Text Content -->
@@ -104,13 +107,24 @@ const saveSettings = () => {
   </CookieControl>
 
   <!-- Settings Modal -->
-  <div v-if="isSettingsOpen" class="fixed inset-0 z-[10001] bg-black/50 flex items-center justify-center animate-fade-in" @click.self="isSettingsOpen = false">
-    <div class="bg-white rounded-xl max-w-[520px] w-[90%] max-h-[90vh] overflow-y-auto p-6 shadow-[0_20px_60px_rgba(0,0,0,0.15)] animate-scale-in">
+  <div
+    v-if="isSettingsOpen"
+    class="fixed inset-0 z-[10001] bg-black/50 flex items-center justify-center animate-fade-in"
+    @click.self="isSettingsOpen = false"
+  >
+    <div
+      class="bg-white rounded-xl max-w-[520px] w-[90%] max-h-[90vh] overflow-y-auto p-6 shadow-[0_20px_60px_rgba(0,0,0,0.15)] animate-scale-in"
+    >
       <div class="flex items-center justify-between mb-6">
         <h3 class="text-xl font-bold text-gray-900">
           {{ t('Customize Cookies') }}
         </h3>
-        <button class="flex items-center justify-center w-8 h-8 rounded-md border-none bg-transparent text-gray-500 text-base cursor-pointer hover:bg-gray-100 transition-colors duration-150" @click="isSettingsOpen = false">✕</button>
+        <button
+          class="flex items-center justify-center w-8 h-8 rounded-md border-none bg-transparent text-gray-500 text-base cursor-pointer hover:bg-gray-100 transition-colors duration-150"
+          @click="isSettingsOpen = false"
+        >
+          ✕
+        </button>
       </div>
 
       <p class="text-sm text-gray-700 mb-6">
@@ -128,9 +142,13 @@ const saveSettings = () => {
               {{ t('cookie_necessary_desc') }}
             </p>
           </div>
-          <label class="relative inline-block w-[44px] h-[24px] shrink-0 mt-[2px] opacity-60 cursor-not-allowed">
+          <label
+            class="relative inline-block w-[44px] h-[24px] shrink-0 mt-[2px] opacity-60 cursor-not-allowed"
+          >
             <input type="checkbox" checked disabled class="peer sr-only" />
-            <span class="absolute cursor-not-allowed inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]" />
+            <span
+              class="absolute cursor-not-allowed inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]"
+            />
           </label>
         </div>
 
@@ -146,7 +164,9 @@ const saveSettings = () => {
           </div>
           <label class="relative inline-block w-[44px] h-[24px] shrink-0 mt-[2px]">
             <input v-model="analyticsConsent" type="checkbox" class="peer sr-only" />
-            <span class="absolute cursor-pointer inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]" />
+            <span
+              class="absolute cursor-pointer inset-0 bg-gray-300 rounded-[24px] transition-colors duration-250 before:content-[''] before:absolute before:h-[18px] before:w-[18px] before:left-[3px] before:bottom-[3px] before:bg-white before:rounded-full before:transition-transform before:duration-250 peer-checked:bg-primary-500 peer-checked:before:translate-x-[20px]"
+            />
           </label>
         </div>
       </div>
