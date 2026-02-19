@@ -4,8 +4,16 @@ const { cookiesEnabled, cookiesEnabledIds, isConsentGiven, moduleOptions } = use
 
 const isSettingsOpen = ref(false)
 const analyticsConsent = ref(false)
+const isReady = ref(false)
 
 const { necessary, optional } = moduleOptions.cookies
+
+onMounted(() => {
+  // Delay showing the banner to prevent hydration mismatch and "flash" for users who already consented
+  setTimeout(() => {
+    isReady.value = true
+  }, 1000)
+})
 
 const applyCookies = (cookiesToEnable: typeof necessary) => {
   isConsentGiven.value = true
@@ -31,7 +39,7 @@ const saveSettings = () => {
 <template>
   <CookieControl>
     <template #bar>
-      <div v-if="!isConsentGiven" class="fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] py-6 animate-slide-up">
+      <div v-if="!isConsentGiven && isReady" class="fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] py-6 animate-slide-up">
         <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex flex-col gap-8 items-start lg:flex-row">
             <!-- Text Content -->
