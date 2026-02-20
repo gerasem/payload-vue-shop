@@ -49,6 +49,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
       max: process.env.DATABASE_POOL_SIZE ? parseInt(process.env.DATABASE_POOL_SIZE) : 2,
+      idleTimeoutMillis: 0,
+      connectionTimeoutMillis: 10000,
     },
   }),
   editor: lexicalEditor({
