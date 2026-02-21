@@ -141,7 +141,12 @@ export const useCartStore = defineStore('cart', () => {
 
     await fetchServerCart() // This updates rawItems with server data
 
-    if (localItems.length === 0) return
+    if (localItems.length === 0) {
+      // No local items to merge, but we still need to hydrate
+      // so the server cart is displayed correctly
+      await hydrate()
+      return
+    }
 
     // Merge logic
     localItems.forEach(localItem => {
@@ -208,6 +213,8 @@ export const useCartStore = defineStore('cart', () => {
           }
         })
         .filter(Boolean) as ICartItem[]
+    } catch (e) {
+      console.error('Cart hydration failed:', e)
     } finally {
       isHydrating.value = false
     }
@@ -290,8 +297,8 @@ export const useCartStore = defineStore('cart', () => {
 
   // Shipping Logic
   const config = useRuntimeConfig()
-  const shippingCost = (config.public.shippingCost as number) || 500
-  const freeShippingThreshold = (config.public.freeShippingThreshold as number) || 5000
+  const shippingCost = (config.public.shippingCost as number) ?? 500
+  const freeShippingThreshold = (config.public.freeShippingThreshold as number) ?? 5000
 
   const shippingTotal = computed(() => {
     if (totalInEUR.value >= freeShippingThreshold) {

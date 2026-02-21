@@ -63,6 +63,9 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
+    // Server-only: used in server routes (contact.post.ts, etc.)
+    // Set PAYLOAD_PRIVATE_URL env var if your backend is on an internal network
+    payloadUrl: process.env.PAYLOAD_PRIVATE_URL || process.env.PAYLOAD_URL || 'http://localhost:3000',
     public: {
       payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
       googleAnalyticsId: '',

@@ -12,8 +12,8 @@ const toast = useToast()
 const router = useRouter()
 
 usePageSeo({
-  title: t('Sign up'),
-  description: t('Create an account to manage your orders.')
+  title: computed(() => t('Sign up')),
+  description: computed(() => t('Create an account to manage your orders.'))
 })
 
 const schema = z

@@ -145,7 +145,7 @@ function getOrderStatusColor(status: string | null | undefined) {
               <div>
                 <p class="font-medium">{{ t('Order #') }}{{ order.id }}</p>
                 <p class="text-sm text-gray-500">
-                  {{ new Date(order.createdAt).toLocaleDateString() }}
+                  {{ new Date(order.createdAt).toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
                 </p>
               </div>
               <div class="text-right">
