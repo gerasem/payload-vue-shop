@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { checkRole } from '@/access/utilities'
 
 export const POST = async (req: Request) => {
   try {
@@ -10,8 +11,8 @@ export const POST = async (req: Request) => {
       headers: req.headers,
     })
 
-    // Only allow logged in users to trigger deploys
-    if (!user) {
+    // Only allow admin users to trigger deploys
+    if (!user || !checkRole(['admin'], user)) {
       return new Response('Unauthorized', { status: 401 })
     }
 
