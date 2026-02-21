@@ -41,23 +41,18 @@ export const DeployButton: React.FC = () => {
         alignItems: 'center',
         gap: '0.5rem',
         background: 'var(--theme-elevation-150)',
-        border: '1px solid var(--theme-elevation-200)',
         color: 'var(--theme-elevation-800)',
-        padding: '0.5rem 0.75rem',
+        boxShadow: 'none',
+        border: 'none',
+        padding: '0.2rem 0.75rem',
         borderRadius: '4px',
         cursor: isDeploying ? 'not-allowed' : 'pointer',
-        fontSize: '14px',
-        fontWeight: '500',
+        fontSize: '13px',
         transition: 'all 0.2s',
         opacity: isDeploying ? 0.7 : 1,
       }}
       className="btn btn--style-secondary btn--size-medium payload-deploy-button"
     >
-      {isDeploying ? (
-        <span style={{ display: 'inline-block', animation: 'spin 1s linear infinite' }}>↻</span>
-      ) : (
-        <span>🚀</span>
-      )}
       {isDeploying ? 'Deploying...' : 'Deploy Frontend'}
     </button>
   )

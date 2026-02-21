@@ -49,9 +49,11 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      max: process.env.DATABASE_POOL_SIZE ? parseInt(process.env.DATABASE_POOL_SIZE) : 2,
+      // On Vercel set DATABASE_POOL_SIZE=2 to avoid serverless connection limits.
+      // Locally we use a higher default so operations like media delete don't time out.
+      max: process.env.DATABASE_POOL_SIZE ? parseInt(process.env.DATABASE_POOL_SIZE) : 10,
       idleTimeoutMillis: 0,
-      connectionTimeoutMillis: 10000,
+      connectionTimeoutMillis: 30000,
     },
   }),
   editor: lexicalEditor({
@@ -102,6 +104,7 @@ export default buildConfig({
               media: true,
             },
             bucket: process.env.S3_BUCKET || '',
+            disableLocalStorage: true, 
             config: {
               endpoint: process.env.S3_ENDPOINT,
               region: process.env.S3_REGION,
