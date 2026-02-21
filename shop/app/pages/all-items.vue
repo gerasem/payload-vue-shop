@@ -4,10 +4,7 @@ const { t } = useI18n()
 // Fetch page data for SEO (optional, to keep title from CMS if desired)
 const { data: pageData } = await useAsyncData('page-all-items', () => usePayloadPage('all-items'))
 
-usePageSeo({
-  title: pageData.value?.meta?.title || t('All Items'),
-  description: pageData.value?.meta?.description || t('Browse our complete catalog')
-})
+usePayloadPageSeo(pageData)
 </script>
 
 <template>

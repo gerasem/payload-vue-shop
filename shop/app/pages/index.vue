@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // Fetch all categories with their items (4 per category) - SSR friendly
+const { t } = useI18n()
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
   return usePayloadCategoriesWithItems(4)
 })
@@ -12,11 +13,7 @@ const categories = computed(() => {
   return categoriesWithItems.value?.map(item => item.category) || []
 })
 
-usePageSeo({
-  title: 'Home | Store - Your Online Shopping Destination',
-  description:
-    'Welcome to our online store. Browse our wide selection of quality products at great prices. Fast shipping and excellent customer service.'
-})
+usePayloadPageSeo(homePage)
 </script>
 
 <template>

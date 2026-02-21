@@ -17,10 +17,7 @@ definePageMeta({
 })
 
 // SEO
-usePageSeo({
-  title: page.value?.meta?.title || page.value?.title || t('Shopping Cart'),
-  description: page.value?.meta?.description || t('Review your cart items and proceed to checkout')
-})
+usePayloadPageSeo(page)
 </script>
 
 <template>

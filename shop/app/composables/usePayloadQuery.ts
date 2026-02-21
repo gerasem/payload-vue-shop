@@ -17,11 +17,18 @@ export async function usePayloadQuery<T = any>(
   const toast = useToast()
 
   try {
+    const userStore = useUserStore()
+    const authHeaders: Record<string, string> = {}
+    if (userStore.token) {
+      authHeaders['Authorization'] = `JWT ${userStore.token}`
+    }
+
     const response = await $fetch<{ data: T; errors?: any[] }>(
       `${config.public.payloadUrl}/api/graphql`,
       {
         method: 'POST',
-        // credentials: 'include', // Only needed if using cookies/session
+        credentials: 'include', // Send Payload auth cookie (payload-token) with requests
+        headers: authHeaders,
         body: {
           query,
           variables: {

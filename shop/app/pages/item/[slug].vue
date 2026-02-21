@@ -163,10 +163,7 @@ async function addToCart() {
 }
 
 // SEO
-usePageSeo({
-  title: product.value?.meta?.title || product.value?.title || 'Product',
-  description: product.value?.meta?.description || product.value?.title || ''
-})
+usePayloadPageSeo(product)
 </script>
 
 <template>

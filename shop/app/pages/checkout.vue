@@ -15,10 +15,7 @@ definePageMeta({
 })
 
 // SEO
-usePageSeo({
-  title: page.value?.meta?.title || page.value?.title || t('Checkout'),
-  description: page.value?.meta?.description || t('Complete your order')
-})
+usePayloadPageSeo(page)
 
 function handleFormSubmit(formData: any) {
   console.log('Form submitted', formData)

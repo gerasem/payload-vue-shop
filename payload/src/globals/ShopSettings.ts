@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const ShopSettings: GlobalConfig = {
   slug: 'shop-settings',
-  label: 'Shop Settings',
+  label: 'Homepage Layout',
   access: {
     read: () => true,
   },
