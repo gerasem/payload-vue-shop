@@ -76,6 +76,9 @@ export const plugins: Plugin[] = [
     customers: {
       slug: 'users',
     },
+    carts: {
+      allowGuestCarts: true,
+    },
     ...(process.env.STRIPE_SECRET_KEY
       ? {
           payments: {

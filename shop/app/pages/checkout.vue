@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import Text2Columns from '~/components/content/Text2Columns.vue'
 import CheckoutForm from '~/components/checkout/CheckoutForm.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
+const checkoutStore = useCheckoutStore()
+const router = useRouter()
+const toast = useToast()
 
 // Fetch checkout page content
 const { data: page } = await useAsyncData('checkout-page-content', () => usePayloadPage('checkout'))
@@ -17,9 +19,32 @@ definePageMeta({
 // SEO
 usePayloadPageSeo(page)
 
-function handleFormSubmit(formData: any) {
-  console.log('Form submitted', formData)
-  // Logic to proceed to next step / payment would go here
+// Guard: redirect to cart if no items
+onMounted(() => {
+  if (!cartStore.hasItems) {
+    router.replace(localePath('/cart'))
+  }
+})
+
+async function handleFormSubmit(formData: any) {
+  const result = await checkoutStore.createOrder(formData)
+
+  if (result.success && result.clientSecret) {
+    // Have clientSecret — go to Stripe payment form
+    router.push(localePath('/payment'))
+  } else if (result.success && !result.clientSecret) {
+    // Order created but no Stripe (e.g. Stripe not configured) — treat as success
+    await cartStore.clear()
+    checkoutStore.clear()
+    router.push(localePath('/payment/success'))
+  } else {
+    toast.add({
+      title: t('Error'),
+      description: result.error || t('Failed to create order'),
+      color: 'error',
+      icon: 'i-heroicons-exclamation-circle'
+    })
+  }
 }
 </script>
 
@@ -29,12 +54,10 @@ function handleFormSubmit(formData: any) {
       {{ page?.title || t('Checkout') }}
     </h1>
 
-    <!-- Empty cart redirection/message could go here if needed, but for now we assume user has items or just show empty summary -->
-
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Checkout Form (Left Column) -->
       <div class="lg:col-span-2 space-y-8">
-        <CheckoutForm @submit="handleFormSubmit" />
+        <CheckoutForm :loading="checkoutStore.loading" @submit="handleFormSubmit" />
 
         <!-- SEO Text from Checkout Page (Below Form) -->
         <div class="single-column-text">

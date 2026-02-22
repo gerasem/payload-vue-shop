@@ -31,6 +31,10 @@ const form = reactive({
 
 const emit = defineEmits(['submit'])
 
+const props = defineProps<{
+  loading?: boolean
+}>()
+
 function onSubmit(event: FormSubmitEvent<Schema>) {
   emit('submit', event.data)
 }
@@ -86,7 +90,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormField>
 
       <div class="pt-4">
-        <UButton type="submit" block size="lg" color="primary">
+        <UButton type="submit" block size="lg" color="primary" :loading="props.loading">
           {{ t('Continue to Payment') }}
         </UButton>
       </div>
