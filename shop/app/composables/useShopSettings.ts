@@ -8,7 +8,7 @@ import type { ShopSettingsQuery } from '@/generated/graphql'
 export async function useShopSettings() {
   try {
     const data = await usePayloadQuery<ShopSettingsQuery>(shopSettingsQuery)
-    console.log('useShopSettings raw data:', data)
+    //console.log('useShopSettings raw data:', data)
     return data?.ShopSetting || null
   } catch (e) {
     console.error('useShopSettings error:', e)

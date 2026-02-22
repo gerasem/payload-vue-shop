@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Fetch all categories with their items (4 per category) - SSR friendly
 const { t } = useI18n()
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
   return usePayloadCategoriesWithItems(4)

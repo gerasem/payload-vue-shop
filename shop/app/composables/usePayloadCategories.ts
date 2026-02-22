@@ -14,7 +14,7 @@ export async function usePayloadCategories() {
   const orderedCategories = settings?.categoryOrder || []
   const categories = data?.Categories?.docs || []
 
-  console.log('usePayloadCategories: settings fetched', settings)
+  //console.log('usePayloadCategories: settings fetched', settings)
 
   if (orderedCategories.length === 0) {
     console.log('usePayloadCategories: No order defined, returning all')
