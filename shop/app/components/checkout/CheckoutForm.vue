@@ -4,7 +4,6 @@ import type { FormSubmitEvent } from '#ui/types'
 
 const { t } = useI18n()
 
-// Validation schema
 const schema = z.object({
   email: z.string().email(t('Invalid email')),
   firstName: z.string().min(2, t('Required')),
@@ -31,6 +30,8 @@ const form = reactive({
 
 const emit = defineEmits(['submit'])
 
+defineProps<{ loading?: boolean }>()
+
 function onSubmit(event: FormSubmitEvent<Schema>) {
   emit('submit', event.data)
 }
@@ -44,52 +45,58 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       </h2>
     </div>
 
-    <UForm :schema="schema" :state="form" class="space-y-4" @submit="onSubmit">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <UForm id="checkout-form" :schema="schema" :state="form" class="space-y-5" @submit="onSubmit">
+
+      <!-- First Name / Last Name -->
+      <div class="grid grid-cols-2 gap-4">
         <UFormField :label="t('First Name')" name="firstName" required>
-          <UInput v-model="form.firstName" icon="i-heroicons-user" />
+          <UInput v-model="form.firstName" class="w-full" size="lg" :placeholder="t('First Name')" />
         </UFormField>
-
         <UFormField :label="t('Last Name')" name="lastName" required>
-          <UInput v-model="form.lastName" icon="i-heroicons-user" />
+          <UInput v-model="form.lastName" class="w-full" size="lg" :placeholder="t('Last Name')" />
         </UFormField>
       </div>
 
-      <UFormField :label="t('Email')" name="email" required>
-        <UInput v-model="form.email" type="email" icon="i-heroicons-envelope" />
-      </UFormField>
+      <!-- Email / Phone -->
+      <div class="grid grid-cols-2 gap-4">
+        <UFormField :label="t('Email')" name="email" required>
+          <UInput v-model="form.email" type="email" class="w-full" size="lg" :placeholder="t('Email')" />
+        </UFormField>
+        <UFormField :label="t('Phone')" name="phone">
+          <UInput v-model="form.phone" type="tel" class="w-full" size="lg" :placeholder="t('Phone')" />
+        </UFormField>
+      </div>
 
-      <UFormField :label="t('Address')" name="address" required>
-        <UInput v-model="form.address" icon="i-heroicons-home" />
-      </UFormField>
+      <!-- Address (2/3) + Country (1/3) -->
+      <div class="grid grid-cols-3 gap-4">
+        <UFormField :label="t('Address')" name="address" required class="col-span-2">
+          <UInput v-model="form.address" class="w-full" size="lg" :placeholder="t('Address')" />
+        </UFormField>
+        <UFormField :label="t('Country')" name="country" required class="col-span-1">
+          <USelectMenu
+            v-model="form.country"
+            class="w-full"
+            size="lg"
+            value-key="value"
+            :items="[
+              { label: 'Deutschland', value: 'DE' },
+              { label: 'Österreich', value: 'AT' },
+              { label: 'Schweiz', value: 'CH' }
+            ]"
+          />
+        </UFormField>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Postal Code / City -->
+      <div class="grid grid-cols-2 gap-4">
         <UFormField :label="t('Postal Code')" name="postalCode" required>
-          <UInput v-model="form.postalCode" icon="i-heroicons-map-pin" />
+          <UInput v-model="form.postalCode" class="w-full" size="lg" :placeholder="t('Postal Code')" />
         </UFormField>
-
         <UFormField :label="t('City')" name="city" required>
-          <UInput v-model="form.city" icon="i-heroicons-building-office" />
+          <UInput v-model="form.city" class="w-full" size="lg" :placeholder="t('City')" />
         </UFormField>
       </div>
 
-      <UFormField :label="t('Country')" name="country" required>
-        <USelect
-          v-model="form.country"
-          :options="['DE', 'AT', 'CH']"
-          icon="i-heroicons-globe-alt"
-        />
-      </UFormField>
-
-      <UFormField :label="t('Phone')" name="phone">
-        <UInput v-model="form.phone" type="tel" icon="i-heroicons-phone" />
-      </UFormField>
-
-      <div class="pt-4">
-        <UButton type="submit" block size="lg" color="primary">
-          {{ t('Continue to Payment') }}
-        </UButton>
-      </div>
     </UForm>
   </UCard>
 </template>

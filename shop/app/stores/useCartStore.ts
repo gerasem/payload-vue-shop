@@ -10,6 +10,8 @@ export const useCartStore = defineStore('cart', () => {
 
   const userStore = useUserStore()
   const serverCartId = ref<number | null>(null)
+  // Guest cart access secret — returned by Payload on cart creation for unauthenticated carts
+  const cartSecret = ref<string | null>(null)
 
   // Full cart items enriched with product data
   const items = ref<ICartItem[]>([])
@@ -102,32 +104,44 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  // Save cart to server — works for both logged-in users and guests
   async function saveToServer() {
-    if (!userStore.loggedIn || !userStore.user) return
-
     try {
-      const payload = {
-        customer: userStore.user.id,
+      const cartPayload: Record<string, any> = {
+        currency: 'EUR', // Required by ecommerce plugin's beforeChange to compute subtotal
         items: rawItems.value.map(i => ({
           product: i.productId,
-          variant: i.variantId,
+          variant: i.variantId ?? undefined,
           quantity: i.qty
         }))
       }
 
+      // Add customer link for logged-in users
+      if (userStore.loggedIn && userStore.user) {
+        cartPayload.customer = userStore.user.id
+      }
+
       if (serverCartId.value) {
-        // Update existing cart
+        // Update existing cart (PATCH)
+        const updateBody: Record<string, any> = { ...cartPayload }
+        // Pass secret for guest cart access control
+        if (cartSecret.value) {
+          updateBody.secret = cartSecret.value
+        }
         await $payloadFetch(`/api/carts/${serverCartId.value}`, {
           method: 'PATCH',
-          body: payload
+          body: updateBody
         })
       } else {
-        // Create new cart
-        const newCart = await $payloadFetch<{ id: number }>('/api/carts', {
+        // Create new cart (POST) — Payload wraps response in { doc: {...} }
+        const response = await $payloadFetch<{ doc: { id: number; secret?: string } }>('/api/carts', {
           method: 'POST',
-          body: payload
+          body: cartPayload
         })
-        serverCartId.value = newCart.id
+        serverCartId.value = response.doc.id
+        if (response.doc.secret) {
+          cartSecret.value = response.doc.secret
+        }
       }
     } catch (e) {
       console.error('Failed to save cart to server', e)
@@ -141,7 +155,12 @@ export const useCartStore = defineStore('cart', () => {
 
     await fetchServerCart() // This updates rawItems with server data
 
-    if (localItems.length === 0) return
+    if (localItems.length === 0) {
+      // No local items to merge, but we still need to hydrate
+      // so the server cart is displayed correctly
+      await hydrate()
+      return
+    }
 
     // Merge logic
     localItems.forEach(localItem => {
@@ -208,6 +227,8 @@ export const useCartStore = defineStore('cart', () => {
           }
         })
         .filter(Boolean) as ICartItem[]
+    } catch (e) {
+      console.error('Cart hydration failed:', e)
     } finally {
       isHydrating.value = false
     }
@@ -231,10 +252,8 @@ export const useCartStore = defineStore('cart', () => {
       rawItems.value.push({ productId, variantId, qty })
     }
 
-    // Sync if logged in
-    if (userStore.loggedIn) {
-      await saveToServer()
-    }
+    // Sync to server (both logged-in and guest)
+    await saveToServer()
 
     await hydrate()
   }
@@ -250,9 +269,7 @@ export const useCartStore = defineStore('cart', () => {
     if (item) {
       item.qty = Math.max(1, qty) // Ensure at least 1
 
-      if (userStore.loggedIn) {
-        await saveToServer()
-      }
+      await saveToServer()
 
       await hydrate()
     }
@@ -264,21 +281,19 @@ export const useCartStore = defineStore('cart', () => {
       item => !(item.productId === productId && item.variantId === variantId)
     )
 
-    if (userStore.loggedIn) {
-      await saveToServer()
-    }
+    await saveToServer()
 
     await hydrate()
   }
 
-  // Clear entire cart
+  // Clear entire cart (e.g. after successful purchase)
   async function clear() {
     rawItems.value = []
     items.value = []
 
-    if (userStore.loggedIn) {
-      await saveToServer()
-    }
+    // Reset the server cart reference — the old cart is now "purchased"
+    // (confirm-order sets purchasedAt on it). Don't overwrite it with empty items.
+    serverCartId.value = null
   }
 
   // Computed getters
@@ -290,8 +305,8 @@ export const useCartStore = defineStore('cart', () => {
 
   // Shipping Logic
   const config = useRuntimeConfig()
-  const shippingCost = (config.public.shippingCost as number) || 500
-  const freeShippingThreshold = (config.public.freeShippingThreshold as number) || 5000
+  const shippingCost = (config.public.shippingCost as number) ?? 500
+  const freeShippingThreshold = (config.public.freeShippingThreshold as number) ?? 5000
 
   const shippingTotal = computed(() => {
     if (totalInEUR.value >= freeShippingThreshold) {
@@ -311,6 +326,8 @@ export const useCartStore = defineStore('cart', () => {
     totalInEUR,
     totalFormatted,
     hasItems,
+    serverCartId,
+    cartSecret,
     // Shipping fields
     shippingTotal,
     shippingFormatted,

@@ -19,11 +19,7 @@ if (!pageData.value) {
 }
 
 // Set page SEO metadata
-usePageSeo({
-  title: pageData.value.meta?.title || pageData.value.title || '',
-  description: pageData.value.meta?.description || '',
-  image: pageData.value.meta?.image?.url || undefined
-})
+usePayloadPageSeo(pageData)
 
 // Convert rich text to HTML
 const contentHTML = computed(() =>

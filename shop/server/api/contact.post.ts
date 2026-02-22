@@ -1,9 +1,39 @@
 import { z } from 'zod'
 
+// Simple in-memory rate limiter: max 20 requests per IP per minute
+const rateLimitMap = new Map<string, { count: number; reset: number }>()
+const RATE_LIMIT = 20
+const RATE_WINDOW_MS = 60_000
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const record = rateLimitMap.get(ip)
+
+  if (!record || now > record.reset) {
+    rateLimitMap.set(ip, { count: 1, reset: now + RATE_WINDOW_MS })
+    return true
+  }
+
+  if (record.count >= RATE_LIMIT) return false
+
+  record.count++
+  return true
+}
+
 export default defineEventHandler(async event => {
   const body = await readBody(event)
   const config = useRuntimeConfig()
-  const payloadUrl = config.public.payloadUrl || 'http://localhost:3000'
+  // Use private payloadUrl (server-only, not exposed to client)
+  const payloadUrl = config.payloadUrl || 'http://localhost:3000'
+
+  // Rate limiting by IP
+  const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown'
+  if (!checkRateLimit(ip)) {
+    throw createError({
+      statusCode: 429,
+      statusMessage: 'Too Many Requests'
+    })
+  }
 
   // Generic schema expecting formId and submissionData array
   const schema = z.object({

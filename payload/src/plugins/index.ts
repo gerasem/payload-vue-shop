@@ -76,25 +76,32 @@ export const plugins: Plugin[] = [
     customers: {
       slug: 'users',
     },
-    payments: {
-      paymentMethods: [
-        stripeAdapter({
-          secretKey: process.env.STRIPE_SECRET_KEY!,
-          publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-          webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET!,
-        }),
-      ],
+    carts: {
+      allowGuestCarts: true,
     },
+    ...(process.env.STRIPE_SECRET_KEY
+      ? {
+          payments: {
+            paymentMethods: [
+              stripeAdapter({
+                secretKey: process.env.STRIPE_SECRET_KEY,
+                publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
+                webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET ?? '',
+              }),
+            ],
+          },
+        }
+      : {}),
     products: {
       productsCollectionOverride: ProductsCollection,
     },
     currencies: {
       supportedCurrencies: [
         {
-          code: 'EUR', // The currency code in ISO 4217 format, e.g. 'USD'
-          decimals: 2, // The number of decimal places for the currency, e.g. 2 for USD
-          label: 'Euro', // A human-readable label for the currency, e.g. 'US Dollar'
-          symbol: '€', // The currency symbol, e.g. '$'
+          code: 'EUR',
+          decimals: 2,
+          label: 'Euro',
+          symbol: '€',
         },
       ],
       defaultCurrency: 'EUR',

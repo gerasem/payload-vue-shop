@@ -85,10 +85,7 @@ async function onSubmit(formData: Record<string, any>) {
   }
 }
 
-usePageSeo({
-  title: t('Contact Us'),
-  description: t('Get in touch with us for any questions or inquiries.')
-})
+usePayloadPageSeo(contactPage)
 </script>
 
 <template>

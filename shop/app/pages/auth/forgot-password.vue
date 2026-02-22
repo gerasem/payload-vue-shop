@@ -11,8 +11,8 @@ const userStore = useUserStore()
 const toast = useToast()
 
 usePageSeo({
-  title: t('Forgot Password'),
-  description: t('Reset your password.')
+  title: computed(() => t('Forgot Password')),
+  description: computed(() => t('Reset your password.'))
 })
 
 const schema = z.object({

@@ -143,15 +143,15 @@ function getOrderStatusColor(status: string | null | undefined) {
               class="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700"
             >
               <div>
-                <p class="font-medium">Order #{{ order.id }}</p>
+                <p class="font-medium">{{ t('Order #') }}{{ order.id }}</p>
                 <p class="text-sm text-gray-500">
-                  {{ new Date(order.createdAt).toLocaleDateString() }}
+                  {{ new Date(order.createdAt).toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
                 </p>
               </div>
               <div class="text-right">
                 <p class="font-bold">{{ formatPrice(order.amount) }}</p>
                 <UBadge :color="getOrderStatusColor(order.status)" variant="subtle">{{
-                  order.status
+                  t(order.status || 'pending')
                 }}</UBadge>
               </div>
             </div>

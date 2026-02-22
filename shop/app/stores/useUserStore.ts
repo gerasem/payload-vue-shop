@@ -10,6 +10,7 @@ interface User {
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null)
+  const token = ref<string | null>(null)
   const loggedIn = computed(() => !!user.value)
   const loading = ref(false)
   const config = useRuntimeConfig()
@@ -27,6 +28,7 @@ export const useUserStore = defineStore('user', () => {
 
       if (data?.user) {
         user.value = data.user
+        if (data.token) token.value = data.token
       }
     } catch (err: any) {
       console.error('Login error:', err)
@@ -41,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
     try {
       await $payloadFetch('/api/users/logout', { method: 'POST' })
       user.value = null
+      token.value = null
     } catch (err) {
       console.error('Logout error:', err)
     } finally {
@@ -97,6 +100,7 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     user,
+    token,
     loggedIn,
     loading,
     login,

@@ -146,6 +146,6 @@ export default buildConfig({
     process.env.FRONTEND_URL || '',
   ].filter(Boolean),
   graphQL: {
-    disablePlaygroundInProduction: false,
+    disablePlaygroundInProduction: true,
   },
 })
