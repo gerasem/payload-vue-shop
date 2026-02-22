@@ -12,13 +12,7 @@ const rel = computed(() => (props.link.openInNewTab ? 'noopener noreferrer' : un
 </script>
 
 <template>
-  <!-- External link -->
-  <a v-if="link.isExternal" :href="link.href" :target="target" :rel="rel" :class="props.class">
-    <slot>{{ link.label }}</slot>
-  </a>
-
-  <!-- Internal link -->
-  <NuxtLink v-else :to="link.href" :target="target" :class="props.class">
+  <NuxtLink :to="link.href" :target="target" :rel="rel" :class="props.class">
     <slot>{{ link.label }}</slot>
   </NuxtLink>
 </template>

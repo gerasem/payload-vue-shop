@@ -82,7 +82,7 @@ const selectedSort = computed({
           :increment="false"
           :decrement="false"
         />
-        <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.01" />
+        <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.1" />
         <UInputNumber
           v-model="maxPrice"
           size="sm"

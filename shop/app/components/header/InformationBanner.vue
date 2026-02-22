@@ -6,7 +6,7 @@ const { data: bannerData } = await useAsyncData('payload-info-banner', () =>
 </script>
 
 <template>
-  <div v-if="bannerData?.items?.length" class="bg-primary-50 text-gray-600 text-base">
+  <div v-if="bannerData?.items?.length" class="bg-primary-50">
     <div class="container mx-auto px-4 py-2">
       <div class="flex items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-500">
         <div
