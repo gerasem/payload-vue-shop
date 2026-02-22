@@ -50,7 +50,7 @@ async function handleFormSubmit(formData: any) {
 
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <h1 class="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
+    <h1 class="mb-8 text-3xl font-bold text-gray-900">
       {{ page?.title || t('Checkout') }}
     </h1>
 

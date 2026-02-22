@@ -14,9 +14,25 @@ const isHomePage = computed(
 
 const { locale } = useI18n()
 
+// Fetch global shopping settings for dynamic items like favicon
+const { data: shoppingSettings } = await useAsyncData('shopping-settings', () =>
+  useShoppingSettings()
+)
+
+const config = useRuntimeConfig()
+
+const faviconUrl = computed(() => {
+  const mediaObj = shoppingSettings.value?.favicon
+  if (mediaObj && 'url' in mediaObj && mediaObj.url) {
+    // Manually construct URL to avoid calling useRuntimeConfig() inside computed
+    return `${config.public.payloadUrl}${mediaObj.url}`
+  }
+  return '/favicon.ico' // Fallback to local default
+})
+
 useHead({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-  link: [{ rel: 'icon', href: '/favicon.ico' }],
+  link: [{ rel: 'icon', href: faviconUrl }],
   htmlAttrs: {
     lang: locale
   }

@@ -103,7 +103,7 @@ async function handlePayment() {
         <UCard>
           <template #header>
             <div class="flex items-center justify-between">
-              <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
+              <h1 class="text-xl font-semibold text-gray-900">
                 {{ t('Secure Payment') }}
               </h1>
               <!-- Stripe Badge -->

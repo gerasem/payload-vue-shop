@@ -52,18 +52,18 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       <template #header>
         <div class="text-center">
           <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
           >
             {{ t('Forgot Password') }}
           </h1>
-          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <p class="mt-2 text-sm text-gray-500">
             {{ t('Enter your email to reset your password') }}
           </p>
         </div>
       </template>
 
       <div v-if="success" class="text-center space-y-4">
-        <p class="text-green-600 dark:text-green-400">
+        <p class="text-green-600">
           {{ t('We have sent a password reset link to your email.') }}
         </p>
         <UButton to="/cabinet" block color="primary" variant="soft">
@@ -85,7 +85,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
           {{ t('Reset Password') }}
         </UButton>
 
-        <p class="text-sm font-light text-center text-gray-500 dark:text-gray-400">
+        <p class="text-sm font-light text-center text-gray-500">
           <UButton variant="link" :padded="false" color="primary" to="/cabinet">
             {{ t('Back to Login') }}
           </UButton>

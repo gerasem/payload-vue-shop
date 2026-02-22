@@ -95,7 +95,7 @@ function getOrderStatusColor(status: string | null | undefined) {
   <div class="flex min-h-[50vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+      <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">
         {{ t('My Account') }}
       </h1>
 
@@ -140,7 +140,7 @@ function getOrderStatusColor(status: string | null | undefined) {
             <div
               v-for="order in orders"
               :key="order.id"
-              class="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700"
+              class="flex items-center justify-between p-4 border rounded-lg border-gray-200"
             >
               <div>
                 <p class="font-medium">{{ t('Order #') }}{{ order.id }}</p>
@@ -167,9 +167,7 @@ function getOrderStatusColor(status: string | null | undefined) {
     <UCard v-else class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
-          >
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
             {{ t('Sign in to your account') }}
           </h1>
         </div>
@@ -205,7 +203,7 @@ function getOrderStatusColor(status: string | null | undefined) {
           {{ t('Sign in') }}
         </UButton>
 
-        <p class="text-sm font-light text-center text-gray-500 dark:text-gray-400">
+        <p class="text-sm font-light text-center text-gray-500">
           {{ t('Don’t have an account yet?') }}
           <UButton variant="link" :padded="false" color="primary" to="/auth/register">
             {{ t('Sign up') }}

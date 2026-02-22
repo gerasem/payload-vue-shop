@@ -62,7 +62,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       <template #header>
         <div class="text-center">
           <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
           >
             {{ t('Create an account') }}
           </h1>
@@ -110,7 +110,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
           {{ t('Sign up') }}
         </UButton>
 
-        <p class="text-sm font-light text-center text-gray-500 dark:text-gray-400">
+        <p class="text-sm font-light text-center text-gray-500">
           {{ t('Already have an account?') }}
           <UButton variant="link" :padded="false" color="primary" to="/cabinet">
             {{ t('Sign in') }}

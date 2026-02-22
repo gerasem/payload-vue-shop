@@ -267,7 +267,7 @@ usePayloadPageSeo(product)
         </div>
 
         <!-- Shipping Terms (Storefront Replication) -->
-        <div class="pt-4 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500">
+        <div class="pt-4 border-t border-gray-200 text-sm text-gray-500">
           <p>{{ t('Free shipping over 50€') }}</p>
           <NuxtLink :to="localePath('/page/delivery')" class="text-primary hover:underline">
             {{ t('Shipping conditions') }}

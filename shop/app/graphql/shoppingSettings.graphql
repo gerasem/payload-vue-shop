@@ -1,0 +1,8 @@
+query ShoppingSettings {
+  ShoppingSetting {
+    favicon {
+      url
+      alt
+    }
+  }
+}

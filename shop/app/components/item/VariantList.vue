@@ -52,7 +52,7 @@ function inventoryStatus(qty: number | null | undefined) {
 
 <template>
   <div v-if="variants && variants.length > 0" class="space-y-2">
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <label class="block text-sm font-medium text-gray-700 mb-2">
       {{ t('Variants') }}
     </label>
 
