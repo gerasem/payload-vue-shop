@@ -25,6 +25,17 @@ const navButtons = computed(
       .filter((link): link is MappedLink => link !== null) || []
 )
 
+// Combine navigation links and nav buttons for the mobile menu
+// UNavigationMenu expects a specific matching format, typically `to` over `href`
+const mobileMenuLinks = computed(() => {
+  const allLinks = [...navigationLinks.value, ...navButtons.value]
+  return allLinks.map(link => ({
+    label: link.label,
+    to: link.href,
+    target: link.openInNewTab ? '_blank' : undefined,
+  }))
+})
+
 // Extract other data
 const slogan = computed(() => headerData.value?.slogan)
 const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
@@ -118,8 +129,8 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 
     <template #body>
       <div class="space-y-4">
-        <!-- Mobile menu with Payload data -->
-        <UNavigationMenu :items="navigationLinks" orientation="vertical" class="-mx-2.5" />
+        <!-- Mobile menu with Payload data (combines main links and buttons) -->
+        <UNavigationMenu :items="mobileMenuLinks" orientation="vertical" class="-mx-2.5" />
 
         <!-- Language switcher in mobile menu -->
         <!-- <div v-if="false" class="pt-4 border-t border-gray-200">
