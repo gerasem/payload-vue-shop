@@ -8,15 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div v-if="categories && categories.length" class="category-grid">
+  <div v-if="categories && categories.length" class="flex flex-col h-full w-full">
     <CategoryCard v-for="category in categories" :key="category.id" :category="category" />
   </div>
 </template>
-
-<style scoped>
-.category-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-</style>

@@ -9,10 +9,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="category-card">
-    <CategoryImage :category="category" />
-    <CategoryTitle :category="category" />
-  </div>
+  <CategoryImage :category="category" />
+  <CategoryTitle :category="category" />
 </template>
 
 <style scoped lang="scss"></style>

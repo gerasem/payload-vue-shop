@@ -11,14 +11,20 @@ defineProps<{
 </template>
 
 <style lang="scss">
-.text-content p {
+
+.text-content {
+  p {
   column-count: 1;
+  @media (min-width: 768px) {
+    column-count: 2;
+    column-gap: 40px;
+  }
 }
 
 h2 {
-  font-size: 1.5rem; /* text-2xl */
+  font-size: 2.25rem; /* text-2xl */
   font-weight: 700;
-  color: #111827; /* gray-900 */
+  color: #1e1e1e; /* gray-900 */
   margin-bottom: 1rem;
   margin-top: 0;
   line-height: 1.3;
@@ -30,11 +36,8 @@ p {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
-
-@media (min-width: 768px) {
-  .text-content p {
-    column-count: 2;
-    column-gap: 40px;
-  }
 }
+
+
+
 </style>

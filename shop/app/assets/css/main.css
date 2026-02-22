@@ -64,6 +64,13 @@ a,
   cursor: pointer !important;
 }
 
+/* Headings font */
+h1, h2,
+.font-serif {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
 /* Rich text (Lexical) styling — shared by all pages rendering CMS content */
 .prose h2 {
   font-size: 1.5rem;
