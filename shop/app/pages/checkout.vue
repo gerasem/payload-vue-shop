@@ -50,7 +50,7 @@ async function handleFormSubmit(formData: any) {
 
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <h1 class="mb-8 text-3xl font-bold text-gray-900">
+    <h1 class="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
       {{ page?.title || t('Checkout') }}
     </h1>
 
@@ -65,9 +65,24 @@ async function handleFormSubmit(formData: any) {
         </div>
       </div>
 
-      <!-- Order Summary (Right Column) -->
-      <div class="lg:col-span-1 h-fit">
-        <CartSummary :show-checkout-button="false" />
+      <!-- Order Summary (Right Column) — button inside the block like on cart page -->
+      <div class="lg:col-span-1">
+        <CartSummary :show-checkout-button="false" :show-continue-shopping="false">
+          <template #action>
+            <UButton
+              type="submit"
+              form="checkout-form"
+              block
+              size="lg"
+              color="primary"
+              icon="i-heroicons-lock-closed"
+              :loading="checkoutStore.loading"
+              :disabled="checkoutStore.loading"
+            >
+              {{ checkoutStore.loading ? t('Processing payment...') : t('Continue to Payment') }}
+            </UButton>
+          </template>
+        </CartSummary>
       </div>
     </div>
   </div>

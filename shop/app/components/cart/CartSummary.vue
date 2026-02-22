@@ -10,10 +10,12 @@ withDefaults(
   defineProps<{
     showCheckoutButton?: boolean
     showTotal?: boolean
+    showContinueShopping?: boolean
   }>(),
   {
     showCheckoutButton: true,
-    showTotal: true
+    showTotal: true,
+    showContinueShopping: true
   }
 )
 </script>
@@ -72,20 +74,22 @@ withDefaults(
       <p class="text-sm font-medium text-green-700">✓ {{ t('Free shipping applied!') }}</p>
     </div>
 
-    <!-- Checkout button -->
-    <UButton
-      v-if="showCheckoutButton"
-      :to="localePath('/checkout')"
-      color="primary"
-      size="lg"
-      block
-      :disabled="!cartStore.hasItems"
-    >
-      {{ t('Proceed to Checkout') }}
-    </UButton>
+    <!-- Action button: slot or default checkout button -->
+    <slot name="action">
+      <UButton
+        v-if="showCheckoutButton"
+        :to="localePath('/checkout')"
+        color="primary"
+        size="lg"
+        block
+        :disabled="!cartStore.hasItems"
+      >
+        {{ t('Proceed to Checkout') }}
+      </UButton>
+    </slot>
 
     <!-- Continue shopping link -->
-    <UButton :to="localePath('/all-items')" variant="link" color="neutral" block class="mt-4">
+    <UButton v-if="showContinueShopping" :to="localePath('/all-items')" variant="link" color="neutral" block class="mt-4">
       {{ t('Continue Shopping') }}
     </UButton>
   </div>

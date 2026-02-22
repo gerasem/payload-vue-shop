@@ -117,35 +117,6 @@ async function handlePayment() {
           <!-- Stripe mounted here -->
           <div v-if="checkoutStore.clientSecret">
             <div ref="paymentElement" class="min-h-[200px]" />
-
-            <!-- Payment Error -->
-            <UAlert
-              v-if="paymentError"
-              class="mt-4"
-              color="error"
-              variant="soft"
-              :title="t('Payment error')"
-              :description="paymentError"
-              icon="i-heroicons-exclamation-circle"
-            />
-
-            <div class="mt-6">
-              <UButton
-                block
-                size="xl"
-                color="primary"
-                :loading="paymentProcessing"
-                :disabled="paymentProcessing"
-                icon="i-heroicons-lock-closed"
-                @click="handlePayment"
-              >
-                {{ paymentProcessing ? t('Processing payment...') : t('Pay now') }}
-              </UButton>
-            </div>
-
-            <p class="mt-3 text-center text-xs text-gray-400">
-              {{ t('Your payment is secured by Stripe.') }}
-            </p>
           </div>
 
           <!-- No clientSecret state (configuring...) -->
@@ -155,9 +126,38 @@ async function handlePayment() {
         </UCard>
       </div>
 
-      <!-- Right: Order Summary -->
-      <div class="lg:col-span-1 h-fit">
-        <CartSummary :show-checkout-button="false" />
+      <!-- Right: Order Summary with Pay button -->
+      <div class="lg:col-span-1">
+        <CartSummary :show-checkout-button="false" :show-continue-shopping="false">
+          <template #action>
+            <!-- Payment Error -->
+            <UAlert
+              v-if="paymentError"
+              class="mb-3"
+              color="error"
+              variant="soft"
+              :title="t('Payment error')"
+              :description="paymentError"
+              icon="i-heroicons-exclamation-circle"
+            />
+
+            <UButton
+              block
+              size="lg"
+              color="primary"
+              :loading="paymentProcessing"
+              :disabled="paymentProcessing || !checkoutStore.clientSecret"
+              icon="i-heroicons-lock-closed"
+              @click="handlePayment"
+            >
+              {{ paymentProcessing ? t('Processing payment...') : t('Pay now') }}
+            </UButton>
+
+            <p class="mt-2 text-center text-xs text-gray-400">
+              {{ t('Your payment is secured by Stripe.') }}
+            </p>
+          </template>
+        </CartSummary>
       </div>
     </div>
   </div>
