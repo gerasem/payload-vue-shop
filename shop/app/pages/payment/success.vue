@@ -79,7 +79,7 @@ async function confirmOrder(intentId: string) {
       <!-- Confirming spinner -->
       <template v-if="confirming">
         <div class="flex justify-center mb-6">
-          <UIcon name="i-heroicons-arrow-path" class="w-12 h-12 animate-spin text-primary-500" />
+          <UIcon name="i-bi-arrow-repeat" class="w-12 h-12 animate-spin text-primary-500" />
         </div>
         <p class="text-gray-500">{{ t('Processing payment...') }}</p>
       </template>
@@ -88,7 +88,7 @@ async function confirmOrder(intentId: string) {
       <template v-else-if="confirmError">
         <div class="flex justify-center mb-6">
           <div class="w-20 h-20 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-            <UIcon name="i-heroicons-x-mark" class="w-10 h-10 text-red-600 dark:text-red-400" />
+            <UIcon name="i-bi-x" class="w-10 h-10 text-red-600 dark:text-red-400" />
           </div>
         </div>
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -104,7 +104,7 @@ async function confirmOrder(intentId: string) {
       <template v-else>
         <div class="flex justify-center mb-6">
           <div class="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-            <UIcon name="i-heroicons-check" class="w-10 h-10 text-green-600 dark:text-green-400" />
+            <UIcon name="i-bi-check" class="w-10 h-10 text-green-600 dark:text-green-400" />
           </div>
         </div>
 

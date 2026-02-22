@@ -38,7 +38,7 @@ function handleBlur() {
 <template>
   <div class="flex items-center gap-2">
     <UButton
-      icon="i-heroicons-minus"
+      icon="i-bi-dash"
       size="sm"
       color="neutral"
       variant="outline"
@@ -57,7 +57,7 @@ function handleBlur() {
     />
 
     <UButton
-      icon="i-heroicons-plus"
+      icon="i-bi-plus"
       size="sm"
       color="neutral"
       variant="outline"

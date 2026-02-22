@@ -48,7 +48,7 @@ onMounted(() => {
         content: 'w-24'
       }"
     >
-      <UButton trailing-icon="i-lucide-chevron-down" color="neutral" variant="link" size="xl">{{
+      <UButton trailing-icon="i-bi-chevron-down" color="neutral" variant="link" size="xl">{{
         currentLocaleName
       }}</UButton>
     </UDropdownMenu>

@@ -58,7 +58,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
       <!-- Desktop only content -->
       <div class="hidden lg:flex items-center gap-8">
         <!-- Slogan - hidden on tablet and below -->
-        <div class="hidden xl:flex items-center gap-6 text-gray-400">{{ slogan }}</div>
+        <div class="hidden xl:flex items-center gap-6 text-gray-400 ml-8 text-sm">{{ slogan }}</div>
 
         <!-- Main navigation from Payload -->
         <SmartLink
@@ -100,7 +100,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           <div class="flex items-center justify-center min-w-[32px]">
             <ClientOnly>
               <template #fallback>
-                <UIcon name="i-heroicons-arrow-path" class="w-5 h-5 animate-spin text-gray-400" />
+                <UIcon name="i-bi-arrow-repeat" class="w-5 h-5 animate-spin text-gray-400" />
               </template>
 
               <NuxtLink
@@ -125,6 +125,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           </div>
         </div>
       </div>
+      
     </template>
 
     <template #body>

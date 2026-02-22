@@ -120,7 +120,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
         <!-- Remove button -->
         <div class="ml-4">
           <UButton
-            icon="i-heroicons-x-mark"
+            icon="i-bi-x"
             color="neutral"
             variant="ghost"
             size="sm"

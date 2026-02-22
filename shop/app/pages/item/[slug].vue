@@ -154,7 +154,7 @@ async function addToCart() {
   toast.add({
     title: t('Added to cart'),
     description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
-    icon: 'i-heroicons-check-circle',
+    icon: 'i-bi-check-circle',
     color: 'success'
   })
 
@@ -210,14 +210,14 @@ usePayloadPageSeo(product)
           color="error"
           variant="subtle"
           :title="t('This product is currently out of stock')"
-          icon="i-heroicons-exclamation-circle"
+          icon="i-bi-exclamation-circle"
         />
 
         <!-- Quantity Selector & Add to Cart -->
         <div v-if="!isOutOfStock && canAddToCart" class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <UButton
-              icon="i-heroicons-minus"
+              icon="i-bi-dash"
               size="md"
               color="neutral"
               variant="outline"
@@ -234,7 +234,7 @@ usePayloadPageSeo(product)
               @blur="validateQuantity"
             />
             <UButton
-              icon="i-heroicons-plus"
+              icon="i-bi-plus"
               size="md"
               color="neutral"
               variant="outline"
@@ -259,7 +259,7 @@ usePayloadPageSeo(product)
             :loading="adding"
             size="lg"
             class="flex-1"
-            icon="i-heroicons-shopping-cart"
+            icon="i-bi-cart"
             @click="addToCart"
           >
             {{ adding ? t('Adding...') : t('Add to Cart') }}

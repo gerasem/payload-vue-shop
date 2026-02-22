@@ -133,7 +133,7 @@ function getOrderStatusColor(status: string | null | undefined) {
           </template>
 
           <div v-if="loadingOrders" class="flex justify-center py-8">
-            <UIcon name="i-heroicons-arrow-path" class="animate-spin text-2xl text-gray-400" />
+            <UIcon name="i-bi-arrow-repeat" class="animate-spin text-2xl text-gray-400" />
           </div>
 
           <div v-else-if="orders.length > 0" class="space-y-4">

@@ -108,7 +108,7 @@ async function handlePayment() {
               </h1>
               <!-- Stripe Badge -->
               <div class="flex items-center gap-1 text-xs text-gray-400">
-                <UIcon name="i-heroicons-lock-closed" class="w-3 h-3" />
+                <UIcon name="i-bi-lock" class="w-3 h-3" />
                 <span>Stripe</span>
               </div>
             </div>
@@ -121,7 +121,7 @@ async function handlePayment() {
 
           <!-- No clientSecret state (configuring...) -->
           <div v-else class="flex items-center justify-center py-12">
-            <UIcon name="i-heroicons-arrow-path" class="animate-spin text-2xl text-gray-400" />
+            <UIcon name="i-bi-arrow-repeat" class="animate-spin text-2xl text-gray-400" />
           </div>
         </UCard>
       </div>
@@ -138,7 +138,7 @@ async function handlePayment() {
               variant="soft"
               :title="t('Payment error')"
               :description="paymentError"
-              icon="i-heroicons-exclamation-circle"
+              icon="i-bi-exclamation-circle"
             />
 
             <UButton
@@ -147,7 +147,7 @@ async function handlePayment() {
               color="primary"
               :loading="paymentProcessing"
               :disabled="paymentProcessing || !checkoutStore.clientSecret"
-              icon="i-heroicons-lock-closed"
+              icon="i-bi-lock"
               @click="handlePayment"
             >
               {{ paymentProcessing ? t('Processing payment...') : t('Pay now') }}

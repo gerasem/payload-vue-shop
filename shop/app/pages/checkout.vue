@@ -42,7 +42,7 @@ async function handleFormSubmit(formData: any) {
       title: t('Error'),
       description: result.error || t('Failed to create order'),
       color: 'error',
-      icon: 'i-heroicons-exclamation-circle'
+      icon: 'i-bi-exclamation-circle'
     })
   }
 }
@@ -75,7 +75,7 @@ async function handleFormSubmit(formData: any) {
               block
               size="lg"
               color="primary"
-              icon="i-heroicons-lock-closed"
+              icon="i-bi-lock"
               :loading="checkoutStore.loading"
               :disabled="checkoutStore.loading"
             >

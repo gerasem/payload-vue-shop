@@ -77,7 +77,7 @@ async function onSubmit(formData: Record<string, any>) {
     toast.add({
       title: t('Error'),
       description: error.statusMessage || t('Failed to send message'),
-      icon: 'i-heroicons-exclamation-circle',
+      icon: 'i-bi-exclamation-circle',
       color: 'error'
     })
   } finally {
@@ -122,7 +122,7 @@ usePayloadPageSeo(contactPage)
         <!-- Success Message -->
         <div v-else-if="submitted" class="text-center py-8">
           <div class="mb-4 text-secondary">
-            <UIcon name="i-heroicons-check-circle" class="w-16 h-16 mx-auto" />
+            <UIcon name="i-bi-check-circle" class="w-16 h-16 mx-auto" />
           </div>
           <h3 class="text-2xl font-bold mb-4">{{ t('Thank you!') }}</h3>
           <div class="prose max-w-none text-gray-600" v-html="successMessageHtml"></div>

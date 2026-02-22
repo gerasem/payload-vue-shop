@@ -9,7 +9,7 @@ const cartStore = useCartStore()
 <template>
   <!-- Empty cart state -->
   <div v-if="!cartStore.hasItems" class="py-12 text-center">
-    <UIcon name="i-heroicons-shopping-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
+    <UIcon name="i-bi-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
     <p class="mb-4 text-lg text-gray-600">
       {{ t('Your cart is empty.') }}
     </p>
