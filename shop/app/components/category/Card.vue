@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import CategoryImage from './CategoryImage.vue'
-import CategoryTitle from './CategoryTitle.vue'
 import type { ICategory } from '@/types'
 
 defineProps<{

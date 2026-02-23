@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import type { ICategory, IItem } from '@/types'
-import ItemCard from '@/components/item/ItemCard.vue'
+
 
 const localePath = useLocalePath()
 const { t } = useI18n()

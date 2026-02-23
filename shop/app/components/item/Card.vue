@@ -38,13 +38,13 @@ const formattedPrice = computed(() => {
     </div>
 
     <!-- Item Info -->
-    <div class="flex justify-between items-start gap-2">
+    <div class="flex justify-between items-start gap-4">
       <h3 class="text-gray-900 group-hover:text-primary transition-colors">
         {{ item.title }}
       </h3>
-      <span class="font-medium text-lg text-gray-900 whitespace-nowrap">
-        {{ formattedPrice }}
-      </span>
+        <span class="font-bold text-lg text-gray-900 whitespace-nowrap">
+          {{ formattedPrice }}
+        </span>
     </div>
   </NuxtLink>
 </template>

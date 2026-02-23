@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Text2Columns from '~/components/content/Text2Columns.vue'
+
 
 const { t } = useI18n()
 const localePath = useLocalePath()

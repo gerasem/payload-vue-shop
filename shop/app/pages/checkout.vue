@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CheckoutForm from '~/components/checkout/CheckoutForm.vue'
+
 
 const { t } = useI18n()
 const localePath = useLocalePath()

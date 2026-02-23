@@ -26,7 +26,7 @@ if (!product.value) {
 }
 
 // Variant logic extracted to composable
-import Text2Columns from '~/components/content/Text2Columns.vue'
+
 const { selectedOptions, selectedVariant, displayPrice } = useProductVariants(product)
 
 // Handle variant selection from VariantList
@@ -278,7 +278,7 @@ usePayloadPageSeo(product)
 
     <!-- Description (Storefront Replication) -->
     <div v-if="product?.description" class="mt-12">
-      <Text2Columns :text="richTextToHTML(product.description)" />
+      <ContentText2Columns :text="richTextToHTML(product.description)" />
     </div>
   </div>
 </template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CategorySection from '@/components/category/CategorySection.vue'
 
 // Fetch all categories with their items (8 per category)
 const { data: categoriesWithItems } = await useAsyncData('all-items-catalog', async () => {
