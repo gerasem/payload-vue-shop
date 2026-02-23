@@ -60,8 +60,11 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
-
   css: ['~/assets/css/main.css'],
+  ui: {
+    colorMode: false
+  },
+
   runtimeConfig: {
     // Server-only: used in server routes (contact.post.ts, etc.)
     // Set PAYLOAD_PRIVATE_URL env var if your backend is on an internal network

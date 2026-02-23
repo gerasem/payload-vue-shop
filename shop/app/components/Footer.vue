@@ -26,7 +26,7 @@ const slogan = computed(() => footerData.value?.slogan || '')
 </script>
 
 <template>
-  <footer class="bg-gray-50 border-t border-gray-100 mt-auto">
+  <footer class="bg-gray-50 mt-auto">
     <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Main Footer Content -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-start">

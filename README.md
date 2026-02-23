@@ -4,6 +4,17 @@ A modern, full-stack e-commerce demonstration built with **Payload CMS** (headle
 
 🚀 **Live Demo:** [https://payload-vue-shop.vercel.app/](https://payload-vue-shop.vercel.app/)
 
+### Frontend (Nuxt 4)
+![Frontend Main Page](shop/public/frontend1.png)
+![Frontend Categories Page](shop/public/frontend2.png)
+![Frontend Item Page](shop/public/frontend3.png)
+![Frontend Cart Page](shop/public/frontend4.png)
+![Frontend Checkout Page](shop/public/frontend5.png)
+
+### Backend (Payload)
+![Backend Admin Panel](shop/public/backend1.png)
+![Backend Settings](shop/public/backend2.png)
+
 ## Tech Stack
 
 ### Backend (`/payload`)
@@ -66,6 +77,7 @@ This monorepo contains the following main directories:
 - **Responsive Design:** Mobile-first approach using Tailwind CSS.
 - **Modern UI:** Built with Nuxt UI components.
 - **SEO Friendly:** Server-side rendering (SSR) with Nuxt.
+- **Payment:** Stripe.
 
 ## Deployment
 

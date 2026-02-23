@@ -71,7 +71,11 @@ h1, h2,
   font-weight: 500;
 }
 
-/* Rich text (Lexical) styling — shared by all pages rendering CMS content */
+body {
+  background-color: #fff;
+}
+
+/* Rich text (Lexical) styling — shared by all pages rendering CMS content
 .prose h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -116,3 +120,4 @@ h1, h2,
 .prose strong {
   font-weight: 600;
 }
+ */
