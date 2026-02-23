@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import type { IPage } from '@/types'
 
-const { t } = useI18n()
-
-// Define props
 defineProps<{
   boxes?: NonNullable<IPage['docs'][0]['conversionBoxes']> | null
 }>()

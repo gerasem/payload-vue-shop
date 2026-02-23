@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
 const { data: categoriesWithItems } = await useAsyncData('home-categories-items', async () => {
   return usePayloadCategoriesWithItems(4)
 })

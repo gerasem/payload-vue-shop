@@ -30,6 +30,7 @@ h2 {
   line-height: 1.3;
   break-after: avoid; /* Keep with text */
   break-inside: avoid-column;
+  font-weight: 500;
 }
 
 p {

@@ -36,6 +36,7 @@
     "@graphql-codegen/cli": "^6.1.0",
     "@graphql-codegen/typescript": "^5.0.7",
     "@graphql-codegen/typescript-operations": "^5.0.7",
+    "@iconify-json/bi": "^1.2.7",
     "@iconify-json/heroicons": "^1.2.3",
     "@nuxt/eslint": "^1.12.1",
     "@nuxtjs/sitemap": "^7.6.0",

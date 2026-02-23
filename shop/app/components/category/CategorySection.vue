@@ -14,7 +14,7 @@ defineProps<{
 </script>
 
 <template>
-  <section class="mb-12">
+  <section class="mb-8">
     <!-- Category Header -->
     <div class="flex items-center justify-between mb-6 group">
       <h2 class="text-4xl font-bold text-gray-900">
@@ -22,7 +22,7 @@ defineProps<{
       </h2>
       <NuxtLink
         :to="localePath(`/category/${category.slug}`)"
-        class="text-gray-900 hover:text-primary text-sm transition-all duration-200 opacity-0 group-hover:opacity-100"
+        class="text-gray-900 hover:text-primary transition-all duration-200 opacity-0 group-hover:opacity-100"
       >
         {{ t('View all') }} →
       </NuxtLink>

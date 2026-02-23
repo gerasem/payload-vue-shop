@@ -29,7 +29,7 @@ const formattedPrice = computed(() => {
 <template>
   <NuxtLink :to="localePath(`/item/${item.slug}`)" class="group block">
     <!-- Item Image -->
-    <div class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
+    <div class="relative aspect-square bg-gray-100  overflow-hidden mb-3">
       <img
         :src="imageUrl"
         :alt="item.gallery?.[0]?.alt || item.title || ''"
@@ -39,10 +39,10 @@ const formattedPrice = computed(() => {
 
     <!-- Item Info -->
     <div class="flex justify-between items-start gap-2">
-      <h3 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors">
+      <h3 class="text-gray-900 group-hover:text-primary transition-colors">
         {{ item.title }}
       </h3>
-      <span class="text-sm font-bold text-gray-900 whitespace-nowrap">
+      <span class="font-medium text-lg text-gray-900 whitespace-nowrap">
         {{ formattedPrice }}
       </span>
     </div>
