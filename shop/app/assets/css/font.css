@@ -7,6 +7,14 @@
 }
 
 @font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Playfair Display';
   src: url('../fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
   font-weight: 400 900;
@@ -25,4 +33,3 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
-

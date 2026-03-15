@@ -1,4 +1,5 @@
 {
+  "css.lint.unknownAtRules": "ignore",
   "cSpell.enabled": true,
   "cSpell.language": "en,ru,de",
   "cSpell.words": [

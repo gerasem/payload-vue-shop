@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const localePath = useLocalePath()
 
-// Fetch categories with SSR
 const { data: categories } = await useAsyncData('payload-categories', () => usePayloadCategories())
 </script>
 
@@ -12,7 +11,7 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
         <li v-for="category in categories" :key="category.id">
           <NuxtLink
             :to="localePath(`/category/${category.slug}`)"
-            class="category-link text-gray-900 hover:text-primary transition-all text-base"
+            class="category-link text-gray-900 hover:text-primary transition-all"
           >
             {{ category.title }}
           </NuxtLink>

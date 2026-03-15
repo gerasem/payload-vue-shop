@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { MappedLink } from '@/composables/usePayloadLink'
 
-// Fetch footer data with SSR
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
 
-// Map navigation links using pageType from Payload
 const navLinks = computed(
   () =>
     footerData.value?.navItems
@@ -12,16 +10,9 @@ const navLinks = computed(
       .filter((link): link is MappedLink => link !== null) || []
 )
 
-// Extract contact data
 const phone = computed(() => footerData.value?.phone || '')
-const contactLink = computed(() => {
-  const link = usePayloadLink({ link: footerData.value?.contactLink })
-  return link
-})
-const socialLink = computed(() => {
-  const link = usePayloadLink({ link: footerData.value?.socialLink })
-  return link
-})
+const contactLink = computed(() => usePayloadLink(footerData.value?.contactLink))
+const socialLink = computed(() => usePayloadLink(footerData.value?.socialLink))
 const slogan = computed(() => footerData.value?.slogan || '')
 </script>
 
@@ -32,7 +23,7 @@ const slogan = computed(() => footerData.value?.slogan || '')
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-start">
         <!-- Navigation Links -->
         <div class="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3">
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
             <SmartLink
               v-for="link in navLinks"
               :key="link.href"

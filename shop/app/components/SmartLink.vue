@@ -6,7 +6,6 @@ const props = defineProps<{
   class?: string
 }>()
 
-// Determine target attribute
 const target = computed(() => (props.link.openInNewTab ? '_blank' : undefined))
 const rel = computed(() => (props.link.openInNewTab ? 'noopener noreferrer' : undefined))
 </script>
