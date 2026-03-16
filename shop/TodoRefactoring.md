@@ -1,11 +1,11 @@
 ## Components
 
 [ ] cart
-[ ] catalog
+[x] catalog
 [x] category
 [ ] checkout
-[ ] content
-[ ] cookie
+[x] content
+[x] cookie
 [ ] form
 [x] header
 [ ] home

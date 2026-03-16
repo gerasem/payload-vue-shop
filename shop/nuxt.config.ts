@@ -18,16 +18,8 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    sources: [
-      '/api/sitemap-routes'
-    ],
-    exclude: [
-      '/auth/**',
-      '/warenkorb',
-      '/checkout',
-      '/payment',
-      '/cabinet/**'
-    ]
+    sources: ['/api/sitemap-routes'],
+    exclude: ['/auth/**', '/warenkorb', '/checkout', '/payment', '/cabinet/**']
   },
 
   cookieControl: {
@@ -39,8 +31,7 @@ export default defineNuxtConfig({
         {
           id: 'necessary',
           name: {
-            de: 'Technisch notwendige Cookies',
-            en: 'Technically necessary cookies'
+            de: 'Technisch notwendige Cookies'
           }
         }
       ],
@@ -48,13 +39,12 @@ export default defineNuxtConfig({
         {
           id: 'analytics',
           name: {
-            de: 'Analyse-Cookies',
-            en: 'Analytics cookies'
+            de: 'Analyse-Cookies'
           }
         }
       ]
     },
-    locales: ['de', 'en']
+    locales: ['de']
   },
 
   devtools: {
@@ -68,7 +58,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only: used in server routes (contact.post.ts, etc.)
     // Set PAYLOAD_PRIVATE_URL env var if your backend is on an internal network
-    payloadUrl: process.env.PAYLOAD_PRIVATE_URL || process.env.PAYLOAD_URL || 'http://localhost:3000',
+    payloadUrl:
+      process.env.PAYLOAD_PRIVATE_URL || process.env.PAYLOAD_URL || 'http://localhost:3000',
     public: {
       payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
       stripeKey: process.env.NUXT_PUBLIC_STRIPE_KEY || '',

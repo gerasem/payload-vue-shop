@@ -20,21 +20,6 @@ defineProps<{
     }
   }
 
-  h2 {
-    font-size: 2.25rem; /* text-2xl */
-    font-weight: 700;
-    color: #1e1e1e; /* gray-900 */
-    margin-bottom: 1rem;
-    margin-top: 0;
-    line-height: 1.3;
-    break-after: avoid; /* Keep with text */
-    break-inside: avoid-column;
-    font-weight: 500;
-  }
 
-  p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-  }
 }
 </style>

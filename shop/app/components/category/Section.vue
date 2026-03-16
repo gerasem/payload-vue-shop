@@ -30,7 +30,7 @@ onUnmounted(() => {
   <section class="mb-8">
     <!-- Category Header -->
     <div class="flex items-center justify-between mb-6 group">
-      <h2 class="text-4xl font-bold">
+      <h2 class="text-4xl">
         {{ category.title }}
       </h2>
       <NuxtLink
