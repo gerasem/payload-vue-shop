@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
+import { ref, onMounted, onUnmounted } from 'vue'
 import type { ICategory, IItem } from '@/types'
 
 const localePath = useLocalePath()
@@ -10,6 +9,21 @@ defineProps<{
   category: ICategory
   items: IItem[]
 }>()
+
+const isDesktop = ref(true) // Default to true (desktop-first/SSR friendly if we assume desktop or handle on mount)
+
+const updateBreakpoint = () => {
+  isDesktop.value = window.matchMedia('(min-width: 768px)').matches
+}
+
+onMounted(() => {
+  updateBreakpoint()
+  window.addEventListener('resize', updateBreakpoint)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateBreakpoint)
+})
 </script>
 
 <template>
@@ -28,24 +42,9 @@ defineProps<{
     </div>
 
     <!-- Mobile Swiper -->
-    <div class="md:hidden -mx-4">
-      <ClientOnly>
-        <swiper
-          :slides-per-view="1.4"
-          :space-between="16"
-          :slides-offset-before="16"
-          :slides-offset-after="16"
-        >
-          <swiper-slide v-for="item in items" :key="item.id">
-            <ItemCard :item="item" />
-          </swiper-slide>
-        </swiper>
-      </ClientOnly>
-    </div>
+    <LazyCategoryMobileSwiper v-if="!isDesktop" :items="items" />
 
     <!-- Desktop Grid -->
-    <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6">
-      <ItemCard v-for="item in items" :key="item.id" :item="item" />
-    </div>
+    <CategoryDesktopGrid v-else :items="items" />
   </section>
 </template>
