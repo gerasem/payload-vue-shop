@@ -74,7 +74,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           v-for="link in navigationLinks"
           :key="link.href"
           :link="link"
-          class="text-gray-900 hover:text-primary transition-colors whitespace-nowrap"
+          class="hover:text-primary transition-colors whitespace-nowrap"
         />
       </div>
     </template>
@@ -85,7 +85,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         v-for="button in navButtons"
         :key="button.href"
         :link="button"
-        class="hidden lg:block text-gray-900 hover:text-primary transition-colors whitespace-nowrap"
+        class="hidden lg:block hover:text-primary transition-colors whitespace-nowrap"
       />
 
       <!-- User & Cart icons - always visible -->
@@ -118,7 +118,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
               />
               <span
                 v-if="cartStore && cartStore.count > 0"
-                class="text-base font-normal text-gray-900"
+                class="font-normal"
               >
                 {{ cartStore.count }}
               </span>

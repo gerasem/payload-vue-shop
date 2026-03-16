@@ -175,12 +175,12 @@ usePayloadPageSeo(product)
       <!-- Product Info -->
       <div class="flex flex-col space-y-6">
         <!-- Title -->
-        <h1 class="text-3xl font-bold text-gray-900">
+        <h1 class="text-4xl">
           {{ product?.title }}
         </h1>
 
         <!-- Price -->
-        <div class="text-2xl font-semibold text-gray-900">
+        <div class="text-2xl font-semibold">
           {{ displayPrice }}
         </div>
 

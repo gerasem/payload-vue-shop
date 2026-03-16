@@ -22,7 +22,7 @@ withDefaults(
 
 <template>
   <div class="sticky top-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-    <h2 class="mb-4 text-lg font-semibold text-gray-900">
+    <h2 class="mb-4 text-lg font-semibold">
       {{ t('Order Summary') }}
     </h2>
 
@@ -30,7 +30,7 @@ withDefaults(
     <div class="mb-4 flex justify-between border-b border-gray-200 pb-4">
       <span class="text-gray-600">{{ t('Subtotal') }}</span>
       <USkeleton v-if="cartStore.isHydrating" class="h-6 w-24" />
-      <span v-else class="font-semibold text-gray-900">{{ cartStore.totalFormatted }}</span>
+      <span v-else class="font-semibold">{{ cartStore.totalFormatted }}</span>
     </div>
 
     <!-- Shipping -->
@@ -39,7 +39,7 @@ withDefaults(
       <span v-if="cartStore.shippingTotal === 0" class="font-medium text-green-600">{{
         t('Free')
       }}</span>
-      <span v-else class="font-medium text-gray-900">{{ cartStore.shippingFormatted }}</span>
+      <span v-else class="font-medium">{{ cartStore.shippingFormatted }}</span>
     </div>
 
     <!-- Total -->

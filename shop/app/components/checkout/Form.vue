@@ -40,7 +40,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UCard>
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-900">
+      <h2 class="text-xl">
         {{ t('Contact Information') }}
       </h2>
     </div>

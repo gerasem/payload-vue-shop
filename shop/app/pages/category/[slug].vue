@@ -100,7 +100,7 @@ usePageSeo({
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Category Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">
+      <h1 class="text-4xl mb-2">
         {{ currentCategory?.title || slug }}
       </h1>
     </div>

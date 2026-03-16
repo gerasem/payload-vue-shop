@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import type { ICategory, IItem } from '@/types'
 
-
 const localePath = useLocalePath()
 const { t } = useI18n()
 
@@ -17,12 +16,12 @@ defineProps<{
   <section class="mb-8">
     <!-- Category Header -->
     <div class="flex items-center justify-between mb-6 group">
-      <h2 class="text-4xl font-bold text-gray-900">
+      <h2 class="text-4xl font-bold">
         {{ category.title }}
       </h2>
       <NuxtLink
         :to="localePath(`/category/${category.slug}`)"
-        class="text-gray-900 hover:text-primary transition-all opacity-0 group-hover:opacity-100"
+        class="hover:text-primary transition-all opacity-0 group-hover:opacity-100"
       >
         {{ t('View all') }} →
       </NuxtLink>

@@ -91,7 +91,7 @@ async function confirmOrder(intentId: string) {
             <UIcon name="i-bi-x" class="w-10 h-10 text-red-600" />
           </div>
         </div>
-        <h1 class="text-2xl font-bold text-gray-900 mb-4">
+        <h1 class="text-2xl mb-4">
           {{ t('Payment error') }}
         </h1>
         <p class="text-red-500 mb-8">{{ confirmError }}</p>
@@ -108,7 +108,7 @@ async function confirmOrder(intentId: string) {
           </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">
+        <h1 class="text-4xl mb-4">
           {{ t('Payment successful!') }}
         </h1>
 

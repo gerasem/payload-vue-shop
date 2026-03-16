@@ -66,12 +66,10 @@ const selectedSort = computed({
 </script>
 
 <template>
-  <div
-    class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-4 mb-8"
-  >
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-8">
     <!-- Left: Price Range -->
     <div class="flex flex-col gap-2 w-full sm:w-1/2 md:w-1/3">
-      <span class="text-sm font-medium text-gray-700">{{ t('Price Range (€)') }}</span>
+      <span>{{ t('Price Range (€)') }}</span>
       <div class="flex items-center gap-2">
         <UInputNumber
           v-model="minPrice"
@@ -97,7 +95,7 @@ const selectedSort = computed({
 
     <!-- Right: Sort -->
     <div class="flex items-center gap-2">
-      <span class="text-sm font-medium text-gray-700">{{ t('Sort by:') }}</span>
+      <span class="text-sm">{{ t('Sort by:') }}</span>
       <USelect
         v-model="selectedSort"
         :items="sortOptions"

@@ -52,7 +52,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       <template #header>
         <div class="text-center">
           <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
+            class="text-xl leading-tight tracking-tight md:text-2xl"
           >
             {{ t('Forgot Password') }}
           </h1>

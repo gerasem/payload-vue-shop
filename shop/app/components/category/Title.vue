@@ -11,7 +11,7 @@ defineProps<{
 <template>
   <NuxtLink
     :to="localePath(`/category/${category.slug}`)"
-    class="category-title sticky z-10 block pt-2 pb-4 text-gray-900 text-base transition-colors hover:text-primary"
+    class="category-title sticky z-10 block pt-2 pb-4 transition-colors hover:text-primary"
   >
     {{ category.title }}
   </NuxtLink>

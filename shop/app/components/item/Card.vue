@@ -39,10 +39,10 @@ const formattedPrice = computed(() => {
 
     <!-- Item Info -->
     <div class="flex justify-between items-start gap-4">
-      <h3 class="text-gray-900 group-hover:text-primary transition-colors">
+      <h3 class="group-hover:text-primary transition-colors">
         {{ item.title }}
       </h3>
-        <span class="font-bold text-lg text-gray-900 whitespace-nowrap">
+        <span class="font-bold text-lg whitespace-nowrap">
           {{ formattedPrice }}
         </span>
     </div>

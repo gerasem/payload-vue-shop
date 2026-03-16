@@ -47,7 +47,7 @@ const saveSettings = () => {
           <div class="flex flex-col gap-8 items-start lg:flex-row">
             <!-- Text Content -->
             <div class="flex-1">
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">
+              <h2 class="text-2xl mb-4">
                 {{ t('Your Data. Your Choice.') }}
               </h2>
               <p class="text-sm leading-[1.625] text-gray-700 mb-4 lg:mb-0">
@@ -116,11 +116,11 @@ const saveSettings = () => {
       class="bg-white rounded-xl max-w-[520px] w-[90%] max-h-[90vh] overflow-y-auto p-6 shadow-[0_20px_60px_rgba(0,0,0,0.15)] animate-scale-in"
     >
       <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-bold text-gray-900">
+        <h3 class="text-xl">
           {{ t('Customize Cookies') }}
         </h3>
         <button
-          class="flex items-center justify-center w-8 h-8 rounded-md border-none bg-transparent text-gray-500 text-base cursor-pointer hover:bg-gray-100 transition-colors duration-150"
+          class="flex items-center justify-center w-8 h-8 border-none bg-transparent text-gray-500 hover:bg-gray-100 transition-colors duration-150"
           @click="isSettingsOpen = false"
         >
           ✕
@@ -135,7 +135,7 @@ const saveSettings = () => {
         <!-- Necessary -->
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1">
-            <div class="font-medium text-gray-900 mb-1">
+            <div class="font-medium mb-1">
               {{ t('Strictly necessary') }}
             </div>
             <p class="text-xs text-gray-500">
@@ -155,7 +155,7 @@ const saveSettings = () => {
         <!-- Analytics -->
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1">
-            <div class="font-medium text-gray-900 mb-1">
+            <div class="font-medium mb-1">
               {{ t('Marketing / Analytics') }}
             </div>
             <p class="text-xs text-gray-500">

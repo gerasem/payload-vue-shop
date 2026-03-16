@@ -11,7 +11,7 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
         <li v-for="category in categories" :key="category.id">
           <NuxtLink
             :to="localePath(`/category/${category.slug}`)"
-            class="category-link text-gray-900 hover:text-primary transition-all"
+            class="category-link hover:text-primary transition-all"
           >
             {{ category.title }}
           </NuxtLink>

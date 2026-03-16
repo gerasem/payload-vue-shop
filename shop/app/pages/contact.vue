@@ -93,7 +93,7 @@ usePayloadPageSeo(contactPage)
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
       <!-- Contact Information -->
       <div>
-        <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ t('Contact Us') }}</h1>
+        <h1 class="text-4xl mb-6">{{ t('Contact Us') }}</h1>
 
         <!-- Dynamic Page Content -->
         <div

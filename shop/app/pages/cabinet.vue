@@ -95,7 +95,7 @@ function getOrderStatusColor(status: string | null | undefined) {
   <div class="flex min-h-[50vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
-      <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+      <h1 class="text-2xl mb-6 text-center">
         {{ t('My Account') }}
       </h1>
 
@@ -167,7 +167,7 @@ function getOrderStatusColor(status: string | null | undefined) {
     <UCard v-else class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+          <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl">
             {{ t('Sign in to your account') }}
           </h1>
         </div>

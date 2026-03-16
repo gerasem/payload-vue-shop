@@ -28,7 +28,7 @@ const slogan = computed(() => footerData.value?.slogan || '')
               v-for="link in navLinks"
               :key="link.href"
               :link="link"
-              class="text-sm text-gray-900 hover:text-primary transition-colors"
+              class="w-fit hover:text-primary transition-colors"
             />
           </div>
         </div>
@@ -39,11 +39,11 @@ const slogan = computed(() => footerData.value?.slogan || '')
         </div>
 
         <!-- Contact Column -->
-        <div class="space-y-2 md:text-right">
+        <div class="space-y-2">
           <a
             v-if="phone"
             :href="`tel:${phone.replace(/\s/g, '')}`"
-            class="block text-sm font-semibold text-gray-900 hover:text-primary transition-colors"
+            class="w-fit block font-semibold hover:text-primary transition-colors"
           >
             {{ phone }}
           </a>
@@ -51,13 +51,13 @@ const slogan = computed(() => footerData.value?.slogan || '')
           <SmartLink
             v-if="contactLink"
             :link="contactLink"
-            class="block text-sm text-gray-900 hover:text-primary transition-colors"
+            class="w-fit block hover:text-primary transition-colors"
           />
 
           <SmartLink
             v-if="socialLink"
             :link="socialLink"
-            class="block text-sm text-primary hover:text-primary-600 transition-colors"
+            class="w-fit block text-primary hover:text-secondary transition-colors"
           />
         </div>
       </div>

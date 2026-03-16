@@ -97,7 +97,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
     <div class="flex flex-1 flex-col">
       <div class="flex justify-between">
         <div class="flex-1">
-          <h3 class="text-base font-medium text-gray-900">
+          <h3 class="font-medium">
             <NuxtLink :to="localePath(`/item/${item.slug}`)">
               {{ item.title }}
             </NuxtLink>
@@ -149,8 +149,8 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
             <USkeleton class="h-6 w-16 ml-auto" />
           </template>
           <template v-else>
-            <p class="text-sm text-gray-500">{{ formatEuro(item.priceInEUR) }} × {{ quantity }}</p>
-            <p class="text-base font-medium text-gray-900">
+            <p class="text-sm">{{ formatEuro(item.priceInEUR) }} × {{ quantity }}</p>
+            <p class="font-medium">
               {{ formatEuro(lineTotal) }}
             </p>
           </template>
