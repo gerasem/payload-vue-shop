@@ -68,40 +68,50 @@ const selectedSort = computed({
 <template>
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-8">
     <!-- Left: Price Range -->
-    <div class="flex flex-col gap-2 w-full sm:w-1/2 md:w-1/3">
-      <span>{{ t('Price Range (€)') }}</span>
-      <div class="flex items-center gap-2">
+    <div class="flex gap-2 w-full"">
+      <div class="flex items-center gap-2 min-w-96">
         <UInputNumber
           v-model="minPrice"
-          size="sm"
-          class="w-20"
+          class="w-24"
           :min="minEuro"
           :max="maxPrice"
           :increment="false"
           :decrement="false"
+          variant="ghost"
+          :format-options="{
+            style: 'currency',
+            currency: 'EUR',
+            currencySign: 'standard'
+          }"
         />
         <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.1" />
         <UInputNumber
           v-model="maxPrice"
-          size="sm"
-          class="w-20"
+          class="w-24"
           :min="minPrice"
           :max="maxEuro"
           :increment="false"
           :decrement="false"
+          variant="ghost"
+          :format-options="{
+            style: 'currency',
+            currency: 'EUR',
+            currencySign: 'standard'
+          }"
         />
       </div>
     </div>
 
     <!-- Right: Sort -->
     <div class="flex items-center gap-2">
-      <span class="text-sm">{{ t('Sort by:') }}</span>
       <USelect
         v-model="selectedSort"
         :items="sortOptions"
         option-attribute="label"
         value-attribute="value"
-        class="w-full sm:w-48"
+        variant="ghost"
+        icon="bi-filter"
+        class="w-full sm:min-w-52"
       />
     </div>
   </div>

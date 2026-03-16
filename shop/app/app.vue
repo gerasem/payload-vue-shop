@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { de } from '@nuxt/ui/locale'
+
 const route = useRoute()
 
 // Initialize cart store on client-side only
@@ -40,7 +42,7 @@ useHead({
 </script>
 
 <template>
-  <UApp>
+  <UApp :locale="de">
     <NuxtLoadingIndicator color="#dfa44c" />
     <Header />
 
