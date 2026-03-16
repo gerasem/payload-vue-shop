@@ -28,15 +28,15 @@ const contentHTML = computed(() =>
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
     <article v-if="pageData">
       <!-- Page Title -->
-      <h1 class="text-4xl md:text-5xl font-bold mb-8">{{ pageData.title }}</h1>
+      <h1 class="text-4xl mb-8">{{ pageData.title }}</h1>
 
       <!-- Page Content (Rich Text) -->
       <div
         v-if="contentHTML"
-        class="prose prose-lg prose-gray max-w-none mb-12"
+        class="max-w-none mb-12"
         v-html="contentHTML"
       />
     </article>

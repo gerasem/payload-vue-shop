@@ -134,6 +134,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
           v-model="state[field.name]"
           :placeholder="getLabel(field)"
           class="w-full"
+          size="xl"
         />
 
         <!-- Email Input -->
@@ -143,6 +144,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
           type="email"
           :placeholder="getLabel(field)"
           class="w-full"
+          size="xl"
         />
 
         <!-- Textarea -->
@@ -152,6 +154,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
           :rows="4"
           :placeholder="getLabel(field)"
           class="w-full"
+          size="xl"
         />
 
         <!-- Number -->
@@ -161,6 +164,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
           type="number"
           :placeholder="getLabel(field)"
           class="w-full"
+          size="xl"
         />
 
         <!-- Select -->
@@ -172,6 +176,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
           value-attribute="value"
           :placeholder="getLabel(field)"
           class="w-full"
+          size="xl"
         />
 
         <!-- Checkbox -->
@@ -179,12 +184,13 @@ function onSubmit(event: FormSubmitEvent<any>) {
           v-else-if="field.blockType === 'checkbox'"
           v-model="state[field.name]"
           :label="getLabel(field)"
+          size="xl"
         />
       </UFormField>
     </template>
 
     <div class="w-full px-2">
-      <UButton type="submit" block size="lg" :loading="loading">
+      <UButton type="submit" block size="xl" :loading="loading">
         {{ submitLabel }}
       </UButton>
     </div>

@@ -33,7 +33,7 @@ const formattedPrice = computed(() => {
       <img
         :src="imageUrl"
         :alt="item.gallery?.[0]?.alt || item.title || ''"
-        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        class="w-full h-full object-cover transition-transform group-hover:scale-105"
       />
     </div>
 

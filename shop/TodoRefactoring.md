@@ -8,7 +8,7 @@
 [x] cookie
 [ ] form
 [x] header
-[ ] home
+[x] home
 [ ] item
 [x] Footer.vue
 [x] SmartLink.vue
@@ -39,7 +39,7 @@
 [ ] auth
 [ ] category
 [ ] item
-[ ] page
+[x] page
 [ ] payment
 [x] all-items.vue
 [ ] cabinet.vue

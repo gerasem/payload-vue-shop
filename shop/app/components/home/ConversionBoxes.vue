@@ -10,26 +10,26 @@ defineProps<{
   <div v-if="boxes && boxes.length > 0" class="my-12">
     <div class="grid gap-6 md:grid-cols-2">
       <div
-        v-for="box in boxes"
-        :key="box.id || box.title"
-        class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex h-full"
+        v-for="(box, index) in boxes"
+        :key="box.id || box.title || index"
+        class="bg-gray-50 flex h-full"
       >
         <!-- Image Section (Left, 40-50%) -->
         <div class="w-1/2 md:w-5/12 relative">
           <img
-            v-if="box.image && typeof box.image === 'object' && 'url' in box.image"
+            v-if="box.image"
             :src="usePayloadImageUrl(box.image.url)"
             :alt="box.image.alt || box.title || ''"
-            class="absolute inset-0 w-full h-full object-cover"
+            class="w-full h-full object-cover"
           />
         </div>
 
         <!-- Content Section (Right) -->
         <div class="w-1/2 md:w-7/12 p-6 flex flex-col justify-center">
-          <h3 class="text-2xl font-serif mb-2 leading-tight">
+          <h3 class="text-3xl font-serif mb-2">
             {{ box.title }}
           </h3>
-          <div class="text-sm whitespace-pre-line leading-relaxed">
+          <div class="">
             {{ box.description }}
           </div>
         </div>
@@ -38,8 +38,4 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
-/* Optional: Add custom serif font if not available globally, 
-   though 'font-serif' utility usually handles it.
-*/
-</style>
+<style scoped></style>

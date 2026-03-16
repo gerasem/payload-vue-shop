@@ -72,27 +72,31 @@ const selectedSort = computed({
       <div class="flex items-center gap-2 min-w-96">
         <UInputNumber
           v-model="minPrice"
-          class="w-24"
+          class="w-36"
           :min="minEuro"
           :max="maxPrice"
           :increment="false"
           :decrement="false"
           variant="ghost"
+          size="xl"
           :format-options="{
             style: 'currency',
             currency: 'EUR',
             currencySign: 'standard'
           }"
         />
+
         <USlider v-model="localPrice" :min="minEuro" :max="maxEuro" :step="0.1" />
+
         <UInputNumber
           v-model="maxPrice"
-          class="w-24"
+          class="w-36"
           :min="minPrice"
           :max="maxEuro"
           :increment="false"
           :decrement="false"
           variant="ghost"
+          size="xl"
           :format-options="{
             style: 'currency',
             currency: 'EUR',
@@ -111,6 +115,7 @@ const selectedSort = computed({
         value-attribute="value"
         variant="ghost"
         icon="bi-filter"
+        size="xl"
         class="w-full sm:min-w-52"
       />
     </div>
