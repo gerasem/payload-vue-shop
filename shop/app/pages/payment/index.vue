@@ -96,7 +96,7 @@ async function handlePayment() {
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Left: Stripe Payment Form -->
       <div class="lg:col-span-2">

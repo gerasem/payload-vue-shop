@@ -2,7 +2,7 @@
 
 [ ] cart
 [ ] catalog
-[ ] category
+[x] category
 [ ] checkout
 [ ] content
 [ ] cookie
