@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 // Fetch all categories with their items (8 per category)
 const { data: categoriesWithItems } = await useAsyncData('all-items-catalog', async () => {
   return usePayloadCategoriesWithItems(8)

@@ -46,11 +46,15 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
     </div>
 
     <UForm id="checkout-form" :schema="schema" :state="form" class="space-y-5" @submit="onSubmit">
-
       <!-- First Name / Last Name -->
       <div class="grid grid-cols-2 gap-4">
         <UFormField :label="t('First Name')" name="firstName" required>
-          <UInput v-model="form.firstName" class="w-full" size="lg" :placeholder="t('First Name')" />
+          <UInput
+            v-model="form.firstName"
+            class="w-full"
+            size="lg"
+            :placeholder="t('First Name')"
+          />
         </UFormField>
         <UFormField :label="t('Last Name')" name="lastName" required>
           <UInput v-model="form.lastName" class="w-full" size="lg" :placeholder="t('Last Name')" />
@@ -60,10 +64,22 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       <!-- Email / Phone -->
       <div class="grid grid-cols-2 gap-4">
         <UFormField :label="t('Email')" name="email" required>
-          <UInput v-model="form.email" type="email" class="w-full" size="lg" :placeholder="t('Email')" />
+          <UInput
+            v-model="form.email"
+            type="email"
+            class="w-full"
+            size="lg"
+            :placeholder="t('Email')"
+          />
         </UFormField>
         <UFormField :label="t('Phone')" name="phone">
-          <UInput v-model="form.phone" type="tel" class="w-full" size="lg" :placeholder="t('Phone')" />
+          <UInput
+            v-model="form.phone"
+            type="tel"
+            class="w-full"
+            size="lg"
+            :placeholder="t('Phone')"
+          />
         </UFormField>
       </div>
 
@@ -90,13 +106,17 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       <!-- Postal Code / City -->
       <div class="grid grid-cols-2 gap-4">
         <UFormField :label="t('Postal Code')" name="postalCode" required>
-          <UInput v-model="form.postalCode" class="w-full" size="lg" :placeholder="t('Postal Code')" />
+          <UInput
+            v-model="form.postalCode"
+            class="w-full"
+            size="lg"
+            :placeholder="t('Postal Code')"
+          />
         </UFormField>
         <UFormField :label="t('City')" name="city" required>
           <UInput v-model="form.city" class="w-full" size="lg" :placeholder="t('City')" />
         </UFormField>
       </div>
-
     </UForm>
   </UCard>
 </template>

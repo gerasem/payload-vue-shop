@@ -20,7 +20,6 @@ defineProps<{
 <style scoped lang="scss">
 /* Sticky title effect - each category title stacks below previous one */
 .category-title {
-
   /* Calculate sticky top position for each category (1st, 2nd, 3rd, etc.) */
   @for $i from 1 through 10 {
     &:nth-child(#{2 * $i}) {

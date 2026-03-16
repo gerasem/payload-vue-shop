@@ -134,10 +134,13 @@ export const useCartStore = defineStore('cart', () => {
         })
       } else {
         // Create new cart (POST) — Payload wraps response in { doc: {...} }
-        const response = await $payloadFetch<{ doc: { id: number; secret?: string } }>('/api/carts', {
-          method: 'POST',
-          body: cartPayload
-        })
+        const response = await $payloadFetch<{ doc: { id: number; secret?: string } }>(
+          '/api/carts',
+          {
+            method: 'POST',
+            body: cartPayload
+          }
+        )
         serverCartId.value = response.doc.id
         if (response.doc.secret) {
           cartSecret.value = response.doc.secret

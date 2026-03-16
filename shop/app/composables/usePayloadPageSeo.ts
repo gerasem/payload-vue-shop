@@ -18,7 +18,10 @@ interface PayloadPageSeoSource {
  * Strip HTML tags and collapse whitespace to get plain text.
  */
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 /**
@@ -51,14 +54,10 @@ function getContentText(content: any): string {
  *   description → meta.description → first 250 chars of page content plain text → ''
  *   image       → meta.image.url → undefined
  */
-export function usePayloadPageSeo(
-  page: MaybeRef<PayloadPageSeoSource | null | undefined>
-) {
+export function usePayloadPageSeo(page: MaybeRef<PayloadPageSeoSource | null | undefined>) {
   const resolved = computed(() => toValue(page))
 
-  const seoTitle = computed(() =>
-    resolved.value?.meta?.title || resolved.value?.title || ''
-  )
+  const seoTitle = computed(() => resolved.value?.meta?.title || resolved.value?.title || '')
 
   const seoDescription = computed(() => {
     const metaDesc = resolved.value?.meta?.description
@@ -68,9 +67,7 @@ export function usePayloadPageSeo(
     return truncate(contentText, 250)
   })
 
-  const seoImage = computed(() =>
-    resolved.value?.meta?.image?.url || undefined
-  )
+  const seoImage = computed(() => resolved.value?.meta?.image?.url || undefined)
 
   usePageSeo({
     title: seoTitle,

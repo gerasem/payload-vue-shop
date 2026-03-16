@@ -89,7 +89,14 @@ withDefaults(
     </slot>
 
     <!-- Continue shopping link -->
-    <UButton v-if="showContinueShopping" :to="localePath('/all-items')" variant="link" color="neutral" block class="mt-4">
+    <UButton
+      v-if="showContinueShopping"
+      :to="localePath('/all-items')"
+      variant="link"
+      color="neutral"
+      block
+      class="mt-4"
+    >
       {{ t('Continue Shopping') }}
     </UButton>
   </div>

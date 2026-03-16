@@ -86,8 +86,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
         clientSecret: response.clientSecret || null
       }
     } catch (err: any) {
-      const message =
-        err.data?.message || err.message || 'Failed to initiate payment'
+      const message = err.data?.message || err.message || 'Failed to initiate payment'
       error.value = message
       return { success: false, error: message }
     } finally {

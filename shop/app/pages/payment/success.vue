@@ -75,7 +75,6 @@ async function confirmOrder(intentId: string) {
 <template>
   <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="max-w-md mx-auto text-center">
-
       <!-- Confirming spinner -->
       <template v-if="confirming">
         <div class="flex justify-center mb-6">
@@ -132,7 +131,6 @@ async function confirmOrder(intentId: string) {
           </UButton>
         </div>
       </template>
-
     </div>
   </div>
 </template>

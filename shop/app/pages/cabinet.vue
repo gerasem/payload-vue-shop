@@ -145,7 +145,13 @@ function getOrderStatusColor(status: string | null | undefined) {
               <div>
                 <p class="font-medium">{{ t('Order #') }}{{ order.id }}</p>
                 <p class="text-sm text-gray-500">
-                  {{ new Date(order.createdAt).toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
+                  {{
+                    new Date(order.createdAt).toLocaleDateString('de-DE', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit'
+                    })
+                  }}
                 </p>
               </div>
               <div class="text-right">
@@ -167,7 +173,7 @@ function getOrderStatusColor(status: string | null | undefined) {
     <UCard v-else class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl">
+          <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl">
             {{ t('Sign in to your account') }}
           </h1>
         </div>

@@ -61,9 +61,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1
-            class="text-xl leading-tight tracking-tight md:text-2xl"
-          >
+          <h1 class="text-xl leading-tight tracking-tight md:text-2xl">
             {{ t('Create an account') }}
           </h1>
         </div>

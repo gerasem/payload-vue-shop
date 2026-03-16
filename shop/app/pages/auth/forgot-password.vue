@@ -51,9 +51,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     <UCard class="w-full max-w-md">
       <template #header>
         <div class="text-center">
-          <h1
-            class="text-xl leading-tight tracking-tight md:text-2xl"
-          >
+          <h1 class="text-xl leading-tight tracking-tight md:text-2xl">
             {{ t('Forgot Password') }}
           </h1>
           <p class="mt-2 text-sm text-gray-500">

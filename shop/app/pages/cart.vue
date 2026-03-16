@@ -1,6 +1,4 @@
 <script setup lang="ts">
-
-
 const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
