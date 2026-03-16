@@ -190,7 +190,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
     </template>
 
     <div class="w-full px-2">
-      <UButton type="submit" block size="xl" :loading="loading">
+      <UButton type="submit" size="xl" :loading="loading" icon="bi-send" class="px-8">
         {{ submitLabel }}
       </UButton>
     </div>

@@ -4,7 +4,6 @@
 
 @theme static {
   --font-sans: 'Montserrat', sans-serif;
-
   /* Custom Primary Color Palette - Pink (#eb3e7d) */
   --color-primary-50: #fef1f7;
   --color-primary-100: #fee5f0;
@@ -54,6 +53,7 @@
   --ui-container: 1600px;
   --ui-header-height: 60px;
   --ui-radius: 0;
+  --ui-border-accented: #ebebeb;
 }
 
 /* Fix cursor for buttons and links */

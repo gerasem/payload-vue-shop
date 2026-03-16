@@ -87,7 +87,7 @@ usePayloadPageSeo(contactPage)
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
       <!-- Contact Information -->
       <div>
@@ -99,17 +99,10 @@ usePayloadPageSeo(contactPage)
           class="text-gray-500 text-lg mb-8 prose max-w-none"
           v-html="richTextToHTML(contactPage.content)"
         ></div>
-        <p v-else class="text-gray-500 text-lg mb-8">
-          {{
-            t(
-              'Have questions? We are here to help. Send us a message or reach out using the contact information below.'
-            )
-          }}
-        </p>
       </div>
 
       <!-- Contact Form -->
-      <UCard class="h-fit">
+      <div class="shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-8">
         <div v-if="formsError" class="text-red-500">
           {{ t('Failed to load contact form.') }}
         </div>
@@ -137,7 +130,7 @@ usePayloadPageSeo(contactPage)
           :loading="loading"
           @submit="onSubmit"
         />
-      </UCard>
+      </div>
     </div>
   </div>
 </template>
