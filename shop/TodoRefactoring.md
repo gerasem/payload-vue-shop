@@ -41,12 +41,12 @@
 [ ] item
 [ ] page
 [ ] payment
-[ ] all-items.vue
+[x] all-items.vue
 [ ] cabinet.vue
 [ ] cart.vue
 [ ] checkout.vue
 [ ] contact.vue
-[ ] index.vue
+[x] index.vue
 
 ## Stores
 

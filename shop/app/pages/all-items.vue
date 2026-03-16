@@ -1,8 +1,11 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-// Fetch page data for SEO (optional, to keep title from CMS if desired)
 const { data: pageData } = await useAsyncData('page-all-items', () => usePayloadPage('all-items'))
+
+const { data: categoriesWithItems } = await useAsyncData('all-items-catalog', async () => {
+  return usePayloadCategoriesWithItems(8)
+})
 
 usePayloadPageSeo(pageData)
 </script>
@@ -15,7 +18,13 @@ usePayloadPageSeo(pageData)
       <div v-if="pageData?.content" v-html="richTextToHTML(pageData.content)"></div>
     </div>
 
-    <!-- Render Catalog instead of generic page content -->
-    <CatalogAllItemsCatalog />
+    <div v-if="categoriesWithItems && categoriesWithItems.length > 0">
+      <CategorySection
+        v-for="section in categoriesWithItems"
+        :key="section.category.id"
+        :category="section.category"
+        :items="section.items"
+      />
+    </div>
   </div>
 </template>
