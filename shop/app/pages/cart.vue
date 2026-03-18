@@ -3,18 +3,13 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const cartStore = useCartStore()
 
-// Fetch cart page content
 const { data: page } = await useAsyncData('cart-page-content', () => usePayloadPage('warenkorb'))
 
 definePageMeta({
   layout: 'default',
-  // Disable SSR completely for cart page
-  // This is necessary because cart components (CartItem, CartSummary, etc.)
-  // all access the Pinia store, which causes SSR initialization errors
   ssr: false
 })
 
-// SEO
 usePayloadPageSeo(page)
 </script>
 
@@ -54,7 +49,6 @@ usePayloadPageSeo(page)
       </div>
     </div>
 
-    <!-- Cart with items -->
     <!-- Cart with items -->
     <div v-else class="grid gap-8 lg:grid-cols-3">
       <!-- Cart items list -->

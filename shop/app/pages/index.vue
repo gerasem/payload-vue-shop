@@ -3,10 +3,8 @@ const { data: categoriesWithItems } = await useAsyncData('home-categories-items'
   return usePayloadCategoriesWithItems(4)
 })
 
-// Fetch home page content
 const { data: homePage } = await useAsyncData('home-page-content', () => usePayloadPage('home'))
 
-// Get all categories for the sidebar
 const categories = computed(() => {
   return categoriesWithItems.value?.map(item => item.category) || []
 })

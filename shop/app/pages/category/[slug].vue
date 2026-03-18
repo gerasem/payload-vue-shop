@@ -9,17 +9,14 @@ const route = useRoute()
 const { t } = useI18n()
 const slug = computed(() => route.params.slug as string)
 
-// Fetch category data first to get ID
 const { data: categories } = await useAsyncData('categories-for-products', () =>
   usePayloadCategories()
 )
 
-// Find current category
 const currentCategory = computed(() =>
   categories.value?.find((cat: ICategory) => cat.slug === slug.value)
 )
 
-// Redirect to 404 if category not found
 if (!currentCategory.value) {
   throw createError({
     statusCode: 404,
@@ -27,15 +24,15 @@ if (!currentCategory.value) {
   })
 }
 
-// Sort state
 const sort = ref('popularity')
 const priceRange = ref<[number, number] | null>(null)
 
-// Fetch products for this category (Fetch ALL to calculate ranges client-side)
 const { data: productsData } = await useAsyncData(
   `products-${slug.value}`,
   async () => {
-    if (!currentCategory.value?.id) return { products: [], totalDocs: 0 }
+    if (!currentCategory.value?.id) {
+      return { products: [], totalDocs: 0 }
+    }
     // Pass null for priceRange to fetch all products in category
     return usePayloadProducts(String(currentCategory.value.id), sort.value, null)
   },

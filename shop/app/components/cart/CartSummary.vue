@@ -21,7 +21,7 @@ withDefaults(
 </script>
 
 <template>
-  <div class="sticky top-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+  <div class="sticky top-4 shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-6">
     <h2 class="mb-4 text-lg font-semibold">
       {{ t('Order Summary') }}
     </h2>
