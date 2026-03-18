@@ -117,7 +117,7 @@ function onSubmit(event: FormSubmitEvent<any>) {
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="flex flex-wrap -mx-2" @submit="onSubmit">
+  <UForm :schema="schema" :state="state" class="flex flex-wrap" @submit="onSubmit">
     <template v-for="field in fields" :key="field.name">
       <UFormField
         v-if="field.blockType !== 'message'"

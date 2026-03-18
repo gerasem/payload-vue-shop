@@ -87,11 +87,11 @@ usePayloadPageSeo(contactPage)
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
       <!-- Contact Information -->
       <div>
-        <h1 class="text-4xl mb-6">{{ t('Contact Us') }}</h1>
+        <h1 class="text-4xl mb-6">{{ contactPage?.title || t('Contact Us') }}</h1>
 
         <!-- Dynamic Page Content -->
         <div
@@ -102,7 +102,7 @@ usePayloadPageSeo(contactPage)
       </div>
 
       <!-- Contact Form -->
-      <div class="shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-8">
+      <div class="shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-8 mt-4">
         <div v-if="formsError" class="text-red-500">
           {{ t('Failed to load contact form.') }}
         </div>
