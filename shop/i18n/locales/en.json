@@ -144,5 +144,7 @@
   "pending": "Pending",
   "priceFrom": "from",
   "processing": "Processing",
-  "refunded": "Refunded"
+  "refunded": "Refunded",
+  "Remove item?": "Remove item from cart?",
+  "Cancel": "Cancel"
 }

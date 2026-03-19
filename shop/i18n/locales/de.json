@@ -143,5 +143,7 @@
   "pending": "Ausstehend",
   "priceFrom": "ab",
   "processing": "In Bearbeitung",
-  "refunded": "Erstattet"
+  "refunded": "Erstattet",
+  "Remove item?": "Artikel aus dem Warenkorb entfernen?",
+  "Cancel": "Abbrechen"
 }

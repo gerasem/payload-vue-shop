@@ -21,12 +21,24 @@ const cartStore = useCartStore()
   <!-- Cart with items -->
   <div v-else class="grid gap-8 lg:grid-cols-3">
     <!-- Cart items list -->
-    <div class="lg:col-span-2 space-y-4">
-      <CartItem
-        v-for="item in cartStore.items"
-        :key="`${item.productId}-${item.variantId}`"
-        :item="item"
-      />
+    <div class="lg:col-span-2">
+      <!-- Desktop Headers -->
+      <div class="hidden md:flex items-center gap-4 px-4 py-3 border-b border-gray-200 text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-50/50 rounded-t-lg">
+        <div class="w-20 sm:w-24 flex-shrink-0">{{ t('Product') }}</div>
+        <div class="flex-1"></div>
+        <div class="w-24 text-center">{{ t('Price') }}</div>
+        <div class="w-32 text-center">{{ t('Quantity') }}</div>
+        <div class="w-24 text-right">{{ t('Total') }}</div>
+        <div class="w-8"></div>
+      </div>
+
+      <div class="divide-y divide-gray-100 bg-white shadow-sm border border-gray-100 rounded-b-lg px-4">
+        <CartItem
+          v-for="item in cartStore.items"
+          :key="`${item.productId}-${item.variantId}`"
+          :item="item"
+        />
+      </div>
     </div>
 
     <!-- Cart summary sidebar -->
