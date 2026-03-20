@@ -1,0 +1,30 @@
+query HomeCategoryProducts($locale: LocaleInputType!, $categoryId: JSON!) {
+  Products(
+    locale: $locale
+    limit: 4
+    where: { categories: { equals: $categoryId } }
+  ) {
+    docs {
+      id
+      title
+      slug
+      priceInEUR
+      description
+      enableVariants
+      variants {
+        docs {
+          id
+          priceInEUR
+        }
+      }
+      gallery {
+        id
+        url
+        thumbnailURL
+        width
+        height
+        alt
+      }
+    }
+  }
+}

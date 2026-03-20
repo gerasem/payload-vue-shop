@@ -1,5 +1,7 @@
 import categoriesWithItemsQuery from '@/graphql/categoriesWithItems.graphql?raw'
 import type { CategoriesWithItemsQuery } from '@/generated/graphql'
+import homeCategoryProductsQuery from '@/graphql/homeCategoryProducts.graphql?raw'
+import type { HomeCategoryProductsQuery } from '@/generated/graphql'
 import type { ICategory, IItem } from '@/types'
 
 export interface CategoryWithItems {
@@ -10,82 +12,74 @@ export interface CategoryWithItems {
 /**
  * Fetch all categories with their items (limited to 4 per category)
  * Returns array of categories with up to 4 items each
+ * Optimized to use highlighted products from settings and only fetch fallbacks if needed
  */
 export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
+  // 1. Fetch Categories and Shop Settings (contains curated product lists)
   const [data, settings] = await Promise.all([
     usePayloadQuery<CategoriesWithItemsQuery>(categoriesWithItemsQuery),
     useShopSettings()
   ])
 
+  if (!data?.Categories?.docs) return []
+
+  const categories = data.Categories.docs as ICategory[]
+  const categoryMap = new Map(categories.map(c => [c.id, c]))
   const orderedCategories = settings?.categoryOrder || []
 
-  if (!data) return []
-
-  const categories = data.Categories?.docs || []
-  const allProducts = data.Products?.docs || []
-
-  // Create a map for quick access to categories
-  const categoryMap = new Map(categories.map(c => [c.id, c]))
-
-  // Helper to process a category
-  const processCategory = (category: ICategory) => {
-    // Filter products that belong to this category
-    const categoryProducts = allProducts.filter(product => {
-      const productCategories = product.categories
-      if (!productCategories) return false
-
-      // Normalize to array
-      const cats = Array.isArray(productCategories) ? productCategories : [productCategories]
-      return cats.some(cat => cat.id === category.id)
-    })
-
-    // Limit to specified number of items
-    const limitedProducts = categoryProducts.slice(0, itemsPerCategory)
-
-    return {
-      category: category as ICategory,
-      items: limitedProducts as IItem[]
-    }
-  }
-
-  const result: CategoryWithItems[] = []
+  // Track which categories are already processed to avoid duplicates
   const processedIds = new Set<string | number>()
+  const result: CategoryWithItems[] = []
 
-  // 1. Process ordered categories first
-  if (orderedCategories.length > 0) {
-    orderedCategories.forEach(item => {
-      // The structure is now { category: { id, ... }, highlightedProducts: { docs: [...] } }
-      const categoryData = item.category
-      if (!categoryData) return
-
-      const fullCategory = categoryMap.get(categoryData.id)
-
-      // Check for manually selected products
-      const manualProducts = item.highlightedProducts
-      const hasManualProducts = manualProducts && manualProducts.length > 0
-
-      if (fullCategory) {
-        if (hasManualProducts) {
-          // Use manual products
-          result.push({
-            category: fullCategory as ICategory,
-            items: manualProducts as IItem[]
-          })
-        } else {
-          // Fallback to auto-fetched products
-          result.push(processCategory(fullCategory as ICategory))
-        }
-        processedIds.add(fullCategory.id)
-      }
+  // Helper to fetch fallback products for a category
+  const fetchFallbackProducts = async (category: ICategory): Promise<IItem[]> => {
+    const productsData = await usePayloadQuery<HomeCategoryProductsQuery>(homeCategoryProductsQuery, {
+      categoryId: category.id
     })
+    return (productsData?.Products?.docs || []) as IItem[]
   }
 
-  // 2. Process remaining categories
-  categories.forEach(category => {
-    if (!processedIds.has(category.id)) {
-      result.push(processCategory(category as ICategory))
-    }
+  // 1. Process ordered categories first (they may have highlighted products)
+  const orderedResults = await Promise.all(
+    orderedCategories.map(async item => {
+      const categoryId = item.category?.id
+      if (!categoryId) return null
+
+      const fullCategory = categoryMap.get(categoryId)
+      if (!fullCategory) return null
+
+      processedIds.add(categoryId)
+
+      // Use manually selected products if available
+      if (item.highlightedProducts && item.highlightedProducts.length > 0) {
+        return {
+          category: fullCategory,
+          items: item.highlightedProducts as IItem[]
+        }
+      }
+
+      // Otherwise fetch fallback products (first 4)
+      const items = await fetchFallbackProducts(fullCategory)
+      return { category: fullCategory, items }
+    })
+  )
+
+  // Add non-null ordered results
+  orderedResults.forEach(r => {
+    if (r) result.push(r)
   })
+
+  // 2. Process remaining categories that weren't in the explicit order
+  const remainingResults = await Promise.all(
+    categories
+      .filter(c => !processedIds.has(c.id))
+      .map(async category => {
+        const items = await fetchFallbackProducts(category)
+        return { category, items }
+      })
+  )
+
+  result.push(...remainingResults)
 
   return result
 }

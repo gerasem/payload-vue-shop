@@ -53,8 +53,8 @@ export default buildConfig({
       // On Vercel set DATABASE_POOL_SIZE=2 to avoid serverless connection limits.
       // Locally we use a higher default so operations like media delete don't time out.
       max: process.env.DATABASE_POOL_SIZE ? parseInt(process.env.DATABASE_POOL_SIZE) : 10,
-      idleTimeoutMillis: 0,
-      connectionTimeoutMillis: 30000,
+      idleTimeoutMillis: 10000, // 10 seconds (default was 0/infinite)
+      connectionTimeoutMillis: 5000, // 5 seconds (was 30s)
     },
   }),
   editor: lexicalEditor({
