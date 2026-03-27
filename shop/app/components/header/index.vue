@@ -56,7 +56,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
       <!-- Logo - centered on mobile, left on desktop -->
       <NuxtLink
         :to="localePath('/')"
-        class="flex items-center gap-3 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:col-span-3 lg:w-full justify-center lg:justify-start"
+        class="flex items-center gap-3 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:col-span-3 lg:w-full justify-center"
       >
         <!-- Render logo from Payload SVG -->
         <div v-if="logoSvg" v-html="logoSvg" class="header__logo h-12 flex items-center py-1" />

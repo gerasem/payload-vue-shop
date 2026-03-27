@@ -80,6 +80,14 @@ export default defineNuxtConfig({
     port: 3001
   },
 
+  nitro: {
+    devStorage: {
+      cache: {
+        driver: 'memory'
+      }
+    }
+  },
+
   compatibilityDate: '2025-01-15',
 
   eslint: {
