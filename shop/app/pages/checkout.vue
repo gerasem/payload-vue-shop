@@ -70,8 +70,9 @@ async function handleFormSubmit(formData: any) {
             <UButton
               type="submit"
               form="checkout-form"
+              class="py-3"
               block
-              size="lg"
+              size="xl"
               color="primary"
               icon="i-bi-lock"
               :loading="checkoutStore.loading"

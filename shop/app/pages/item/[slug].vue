@@ -104,33 +104,11 @@ const canAddToCart = computed(() => {
 // Quantity management
 const quantity = ref(1)
 
-function increaseQuantity() {
-  const max = inventoryQuantity.value
-  // Increase if unlimited (null/undefined) OR current < max
-  if (max === null || max === undefined || quantity.value < max) {
-    quantity.value++
-  }
-}
-
-function decreaseQuantity() {
-  if (quantity.value > 1) {
-    quantity.value--
-  }
-}
-
-function validateQuantity() {
-  const max = inventoryQuantity.value
-
-  // Ensure quantity is at least 1
-  if (quantity.value < 1) {
-    quantity.value = 1
-  }
-
-  // Ensure quantity doesn't exceed inventory (only if constrained)
-  if (max !== null && max !== undefined && quantity.value > max) {
-    quantity.value = max
-  }
-}
+const maxQuantity = computed(() => {
+  const inv = inventoryQuantity.value
+  if (inv === null || inv === undefined) return undefined
+  return inv
+})
 
 // Reset quantity when variant changes
 watch(selectedVariant, () => {
@@ -180,7 +158,7 @@ usePayloadPageSeo(product)
         </h1>
 
         <!-- Price -->
-        <div class="text-2xl font-semibold">
+        <div class="text-4xl font-semibold">
           {{ displayPrice }}
         </div>
 
@@ -214,38 +192,15 @@ usePayloadPageSeo(product)
         />
 
         <!-- Quantity Selector & Add to Cart -->
-        <div v-if="!isOutOfStock && canAddToCart" class="flex items-center gap-4">
-          <div class="flex items-center gap-2">
-            <UButton
-              icon="i-bi-dash"
-              size="md"
-              color="neutral"
-              variant="outline"
-              :disabled="quantity <= 1"
-              @click="decreaseQuantity"
-            />
-            <UInput
-              v-model.number="quantity"
-              type="number"
-              min="1"
-              :max="inventoryQuantity || undefined"
-              class="w-20 text-center"
-              @input="validateQuantity"
-              @blur="validateQuantity"
-            />
-            <UButton
-              icon="i-bi-plus"
-              size="md"
-              color="neutral"
-              variant="outline"
-              :disabled="
-                inventoryQuantity !== null &&
-                inventoryQuantity !== undefined &&
-                quantity >= inventoryQuantity
-              "
-              @click="increaseQuantity"
-            />
-          </div>
+        <div v-if="!isOutOfStock && canAddToCart" class="flex gap-4">
+          <UInputNumber
+            v-model="quantity"
+            size="xl"
+            variant="ghost"
+            :min="1"
+            :max="maxQuantity"
+            class="max-w-36"
+          />
 
           <!-- Add to Cart Button -->
           <UButton
@@ -257,8 +212,8 @@ usePayloadPageSeo(product)
               adding
             "
             :loading="adding"
-            size="lg"
-            class="flex-1"
+            size="xl"
+            class="px-6"
             icon="i-bi-cart"
             @click="addToCart"
           >
@@ -267,11 +222,14 @@ usePayloadPageSeo(product)
         </div>
 
         <!-- Shipping Terms (Storefront Replication) -->
-        <div class="pt-4 border-t border-gray-200 text-sm text-gray-500">
-          <p>{{ t('Free shipping over 50€') }}</p>
-          <NuxtLink :to="localePath('/page/delivery')" class="text-primary hover:underline">
-            {{ t('Shipping conditions') }}
-          </NuxtLink>
+        <div class="pt-4">
+          <p class="flex gap-8">
+            {{ t('Free shipping over 50€') }}
+
+            <NuxtLink :to="localePath('/page/delivery')" class="text-secondary hover:underline">
+              {{ t('Shipping conditions') }}
+            </NuxtLink>
+          </p>
         </div>
       </div>
     </div>

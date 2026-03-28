@@ -50,7 +50,7 @@ usePayloadPageSeo(page)
     </div>
 
     <!-- Cart with items -->
-    <div v-else class="grid gap-8 lg:grid-cols-3">
+    <div v-else class="grid gap-16 lg:grid-cols-3">
       <!-- Cart items list -->
       <div class="lg:col-span-2 space-y-4">
         <CartItem
@@ -61,13 +61,17 @@ usePayloadPageSeo(page)
       </div>
 
       <!-- Cart summary sidebar -->
-      <div class="lg:col-span-1 h-fit">
+      <div class="lg:col-span-1">
         <CartSummary />
       </div>
 
       <!-- SEO Text from Cart Page -->
       <!-- Cart Page Content -->
-      <ContentText2Columns v-if="page?.content" :text="richTextToHTML(page.content)" />
+      <ContentText2Columns
+        v-if="page?.content"
+        class="col-span-2"
+        :text="richTextToHTML(page.content)"
+      />
     </div>
   </div>
 </template>

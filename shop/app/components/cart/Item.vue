@@ -51,19 +51,6 @@ function updateQuantity() {
   cartStore.updateQuantity(props.item.productId, props.item.variantId, quantity.value)
 }
 
-function decrementQuantity() {
-  if (quantity.value > 1) {
-    quantity.value--
-    updateQuantity()
-  }
-}
-
-function incrementQuantity() {
-  if (hasUnlimitedStock.value || quantity.value < maxQuantity.value) {
-    quantity.value++
-    updateQuantity()
-  }
-}
 
 const isPopoverOpen = ref(false)
 
@@ -152,10 +139,7 @@ const displayVariant = computed(() => {
       <CartQuantity
         v-model="quantity"
         :inventory="item.inventory"
-        :error="quantityError"
         @update:model-value="updateQuantity"
-        @decrement="decrementQuantity"
-        @increment="incrementQuantity"
       />
     </div>
 
@@ -203,7 +187,7 @@ const displayVariant = computed(() => {
                 {{ t('Cancel') }}
               </UButton>
               <UButton
-                color="red"
+                color="error"
                 size="xs"
                 @click="removeItem"
               >
