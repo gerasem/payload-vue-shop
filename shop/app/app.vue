@@ -61,7 +61,9 @@ useHead({
     <Footer />
 
     <!-- GDPR Cookie Banner -->
-    <CookieBanner />
+    <ClientOnly>
+      <CookieBanner />
+    </ClientOnly>
   </UApp>
 </template>
 
