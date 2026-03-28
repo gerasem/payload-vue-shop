@@ -61,7 +61,7 @@ usePayloadPageSeo(page)
       </div>
 
       <!-- Cart summary sidebar -->
-      <div class="lg:col-span-1">
+      <div class="lg:col-span-1 lg:row-span-2">
         <CartSummary />
       </div>
 

@@ -51,7 +51,6 @@ function updateQuantity() {
   cartStore.updateQuantity(props.item.productId, props.item.variantId, quantity.value)
 }
 
-
 const isPopoverOpen = ref(false)
 
 function removeItem() {
@@ -92,11 +91,11 @@ const displayVariant = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center gap-4 border-b border-gray-200 py-4 last:border-0">
+  <div class="flex items-center gap-6 border-b border-gray-50 py-6 mb-0 last:border-0">
     <!-- 1. Image -->
     <NuxtLink :to="localePath(`/item/${item.slug}`)" class="group relative block">
       <div
-        class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-gray-100 sm:h-24 sm:w-24 border border-gray-100 group-hover:opacity-75 transition-opacity"
+        class="h-24 w-24 overflow-hidden bg-gray-100 sm:h-28 sm:w-28 group-hover:opacity-75 transition-opacity"
       >
         <img
           v-if="imageUrl"
@@ -114,13 +113,16 @@ const displayVariant = computed(() => {
           {{ displayTitle }}
         </NuxtLink>
       </h3>
-      <p v-if="displayVariant" class="mt-0.5 text-xs text-gray-500 line-clamp-1">
+      <p v-if="displayVariant" class="text-gray-500 line-clamp-1">
         {{ displayVariant }}
       </p>
 
       <!-- Low Stock Warning (Minimalist) -->
       <div v-if="isLowStock || isOutOfStock" class="mt-1">
-        <span v-if="isOutOfStock" class="text-[10px] font-bold uppercase text-red-600 tracking-wider">
+        <span
+          v-if="isOutOfStock"
+          class="text-[10px] font-bold uppercase text-red-600 tracking-wider"
+        >
           {{ t('Out of stock') }}
         </span>
         <span v-else class="text-[10px] uppercase text-orange-600 tracking-wider">
@@ -130,12 +132,12 @@ const displayVariant = computed(() => {
     </div>
 
     <!-- 3. Price per 1pc -->
-    <div class="hidden md:block w-24 text-center">
-      <BaseAnimatedPrice :value="item.priceInEUR" class="text-sm font-medium text-gray-600" />
+    <div class="hidden md:block text-center">
+      <BaseAnimatedPrice :value="item.priceInEUR" class="text-gray-500" />
     </div>
 
     <!-- 4. Quantity block -->
-    <div class="flex items-center justify-center w-32">
+    <div class="flex items-center justify-center w-28">
       <CartQuantity
         v-model="quantity"
         :inventory="item.inventory"
@@ -144,16 +146,18 @@ const displayVariant = computed(() => {
     </div>
 
     <!-- 5. Total Price (Price x Quantity) -->
-    <div class="w-24 text-right">
+    <div class="text-right">
       <template v-if="cartStore.isHydrating && !cartStore.count">
         <USkeleton class="h-5 w-20 ml-auto" />
       </template>
+
       <template v-else>
         <div class="flex flex-col items-end">
           <BaseAnimatedPrice :value="lineTotal" class="font-bold text-gray-900" />
           <!-- Mobile-only unit price -->
           <div class="md:hidden flex items-baseline gap-1">
             <BaseAnimatedPrice :value="item.priceInEUR" class="text-[10px] text-gray-400" />
+            <!-- TODO: add translation -->
             <span class="text-[10px] text-gray-400">/ шт</span>
           </div>
         </div>
@@ -178,19 +182,10 @@ const displayVariant = computed(() => {
               {{ t('Remove item?') }}
             </p>
             <div class="flex gap-2 justify-center">
-              <UButton
-                variant="ghost"
-                color="neutral"
-                size="xs"
-                @click="closePopover"
-              >
+              <UButton variant="ghost" color="neutral" size="xs" @click="closePopover">
                 {{ t('Cancel') }}
               </UButton>
-              <UButton
-                color="error"
-                size="xs"
-                @click="removeItem"
-              >
+              <UButton color="error" size="xs" @click="removeItem">
                 {{ t('Remove') }}
               </UButton>
             </div>
