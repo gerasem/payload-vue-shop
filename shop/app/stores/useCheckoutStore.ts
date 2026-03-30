@@ -9,6 +9,15 @@ export interface CheckoutFormData {
   city: string
   country: string
   phone?: string
+  differentBillingAddress?: boolean
+  billingAddress?: {
+    firstName: string
+    lastName: string
+    address: string
+    postalCode: string
+    city: string
+    country: string
+  }
 }
 
 export const useCheckoutStore = defineStore('checkout', () => {
@@ -49,6 +58,20 @@ export const useCheckoutStore = defineStore('checkout', () => {
         phone: formData.phone
       }
 
+      const billingAddress =
+        formData.differentBillingAddress && formData.billingAddress
+          ? {
+              firstName: formData.billingAddress.firstName,
+              lastName: formData.billingAddress.lastName,
+              email: formData.email,
+              address: formData.billingAddress.address,
+              postalCode: formData.billingAddress.postalCode,
+              city: formData.billingAddress.city,
+              country: formData.billingAddress.country,
+              phone: formData.phone
+            }
+          : shippingAddress
+
       // The plugin endpoint uses:
       // - cartID from request body OR from the authenticated user's linked cart
       // - shippingAddress passed in body
@@ -56,6 +79,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       const body: Record<string, any> = {
         customerEmail: formData.email, // required for guests; also used by Stripe customer lookup
         shippingAddress,
+        billingAddress,
         shippingMethodId: cartStore.selectedShippingMethodId,
         couponCode: cartStore.couponCode
       }

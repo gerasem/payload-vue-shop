@@ -32,6 +32,14 @@ export const useCartStore = defineStore('cart', () => {
       if (savedCoupon) {
         couponCode.value = savedCoupon
       }
+      const savedCartId = localStorage.getItem('payload-cart-id')
+      if (savedCartId) {
+        serverCartId.value = parseInt(savedCartId, 10)
+      }
+      const savedCartSecret = localStorage.getItem('payload-cart-secret')
+      if (savedCartSecret) {
+        cartSecret.value = savedCartSecret
+      }
     } catch (e) {
       console.warn('Failed to load cart from localStorage', e)
       rawItems.value = []
@@ -66,6 +74,24 @@ export const useCartStore = defineStore('cart', () => {
     },
     { deep: true }
   )
+
+  watch(serverCartId, (newId) => {
+    if (!isInitialized.value) return
+    if (newId) {
+      localStorage.setItem('payload-cart-id', String(newId))
+    } else {
+      localStorage.removeItem('payload-cart-id')
+    }
+  })
+
+  watch(cartSecret, (newSecret) => {
+    if (!isInitialized.value) return
+    if (newSecret) {
+      localStorage.setItem('payload-cart-secret', newSecret)
+    } else {
+      localStorage.removeItem('payload-cart-secret')
+    }
+  })
 
   // Coupon state
   const couponCode = ref<string>('')
