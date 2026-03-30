@@ -25638,7 +25638,7 @@ export type ShippingSettingsQuery = { ShippingSetting?: { minimumOrderAmount: nu
 export type ShopSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ShopSettingsQuery = { ShopSetting?: { categoryOrder?: Array<{ category?: { id: number, title?: string | null, slug: string } | null, highlightedProducts?: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, enableVariants?: boolean | null, variants?: { docs: Array<{ priceInEUR?: number | null }> } | null, gallery?: Array<{ url?: string | null, alt: string }> | null }> | null }> | null } | null };
+export type ShopSettingsQuery = { ShopSetting?: { categoryOrder?: Array<{ category?: { id: number, title?: string | null, slug: string } | null, highlightedProducts?: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, enableVariants?: boolean | null, variants?: { docs: Array<{ priceInEUR?: number | null }> } | null, gallery?: Array<{ url?: string | null, thumbnailURL?: string | null, alt: string }> | null }> | null }> | null } | null };
 
 export type ShoppingSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 

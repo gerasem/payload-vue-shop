@@ -11,8 +11,10 @@ const props = defineProps<{
 // Get first image from gallery
 const imageUrl = computed(() => {
   const firstImage = props.item.gallery?.[0]
-  if (!firstImage?.url) return ''
-  return usePayloadImageUrl(firstImage.url)
+  if (!firstImage) return ''
+  const url = firstImage.thumbnailURL || firstImage.url
+  if (!url) return ''
+  return usePayloadImageUrl(url)
 })
 
 // Format price with translated "from" prefix if variants have different prices

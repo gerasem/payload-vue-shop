@@ -19,6 +19,7 @@ query ShopSettings {
         }
         gallery {
           url
+          thumbnailURL
           alt
         }
       }
