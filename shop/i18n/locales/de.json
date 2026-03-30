@@ -145,5 +145,8 @@
   "processing": "In Bearbeitung",
   "refunded": "Erstattet",
   "Remove item?": "Artikel aus dem Warenkorb entfernen?",
-  "Cancel": "Abbrechen"
+  "Cancel": "Abbrechen",
+  "Page not found": "Seite nicht gefunden",
+  "Return Home": "Zurück zur Startseite",
+  "An error occurred": "Ein Fehler ist aufgetreten"
 }
