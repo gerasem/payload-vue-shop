@@ -83,11 +83,46 @@ export const plugins: Plugin[] = [
       ? {
           payments: {
             paymentMethods: [
-              stripeAdapter({
-                secretKey: process.env.STRIPE_SECRET_KEY,
-                publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
-                webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET ?? '',
-              }),
+              (() => {
+                const baseAdapter = stripeAdapter({
+                  secretKey: process.env.STRIPE_SECRET_KEY,
+                  publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
+                  webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET ?? '',
+                })
+
+                return {
+                  ...baseAdapter,
+                  initiatePayment: async (args: any) => {
+                    // Intercept initiatePayment to inject shipping cost
+                    const { req, data } = args
+                    const shippingMethodId = req.data?.shippingMethodId
+
+                    if (shippingMethodId && data.cart?.subtotal) {
+                      try {
+                        const shippingSettings = await req.payload.findGlobal({
+                          slug: 'shipping-settings',
+                          depth: 0,
+                        })
+                        
+                        const methods = shippingSettings?.shippingMethods || []
+                        const method = methods.find((m: any) => m.id === shippingMethodId)
+                        
+                        if (method && typeof method.price === 'number') {
+                          const threshold = shippingSettings?.minimumOrderAmount || Infinity
+                          if (data.cart.subtotal < threshold) {
+                            // Add shipping price to the cart subtotal so Stripe charges the correct amount
+                            data.cart.subtotal += method.price
+                          }
+                        }
+                      } catch (err) {
+                        req.payload.logger.error(err, 'Error calculating shipping in custom stripe adapter')
+                      }
+                    }
+
+                    return baseAdapter.initiatePayment(args)
+                  },
+                }
+              })(),
             ],
           },
         }

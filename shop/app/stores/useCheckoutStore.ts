@@ -55,7 +55,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
       // - customerEmail required for guest checkout (no session), also helpful for logged-in users
       const body: Record<string, any> = {
         customerEmail: formData.email, // required for guests; also used by Stripe customer lookup
-        shippingAddress
+        shippingAddress,
+        shippingMethodId: cartStore.selectedShippingMethodId
       }
 
       // Always pass the server cart ID — the plugin requires it when the user's
