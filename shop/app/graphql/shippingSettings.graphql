@@ -1,0 +1,12 @@
+query ShippingSettings {
+  ShippingSetting {
+    minimumOrderAmount
+    shippingMethods {
+      name
+      price
+      description
+      isDefault
+      id
+    }
+  }
+}

@@ -35,6 +35,7 @@ export type Access = {
   payload_locked_documents?: Maybe<Payload_Locked_DocumentsAccess>;
   payload_preferences?: Maybe<Payload_PreferencesAccess>;
   products?: Maybe<ProductsAccess>;
+  shipping_settings?: Maybe<Shipping_SettingsAccess>;
   shop_settings?: Maybe<Shop_SettingsAccess>;
   shopping_settings?: Maybe<Shopping_SettingsAccess>;
   svg_media?: Maybe<Svg_MediaAccess>;
@@ -9441,6 +9442,7 @@ export type Mutation = {
   updatePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   updatePayloadPreference?: Maybe<PayloadPreference>;
   updateProduct?: Maybe<Product>;
+  updateShippingSetting?: Maybe<ShippingSetting>;
   updateShopSetting?: Maybe<ShopSetting>;
   updateShoppingSetting?: Maybe<ShoppingSetting>;
   updateSvgMedia?: Maybe<SvgMedia>;
@@ -9974,6 +9976,13 @@ export type MutationUpdateProductArgs = {
   id: Scalars['Int']['input'];
   locale?: InputMaybe<LocaleInputType>;
   trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationUpdateShippingSettingArgs = {
+  data: MutationShippingSettingInput;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
 };
 
 
@@ -15783,6 +15792,7 @@ export type Query = {
   PayloadPreferences?: Maybe<PayloadPreferences>;
   Product?: Maybe<Product>;
   Products?: Maybe<Products>;
+  ShippingSetting?: Maybe<ShippingSetting>;
   ShopSetting?: Maybe<ShopSetting>;
   ShoppingSetting?: Maybe<ShoppingSetting>;
   SvgMedia?: Maybe<SvgMedia>;
@@ -15831,6 +15841,7 @@ export type Query = {
   docAccessPayloadLockedDocument?: Maybe<Payload_Locked_DocumentsDocAccess>;
   docAccessPayloadPreference?: Maybe<Payload_PreferencesDocAccess>;
   docAccessProduct?: Maybe<ProductsDocAccess>;
+  docAccessShippingSetting?: Maybe<Shipping_SettingsDocAccess>;
   docAccessShopSetting?: Maybe<Shop_SettingsDocAccess>;
   docAccessShoppingSetting?: Maybe<Shopping_SettingsDocAccess>;
   docAccessSvgMedia?: Maybe<Svg_MediaDocAccess>;
@@ -16145,6 +16156,14 @@ export type QueryProductsArgs = {
   sort?: InputMaybe<Scalars['String']['input']>;
   trash?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<Product_Where>;
+};
+
+
+export type QueryShippingSettingArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  locale?: InputMaybe<LocaleInputType>;
+  select?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -16635,6 +16654,487 @@ export type Select_Options = {
   id?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   value?: Maybe<Scalars['String']['output']>;
+};
+
+export type ShippingSetting = {
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  minimumOrderAmount: Scalars['Float']['output'];
+  shippingMethods?: Maybe<Array<ShippingSetting_ShippingMethods>>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ShippingSetting_ShippingMethods = {
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  isDefault?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+};
+
+export type ShippingSettingsDocAccessFields = {
+  createdAt?: Maybe<ShippingSettingsDocAccessFields_CreatedAt>;
+  minimumOrderAmount?: Maybe<ShippingSettingsDocAccessFields_MinimumOrderAmount>;
+  shippingMethods?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods>;
+  updatedAt?: Maybe<ShippingSettingsDocAccessFields_UpdatedAt>;
+};
+
+export type ShippingSettingsDocAccessFields_CreatedAt = {
+  create?: Maybe<ShippingSettingsDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_CreatedAt_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_CreatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_CreatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_CreatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_CreatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_MinimumOrderAmount = {
+  create?: Maybe<ShippingSettingsDocAccessFields_MinimumOrderAmount_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_MinimumOrderAmount_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_MinimumOrderAmount_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_MinimumOrderAmount_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_MinimumOrderAmount_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_MinimumOrderAmount_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_MinimumOrderAmount_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_MinimumOrderAmount_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Delete>;
+  fields?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Fields>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Fields = {
+  description?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Description>;
+  id?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Id>;
+  isDefault?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_IsDefault>;
+  name?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Name>;
+  price?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Price>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Description = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Description_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Description_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Description_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Description_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Description_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Description_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Description_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Description_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Id = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Id_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Id_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Id_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Id_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Id_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Id_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Id_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Id_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_IsDefault = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_IsDefault_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Name = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Name_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Name_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Name_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Name_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Name_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Name_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Name_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Name_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Price = {
+  create?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Price_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Price_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Price_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_ShippingMethods_Price_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Price_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Price_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Price_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_ShippingMethods_Price_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_UpdatedAt = {
+  create?: Maybe<ShippingSettingsDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<ShippingSettingsDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<ShippingSettingsDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<ShippingSettingsDocAccessFields_UpdatedAt_Update>;
+};
+
+export type ShippingSettingsDocAccessFields_UpdatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_UpdatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_UpdatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsDocAccessFields_UpdatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields = {
+  createdAt?: Maybe<ShippingSettingsFields_CreatedAt>;
+  minimumOrderAmount?: Maybe<ShippingSettingsFields_MinimumOrderAmount>;
+  shippingMethods?: Maybe<ShippingSettingsFields_ShippingMethods>;
+  updatedAt?: Maybe<ShippingSettingsFields_UpdatedAt>;
+};
+
+export type ShippingSettingsFields_CreatedAt = {
+  create?: Maybe<ShippingSettingsFields_CreatedAt_Create>;
+  delete?: Maybe<ShippingSettingsFields_CreatedAt_Delete>;
+  read?: Maybe<ShippingSettingsFields_CreatedAt_Read>;
+  update?: Maybe<ShippingSettingsFields_CreatedAt_Update>;
+};
+
+export type ShippingSettingsFields_CreatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_CreatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_CreatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_CreatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_MinimumOrderAmount = {
+  create?: Maybe<ShippingSettingsFields_MinimumOrderAmount_Create>;
+  delete?: Maybe<ShippingSettingsFields_MinimumOrderAmount_Delete>;
+  read?: Maybe<ShippingSettingsFields_MinimumOrderAmount_Read>;
+  update?: Maybe<ShippingSettingsFields_MinimumOrderAmount_Update>;
+};
+
+export type ShippingSettingsFields_MinimumOrderAmount_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_MinimumOrderAmount_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_MinimumOrderAmount_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_MinimumOrderAmount_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_Delete>;
+  fields?: Maybe<ShippingSettingsFields_ShippingMethods_Fields>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Fields = {
+  description?: Maybe<ShippingSettingsFields_ShippingMethods_Description>;
+  id?: Maybe<ShippingSettingsFields_ShippingMethods_Id>;
+  isDefault?: Maybe<ShippingSettingsFields_ShippingMethods_IsDefault>;
+  name?: Maybe<ShippingSettingsFields_ShippingMethods_Name>;
+  price?: Maybe<ShippingSettingsFields_ShippingMethods_Price>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Description = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_Description_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_Description_Delete>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_Description_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_Description_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Description_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Description_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Description_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Description_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Id = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_Id_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_Id_Delete>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_Id_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_Id_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Id_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Id_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Id_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Id_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_IsDefault = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_IsDefault_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_IsDefault_Delete>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_IsDefault_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_IsDefault_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_IsDefault_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_IsDefault_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_IsDefault_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_IsDefault_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Name = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_Name_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_Name_Delete>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_Name_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_Name_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Name_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Name_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Name_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Name_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Price = {
+  create?: Maybe<ShippingSettingsFields_ShippingMethods_Price_Create>;
+  delete?: Maybe<ShippingSettingsFields_ShippingMethods_Price_Delete>;
+  read?: Maybe<ShippingSettingsFields_ShippingMethods_Price_Read>;
+  update?: Maybe<ShippingSettingsFields_ShippingMethods_Price_Update>;
+};
+
+export type ShippingSettingsFields_ShippingMethods_Price_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Price_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Price_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_ShippingMethods_Price_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_UpdatedAt = {
+  create?: Maybe<ShippingSettingsFields_UpdatedAt_Create>;
+  delete?: Maybe<ShippingSettingsFields_UpdatedAt_Delete>;
+  read?: Maybe<ShippingSettingsFields_UpdatedAt_Read>;
+  update?: Maybe<ShippingSettingsFields_UpdatedAt_Update>;
+};
+
+export type ShippingSettingsFields_UpdatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_UpdatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_UpdatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsFields_UpdatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ShippingSettingsReadAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type ShippingSettingsReadDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type ShippingSettingsUpdateAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type ShippingSettingsUpdateDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
 export type ShopSetting = {
@@ -23570,6 +24070,21 @@ export type MutationProduct_MetaInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MutationShippingSettingInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  minimumOrderAmount: Scalars['Float']['input'];
+  shippingMethods?: InputMaybe<Array<InputMaybe<MutationShippingSetting_ShippingMethodsInput>>>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationShippingSetting_ShippingMethodsInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  isDefault?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  price: Scalars['Float']['input'];
+};
+
 export type MutationShopSettingInput = {
   categoryOrder?: InputMaybe<Array<InputMaybe<MutationShopSetting_CategoryOrderInput>>>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
@@ -23906,6 +24421,18 @@ export type ProductsDocAccess = {
   read?: Maybe<ProductsReadDocAccess>;
   readVersions?: Maybe<ProductsReadVersionsDocAccess>;
   update?: Maybe<ProductsUpdateDocAccess>;
+};
+
+export type Shipping_SettingsAccess = {
+  fields?: Maybe<ShippingSettingsFields>;
+  read?: Maybe<ShippingSettingsReadAccess>;
+  update?: Maybe<ShippingSettingsUpdateAccess>;
+};
+
+export type Shipping_SettingsDocAccess = {
+  fields?: Maybe<ShippingSettingsDocAccessFields>;
+  read?: Maybe<ShippingSettingsReadDocAccess>;
+  update?: Maybe<ShippingSettingsUpdateDocAccess>;
 };
 
 export type Shop_SettingsAccess = {
@@ -25102,6 +25629,11 @@ export type ProductsByCategoryQueryVariables = Exact<{
 
 
 export type ProductsByCategoryQuery = { Products?: { totalDocs: number, docs: Array<{ id: number, title?: string | null, slug?: string | null, priceInEUR?: number | null, description?: any | null, enableVariants?: boolean | null, variants?: { docs: Array<{ id: number, priceInEUR?: number | null }> } | null, gallery?: Array<{ id: number, url?: string | null, thumbnailURL?: string | null, width?: number | null, height?: number | null, alt: string }> | null }> } | null };
+
+export type ShippingSettingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ShippingSettingsQuery = { ShippingSetting?: { minimumOrderAmount: number, shippingMethods?: Array<{ name?: string | null, price?: number | null, description?: string | null, isDefault?: boolean | null, id?: string | null }> | null } | null };
 
 export type ShopSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 

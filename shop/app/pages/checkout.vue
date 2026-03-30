@@ -18,10 +18,14 @@ definePageMeta({
 usePayloadPageSeo(page)
 
 // Guard: redirect to cart if no items
-onMounted(() => {
+onMounted(async () => {
   if (!cartStore.hasItems) {
     router.replace(localePath('/cart'))
+    return
   }
+
+  // Ensure we have the latest shipping methods loaded
+  await cartStore.fetchShippingSettings()
 })
 
 async function handleFormSubmit(formData: any) {
@@ -57,6 +61,21 @@ async function handleFormSubmit(formData: any) {
       <div class="lg:col-span-2 space-y-8">
         <CheckoutForm :loading="checkoutStore.loading" @submit="handleFormSubmit" />
 
+        <!-- Shipping Methods Selection -->
+        <div v-if="cartStore.shippingMethods && cartStore.shippingMethods.length > 0" class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+          <h2 class="text-xl font-medium mb-4">{{ t('Shipping Method') }}</h2>
+          <URadioGroup
+            v-model="cartStore.selectedShippingMethodId"
+            :items="cartStore.shippingMethods.map((m: any) => ({
+              value: m.id,
+              label: `${m.name} — ${formatEuro(m.price)}`,
+              description: m.description
+            }))"
+            name="shipping-method"
+            class="space-y-4"
+          />
+        </div>
+
         <!-- SEO Text from Checkout Page (Below Form) -->
         <div class="single-column-text">
           <ContentText2Columns v-if="page?.content" :text="richTextToHTML(page.content)" />
@@ -64,7 +83,17 @@ async function handleFormSubmit(formData: any) {
       </div>
 
       <!-- Order Summary (Right Column) — button inside the block like on cart page -->
-      <div class="lg:col-span-1">
+      <div class="lg:col-span-1 space-y-4">
+        <UButton
+          icon="i-bi-arrow-left"
+          variant="ghost"
+          color="neutral"
+          :to="localePath('/cart')"
+          class="mb-2"
+        >
+          {{ t('Back to Cart') }}
+        </UButton>
+
         <CartSummary :show-checkout-button="false" :show-continue-shopping="false">
           <template #action>
             <UButton

@@ -42,6 +42,7 @@ export const useCartStore = defineStore('cart', () => {
       await fetchServerCart()
     }
 
+    await fetchShippingSettings()
     await hydrate()
   }
 
@@ -307,15 +308,57 @@ export const useCartStore = defineStore('cart', () => {
   const hasItems = computed(() => rawItems.value.length > 0)
 
   // Shipping Logic
-  const config = useRuntimeConfig()
-  const shippingCost = (config.public.shippingCost as number) ?? 500
-  const freeShippingThreshold = (config.public.freeShippingThreshold as number) ?? 5000
+  const shippingSettingsData = ref<any>(null)
+  const selectedShippingMethodId = ref<string | null>(null)
+
+  // Fetch shipping settings from Payload on initialization
+  async function fetchShippingSettings() {
+    shippingSettingsData.value = await useShippingSettings()
+    console.log('===> fetchShippingSettings data:', shippingSettingsData.value)
+
+    if (shippingSettingsData.value?.shippingMethods?.length > 0) {
+      const defaultMethod = shippingSettingsData.value.shippingMethods.find((m: any) => m.isDefault)
+      if (defaultMethod) {
+        selectedShippingMethodId.value = defaultMethod.id
+      } else {
+        selectedShippingMethodId.value = shippingSettingsData.value.shippingMethods[0].id
+      }
+    }
+  }
+
+  const freeShippingThreshold = computed(() => {
+    return shippingSettingsData.value?.minimumOrderAmount ?? 5000 // fallback to 50 EUR
+  })
+
+  // List of all active shipping methods from CMS
+  const shippingMethods = computed(() => {
+    return shippingSettingsData.value?.shippingMethods || []
+  })
+
+  // The currently selected shipping method object
+  const selectedShippingMethod = computed(() => {
+    const methods = shippingMethods.value
+    if (methods.length === 0) return null
+
+    // Find the one user selected
+    if (selectedShippingMethodId.value) {
+      const selected = methods.find((m: any) => m.id === selectedShippingMethodId.value)
+      if (selected) return selected
+    }
+
+    // Otherwise find the default one
+    const defaultMethod = methods.find((m: any) => m.isDefault)
+    if (defaultMethod) return defaultMethod
+
+    // Fallback to the first one available
+    return methods[0]
+  })
 
   const shippingTotal = computed(() => {
-    if (totalInEUR.value >= freeShippingThreshold) {
+    if (totalInEUR.value >= freeShippingThreshold.value) {
       return 0
     }
-    return shippingCost
+    return selectedShippingMethod.value?.price ?? 500 // fallback to 5 EUR
   })
 
   const grandTotal = computed(() => totalInEUR.value + shippingTotal.value)
@@ -337,6 +380,10 @@ export const useCartStore = defineStore('cart', () => {
     grandTotal,
     grandTotalFormatted,
     freeShippingThreshold,
+    shippingMethods,
+    selectedShippingMethod,
+    selectedShippingMethodId,
+    fetchShippingSettings,
     init,
     add,
     updateQuantity,

@@ -136,6 +136,7 @@ export interface Config {
     'information-banner': InformationBanner;
     'shop-settings': ShopSetting;
     'shopping-settings': ShoppingSetting;
+    'shipping-settings': ShippingSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -143,6 +144,7 @@ export interface Config {
     'information-banner': InformationBannerSelect<false> | InformationBannerSelect<true>;
     'shop-settings': ShopSettingsSelect<false> | ShopSettingsSelect<true>;
     'shopping-settings': ShoppingSettingsSelect<false> | ShoppingSettingsSelect<true>;
+    'shipping-settings': ShippingSettingsSelect<false> | ShippingSettingsSelect<true>;
   };
   locale: 'de' | 'en';
   user: User;
@@ -1623,6 +1625,40 @@ export interface ShoppingSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-settings".
+ */
+export interface ShippingSetting {
+  id: number;
+  /**
+   * Enter the amount in cents (e.g., 5000 for €50.00). Orders equal to or above this amount will get free shipping.
+   */
+  minimumOrderAmount: number;
+  /**
+   * Define the available shipping methods for the customer to choose from.
+   */
+  shippingMethods?:
+    | {
+        name: string;
+        /**
+         * Enter the shipping cost in cents (e.g., 499 for €4.99).
+         */
+        price: number;
+        /**
+         * Set this to true if this should be the pre-selected method in checkout.
+         */
+        isDefault?: boolean | null;
+        /**
+         * A short explanation or estimated delivery time (e.g., "2-4 working days").
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1749,6 +1785,25 @@ export interface ShopSettingsSelect<T extends boolean = true> {
  */
 export interface ShoppingSettingsSelect<T extends boolean = true> {
   favicon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-settings_select".
+ */
+export interface ShippingSettingsSelect<T extends boolean = true> {
+  minimumOrderAmount?: T;
+  shippingMethods?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        isDefault?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -29,6 +29,7 @@ import { plugins } from './plugins'
 import { InformationBanner } from '@/globals/InformationBanner'
 import { ShopSettings } from '@/globals/ShopSettings'
 import { ShoppingSettings } from '@/globals/ShoppingSettings'
+import { ShippingSettings } from '@/globals/ShippingSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -94,7 +95,7 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Header, Footer, InformationBanner, ShopSettings, ShoppingSettings],
+  globals: [Header, Footer, InformationBanner, ShopSettings, ShoppingSettings, ShippingSettings],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

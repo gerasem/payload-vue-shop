@@ -62,7 +62,7 @@ usePayloadPageSeo(page)
 
       <!-- Cart summary sidebar -->
       <div class="lg:col-span-1 lg:row-span-2">
-        <CartSummary />
+        <CartSummary :show-total="false" />
       </div>
 
       <!-- SEO Text from Cart Page -->
