@@ -10,6 +10,35 @@ const categories = computed(() => {
 })
 
 usePayloadPageSeo(homePage)
+
+// === Structured Data (JSON-LD) ===
+const { injectSchema } = useJsonLd()
+const config = useRuntimeConfig()
+const siteUrl = useRequestURL().origin
+
+injectSchema(() => {
+  if (!categoriesWithItems.value || categoriesWithItems.value.length === 0) return null
+
+  // Create an ItemList for the featured categories
+  const itemListElement = categoriesWithItems.value.map((catData, index) => {
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CollectionPage',
+        name: catData.category.title,
+        url: `${siteUrl}/category/${catData.category.slug}`
+      }
+    }
+  })
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Featured Categories',
+    itemListElement
+  }
+})
 </script>
 
 <template>
@@ -33,10 +62,14 @@ usePayloadPageSeo(homePage)
         </template>
 
         <!-- SEO Text from Home Page -->
-        <ContentText2Columns v-if="homePage?.content" :text="richTextToHTML(homePage.content)" />
+        <section v-if="homePage?.content">
+          <ContentText2Columns :text="richTextToHTML(homePage.content)" />
+        </section>
 
         <!-- Conversion Boxes -->
-        <HomeConversionBoxes :boxes="homePage?.conversionBoxes" />
+        <section v-if="homePage?.conversionBoxes">
+          <HomeConversionBoxes :boxes="homePage.conversionBoxes" />
+        </section>
       </main>
     </div>
   </div>

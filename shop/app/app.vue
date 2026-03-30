@@ -39,6 +39,34 @@ useHead({
     lang: locale
   }
 })
+
+// === SEO JSON-LD Markup ===
+const { injectSchema } = useJsonLd()
+
+const storeName = 'NuxtShop Demo'
+const siteUrl = useRequestURL().origin
+
+// WebSite Schema
+injectSchema(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: storeName,
+  url: siteUrl,
+  potentialAction: {
+    '@type': 'SearchAction',
+    'target': `${siteUrl}/all-items?q={search_term_string}`,
+    'query-input': 'required name=search_term_string'
+  }
+}))
+
+// Organization Schema
+injectSchema(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: storeName,
+  url: siteUrl,
+  logo: faviconUrl.value !== '/favicon.ico' ? faviconUrl.value : undefined
+}))
 </script>
 
 <template>

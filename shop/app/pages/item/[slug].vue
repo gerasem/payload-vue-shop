@@ -77,7 +77,7 @@ const inventoryQuantity = computed(() => {
   if (liveInventory.value !== null) {
     return liveInventory.value
   }
-  return selectedVariant.value?.inventory ?? product.value?.inventory
+  return (selectedVariant.value as any)?.inventory ?? product.value?.inventory
 })
 
 // Check if out of stock
@@ -128,7 +128,7 @@ async function addToCart() {
   adding.value = false
 
   // Show success toast
-  const variantInfo = selectedVariant.value ? ` (${selectedVariant.value.title})` : ''
+  const variantInfo = selectedVariant.value ? ` (${(selectedVariant.value as any).title})` : ''
   toast.add({
     title: t('Added to cart'),
     description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
@@ -142,16 +142,109 @@ async function addToCart() {
 
 // SEO
 usePayloadPageSeo(product)
+
+// === Structured Data (JSON-LD) ===
+const { injectSchema } = useJsonLd()
+const config = useRuntimeConfig()
+const siteUrl = useRequestURL().origin
+
+// Product Schema
+injectSchema(() => {
+  const p = product.value
+  if (!p) return null
+
+  // Resolve Image
+  const images = p.gallery
+  let imageUrl = undefined
+  if (images && images.length > 0) {
+    const imgObj = images[0]
+    const u = imgObj?.url || imgObj?.thumbnailURL
+    if (u) {
+      imageUrl = u.startsWith('http') ? u : `${config.public.payloadUrl}${u}`
+    }
+  }
+
+  // Resolve Description from SEO Meta or Title
+  const description = p.meta?.description || p.title
+
+  // Resolve Offers
+  const offers: any[] = []
+  if (p.enableVariants && p.variants?.docs?.length) {
+    p.variants.docs.forEach((v: any) => {
+      offers.push({
+        '@type': 'Offer',
+        name: v.title,
+        sku: v.sku || undefined,
+        price: ((v.priceInEUR ?? p.priceInEUR ?? 0) / 100).toFixed(2),
+        priceCurrency: 'EUR',
+        availability: v.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+        url: `${siteUrl}${route.fullPath}`
+      })
+    })
+  } else {
+    offers.push({
+      '@type': 'Offer',
+      price: ((p.priceInEUR ?? 0) / 100).toFixed(2),
+      priceCurrency: 'EUR',
+      availability: p.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+      url: `${siteUrl}${route.fullPath}`
+    })
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.title,
+    image: imageUrl,
+    description,
+    offers
+  }
+})
+
+// BreadcrumbList Schema
+injectSchema(() => {
+  const p = product.value
+  if (!p) return null
+
+  // Extract first category for breadcrumb, if available
+  const cat = Array.isArray(p.categories) && p.categories.length > 0 ? p.categories[0] : null
+  const catTitle = typeof cat === 'object' && cat?.title ? cat.title : 'Products'
+  const catSlug = typeof cat === 'object' && cat?.slug ? `/category/${cat.slug}` : '/all-items'
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: catTitle,
+        item: `${siteUrl}${catSlug}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: p.title
+      }
+    ]
+  }
+})
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <article class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 lg:grid-cols-2">
       <!-- Gallery -->
       <ItemGallery :images="product?.gallery" />
 
       <!-- Product Info -->
-      <div class="flex flex-col space-y-6">
+      <section class="flex flex-col space-y-6">
         <!-- Title -->
         <h1 class="text-4xl">
           {{ product?.title }}
@@ -231,12 +324,12 @@ usePayloadPageSeo(product)
             </NuxtLink>
           </p>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Description (Storefront Replication) -->
-    <div v-if="product?.description" class="mt-12">
+    <section v-if="product?.description" class="mt-12">
       <ContentText2Columns :text="richTextToHTML(product.description)" />
-    </div>
-  </div>
+    </section>
+  </article>
 </template>

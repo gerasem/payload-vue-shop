@@ -47,13 +47,15 @@ const allItems = computed(() => productsData.value?.products || [])
 
 // Calculate dynamic min/max from all items
 const minProductPrice = computed(() => {
-  if (!allItems.value.length) return 0
-  return Math.min(...allItems.value.map(p => p.priceInEUR))
+  const prices = allItems.value.map(p => p.priceInEUR).filter((p): p is number => p != null)
+  if (!prices.length) return 0
+  return Math.min(...prices)
 })
 
 const maxProductPrice = computed(() => {
-  if (!allItems.value.length) return 50000 // Default 500 EUR
-  return Math.max(...allItems.value.map(p => p.priceInEUR))
+  const prices = allItems.value.map(p => p.priceInEUR).filter((p): p is number => p != null)
+  if (!prices.length) return 50000 // Default 500 EUR
+  return Math.max(...prices)
 })
 
 // Initialize price range once data is loaded
@@ -73,9 +75,10 @@ const items = computed(() => {
 
   // Client-side price filtering
   if (priceRange.value) {
-    filtered = filtered.filter(
-      item => item.priceInEUR >= priceRange.value![0] && item.priceInEUR <= priceRange.value![1]
-    )
+    filtered = filtered.filter(item => {
+      const price = item.priceInEUR || 0
+      return price >= priceRange.value![0] && price <= priceRange.value![1]
+    })
   }
 
   return filtered
@@ -91,16 +94,86 @@ usePageSeo({
   title: computed(() => `${currentCategory.value?.title || slug.value} | Store`),
   description: computed(() => currentCategory.value?.description || `Browse ${slug.value} products`)
 })
+
+// === Structured Data (JSON-LD) ===
+const { injectSchema } = useJsonLd()
+const config = useRuntimeConfig()
+const siteUrl = useRequestURL().origin
+
+// BreadcrumbList Schema
+injectSchema(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: currentCategory.value?.title || slug.value,
+      item: `${siteUrl}${route.fullPath}`
+    }
+  ]
+}))
+
+// CollectionPage and ItemList Schema
+injectSchema(() => {
+  const cat = currentCategory.value
+  if (!cat) return null
+
+  const itemListElement = items.value.map((item, index) => {
+    let imageUrl = undefined
+    if (item.gallery && item.gallery.length > 0) {
+      const img = item.gallery[0]
+      const url = img?.url || img?.thumbnailURL
+      if (url) {
+        imageUrl = url.startsWith('http') ? url : `${config.public.payloadUrl}${url}`
+      }
+    }
+
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: item.title,
+        url: `${siteUrl}/item/${item.slug}`,
+        image: imageUrl,
+        offers: {
+          '@type': 'Offer',
+          price: ((item.priceInEUR ?? 0) / 100).toFixed(2),
+          priceCurrency: 'EUR'
+        }
+      }
+    }
+  })
+
+  // We are relying on `usePageSeo` to provide meta tags, and here providing Structured Data.
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: cat.title,
+    url: `${siteUrl}${route.fullPath}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement
+    }
+  }
+})
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <main class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Category Header -->
-    <div class="mb-8">
+    <header class="mb-8">
       <h1 class="text-4xl mb-2">
         {{ currentCategory?.title || slug }}
       </h1>
-    </div>
+    </header>
 
     <!-- Items Grid -->
     <CategoryFilters
@@ -124,8 +197,8 @@ usePageSeo({
     </div>
 
     <!-- Category Description (2 columns) -->
-    <div v-if="descriptionHTML" class="prose prose-gray max-w-none">
+    <section v-if="descriptionHTML" class="prose prose-gray max-w-none">
       <div class="columns-1 md:columns-2 gap-8" v-html="descriptionHTML" />
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
