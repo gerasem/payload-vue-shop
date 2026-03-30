@@ -2,6 +2,8 @@ import { defineStore, skipHydrate } from 'pinia'
 import type { ICartItemRaw, ICartItem } from '@/types'
 import { formatEuro } from '@/utils/price'
 import { usePayloadProductsByIds } from '@/composables/usePayloadProductsByIds'
+import couponByCodeQuery from '@/graphql/coupon.graphql?raw'
+import type { CouponByCodeQuery } from '@/generated/graphql'
 
 export const useCartStore = defineStore('cart', () => {
   // Minimal data stored in localStorage
@@ -26,6 +28,10 @@ export const useCartStore = defineStore('cart', () => {
       if (saved) {
         rawItems.value = JSON.parse(saved)
       }
+      const savedCoupon = localStorage.getItem('payload-cart-coupon')
+      if (savedCoupon) {
+        couponCode.value = savedCoupon
+      }
     } catch (e) {
       console.warn('Failed to load cart from localStorage', e)
       rawItems.value = []
@@ -42,6 +48,10 @@ export const useCartStore = defineStore('cart', () => {
       await fetchServerCart()
     }
 
+    if (couponCode.value) {
+      await applyCoupon(couponCode.value)
+    }
+
     await fetchShippingSettings()
     await hydrate()
   }
@@ -56,6 +66,61 @@ export const useCartStore = defineStore('cart', () => {
     },
     { deep: true }
   )
+
+  // Coupon state
+  const couponCode = ref<string>('')
+  const discountPercentage = ref<number>(0)
+  const couponError = ref<string>('')
+
+  watch(couponCode, (newCode) => {
+    if (!isInitialized.value) return
+    if (newCode) {
+      localStorage.setItem('payload-cart-coupon', newCode)
+    } else {
+      localStorage.removeItem('payload-cart-coupon')
+    }
+  })
+
+  async function applyCoupon(code: string) {
+    if (!code) {
+      removeCoupon()
+      return { success: true }
+    }
+    
+    couponError.value = ''
+    try {
+      const data = await usePayloadQuery<CouponByCodeQuery>(couponByCodeQuery, {
+        code: code.toUpperCase()
+      })
+      
+      const coupon = data?.Coupons?.docs?.[0]
+      if (!coupon) {
+        couponError.value = 'Gutschein nicht gefunden'
+        removeCoupon()
+        return { success: false }
+      }
+      
+      if (coupon.expirationDate && new Date(coupon.expirationDate) < new Date()) {
+        couponError.value = 'Gutschein ist abgelaufen'
+        removeCoupon()
+        return { success: false }
+      }
+      
+      couponCode.value = coupon.code
+      discountPercentage.value = coupon.discountPercentage
+      return { success: true }
+    } catch (e) {
+      console.error('Failed to apply coupon', e)
+      couponError.value = 'Fehler bei der Überprüfung des Gutscheins'
+      removeCoupon()
+      return { success: false }
+    }
+  }
+
+  function removeCoupon() {
+    couponCode.value = ''
+    discountPercentage.value = 0
+  }
 
   // Watch for user login to merge/fetch cart
   watch(
@@ -307,6 +372,16 @@ export const useCartStore = defineStore('cart', () => {
   const totalFormatted = computed(() => formatEuro(totalInEUR.value))
   const hasItems = computed(() => rawItems.value.length > 0)
 
+  // Discount
+  const discountAmount = computed(() => {
+    if (!discountPercentage.value) return 0
+    return Math.round(totalInEUR.value * (discountPercentage.value / 100))
+  })
+  const discountFormatted = computed(() => formatEuro(discountAmount.value))
+  
+  const totalWithDiscount = computed(() => Math.max(0, totalInEUR.value - discountAmount.value))
+  const totalWithDiscountFormatted = computed(() => formatEuro(totalWithDiscount.value))
+
   // Shipping Logic
   const shippingSettingsData = ref<any>(null)
   const selectedShippingMethodId = ref<string | null>(null)
@@ -355,13 +430,13 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   const shippingTotal = computed(() => {
-    if (totalInEUR.value >= freeShippingThreshold.value) {
+    if (totalWithDiscount.value >= freeShippingThreshold.value) {
       return 0
     }
     return selectedShippingMethod.value?.price ?? 500 // fallback to 5 EUR
   })
 
-  const grandTotal = computed(() => totalInEUR.value + shippingTotal.value)
+  const grandTotal = computed(() => totalWithDiscount.value + shippingTotal.value)
   const grandTotalFormatted = computed(() => formatEuro(grandTotal.value))
   const shippingFormatted = computed(() => formatEuro(shippingTotal.value))
 
@@ -374,6 +449,16 @@ export const useCartStore = defineStore('cart', () => {
     hasItems,
     serverCartId,
     cartSecret,
+    // Coupon fields
+    couponCode,
+    discountPercentage,
+    couponError,
+    discountAmount,
+    discountFormatted,
+    totalWithDiscount,
+    totalWithDiscountFormatted,
+    applyCoupon,
+    removeCoupon,
     // Shipping fields
     shippingTotal,
     shippingFormatted,

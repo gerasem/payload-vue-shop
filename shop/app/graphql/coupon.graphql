@@ -1,0 +1,10 @@
+query CouponByCode($code: String!) {
+  Coupons(where: { code: { equals: $code } }, limit: 1) {
+    docs {
+      id
+      code
+      discountPercentage
+      expirationDate
+    }
+  }
+}

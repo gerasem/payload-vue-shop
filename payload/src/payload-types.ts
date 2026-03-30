@@ -77,6 +77,7 @@ export interface Config {
     categories: Category;
     media: Media;
     'svg-media': SvgMedia;
+    coupons: Coupon;
     forms: Form;
     'form-submissions': FormSubmission;
     addresses: Address;
@@ -111,6 +112,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'svg-media': SvgMediaSelect<false> | SvgMediaSelect<true>;
+    coupons: CouponsSelect<false> | CouponsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
@@ -652,6 +654,27 @@ export interface SvgMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coupons".
+ */
+export interface Coupon {
+  id: number;
+  /**
+   * The coupon code (e.g. 2OFF, SUMMER20). Will be saved as uppercase.
+   */
+  code: string;
+  /**
+   * Discount percentage (1-100).
+   */
+  discountPercentage: number;
+  /**
+   * Optional expiration date. If empty, the coupon never expires.
+   */
+  expirationDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
 export interface Form {
@@ -886,6 +909,10 @@ export interface PayloadLockedDocument {
         value: number | SvgMedia;
       } | null)
     | ({
+        relationTo: 'coupons';
+        value: number | Coupon;
+      } | null)
+    | ({
         relationTo: 'forms';
         value: number | Form;
       } | null)
@@ -1103,6 +1130,17 @@ export interface SvgMediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coupons_select".
+ */
+export interface CouponsSelect<T extends boolean = true> {
+  code?: T;
+  discountPercentage?: T;
+  expirationDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

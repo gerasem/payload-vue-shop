@@ -23,6 +23,7 @@ export type Access = {
   canAccessAdmin: Scalars['Boolean']['output'];
   carts?: Maybe<CartsAccess>;
   categories?: Maybe<CategoriesAccess>;
+  coupons?: Maybe<CouponsAccess>;
   footer?: Maybe<FooterAccess>;
   form_submissions?: Maybe<Form_SubmissionsAccess>;
   forms?: Maybe<FormsAccess>;
@@ -2900,6 +2901,410 @@ export type Country = {
   name: Scalars['String']['output'];
   required?: Maybe<Scalars['Boolean']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type Coupon = {
+  code: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  discountPercentage: Scalars['Float']['output'];
+  expirationDate?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Coupon_Code_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Coupon_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Coupon_DiscountPercentage_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type Coupon_ExpirationDate_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Coupon_Id_Operator = {
+  equals?: InputMaybe<Scalars['Int']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Int']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Int']['input']>;
+  less_than?: InputMaybe<Scalars['Int']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Int']['input']>;
+  not_equals?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Coupon_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Coupon_Where = {
+  AND?: InputMaybe<Array<InputMaybe<Coupon_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<Coupon_Where_Or>>>;
+  code?: InputMaybe<Coupon_Code_Operator>;
+  createdAt?: InputMaybe<Coupon_CreatedAt_Operator>;
+  discountPercentage?: InputMaybe<Coupon_DiscountPercentage_Operator>;
+  expirationDate?: InputMaybe<Coupon_ExpirationDate_Operator>;
+  id?: InputMaybe<Coupon_Id_Operator>;
+  updatedAt?: InputMaybe<Coupon_UpdatedAt_Operator>;
+};
+
+export type Coupon_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<Coupon_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<Coupon_Where_Or>>>;
+  code?: InputMaybe<Coupon_Code_Operator>;
+  createdAt?: InputMaybe<Coupon_CreatedAt_Operator>;
+  discountPercentage?: InputMaybe<Coupon_DiscountPercentage_Operator>;
+  expirationDate?: InputMaybe<Coupon_ExpirationDate_Operator>;
+  id?: InputMaybe<Coupon_Id_Operator>;
+  updatedAt?: InputMaybe<Coupon_UpdatedAt_Operator>;
+};
+
+export type Coupon_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<Coupon_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<Coupon_Where_Or>>>;
+  code?: InputMaybe<Coupon_Code_Operator>;
+  createdAt?: InputMaybe<Coupon_CreatedAt_Operator>;
+  discountPercentage?: InputMaybe<Coupon_DiscountPercentage_Operator>;
+  expirationDate?: InputMaybe<Coupon_ExpirationDate_Operator>;
+  id?: InputMaybe<Coupon_Id_Operator>;
+  updatedAt?: InputMaybe<Coupon_UpdatedAt_Operator>;
+};
+
+export type Coupons = {
+  docs: Array<Coupon>;
+  hasNextPage: Scalars['Boolean']['output'];
+  hasPrevPage: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page: Scalars['Int']['output'];
+  pagingCounter: Scalars['Int']['output'];
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs: Scalars['Int']['output'];
+  totalPages: Scalars['Int']['output'];
+};
+
+export type CouponsCreateAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsCreateDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsDeleteAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsDeleteDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsDocAccessFields = {
+  code?: Maybe<CouponsDocAccessFields_Code>;
+  createdAt?: Maybe<CouponsDocAccessFields_CreatedAt>;
+  discountPercentage?: Maybe<CouponsDocAccessFields_DiscountPercentage>;
+  expirationDate?: Maybe<CouponsDocAccessFields_ExpirationDate>;
+  updatedAt?: Maybe<CouponsDocAccessFields_UpdatedAt>;
+};
+
+export type CouponsDocAccessFields_Code = {
+  create?: Maybe<CouponsDocAccessFields_Code_Create>;
+  delete?: Maybe<CouponsDocAccessFields_Code_Delete>;
+  read?: Maybe<CouponsDocAccessFields_Code_Read>;
+  update?: Maybe<CouponsDocAccessFields_Code_Update>;
+};
+
+export type CouponsDocAccessFields_Code_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_Code_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_Code_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_Code_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_CreatedAt = {
+  create?: Maybe<CouponsDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<CouponsDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<CouponsDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<CouponsDocAccessFields_CreatedAt_Update>;
+};
+
+export type CouponsDocAccessFields_CreatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_CreatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_CreatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_CreatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_DiscountPercentage = {
+  create?: Maybe<CouponsDocAccessFields_DiscountPercentage_Create>;
+  delete?: Maybe<CouponsDocAccessFields_DiscountPercentage_Delete>;
+  read?: Maybe<CouponsDocAccessFields_DiscountPercentage_Read>;
+  update?: Maybe<CouponsDocAccessFields_DiscountPercentage_Update>;
+};
+
+export type CouponsDocAccessFields_DiscountPercentage_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_DiscountPercentage_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_DiscountPercentage_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_DiscountPercentage_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_ExpirationDate = {
+  create?: Maybe<CouponsDocAccessFields_ExpirationDate_Create>;
+  delete?: Maybe<CouponsDocAccessFields_ExpirationDate_Delete>;
+  read?: Maybe<CouponsDocAccessFields_ExpirationDate_Read>;
+  update?: Maybe<CouponsDocAccessFields_ExpirationDate_Update>;
+};
+
+export type CouponsDocAccessFields_ExpirationDate_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_ExpirationDate_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_ExpirationDate_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_ExpirationDate_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_UpdatedAt = {
+  create?: Maybe<CouponsDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<CouponsDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<CouponsDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<CouponsDocAccessFields_UpdatedAt_Update>;
+};
+
+export type CouponsDocAccessFields_UpdatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_UpdatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_UpdatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsDocAccessFields_UpdatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields = {
+  code?: Maybe<CouponsFields_Code>;
+  createdAt?: Maybe<CouponsFields_CreatedAt>;
+  discountPercentage?: Maybe<CouponsFields_DiscountPercentage>;
+  expirationDate?: Maybe<CouponsFields_ExpirationDate>;
+  updatedAt?: Maybe<CouponsFields_UpdatedAt>;
+};
+
+export type CouponsFields_Code = {
+  create?: Maybe<CouponsFields_Code_Create>;
+  delete?: Maybe<CouponsFields_Code_Delete>;
+  read?: Maybe<CouponsFields_Code_Read>;
+  update?: Maybe<CouponsFields_Code_Update>;
+};
+
+export type CouponsFields_Code_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_Code_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_Code_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_Code_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_CreatedAt = {
+  create?: Maybe<CouponsFields_CreatedAt_Create>;
+  delete?: Maybe<CouponsFields_CreatedAt_Delete>;
+  read?: Maybe<CouponsFields_CreatedAt_Read>;
+  update?: Maybe<CouponsFields_CreatedAt_Update>;
+};
+
+export type CouponsFields_CreatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_CreatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_CreatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_CreatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_DiscountPercentage = {
+  create?: Maybe<CouponsFields_DiscountPercentage_Create>;
+  delete?: Maybe<CouponsFields_DiscountPercentage_Delete>;
+  read?: Maybe<CouponsFields_DiscountPercentage_Read>;
+  update?: Maybe<CouponsFields_DiscountPercentage_Update>;
+};
+
+export type CouponsFields_DiscountPercentage_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_DiscountPercentage_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_DiscountPercentage_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_DiscountPercentage_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_ExpirationDate = {
+  create?: Maybe<CouponsFields_ExpirationDate_Create>;
+  delete?: Maybe<CouponsFields_ExpirationDate_Delete>;
+  read?: Maybe<CouponsFields_ExpirationDate_Read>;
+  update?: Maybe<CouponsFields_ExpirationDate_Update>;
+};
+
+export type CouponsFields_ExpirationDate_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_ExpirationDate_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_ExpirationDate_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_ExpirationDate_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_UpdatedAt = {
+  create?: Maybe<CouponsFields_UpdatedAt_Create>;
+  delete?: Maybe<CouponsFields_UpdatedAt_Delete>;
+  read?: Maybe<CouponsFields_UpdatedAt_Read>;
+  update?: Maybe<CouponsFields_UpdatedAt_Update>;
+};
+
+export type CouponsFields_UpdatedAt_Create = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_UpdatedAt_Delete = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_UpdatedAt_Read = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsFields_UpdatedAt_Update = {
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CouponsReadAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsReadDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsUpdateAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CouponsUpdateDocAccess = {
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
 export type Email = {
@@ -9368,6 +9773,7 @@ export type Mutation = {
   createAddress?: Maybe<Address>;
   createCart?: Maybe<Cart>;
   createCategory?: Maybe<Category>;
+  createCoupon?: Maybe<Coupon>;
   createForm?: Maybe<Form>;
   createFormSubmission?: Maybe<FormSubmission>;
   createMedia?: Maybe<Media>;
@@ -9386,6 +9792,7 @@ export type Mutation = {
   deleteAddress?: Maybe<Address>;
   deleteCart?: Maybe<Cart>;
   deleteCategory?: Maybe<Category>;
+  deleteCoupon?: Maybe<Coupon>;
   deleteForm?: Maybe<Form>;
   deleteFormSubmission?: Maybe<FormSubmission>;
   deleteMedia?: Maybe<Media>;
@@ -9404,6 +9811,7 @@ export type Mutation = {
   duplicateAddress?: Maybe<Address>;
   duplicateCart?: Maybe<Cart>;
   duplicateCategory?: Maybe<Category>;
+  duplicateCoupon?: Maybe<Coupon>;
   duplicateForm?: Maybe<Form>;
   duplicateFormSubmission?: Maybe<FormSubmission>;
   duplicateMedia?: Maybe<Media>;
@@ -9430,6 +9838,7 @@ export type Mutation = {
   updateAddress?: Maybe<Address>;
   updateCart?: Maybe<Cart>;
   updateCategory?: Maybe<Category>;
+  updateCoupon?: Maybe<Coupon>;
   updateFooter?: Maybe<Footer>;
   updateForm?: Maybe<Form>;
   updateFormSubmission?: Maybe<FormSubmission>;
@@ -9471,6 +9880,13 @@ export type MutationCreateCartArgs = {
 
 export type MutationCreateCategoryArgs = {
   data: MutationCategoryInput;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+};
+
+
+export type MutationCreateCouponArgs = {
+  data: MutationCouponInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
 };
@@ -9599,6 +10015,12 @@ export type MutationDeleteCategoryArgs = {
 };
 
 
+export type MutationDeleteCouponArgs = {
+  id: Scalars['Int']['input'];
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationDeleteFormArgs = {
   id: Scalars['Int']['input'];
   trash?: InputMaybe<Scalars['Boolean']['input']>;
@@ -9703,6 +10125,12 @@ export type MutationDuplicateCartArgs = {
 
 export type MutationDuplicateCategoryArgs = {
   data: MutationCategoryInput;
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationDuplicateCouponArgs = {
+  data: MutationCouponInput;
   id: Scalars['Int']['input'];
 };
 
@@ -9861,6 +10289,16 @@ export type MutationUpdateCartArgs = {
 export type MutationUpdateCategoryArgs = {
   autosave?: InputMaybe<Scalars['Boolean']['input']>;
   data: MutationCategoryUpdateInput;
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['Int']['input'];
+  locale?: InputMaybe<LocaleInputType>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationUpdateCouponArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationCouponUpdateInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['Int']['input'];
   locale?: InputMaybe<LocaleInputType>;
@@ -13326,6 +13764,7 @@ export enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   Addresses = 'addresses',
   Carts = 'carts',
   Categories = 'categories',
+  Coupons = 'coupons',
   FormSubmissions = 'form_submissions',
   Forms = 'forms',
   Media = 'media',
@@ -13349,7 +13788,7 @@ export enum PayloadLockedDocumentUpdate_UserRelationshipInputRelationTo {
   Users = 'users'
 }
 
-export type PayloadLockedDocument_Document = Address | Cart | Category | Form | FormSubmission | Media | Order | Page | Product | SvgMedia | Transaction | User | Variant | VariantOption | VariantType;
+export type PayloadLockedDocument_Document = Address | Cart | Category | Coupon | Form | FormSubmission | Media | Order | Page | Product | SvgMedia | Transaction | User | Variant | VariantOption | VariantType;
 
 export type PayloadLockedDocument_DocumentRelationshipInput = {
   relationTo?: InputMaybe<PayloadLockedDocument_DocumentRelationshipInputRelationTo>;
@@ -13360,6 +13799,7 @@ export enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   Addresses = 'addresses',
   Carts = 'carts',
   Categories = 'categories',
+  Coupons = 'coupons',
   FormSubmissions = 'form_submissions',
   Forms = 'forms',
   Media = 'media',
@@ -13378,6 +13818,7 @@ export enum PayloadLockedDocument_Document_RelationTo {
   Addresses = 'addresses',
   Carts = 'carts',
   Categories = 'categories',
+  Coupons = 'coupons',
   FormSubmissions = 'form_submissions',
   Forms = 'forms',
   Media = 'media',
@@ -13437,6 +13878,7 @@ export enum PayloadLockedDocument_Document_Relation_RelationTo {
   Addresses = 'addresses',
   Carts = 'carts',
   Categories = 'categories',
+  Coupons = 'coupons',
   FormSubmissions = 'form_submissions',
   Forms = 'forms',
   Media = 'media',
@@ -15772,6 +16214,8 @@ export type Query = {
   Carts?: Maybe<Carts>;
   Categories?: Maybe<Categories>;
   Category?: Maybe<Category>;
+  Coupon?: Maybe<Coupon>;
+  Coupons?: Maybe<Coupons>;
   Footer?: Maybe<Footer>;
   Form?: Maybe<Form>;
   FormSubmission?: Maybe<FormSubmission>;
@@ -15811,6 +16255,7 @@ export type Query = {
   countAddresses?: Maybe<CountAddresses>;
   countCarts?: Maybe<CountCarts>;
   countCategories?: Maybe<CountCategories>;
+  countCoupons?: Maybe<CountCoupons>;
   countFormSubmissions?: Maybe<CountFormSubmissions>;
   countForms?: Maybe<CountForms>;
   countOrders?: Maybe<CountOrders>;
@@ -15829,6 +16274,7 @@ export type Query = {
   docAccessAddress?: Maybe<AddressesDocAccess>;
   docAccessCart?: Maybe<CartsDocAccess>;
   docAccessCategory?: Maybe<CategoriesDocAccess>;
+  docAccessCoupon?: Maybe<CouponsDocAccess>;
   docAccessFooter?: Maybe<FooterDocAccess>;
   docAccessForm?: Maybe<FormsDocAccess>;
   docAccessFormSubmission?: Maybe<Form_SubmissionsDocAccess>;
@@ -15930,6 +16376,30 @@ export type QueryCategoryArgs = {
   locale?: InputMaybe<LocaleInputType>;
   select?: InputMaybe<Scalars['Boolean']['input']>;
   trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryCouponArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  id: Scalars['Int']['input'];
+  locale?: InputMaybe<LocaleInputType>;
+  select?: InputMaybe<Scalars['Boolean']['input']>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryCouponsArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pagination?: InputMaybe<Scalars['Boolean']['input']>;
+  select?: InputMaybe<Scalars['Boolean']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<Coupon_Where>;
 };
 
 
@@ -16365,6 +16835,14 @@ export type QueryCountCategoriesArgs = {
 };
 
 
+export type QueryCountCouponsArgs = {
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<LocaleInputType>;
+  trash?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<Coupon_Where>;
+};
+
+
 export type QueryCountFormSubmissionsArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
@@ -16496,6 +16974,11 @@ export type QueryDocAccessCartArgs = {
 
 
 export type QueryDocAccessCategoryArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryDocAccessCouponArgs = {
   id: Scalars['Int']['input'];
 };
 
@@ -23352,6 +23835,10 @@ export type CountCategories = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CountCoupons = {
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
 export type CountFormSubmissions = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
@@ -23410,6 +23897,22 @@ export type CountVariants = {
 
 export type CountallMedia = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CouponsAccess = {
+  create?: Maybe<CouponsCreateAccess>;
+  delete?: Maybe<CouponsDeleteAccess>;
+  fields?: Maybe<CouponsFields>;
+  read?: Maybe<CouponsReadAccess>;
+  update?: Maybe<CouponsUpdateAccess>;
+};
+
+export type CouponsDocAccess = {
+  create?: Maybe<CouponsCreateDocAccess>;
+  delete?: Maybe<CouponsDeleteDocAccess>;
+  fields?: Maybe<CouponsDocAccessFields>;
+  read?: Maybe<CouponsReadDocAccess>;
+  update?: Maybe<CouponsUpdateDocAccess>;
 };
 
 export type FooterAccess = {
@@ -23600,6 +24103,22 @@ export type MutationCategory_MetaInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCouponInput = {
+  code: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  discountPercentage: Scalars['Float']['input'];
+  expirationDate?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCouponUpdateInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  discountPercentage?: InputMaybe<Scalars['Float']['input']>;
+  expirationDate?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationFooterInput = {
@@ -25550,6 +26069,13 @@ export type CategoriesWithItemsQueryVariables = Exact<{
 
 
 export type CategoriesWithItemsQuery = { Categories?: { docs: Array<{ id: number, title?: string | null, slug: string, description?: any | null, image: { id: number, alt: string, url?: string | null, filename?: string | null, width?: number | null, height?: number | null, sizes?: { categoryPreview?: { url?: string | null, width?: number | null, height?: number | null, mimeType?: string | null, filename?: string | null } | null } | null } }> } | null };
+
+export type CouponByCodeQueryVariables = Exact<{
+  code: Scalars['String']['input'];
+}>;
+
+
+export type CouponByCodeQuery = { Coupons?: { docs: Array<{ id: number, code: string, discountPercentage: number, expirationDate?: any | null }> } | null };
 
 export type FooterQueryVariables = Exact<{
   locale: LocaleInputType;

@@ -56,7 +56,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
       const body: Record<string, any> = {
         customerEmail: formData.email, // required for guests; also used by Stripe customer lookup
         shippingAddress,
-        shippingMethodId: cartStore.selectedShippingMethodId
+        shippingMethodId: cartStore.selectedShippingMethodId,
+        couponCode: cartStore.couponCode
       }
 
       // Always pass the server cart ID — the plugin requires it when the user's
