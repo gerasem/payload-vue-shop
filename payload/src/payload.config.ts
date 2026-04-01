@@ -31,6 +31,7 @@ import { ShopSettings } from '@/globals/ShopSettings'
 import { ShoppingSettings } from '@/globals/ShoppingSettings'
 import { ShippingSettings } from '@/globals/ShippingSettings'
 import { Coupons } from '@/collections/Coupons'
+import { Referrals } from '@/collections/Referrals'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,7 +49,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, Media, SvgMedia, Coupons],
+  collections: [Users, Pages, Categories, Media, SvgMedia, Coupons, Referrals],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',

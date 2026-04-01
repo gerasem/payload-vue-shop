@@ -22,6 +22,7 @@ const redirectStatus = route.query.redirect_status as string | undefined
 const guestEmail = route.query.customerEmail as string | undefined
 const guestCartId = route.query.cartID as string | undefined
 const guestCartSecret = route.query.cartSecret as string | undefined
+const referralCode = (route.query.referralCode as string | undefined) || useCookie('referral_code').value || undefined
 
 const confirming = ref(true)
 const orderId = ref<string | number | null>(null)
@@ -57,7 +58,8 @@ async function confirmOrder(intentId: string) {
         // Required for guest checkout — all values passed via URL since store is cleared on redirect
         ...(guestEmail ? { customerEmail: guestEmail } : {}),
         ...(guestCartId ? { cartID: guestCartId } : {}),
-        ...(guestCartSecret ? { secret: guestCartSecret } : {})
+        ...(guestCartSecret ? { secret: guestCartSecret } : {}),
+        ...(referralCode ? { referralCode } : {})
       }
     })
 

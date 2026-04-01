@@ -5,6 +5,7 @@ query Orders($userId: JSON!) {
       createdAt
       amount
       status
+      referralCode
       items {
         product {
           title

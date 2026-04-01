@@ -77,6 +77,8 @@ async function handlePayment() {
   if (checkoutStore.customerEmail) params.set('customerEmail', checkoutStore.customerEmail)
   if (cartStore.serverCartId) params.set('cartID', String(cartStore.serverCartId))
   if (cartStore.cartSecret) params.set('cartSecret', cartStore.cartSecret)
+  const refCookie = useCookie('referral_code').value
+  if (refCookie) params.set('referralCode', refCookie)
   const returnUrl = `${successBase}?${params.toString()}`
 
   const { error } = await stripeInstance.value.confirmPayment({

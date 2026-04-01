@@ -148,6 +148,34 @@ export const plugins: Plugin[] = [
 
                     return baseAdapter.initiatePayment(args)
                   },
+
+                  confirmOrder: async (args: any) => {
+                    const result = await baseAdapter.confirmOrder(args)
+
+                    // Attach referral code to the created order (if valid)
+                    const referralCode = args.data?.referralCode
+                    if (referralCode && result.orderID) {
+                      try {
+                        // Validate referral exists in the referrals collection
+                        const referrals = await args.req.payload.find({
+                          collection: 'referrals',
+                          where: { name: { equals: referralCode } },
+                          depth: 0,
+                        })
+                        if (referrals.docs.length > 0) {
+                          await args.req.payload.update({
+                            id: result.orderID,
+                            collection: 'orders',
+                            data: { referralCode },
+                          })
+                        }
+                      } catch (err) {
+                        args.req.payload.logger.error(err, 'Error attaching referral code to order')
+                      }
+                    }
+
+                    return result
+                  },
                 }
               })(),
             ],
@@ -156,6 +184,23 @@ export const plugins: Plugin[] = [
       : {}),
     products: {
       productsCollectionOverride: ProductsCollection,
+    },
+    orders: {
+      ordersCollectionOverride: ({ defaultCollection }) => ({
+        ...defaultCollection,
+        fields: [
+          ...defaultCollection.fields,
+          {
+            name: 'referralCode',
+            type: 'text',
+            label: 'Referral',
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+          },
+        ],
+      }),
     },
     currencies: {
       supportedCurrencies: [

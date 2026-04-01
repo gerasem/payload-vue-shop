@@ -78,6 +78,7 @@ export interface Config {
     media: Media;
     'svg-media': SvgMedia;
     coupons: Coupon;
+    referrals: Referral;
     forms: Form;
     'form-submissions': FormSubmission;
     addresses: Address;
@@ -113,6 +114,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     'svg-media': SvgMediaSelect<false> | SvgMediaSelect<true>;
     coupons: CouponsSelect<false> | CouponsSelect<true>;
+    referrals: ReferralsSelect<false> | ReferralsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
@@ -264,6 +266,7 @@ export interface Order {
   status?: OrderStatus;
   amount?: number | null;
   currency?: 'EUR' | null;
+  referralCode?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -675,6 +678,19 @@ export interface Coupon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "referrals".
+ */
+export interface Referral {
+  id: number;
+  /**
+   * The referral identifier (e.g. partner name or code).
+   */
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
 export interface Form {
@@ -913,6 +929,10 @@ export interface PayloadLockedDocument {
         value: number | Coupon;
       } | null)
     | ({
+        relationTo: 'referrals';
+        value: number | Referral;
+      } | null)
+    | ({
         relationTo: 'forms';
         value: number | Form;
       } | null)
@@ -1139,6 +1159,15 @@ export interface CouponsSelect<T extends boolean = true> {
   code?: T;
   discountPercentage?: T;
   expirationDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "referrals_select".
+ */
+export interface ReferralsSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1438,6 +1467,7 @@ export interface OrdersSelect<T extends boolean = true> {
   status?: T;
   amount?: T;
   currency?: T;
+  referralCode?: T;
   updatedAt?: T;
   createdAt?: T;
 }

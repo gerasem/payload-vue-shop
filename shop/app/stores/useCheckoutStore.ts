@@ -81,7 +81,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
         shippingAddress,
         billingAddress,
         shippingMethodId: cartStore.selectedShippingMethodId,
-        couponCode: cartStore.couponCode
+        couponCode: cartStore.couponCode,
+        referralCode: useCookie('referral_code').value || undefined
       }
 
       // Always pass the server cart ID — the plugin requires it when the user's
