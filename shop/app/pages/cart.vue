@@ -22,7 +22,7 @@ usePayloadPageSeo(page)
     <!-- Empty cart state (ONLY if we know for sure it's empty from LS) -->
     <div v-if="!cartStore.hasItems" class="py-12 text-center">
       <UIcon name="i-bi-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-      <p class="mb-4 text-lg text-gray-600">
+      <p class="mb-4 text-lg">
         {{ t('Your cart is empty.') }}
       </p>
       <UButton :to="localePath('/all-items')" color="primary" size="lg">

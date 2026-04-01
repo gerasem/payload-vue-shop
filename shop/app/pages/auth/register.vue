@@ -43,7 +43,6 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     toast.add({
       title: t('Success'),
       description: t('Account created successfully'),
-      color: 'success'
     })
     router.push('/cabinet')
   } catch (e: any) {

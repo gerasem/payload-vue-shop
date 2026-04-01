@@ -1,16 +1,11 @@
 export default defineAppConfig({
   ui: {
-    notifications: {
-      position: 'bottom-0 start-1/2 -translate-x-1/2'
+    toast: {
+      slots: {
+        root: 'relative group overflow-hidden bg-default shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] border-none p-4 flex gap-2.5 focus:outline-none'
+      }
     },
-    notification: {
-      default: {
-        color: 'neutral' // White background with shadow for standard messages
-      },
-      background: 'bg-white dark:bg-gray-900',
-      shadow: 'shadow-lg',
-      ring: 'ring-1 ring-gray-200 dark:ring-gray-800'
-    },
+
     colors: {
       primary: 'primary', // #eb3e7d
       secondary: 'secondary', // #dfa44c

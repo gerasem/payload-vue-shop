@@ -148,5 +148,8 @@
   "Cancel": "Abbrechen",
   "Page not found": "Seite nicht gefunden",
   "Return Home": "Zurück zur Startseite",
-  "An error occurred": "Ein Fehler ist aufgetreten"
+  "An error occurred": "Ein Fehler ist aufgetreten",
+  "Favorites": "Favoriten",
+  "No favorites yet.": "Noch keine Favoriten vorhanden.",
+  "Added to favorites": "Zu Favoriten hinzugefügt"
 }

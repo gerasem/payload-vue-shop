@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { MappedLink } from '@/composables/usePayloadLink'
+import { useFavoritesStore } from '@/stores/useFavoritesStore'
 
 const localePath = useLocalePath()
 
 const cartStore = useCartStore()
+const favoritesStore = useFavoritesStore()
 
 const { data: headerData } = await useAsyncData('payload-header', () => usePayloadHeader())
 
@@ -88,7 +90,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         class="hidden lg:block hover:text-primary transition-colors whitespace-nowrap"
       />
 
-      <!-- User & Cart icons - always visible -->
+      <!-- User, Favorites & Cart icons - always visible -->
       <div class="flex items-center">
         <!-- User icon -->
         <NuxtLink
@@ -99,7 +101,32 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           <UIcon name="i-bi-person" class="w-8 h-8" />
         </NuxtLink>
 
-        <div class="flex items-center justify-center min-w-[32px]">
+        <!-- Favorites icon -->
+        <div class="flex items-center justify-center min-w-[32px] ml-3">
+          <ClientOnly>
+            <template #fallback>
+              <UIcon name="i-bi-arrow-repeat" class="w-5 h-5 animate-spin text-gray-400" />
+            </template>
+
+            <NuxtLink
+              :to="localePath('/favorites')"
+              class="flex items-center gap-1.5 transition hover:text-secondary"
+              aria-label="Favorites"
+            >
+              <UIcon
+                name="i-bi-heart"
+                class="w-7 h-7"
+                :class="(favoritesStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'"
+              />
+              <span v-if="favoritesStore && favoritesStore.count > 0" class="font-normal">
+                {{ favoritesStore.count }}
+              </span>
+            </NuxtLink>
+          </ClientOnly>
+        </div>
+
+        <!-- Cart Icon -->
+        <div class="flex items-center justify-center min-w-[32px] ml-3">
           <ClientOnly>
             <template #fallback>
               <UIcon name="i-bi-arrow-repeat" class="w-5 h-5 animate-spin text-gray-400" />
@@ -107,7 +134,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 
             <NuxtLink
               :to="localePath('/cart')"
-              class="flex items-center gap-1.5 transition hover:text-secondary ml-3"
+              class="flex items-center gap-1.5 transition hover:text-secondary"
               :title="cartStore?.totalFormatted || ''"
               aria-label="Shopping Cart"
             >

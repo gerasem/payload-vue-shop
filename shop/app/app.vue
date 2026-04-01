@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { de } from '@nuxt/ui/locale'
+import { useFavoritesStore } from '@/stores/useFavoritesStore'
 
 const route = useRoute()
 
-// Initialize cart store on client-side only
+// Initialize stores on client-side only
 onMounted(async () => {
   const cartStore = useCartStore()
   cartStore.init()
+
+  const favoritesStore = useFavoritesStore()
+  favoritesStore.init()
 })
 
 // Check if current page is homepage
@@ -15,6 +19,8 @@ const isHomePage = computed(
 )
 
 const { locale } = useI18n()
+
+const toaster = { position: 'bottom-center', expand: false, progress: false }
 
 // Fetch global shopping settings for dynamic items like favicon
 const { data: shoppingSettings } = await useAsyncData('shopping-settings', () =>
@@ -54,7 +60,7 @@ injectSchema(() => ({
   url: siteUrl,
   potentialAction: {
     '@type': 'SearchAction',
-    'target': `${siteUrl}/all-items?q={search_term_string}`,
+    target: `${siteUrl}/all-items?q={search_term_string}`,
     'query-input': 'required name=search_term_string'
   }
 }))
@@ -70,7 +76,7 @@ injectSchema(() => ({
 </script>
 
 <template>
-  <UApp :locale="de">
+  <UApp :locale="de" :toaster="toaster">
     <NuxtLoadingIndicator color="#dfa44c" />
     <Header />
 

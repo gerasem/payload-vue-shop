@@ -132,8 +132,6 @@ async function addToCart() {
   toast.add({
     title: t('Added to cart'),
     description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
-    icon: 'i-bi-check-circle',
-    color: 'success'
   })
 
   // Reset quantity

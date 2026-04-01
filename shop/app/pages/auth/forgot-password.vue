@@ -33,8 +33,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     success.value = true
     toast.add({
       title: t('Success'),
-      description: t('Password reset email sent'),
-      color: 'success'
+      description: t('Password reset email sent')
     })
   } catch (e: any) {
     toast.add({
