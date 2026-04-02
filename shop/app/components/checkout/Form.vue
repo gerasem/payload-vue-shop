@@ -129,9 +129,9 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
             size="lg"
             value-key="value"
             :items="[
-              { label: 'Deutschland', value: 'DE' },
-              { label: 'Österreich', value: 'AT' },
-              { label: 'Schweiz', value: 'CH' }
+              { label: t('Germany'), value: 'DE' },
+              { label: t('Austria'), value: 'AT' },
+              { label: t('Switzerland'), value: 'CH' }
             ]"
           />
         </UFormField>
@@ -157,7 +157,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
         <UFormField name="differentBillingAddress">
           <UCheckbox
             v-model="form.differentBillingAddress"
-            :label="t('Rechnungsadresse unterscheidet sich von Kontaktinformationen')"
+            :label="t('Different billing address')"
           />
         </UFormField>
       </div>
@@ -205,9 +205,9 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
               size="lg"
               value-key="value"
               :items="[
-                { label: 'Deutschland', value: 'DE' },
-                { label: 'Österreich', value: 'AT' },
-                { label: 'Schweiz', value: 'CH' }
+                { label: t('Germany'), value: 'DE' },
+                { label: t('Austria'), value: 'AT' },
+                { label: t('Switzerland'), value: 'CH' }
               ]"
             />
           </UFormField>

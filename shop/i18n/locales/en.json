@@ -1,5 +1,6 @@
 {
   "Accept all": "Accept all",
+  "Apply": "Apply",
   "Access your account dashboard to manage your orders and profile.": "Access your account dashboard to manage your orders and profile.",
   "Account created successfully": "Account created successfully",
   "Add to Cart": "Add to Cart",
@@ -9,7 +10,9 @@
   "Address": "Address",
   "All Items": "All Items",
   "Already have an account?": "Already have an account?",
+  "Back to Cart": "Back to Cart",
   "Back to Login": "Back to Login",
+  "Billing Address": "Billing Address",
   "Browse our complete catalog": "Browse our complete catalog",
   "Checkout": "Checkout",
   "City": "City",
@@ -24,6 +27,7 @@
   "Create an account": "Create an account",
   "Create an account to manage your orders.": "Create an account to manage your orders.",
   "Customize Cookies": "Customize Cookies",
+  "Different billing address": "Different billing address",
   "Don't have an account yet?": "Don't have an account yet?",
   "Email": "Email",
   "Enter your email": "Enter your email",
@@ -146,5 +150,15 @@
   "processing": "Processing",
   "refunded": "Refunded",
   "Remove item?": "Remove item from cart?",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Price": "Price",
+  "Product": "Product",
+  "Shipping Method": "Shipping Method",
+  "Your favorite items": "Your favorite items",
+  "Coupon Code": "Coupon Code",
+  "Coupon applied:": "Coupon applied:",
+  "Discount": "Discount",
+  "Germany": "Germany",
+  "Austria": "Austria",
+  "Switzerland": "Switzerland"
 }

@@ -210,7 +210,7 @@ function getOrderStatusColor(status: string | null | undefined) {
         </UButton>
 
         <p class="text-sm font-light text-center text-gray-500">
-          {{ t('Don’t have an account yet?') }}
+          {{ t("Don't have an account yet?") }}
           <UButton variant="link" :padded="false" color="primary" to="/auth/register">
             {{ t('Sign up') }}
           </UButton>
