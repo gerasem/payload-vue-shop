@@ -24,6 +24,12 @@ export const Media: CollectionConfig = {
   upload: {
     // staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
+    formatOptions: {
+      format: 'webp',
+      options: {
+        quality: 95,
+      },
+    },
     imageSizes: [
       {
         name: 'categoryPreview',
@@ -32,6 +38,12 @@ export const Media: CollectionConfig = {
         fit: 'cover',
         position: 'centre',
         withoutEnlargement: true,
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 95,
+          },
+        },
       },
       {
         name: 'thumbnail',
@@ -40,6 +52,12 @@ export const Media: CollectionConfig = {
         fit: 'cover',
         position: 'centre',
         withoutEnlargement: true,
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 95,
+          },
+        },
       },
     ],
   },
