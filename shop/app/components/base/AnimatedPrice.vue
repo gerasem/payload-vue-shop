@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, reactive, watch, computed } from 'vue'
+import { reactive, watch, computed } from 'vue'
 import { gsap } from 'gsap'
 import { formatEuro } from '@/utils/price'
 
 const props = withDefaults(
   defineProps<{
-    value: number // Value in EUR (float) or cents (if handled by formatter)
+    value: number
     duration?: number
   }>(),
   {
@@ -17,7 +17,6 @@ const tweened = reactive({
   value: props.value
 })
 
-// Whenever props.value changes, animate the tweenedValue
 watch(
   () => props.value,
   newValue => {

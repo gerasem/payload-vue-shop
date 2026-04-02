@@ -131,7 +131,13 @@ async function addToCart() {
   const variantInfo = selectedVariant.value ? ` (${(selectedVariant.value as any).title})` : ''
   toast.add({
     title: t('Added to cart'),
-    description: `${product.value!.title}${variantInfo} × ${quantity.value}`
+    description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
+    actions: [
+      {
+        label: t('Show Shopping Cart'),
+        onClick: () => navigateTo(localePath('/cart'))
+      }
+    ]
   })
 
   // Reset quantity

@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="text-2-columns my-12 w-full">
+  <div class="text-2-columns my-4 w-full">
     <div class="text-content text-gray-600 block w-full" v-html="text"></div>
   </div>
 </template>

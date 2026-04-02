@@ -1,5 +1,5 @@
 {
-  "Accept all": "Allem zustimmen",
+  "Accept all": "Alle zustimmen",
   "Apply": "Anwenden",
   "Access your account dashboard to manage your orders and profile.": "Greifen Sie auf Ihr Konto-Dashboard zu, um Ihre Bestellungen und Ihr Profil zu verwalten.",
   "Account created successfully": "Konto erfolgreich erstellt",
@@ -100,6 +100,7 @@
   "Shipping": "Versand",
   "Shipping conditions": "Versandbedingungen",
   "Shopping Cart": "Warenkorb",
+  "Show Shopping Cart": "Warenkorb anzeigen",
   "Sign in": "Anmelden",
   "Sign in to your account": "Melden Sie sich bei Ihrem Konto an",
   "Sign out": "Abmelden",

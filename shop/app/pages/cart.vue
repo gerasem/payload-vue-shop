@@ -5,11 +5,6 @@ const cartStore = useCartStore()
 
 const { data: page } = await useAsyncData('cart-page-content', () => usePayloadPage('warenkorb'))
 
-definePageMeta({
-  layout: 'default',
-  ssr: false
-})
-
 usePayloadPageSeo(page)
 </script>
 
@@ -19,40 +14,24 @@ usePayloadPageSeo(page)
       {{ page?.title || t('Shopping Cart') }}
     </h1>
 
-    <!-- Empty cart state (ONLY if we know for sure it's empty from LS) -->
     <div v-if="!cartStore.hasItems" class="py-12 text-center">
       <UIcon name="i-bi-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
+
       <p class="mb-4 text-lg">
         {{ t('Your cart is empty.') }}
       </p>
+
       <UButton :to="localePath('/all-items')" color="primary" size="lg">
         {{ t('Continue Shopping') }}
       </UButton>
     </div>
 
-    <!-- Loading state (Hydrating items from API) -->
-    <div
-      v-else-if="cartStore.isHydrating && cartStore.items.length === 0"
-      class="grid gap-8 lg:grid-cols-3"
-    >
-      <div class="lg:col-span-2 space-y-4">
-        <div v-for="i in 3" :key="i" class="flex gap-4 p-4 border rounded-lg">
-          <USkeleton class="h-24 w-24 rounded-md" />
-          <div class="flex-1 space-y-2">
-            <USkeleton class="h-4 w-3/4" />
-            <USkeleton class="h-4 w-1/2" />
-          </div>
-        </div>
+    <div v-else class="grid gap-8 lg:gap-16 grid-cols-1 lg:grid-cols-3">
+      <div class="col-span-1 lg:order-2">
+        <CartSummary :show-total="false" />
       </div>
-      <div class="lg:col-span-1">
-        <USkeleton class="h-64 rounded-lg" />
-      </div>
-    </div>
 
-    <!-- Cart with items -->
-    <div v-else class="grid gap-16 lg:grid-cols-3">
-      <!-- Cart items list -->
-      <div class="lg:col-span-2 space-y-4">
+      <div class="col-span-1 lg:col-span-2 space-y-4 lg:order-1">
         <CartItem
           v-for="item in cartStore.items"
           :key="`${item.productId}-${item.variantId}`"
@@ -60,16 +39,9 @@ usePayloadPageSeo(page)
         />
       </div>
 
-      <!-- Cart summary sidebar -->
-      <div class="lg:col-span-1 lg:row-span-2">
-        <CartSummary :show-total="false" />
-      </div>
-
-      <!-- SEO Text from Cart Page -->
-      <!-- Cart Page Content -->
       <ContentText2Columns
         v-if="page?.content"
-        class="col-span-2"
+        class="col-span-1 lg:col-span-2 lg:order-3"
         :text="richTextToHTML(page.content)"
       />
     </div>

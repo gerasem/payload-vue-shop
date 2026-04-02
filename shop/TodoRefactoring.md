@@ -1,6 +1,7 @@
 ## Components
 
-[ ] cart
+[ ] base
+[x] cart
 [x] catalog
 [x] category
 [ ] checkout
@@ -43,7 +44,7 @@
 [ ] payment
 [x] all-items.vue
 [ ] cabinet.vue
-[ ] cart.vue
+[x] cart.vue
 [ ] checkout.vue
 [ ] contact.vue
 [x] index.vue
