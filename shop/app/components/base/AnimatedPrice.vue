@@ -29,8 +29,19 @@ watch(
 )
 
 const formattedPrice = computed(() => formatEuro(tweened.value))
+
+const widthStyle = computed(() => {
+  const price = Math.abs(props.value) / 100
+  const digits = Math.max(1, Math.floor(Math.log10(price || 1)) + 1)
+  const width = 54 + (digits - 1) * 18
+  return {
+    width: `${width}px`
+  }
+})
 </script>
 
 <template>
-  <span>{{ formattedPrice }}</span>
+  <span class="inline-block text-right tabular-nums" :style="widthStyle">
+    {{ formattedPrice }}
+  </span>
 </template>

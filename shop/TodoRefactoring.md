@@ -1,6 +1,6 @@
 ## Components
 
-[ ] base
+[x] base
 [x] cart
 [x] catalog
 [x] category
