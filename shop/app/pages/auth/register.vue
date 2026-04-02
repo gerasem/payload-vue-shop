@@ -42,7 +42,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     await userStore.register(event.data.email, event.data.password, event.data.name)
     toast.add({
       title: t('Success'),
-      description: t('Account created successfully'),
+      description: t('Account created successfully')
     })
     router.push('/cabinet')
   } catch (e: any) {

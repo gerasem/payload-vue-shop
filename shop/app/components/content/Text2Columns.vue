@@ -19,7 +19,5 @@ defineProps<{
       column-gap: 40px;
     }
   }
-
-
 }
 </style>

@@ -23,7 +23,9 @@ const cartStore = useCartStore()
     <!-- Cart items list -->
     <div class="lg:col-span-2">
       <!-- Desktop Headers -->
-      <div class="hidden md:flex items-center gap-4 px-4 py-3 border-b border-gray-200 text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-50/50 rounded-t-lg">
+      <div
+        class="hidden md:flex items-center gap-4 px-4 py-3 border-b border-gray-200 text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-50/50 rounded-t-lg"
+      >
         <div class="w-20 sm:w-24 flex-shrink-0">{{ t('Product') }}</div>
         <div class="flex-1"></div>
         <div class="w-24 text-center">{{ t('Price') }}</div>
@@ -32,7 +34,9 @@ const cartStore = useCartStore()
         <div class="w-8"></div>
       </div>
 
-      <div class="divide-y divide-gray-100 bg-white shadow-sm border border-gray-100 rounded-b-lg px-4">
+      <div
+        class="divide-y divide-gray-100 bg-white shadow-sm border border-gray-100 rounded-b-lg px-4"
+      >
         <CartItem
           v-for="item in cartStore.items"
           :key="`${item.productId}-${item.variantId}`"

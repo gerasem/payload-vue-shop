@@ -62,15 +62,20 @@ async function handleFormSubmit(formData: any) {
         <CheckoutForm :loading="checkoutStore.loading" @submit="handleFormSubmit" />
 
         <!-- Shipping Methods Selection -->
-        <div v-if="cartStore.shippingMethods && cartStore.shippingMethods.length > 0" class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+        <div
+          v-if="cartStore.shippingMethods && cartStore.shippingMethods.length > 0"
+          class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm"
+        >
           <h2 class="text-xl font-medium mb-4">{{ t('Shipping Method') }}</h2>
           <URadioGroup
             v-model="cartStore.selectedShippingMethodId"
-            :items="cartStore.shippingMethods.map((m: any) => ({
-              value: m.id,
-              label: `${m.name} — ${formatEuro(m.price)}`,
-              description: m.description
-            }))"
+            :items="
+              cartStore.shippingMethods.map((m: any) => ({
+                value: m.id,
+                label: `${m.name} — ${formatEuro(m.price)}`,
+                description: m.description
+              }))
+            "
             name="shipping-method"
             class="space-y-4"
           />

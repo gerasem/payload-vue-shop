@@ -33,9 +33,12 @@ export async function usePayloadCategoriesWithItems(itemsPerCategory = 4) {
 
   // Helper to fetch fallback products for a category
   const fetchFallbackProducts = async (category: ICategory): Promise<IItem[]> => {
-    const productsData = await usePayloadQuery<HomeCategoryProductsQuery>(homeCategoryProductsQuery, {
-      categoryId: category.id
-    })
+    const productsData = await usePayloadQuery<HomeCategoryProductsQuery>(
+      homeCategoryProductsQuery,
+      {
+        categoryId: category.id
+      }
+    )
     return (productsData?.Products?.docs || []) as IItem[]
   }
 

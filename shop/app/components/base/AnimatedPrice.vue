@@ -20,7 +20,7 @@ const tweened = reactive({
 // Whenever props.value changes, animate the tweenedValue
 watch(
   () => props.value,
-  (newValue) => {
+  newValue => {
     gsap.to(tweened, {
       duration: props.duration,
       value: newValue,

@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
   if (refCode) {
     const cookie = useCookie('referral_code', {
       maxAge: 2 * 24 * 60 * 60, // 2 days
-      path: '/',
+      path: '/'
     })
     cookie.value = refCode
   }

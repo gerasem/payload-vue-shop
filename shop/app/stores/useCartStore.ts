@@ -75,7 +75,7 @@ export const useCartStore = defineStore('cart', () => {
     { deep: true }
   )
 
-  watch(serverCartId, (newId) => {
+  watch(serverCartId, newId => {
     if (!isInitialized.value) return
     if (newId) {
       localStorage.setItem('payload-cart-id', String(newId))
@@ -84,7 +84,7 @@ export const useCartStore = defineStore('cart', () => {
     }
   })
 
-  watch(cartSecret, (newSecret) => {
+  watch(cartSecret, newSecret => {
     if (!isInitialized.value) return
     if (newSecret) {
       localStorage.setItem('payload-cart-secret', newSecret)
@@ -98,7 +98,7 @@ export const useCartStore = defineStore('cart', () => {
   const discountPercentage = ref<number>(0)
   const couponError = ref<string>('')
 
-  watch(couponCode, (newCode) => {
+  watch(couponCode, newCode => {
     if (!isInitialized.value) return
     if (newCode) {
       localStorage.setItem('payload-cart-coupon', newCode)
@@ -112,26 +112,26 @@ export const useCartStore = defineStore('cart', () => {
       removeCoupon()
       return { success: true }
     }
-    
+
     couponError.value = ''
     try {
       const data = await usePayloadQuery<CouponByCodeQuery>(couponByCodeQuery, {
         code: code.toUpperCase()
       })
-      
+
       const coupon = data?.Coupons?.docs?.[0]
       if (!coupon) {
         couponError.value = 'Gutschein nicht gefunden'
         removeCoupon()
         return { success: false }
       }
-      
+
       if (coupon.expirationDate && new Date(coupon.expirationDate) < new Date()) {
         couponError.value = 'Gutschein ist abgelaufen'
         removeCoupon()
         return { success: false }
       }
-      
+
       couponCode.value = coupon.code
       discountPercentage.value = coupon.discountPercentage
       return { success: true }
@@ -404,7 +404,7 @@ export const useCartStore = defineStore('cart', () => {
     return Math.round(totalInEUR.value * (discountPercentage.value / 100))
   })
   const discountFormatted = computed(() => formatEuro(discountAmount.value))
-  
+
   const totalWithDiscount = computed(() => Math.max(0, totalInEUR.value - discountAmount.value))
   const totalWithDiscountFormatted = computed(() => formatEuro(totalWithDiscount.value))
 

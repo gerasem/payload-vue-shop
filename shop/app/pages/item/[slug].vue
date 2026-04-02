@@ -131,7 +131,7 @@ async function addToCart() {
   const variantInfo = selectedVariant.value ? ` (${(selectedVariant.value as any).title})` : ''
   toast.add({
     title: t('Added to cart'),
-    description: `${product.value!.title}${variantInfo} × ${quantity.value}`,
+    description: `${product.value!.title}${variantInfo} × ${quantity.value}`
   })
 
   // Reset quantity
@@ -175,7 +175,8 @@ injectSchema(() => {
         sku: v.sku || undefined,
         price: ((v.priceInEUR ?? p.priceInEUR ?? 0) / 100).toFixed(2),
         priceCurrency: 'EUR',
-        availability: v.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+        availability:
+          v.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
         url: `${siteUrl}${route.fullPath}`
       })
     })
@@ -184,7 +185,8 @@ injectSchema(() => {
       '@type': 'Offer',
       price: ((p.priceInEUR ?? 0) / 100).toFixed(2),
       priceCurrency: 'EUR',
-      availability: p.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+      availability:
+        p.inventory === 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
       url: `${siteUrl}${route.fullPath}`
     })
   }

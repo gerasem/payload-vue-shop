@@ -4,41 +4,52 @@ import type { FormSubmitEvent } from '#ui/types'
 
 const { t } = useI18n()
 
-const schema = z.object({
-  email: z.string().email(t('Invalid email')),
-  firstName: z.string().min(2, t('Required')),
-  lastName: z.string().min(2, t('Required')),
-  address: z.string().min(5, t('Required')),
-  postalCode: z.string().min(4, t('Required')),
-  city: z.string().min(2, t('Required')),
-  country: z.string().min(2, t('Required')),
-  phone: z.string().optional(),
-  differentBillingAddress: z.boolean().default(false),
-  billingAddress: z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    address: z.string(),
-    postalCode: z.string(),
-    city: z.string(),
-    country: z.string()
-  }).optional()
-}).superRefine((data, ctx) => {
-  if (data.differentBillingAddress) {
-    const fields = ['firstName', 'lastName', 'address', 'postalCode', 'city', 'country'] as const
-    const minLengths = { firstName: 2, lastName: 2, address: 5, postalCode: 4, city: 2, country: 2 }
-    
-    fields.forEach((field) => {
-      const val = data.billingAddress?.[field] || ''
-      if (val.length < minLengths[field]) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: t('Required'),
-          path: ['billingAddress', field]
-        })
+const schema = z
+  .object({
+    email: z.string().email(t('Invalid email')),
+    firstName: z.string().min(2, t('Required')),
+    lastName: z.string().min(2, t('Required')),
+    address: z.string().min(5, t('Required')),
+    postalCode: z.string().min(4, t('Required')),
+    city: z.string().min(2, t('Required')),
+    country: z.string().min(2, t('Required')),
+    phone: z.string().optional(),
+    differentBillingAddress: z.boolean().default(false),
+    billingAddress: z
+      .object({
+        firstName: z.string(),
+        lastName: z.string(),
+        address: z.string(),
+        postalCode: z.string(),
+        city: z.string(),
+        country: z.string()
+      })
+      .optional()
+  })
+  .superRefine((data, ctx) => {
+    if (data.differentBillingAddress) {
+      const fields = ['firstName', 'lastName', 'address', 'postalCode', 'city', 'country'] as const
+      const minLengths = {
+        firstName: 2,
+        lastName: 2,
+        address: 5,
+        postalCode: 4,
+        city: 2,
+        country: 2
       }
-    })
-  }
-})
+
+      fields.forEach(field => {
+        const val = data.billingAddress?.[field] || ''
+        if (val.length < minLengths[field]) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t('Required'),
+            path: ['billingAddress', field]
+          })
+        }
+      })
+    }
+  })
 
 type Schema = z.output<typeof schema>
 
@@ -167,7 +178,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
         <h3 class="text-lg font-medium">
           {{ t('Billing Address') }}
         </h3>
-        
+
         <!-- Billing First Name / Last Name -->
         <div class="grid grid-cols-2 gap-4">
           <UFormField :label="t('First Name')" name="billingAddress.firstName" required>
@@ -179,26 +190,36 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
             />
           </UFormField>
           <UFormField :label="t('Last Name')" name="billingAddress.lastName" required>
-            <UInput 
-              v-model="form.billingAddress.lastName" 
-              class="w-full" 
-              size="lg" 
-              :placeholder="t('Last Name')" 
+            <UInput
+              v-model="form.billingAddress.lastName"
+              class="w-full"
+              size="lg"
+              :placeholder="t('Last Name')"
             />
           </UFormField>
         </div>
 
         <!-- Billing Address (2/3) + Country (1/3) -->
         <div class="grid grid-cols-3 gap-4">
-          <UFormField :label="t('Address')" name="billingAddress.address" required class="col-span-2">
-            <UInput 
-              v-model="form.billingAddress.address" 
-              class="w-full" 
-              size="lg" 
-              :placeholder="t('Address')" 
+          <UFormField
+            :label="t('Address')"
+            name="billingAddress.address"
+            required
+            class="col-span-2"
+          >
+            <UInput
+              v-model="form.billingAddress.address"
+              class="w-full"
+              size="lg"
+              :placeholder="t('Address')"
             />
           </UFormField>
-          <UFormField :label="t('Country')" name="billingAddress.country" required class="col-span-1">
+          <UFormField
+            :label="t('Country')"
+            name="billingAddress.country"
+            required
+            class="col-span-1"
+          >
             <USelectMenu
               v-model="form.billingAddress.country"
               class="w-full"
@@ -224,11 +245,11 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
             />
           </UFormField>
           <UFormField :label="t('City')" name="billingAddress.city" required>
-            <UInput 
-              v-model="form.billingAddress.city" 
-              class="w-full" 
-              size="lg" 
-              :placeholder="t('City')" 
+            <UInput
+              v-model="form.billingAddress.city"
+              class="w-full"
+              size="lg"
+              :placeholder="t('City')"
             />
           </UFormField>
         </div>
