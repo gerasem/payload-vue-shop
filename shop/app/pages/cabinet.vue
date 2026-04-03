@@ -92,7 +92,7 @@ function getOrderStatusColor(status: string | null | undefined) {
 </script>
 
 <template>
-  <div class="flex min-h-[50vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
       <h1 class="text-2xl mb-6 text-center">
@@ -105,7 +105,7 @@ function getOrderStatusColor(status: string | null | undefined) {
           <template #header>
             <h3 class="font-semibold">{{ t('Profile') }}</h3>
           </template>
-          
+
           <div class="space-y-4">
             <p class="text-sm text-gray-500">{{ t('Email') }}</p>
             <p class="font-medium">{{ userStore.user?.email }}</p>
@@ -218,5 +218,5 @@ function getOrderStatusColor(status: string | null | undefined) {
         </p>
       </UForm>
     </UCard>
-  </div>
+  </AppContainer>
 </template>

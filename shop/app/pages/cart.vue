@@ -9,7 +9,7 @@ usePayloadPageSeo(page)
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <h1 class="mb-8 text-4xl">
       {{ page?.title || t('Shopping Cart') }}
     </h1>
@@ -45,5 +45,5 @@ usePayloadPageSeo(page)
         :text="richTextToHTML(page.content)"
       />
     </div>
-  </div>
+  </AppContainer>
 </template>

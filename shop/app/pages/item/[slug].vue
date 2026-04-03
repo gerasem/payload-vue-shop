@@ -244,8 +244,8 @@ injectSchema(() => {
 </script>
 
 <template>
-  <article class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid gap-8 lg:grid-cols-2">
+  <AppContainer>
+    <article class="grid gap-8 lg:grid-cols-2">
       <!-- Gallery -->
       <ItemGallery :images="product?.gallery" />
 
@@ -331,11 +331,10 @@ injectSchema(() => {
           </p>
         </div>
       </section>
-    </div>
+    </article>
 
-    <!-- Description (Storefront Replication) -->
     <section v-if="product?.description" class="mt-12">
       <ContentText2Columns :text="richTextToHTML(product.description)" />
     </section>
-  </article>
+  </AppContainer>
 </template>

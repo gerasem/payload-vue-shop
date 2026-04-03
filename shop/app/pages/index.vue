@@ -42,7 +42,7 @@ injectSchema(() => {
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <!-- Grid layout: categories on left, content on right -->
     <div class="lg:grid lg:grid-cols-16 lg:gap-12">
       <!-- Left sidebar: Category Grid -->
@@ -72,5 +72,5 @@ injectSchema(() => {
         </section>
       </main>
     </div>
-  </div>
+  </AppContainer>
 </template>

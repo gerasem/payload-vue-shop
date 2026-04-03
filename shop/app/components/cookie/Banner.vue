@@ -45,7 +45,7 @@ const saveSettings = () => {
             v-if="!isConsentGiven && isReady"
             class="fixed bottom-0 left-0 right-0 z-[9999] bg-white shadow-[0_-4px_30px_rgba(0,0,0,0.1)] py-6"
           >
-            <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+            <AppContainer>
               <div class="flex flex-col gap-8 items-start lg:flex-row">
                 <!-- Text Content -->
                 <div class="flex-1">
@@ -96,7 +96,7 @@ const saveSettings = () => {
                   </UButton>
                 </div>
               </div>
-            </div>
+            </AppContainer>
           </div>
         </Transition>
       </template>

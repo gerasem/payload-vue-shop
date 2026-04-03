@@ -5,8 +5,8 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
 </script>
 
 <template>
-  <div class="bg-gray-50 mb-10">
-    <nav class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <nav class="bg-gray-50 mb-10">
+    <AppContainer>
       <ul class="flex flex-wrap items-center justify-around py-4 gap-4">
         <li v-for="category in categories" :key="category.id">
           <NuxtLink
@@ -17,8 +17,8 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
           </NuxtLink>
         </li>
       </ul>
-    </nav>
-  </div>
+    </AppContainer>
+  </nav>
 </template>
 
 <style scoped lang="scss">

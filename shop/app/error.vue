@@ -43,7 +43,7 @@ const handleError = () => clearError({ redirect: '/' })
 
     <UMain>
       <!-- Centralized Error State mimicking Empty Cart -->
-      <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+      <AppContainer class="py-24 text-center">
         <h1 class="mb-2 text-5xl font-bold mb-8">
           {{ error?.statusCode || 500 }}
         </h1>
@@ -59,7 +59,7 @@ const handleError = () => clearError({ redirect: '/' })
         <UButton @click="handleError" color="primary" size="lg">
           {{ t('Return Home') }}
         </UButton>
-      </div>
+      </AppContainer>
     </UMain>
 
     <Footer />

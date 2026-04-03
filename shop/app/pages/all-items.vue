@@ -11,7 +11,7 @@ usePayloadPageSeo(pageData)
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <!-- Page Header (using CMS title if available) -->
     <div class="mb-6">
       <h1 class="text-4xl mb-8">{{ pageData?.title || t('All Items') }}</h1>
@@ -26,5 +26,5 @@ usePayloadPageSeo(pageData)
         :items="section.items"
       />
     </div>
-  </div>
+  </AppContainer>
 </template>

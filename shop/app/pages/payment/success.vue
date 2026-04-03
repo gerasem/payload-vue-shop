@@ -76,7 +76,7 @@ async function confirmOrder(intentId: string) {
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <AppContainer class="py-16">
     <div class="max-w-md mx-auto text-center">
       <!-- Confirming spinner -->
       <template v-if="confirming">
@@ -135,5 +135,5 @@ async function confirmOrder(intentId: string) {
         </div>
       </template>
     </div>
-  </div>
+  </AppContainer>
 </template>

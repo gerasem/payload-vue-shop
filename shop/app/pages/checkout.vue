@@ -51,7 +51,7 @@ async function handleFormSubmit(formData: any) {
 </script>
 
 <template>
-  <div class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <h1 class="mb-8 text-4xl">
       {{ page?.title || t('Checkout') }}
     </h1>
@@ -118,7 +118,7 @@ async function handleFormSubmit(formData: any) {
         </CartSummary>
       </div>
     </div>
-  </div>
+  </AppContainer>
 </template>
 
 <style scoped>

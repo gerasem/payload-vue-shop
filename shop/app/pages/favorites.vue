@@ -17,7 +17,7 @@ usePageSeo({
 </script>
 
 <template>
-  <main class="max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8">
+  <AppContainer>
     <!-- Header -->
     <h1 class="mb-8 text-4xl">{{ t('Favorites') }}</h1>
 
@@ -37,12 +37,12 @@ usePageSeo({
     <!-- Empty State -->
     <div v-else class="py-12 text-center">
       <UIcon name="i-bi-heart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-      
+
       <p class="mb-4 text-lg">{{ t('No favorites yet.') }}</p>
 
       <UButton :to="localePath('/')" color="primary" size="lg">
         {{ t('Continue Shopping') }}
       </UButton>
     </div>
-  </main>
+  </AppContainer>
 </template>
