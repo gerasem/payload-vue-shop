@@ -92,7 +92,7 @@ function getOrderStatusColor(status: string | null | undefined) {
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
       <h1 class="text-2xl mb-6 text-center">
@@ -218,5 +218,5 @@ function getOrderStatusColor(status: string | null | undefined) {
         </p>
       </UForm>
     </UCard>
-  </AppContainer>
+  </BaseContainer>
 </template>

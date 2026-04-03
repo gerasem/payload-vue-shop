@@ -98,7 +98,7 @@ async function handlePayment() {
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <h1 class="text-3xl font-bold mb-8">{{ t('Payment') }}</h1>
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Left: Stripe Payment Form -->
@@ -163,5 +163,5 @@ async function handlePayment() {
         </CartSummary>
       </div>
     </div>
-  </AppContainer>
+  </BaseContainer>
 </template>

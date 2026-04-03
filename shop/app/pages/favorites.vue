@@ -17,7 +17,7 @@ usePageSeo({
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <!-- Header -->
     <h1 class="mb-8 text-4xl">{{ t('Favorites') }}</h1>
 
@@ -44,5 +44,5 @@ usePageSeo({
         {{ t('Continue Shopping') }}
       </UButton>
     </div>
-  </AppContainer>
+  </BaseContainer>
 </template>

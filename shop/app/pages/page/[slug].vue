@@ -28,7 +28,7 @@ const contentHTML = computed(() =>
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <article v-if="pageData">
       <!-- Page Title -->
       <h1 class="text-4xl mb-8">{{ pageData.title }}</h1>
@@ -36,5 +36,5 @@ const contentHTML = computed(() =>
       <!-- Page Content (Rich Text) -->
       <div v-if="contentHTML" class="max-w-none mb-12" v-html="contentHTML" />
     </article>
-  </AppContainer>
+  </BaseContainer>
 </template>

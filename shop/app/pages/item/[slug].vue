@@ -244,7 +244,7 @@ injectSchema(() => {
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <article class="grid gap-8 lg:grid-cols-2">
       <!-- Gallery -->
       <ItemGallery :images="product?.gallery" />
@@ -336,5 +336,5 @@ injectSchema(() => {
     <section v-if="product?.description" class="mt-12">
       <ContentText2Columns :text="richTextToHTML(product.description)" />
     </section>
-  </AppContainer>
+  </BaseContainer>
 </template>

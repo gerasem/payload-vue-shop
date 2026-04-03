@@ -51,7 +51,7 @@ async function handleFormSubmit(formData: any) {
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <h1 class="mb-8 text-4xl">
       {{ page?.title || t('Checkout') }}
     </h1>
@@ -118,7 +118,7 @@ async function handleFormSubmit(formData: any) {
         </CartSummary>
       </div>
     </div>
-  </AppContainer>
+  </BaseContainer>
 </template>
 
 <style scoped>

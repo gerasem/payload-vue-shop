@@ -87,7 +87,7 @@ usePayloadPageSeo(contactPage)
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
       <!-- Contact Information -->
       <div>
@@ -132,5 +132,5 @@ usePayloadPageSeo(contactPage)
         />
       </div>
     </div>
-  </AppContainer>
+  </BaseContainer>
 </template>

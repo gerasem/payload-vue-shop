@@ -167,7 +167,7 @@ injectSchema(() => {
 </script>
 
 <template>
-  <AppContainer>
+  <BaseContainer>
     <!-- Category Header -->
     <header class="mb-8">
       <h1 class="text-4xl mb-2">
@@ -200,5 +200,5 @@ injectSchema(() => {
     <section v-if="descriptionHTML" class="prose prose-gray max-w-none">
       <div class="columns-1 md:columns-2 gap-8" v-html="descriptionHTML" />
     </section>
-  </AppContainer>
+  </BaseContainer>
 </template>

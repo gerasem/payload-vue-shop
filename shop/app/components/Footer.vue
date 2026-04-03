@@ -18,7 +18,7 @@ const slogan = computed(() => footerData.value?.slogan || '')
 
 <template>
   <footer class="bg-gray-50 mt-8">
-    <AppContainer class="py-8">
+    <BaseContainer class="py-8">
       <!-- Main Footer Content -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-start">
         <!-- Navigation Links -->
@@ -61,6 +61,6 @@ const slogan = computed(() => footerData.value?.slogan || '')
           />
         </div>
       </div>
-    </AppContainer>
+    </BaseContainer>
   </footer>
 </template>
