@@ -252,9 +252,9 @@ injectSchema(() => {
       <!-- Product Info -->
       <section class="flex flex-col space-y-6">
         <!-- Title -->
-        <h1 class="text-4xl">
+        <BaseHeader>
           {{ product?.title }}
-        </h1>
+        </BaseHeader>
 
         <!-- Price -->
         <div class="text-4xl font-semibold">

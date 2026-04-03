@@ -44,9 +44,9 @@ const handleError = () => clearError({ redirect: '/' })
     <UMain>
       <!-- Centralized Error State mimicking Empty Cart -->
       <BaseContainer class="py-24 text-center">
-        <h1 class="mb-2 text-5xl font-bold mb-8">
+        <BaseHeader>
           {{ error?.statusCode || 500 }}
-        </h1>
+        </BaseHeader>
 
         <p class="mb-8 text-lg text-gray-600">
           {{

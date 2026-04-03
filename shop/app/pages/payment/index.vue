@@ -99,16 +99,16 @@ async function handlePayment() {
 
 <template>
   <BaseContainer>
-    <h1 class="text-3xl font-bold mb-8">{{ t('Payment') }}</h1>
+    <BaseHeader>{{ t('Payment') }}</BaseHeader>
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Left: Stripe Payment Form -->
       <div class="lg:col-span-2">
         <UCard>
           <template #header>
             <div class="flex items-center justify-between">
-              <h1 class="text-4xl">
+              <BaseHeader>
                 {{ t('Secure Payment') }}
-              </h1>
+              </BaseHeader>
               <!-- Stripe Badge -->
               <div class="flex items-center gap-1 text-xs text-gray-400">
                 <UIcon name="i-bi-lock" class="w-3 h-3" />

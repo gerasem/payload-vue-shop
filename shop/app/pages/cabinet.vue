@@ -95,9 +95,9 @@ function getOrderStatusColor(status: string | null | undefined) {
   <BaseContainer>
     <!-- Dashboard (Logged In) -->
     <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
-      <h1 class="text-2xl mb-6 text-center">
+      <BaseHeader>
         {{ t('My Account') }}
-      </h1>
+      </BaseHeader>
 
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- Profile Card -->

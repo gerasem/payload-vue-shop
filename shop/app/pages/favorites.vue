@@ -19,7 +19,7 @@ usePageSeo({
 <template>
   <BaseContainer>
     <!-- Header -->
-    <h1 class="mb-8 text-4xl">{{ t('Favorites') }}</h1>
+    <BaseHeader>{{ t('Favorites') }}</BaseHeader>
 
     <!-- Hydrating State -->
     <div v-if="favoritesStore.isHydrating" class="text-center py-12">

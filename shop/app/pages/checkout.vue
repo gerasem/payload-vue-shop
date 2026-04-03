@@ -52,9 +52,9 @@ async function handleFormSubmit(formData: any) {
 
 <template>
   <BaseContainer>
-    <h1 class="mb-8 text-4xl">
+    <BaseHeader>
       {{ page?.title || t('Checkout') }}
-    </h1>
+    </BaseHeader>
 
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Checkout Form (Left Column) -->

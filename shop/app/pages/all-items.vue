@@ -14,7 +14,7 @@ usePayloadPageSeo(pageData)
   <BaseContainer>
     <!-- Page Header (using CMS title if available) -->
     <div class="mb-6">
-      <h1 class="text-4xl mb-8">{{ pageData?.title || t('All Items') }}</h1>
+      <BaseHeader>{{ pageData?.title || t('All Items') }}</BaseHeader>
       <div v-if="pageData?.content" v-html="richTextToHTML(pageData.content)"></div>
     </div>
 

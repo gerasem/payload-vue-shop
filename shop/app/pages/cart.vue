@@ -10,9 +10,9 @@ usePayloadPageSeo(page)
 
 <template>
   <BaseContainer>
-    <h1 class="mb-8 text-4xl">
+    <BaseHeader>
       {{ page?.title || t('Shopping Cart') }}
-    </h1>
+    </BaseHeader>
 
     <div v-if="!cartStore.hasItems" class="py-12 text-center">
       <UIcon name="i-bi-cart" class="mx-auto mb-4 h-16 w-16 text-gray-400" />

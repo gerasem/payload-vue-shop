@@ -110,9 +110,9 @@ async function confirmOrder(intentId: string) {
           </div>
         </div>
 
-        <h1 class="text-4xl mb-4">
-          {{ t('Payment successful!') }}
-        </h1>
+        <BaseHeader>
+          {{ t('Order placed successfully!') }}
+        </BaseHeader>
 
         <p class="text-gray-500 mb-2">
           {{ t('Thank you for your order!') }}

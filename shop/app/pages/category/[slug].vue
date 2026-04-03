@@ -170,9 +170,9 @@ injectSchema(() => {
   <BaseContainer>
     <!-- Category Header -->
     <header class="mb-8">
-      <h1 class="text-4xl mb-2">
+      <BaseHeader>
         {{ currentCategory?.title || slug }}
-      </h1>
+      </BaseHeader>
     </header>
 
     <!-- Items Grid -->
