@@ -47,6 +47,7 @@
 [x] cart.vue
 [ ] checkout.vue
 [ ] contact.vue
+[ ] favorites.vue
 [x] index.vue
 
 ## Stores

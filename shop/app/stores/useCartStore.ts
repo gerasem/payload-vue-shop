@@ -415,7 +415,6 @@ export const useCartStore = defineStore('cart', () => {
   // Fetch shipping settings from Payload on initialization
   async function fetchShippingSettings() {
     shippingSettingsData.value = await useShippingSettings()
-    console.log('===> fetchShippingSettings data:', shippingSettingsData.value)
 
     if (shippingSettingsData.value?.shippingMethods?.length > 0) {
       const defaultMethod = shippingSettingsData.value.shippingMethods.find((m: any) => m.isDefault)

@@ -5,21 +5,21 @@ const { t } = useI18n()
 const favoritesStore = useFavoritesStore()
 const localePath = useLocalePath()
 
-// Ensure we have fresh item data
 onMounted(async () => {
   await favoritesStore.hydrate()
 })
 
-usePageSeo({
-  title: computed(() => t('Favorites') || 'Favorites'),
-  description: computed(() => t('Your favorite items') || '')
-})
+const { data: page } = await useAsyncData('favorites-page-content', () =>
+  usePayloadPage('favoriten')
+)
+
+usePayloadPageSeo(page)
 </script>
 
 <template>
   <BaseContainer>
     <!-- Header -->
-    <BaseHeader>{{ t('Favorites') }}</BaseHeader>
+    <BaseHeader>{{ page?.title || t('Favorites') }}</BaseHeader>
 
     <!-- Hydrating State -->
     <div v-if="favoritesStore.isHydrating" class="text-center py-12">
@@ -44,5 +44,10 @@ usePageSeo({
         {{ t('Continue Shopping') }}
       </UButton>
     </div>
+
+    <!-- SEO Content from Payload -->
+    <section v-if="page?.content" class="mt-12">
+      <ContentText2Columns :text="richTextToHTML(page.content)" />
+    </section>
   </BaseContainer>
 </template>

@@ -13,7 +13,6 @@ usePayloadPageSeo(homePage)
 
 // === Structured Data (JSON-LD) ===
 const { injectSchema } = useJsonLd()
-const config = useRuntimeConfig()
 const siteUrl = useRequestURL().origin
 
 injectSchema(() => {
