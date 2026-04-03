@@ -9,7 +9,6 @@ const props = defineProps<{
 
 const config = useRuntimeConfig()
 
-// Get image URL with fallback
 const imageUrl = computed(() => {
   return props.category.image?.sizes?.categoryPreview?.url
     ? `${config.public.payloadUrl}${props.category.image.sizes.categoryPreview.url}`

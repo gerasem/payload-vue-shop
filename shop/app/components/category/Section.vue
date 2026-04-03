@@ -28,11 +28,11 @@ onUnmounted(() => {
 
 <template>
   <section class="mb-8">
-    <!-- Category Header -->
     <div class="flex items-center justify-between mb-6 group">
       <h2 class="text-4xl">
         {{ category.title }}
       </h2>
+
       <NuxtLink
         :to="localePath(`/category/${category.slug}`)"
         class="hover:text-primary transition-all opacity-0 group-hover:opacity-100"
@@ -45,6 +45,8 @@ onUnmounted(() => {
     <LazyCategoryMobileSwiper v-if="!isDesktop" :items="items" />
 
     <!-- Desktop Grid -->
-    <CategoryDesktopGrid v-else :items="items" />
+    <div v-else class="grid grid-cols-2 xl:grid-cols-4 gap-6">
+      <ItemCard v-for="item in items" :key="item.id" :item="item" />
+    </div>
   </section>
 </template>

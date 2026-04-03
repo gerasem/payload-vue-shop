@@ -16,11 +16,9 @@ const emit = defineEmits(['update:modelValue', 'update:priceRange'])
 
 const { t } = useI18n()
 
-// Helper values in Euros
 const minEuro = computed(() => Math.floor(props.min / 100))
 const maxEuro = computed(() => Math.ceil(props.max / 100))
 
-// Price range local state (in Euros)
 const localPrice = computed({
   get: () => [props.priceRange[0] / 100, props.priceRange[1] / 100],
   set: (value: number[]) => {
@@ -35,7 +33,6 @@ const localPrice = computed({
   }
 })
 
-// Helper computed for inputs to ensure reactivity triggers the main computed setter
 const minPrice = computed({
   get: () => localPrice.value[0] ?? minEuro.value,
   set: val => {
@@ -58,7 +55,6 @@ const sortOptions = computed(() => [
   { label: t('Price: High to Low'), value: '-priceInEUR' }
 ])
 
-// Use a computed property for v-model binding
 const selectedSort = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value)

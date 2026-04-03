@@ -9,9 +9,6 @@ const props = defineProps({
 const { t, locale } = useI18n()
 const config = useRuntimeConfig()
 
-// Use origin as fallback if site.url isn't explicitly defined
-const siteUrl = useRequestURL().origin
-
 // Re-use dynamic favicon logic from app.vue for consistency (optional for error page,
 // but good if we want the exact same head)
 const { data: shoppingSettings } = await useAsyncData('error-shopping-settings', () =>
@@ -42,8 +39,6 @@ const handleError = () => clearError({ redirect: '/' })
     <NuxtLoadingIndicator color="#dfa44c" />
     <Header />
 
-    <!-- Category bar - shown on all pages but hidden on desktop for homepage.
-         For error page, we can just show it normally. -->
     <CategoryBar />
 
     <UMain>
