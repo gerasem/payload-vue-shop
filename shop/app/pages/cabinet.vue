@@ -2,10 +2,6 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
-definePageMeta({
-  layout: 'default'
-})
-
 const { t } = useI18n()
 const userStore = useUserStore()
 

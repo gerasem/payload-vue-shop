@@ -877,6 +877,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
+  read?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1317,6 +1318,7 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
+  read?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1600,7 +1602,6 @@ export interface Header {
 export interface Footer {
   id: number;
   slogan?: string | null;
-  phone?: string | null;
   contactLink: {
     link: {
       type?: ('reference' | 'custom') | null;
@@ -1688,6 +1689,8 @@ export interface ShoppingSetting {
    * Upload a favicon (.ico, .png, .svg) for the website. Recommended size: 32x32px or 64x64px.
    */
   favicon?: (number | null) | Media;
+  phone?: string | null;
+  email?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1770,7 +1773,6 @@ export interface HeaderSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   slogan?: T;
-  phone?: T;
   contactLink?:
     | T
     | {
@@ -1853,6 +1855,8 @@ export interface ShopSettingsSelect<T extends boolean = true> {
  */
 export interface ShoppingSettingsSelect<T extends boolean = true> {
   favicon?: T;
+  phone?: T;
+  email?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

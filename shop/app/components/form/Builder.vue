@@ -2,6 +2,8 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
+const { t } = useI18n()
+
 // Define types for Payload Form Fields
 // Based on Payload Form Builder plugin structure
 interface FormField {
@@ -42,6 +44,10 @@ watch(
         state[field.name] = field.defaultValue ?? ''
       }
     })
+    // Add global privacy consent field
+    if (!('privacyAccepted' in state)) {
+      state.privacyAccepted = false
+    }
   },
   { immediate: true }
 )
@@ -83,7 +89,7 @@ const schema = computed(() => {
         // z.preprocess converts input before validation
         validator = z.preprocess(
           val => (val === '' ? undefined : Number(val)),
-          z.number({ invalid_type_error: `${label} must be a number` })
+          z.number({ message: `${label} must be a number` })
         )
         break
       case 'checkbox':
@@ -99,7 +105,7 @@ const schema = computed(() => {
       }
       if (field.blockType === 'checkbox') {
         // Checkbox required usually means it must be true
-        validator = z.literal(true, { errorMap: () => ({ message: `${label} is required` }) })
+        validator = z.literal(true, { message: `${label} is required` })
       }
     } else {
       validator = validator.optional().or(z.literal(''))
@@ -107,17 +113,96 @@ const schema = computed(() => {
 
     shape[field.name] = validator
   })
+  
+  // Mandatory Privacy Consent for DSGVO
+  shape.privacyAccepted = z.literal(true, {
+    message: t('Consent is required')
+  })
 
   return z.object(shape)
 })
 
-function onSubmit(event: FormSubmitEvent<any>) {
-  emit('submit', event.data)
+const config = useRuntimeConfig()
+const recaptchaSiteKey = config.public.recaptchaSiteKey
+
+const shouldLoadRecaptcha = ref(false)
+
+// Load reCAPTCHA script ONLY when interaction begins (DSGVO compliance)
+const recaptchaScripts = computed(() => {
+  if (recaptchaSiteKey && shouldLoadRecaptcha.value) {
+    return [
+      {
+        src: `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`,
+        async: true,
+        defer: true
+      }
+    ]
+  }
+  return []
+})
+
+useHead({ 
+  script: recaptchaScripts
+})
+
+const isSubmitting = ref(false)
+
+async function onSubmit(event: FormSubmitEvent<any>) {
+  if (isSubmitting.value) return
+  
+  // Ensure reCAPTCHA is loaded even if submit was triggered without focus (unlikely)
+  if (recaptchaSiteKey) {
+    shouldLoadRecaptcha.value = true
+  }
+  
+  isSubmitting.value = true
+  
+  let token = ''
+  
+  if (recaptchaSiteKey) {
+    try {
+      // Wait for grecaptcha to be available
+      await new Promise<void>((resolve, reject) => {
+        const checkGrecaptcha = () => {
+          if ((window as any).grecaptcha && (window as any).grecaptcha.execute) {
+            resolve()
+          } else {
+            setTimeout(checkGrecaptcha, 100)
+          }
+        }
+        checkGrecaptcha()
+        // Timeout after 5 seconds
+        setTimeout(() => reject(new Error('reCAPTCHA timeout')), 5000)
+      })
+
+      token = await (window as any).grecaptcha.execute(recaptchaSiteKey, { action: 'submit_form' })
+    } catch (err) {
+      console.error('reCAPTCHA execution failed', err)
+    }
+  }
+  
+  emit('submit', { 
+    ...event.data, 
+    recaptchaToken: token 
+  })
+  
+  isSubmitting.value = false
 }
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="flex flex-wrap" @submit="onSubmit">
+  <UForm 
+    :schema="schema" 
+    :state="state" 
+    class="flex flex-wrap" 
+    @submit="onSubmit"
+    @focusin.once="shouldLoadRecaptcha = true"
+  >
+    <!-- Required fields hint -->
+    <div class="w-full px-2 mb-4 text-sm text-gray-500 italic">
+      * {{ t('Required fields') }}
+    </div>
+
     <template v-for="field in fields" :key="field.name">
       <UFormField
         v-if="field.blockType !== 'message'"
@@ -189,10 +274,46 @@ function onSubmit(event: FormSubmitEvent<any>) {
       </UFormField>
     </template>
 
+    <!-- Privacy Consent Checkbox (DSGVO) -->
+    <div class="w-full px-2 mb-6">
+      <UFormField name="privacyAccepted" :required="true">
+        <UCheckbox v-model="state.privacyAccepted">
+          <template #label>
+            <span class="text-sm">
+              <i18n-t keypath="privacy_consent_label">
+                <template #privacy>
+                  <NuxtLink to="/page/datenschutz" target="_blank" class="underline hover:text-primary transition-colors">
+                    {{ t('Privacy Policy') }}
+                  </NuxtLink>
+                </template>
+              </i18n-t>
+            </span>
+          </template>
+        </UCheckbox>
+      </UFormField>
+    </div>
+
     <div class="w-full px-2">
       <UButton type="submit" size="xl" :loading="loading" icon="bi-send" class="px-8">
         {{ submitLabel }}
       </UButton>
+
+      <!-- DSGVO Privacy Notice (Mandatory if badge is hidden) -->
+      <div v-if="recaptchaSiteKey" class="mt-4 text-[11px] text-gray-500 leading-tight">
+        <i18n-t keypath="recaptcha_privacy_notice" tag="p">
+          <template #privacy>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">
+              {{ t('Privacy Policy') }}
+            </a>
+          </template>
+          
+          <template #terms>
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">
+              {{ t('Terms of Service') }}
+            </a>
+          </template>
+        </i18n-t>
+      </div>
     </div>
   </UForm>
 </template>

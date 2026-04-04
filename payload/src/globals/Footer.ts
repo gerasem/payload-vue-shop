@@ -16,13 +16,6 @@ export const Footer: GlobalConfig = {
     },
 
     {
-      name: 'phone',
-      type: 'text',
-      label: 'Phone',
-      localized: true,
-    },
-
-    {
       name: 'contactLink',
       type: 'group',
       label: 'Contact Link',

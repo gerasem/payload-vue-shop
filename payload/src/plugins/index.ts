@@ -1,6 +1,6 @@
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { Plugin } from 'payload'
+import { Plugin, Field } from 'payload'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
@@ -36,8 +36,53 @@ export const plugins: Plugin[] = [
       payment: false,
     },
     formSubmissionOverrides: {
+      access: {
+        update: adminOnly,
+      },
       admin: {
         group: 'Content',
+        defaultColumns: ['form', 'createdAt', 'read'],
+        components: {
+          Description: '@/components/forms/UnreadDescription#UnreadDescription',
+        },
+      },
+      fields: ({ defaultFields }) => {
+        return [
+          ...defaultFields.map((field) => {
+            if ('name' in field && field.name === 'submissionData') {
+              return {
+                ...field,
+                admin: {
+                  ...field.admin,
+                  hidden: true, // Hide the original block-based view
+                  readOnly: true,
+                  components: {
+                    Cell: '@/components/forms/SubmissionDataCell#SubmissionDataCell',
+                  },
+                },
+              }
+            }
+            return field
+          }),
+          {
+            name: 'submissionDataDisplay',
+            type: 'ui',
+            admin: {
+              components: {
+                Field: '@/components/forms/SubmissionDataField#SubmissionDataField',
+              },
+            },
+          },
+          {
+            name: 'read',
+            type: 'checkbox',
+            label: 'Read',
+            defaultValue: false,
+            admin: {
+              position: 'sidebar' as const,
+            },
+          },
+        ] as Field[]
       },
     },
     formOverrides: {

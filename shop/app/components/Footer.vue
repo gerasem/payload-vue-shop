@@ -2,6 +2,7 @@
 import type { MappedLink } from '@/composables/usePayloadLink'
 
 const { data: footerData } = await useAsyncData('payload-footer', () => usePayloadFooter())
+const { data: settingsData } = await useAsyncData('payload-settings', () => useShoppingSettings())
 
 const navLinks = computed(
   () =>
@@ -10,7 +11,7 @@ const navLinks = computed(
       .filter((link): link is MappedLink => link !== null) || []
 )
 
-const phone = computed(() => footerData.value?.phone || '')
+const phone = computed(() => settingsData.value?.phone || '')
 const contactLink = computed(() => usePayloadLink(footerData.value?.contactLink))
 const socialLink = computed(() => usePayloadLink(footerData.value?.socialLink))
 const slogan = computed(() => footerData.value?.slogan || '')

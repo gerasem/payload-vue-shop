@@ -9,11 +9,6 @@ const toast = useToast()
 // Fetch checkout page content
 const { data: page } = await useAsyncData('checkout-page-content', () => usePayloadPage('checkout'))
 
-definePageMeta({
-  layout: 'default',
-  ssr: false
-})
-
 // SEO
 usePayloadPageSeo(page)
 

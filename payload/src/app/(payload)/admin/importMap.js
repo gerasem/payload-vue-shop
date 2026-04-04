@@ -18,6 +18,9 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
+import { SubmissionDataCell as SubmissionDataCell_08d91321e75a000484d582439cd97b07 } from '@/components/forms/SubmissionDataCell'
+import { SubmissionDataField as SubmissionDataField_007002171b2f33efa6cba0c1550fad10 } from '@/components/forms/SubmissionDataField'
+import { UnreadDescription as UnreadDescription_77cdfa233de2685c87a488e89eaa8965 } from '@/components/forms/UnreadDescription'
 import { VariantOptionsSelector as VariantOptionsSelector_b91672ccd6e8b071c11142ab941fedfb } from '@payloadcms/plugin-ecommerce/rsc'
 import { PriceCell as PriceCell_e27bf7b8cc50640dcdd584767b8eac3c } from '@payloadcms/plugin-ecommerce/client'
 import { PriceInput as PriceInput_b91672ccd6e8b071c11142ab941fedfb } from '@payloadcms/plugin-ecommerce/rsc'
@@ -49,6 +52,9 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
+  "@/components/forms/SubmissionDataCell#SubmissionDataCell": SubmissionDataCell_08d91321e75a000484d582439cd97b07,
+  "@/components/forms/SubmissionDataField#SubmissionDataField": SubmissionDataField_007002171b2f33efa6cba0c1550fad10,
+  "@/components/forms/UnreadDescription#UnreadDescription": UnreadDescription_77cdfa233de2685c87a488e89eaa8965,
   "@payloadcms/plugin-ecommerce/rsc#VariantOptionsSelector": VariantOptionsSelector_b91672ccd6e8b071c11142ab941fedfb,
   "@payloadcms/plugin-ecommerce/client#PriceCell": PriceCell_e27bf7b8cc50640dcdd584767b8eac3c,
   "@payloadcms/plugin-ecommerce/rsc#PriceInput": PriceInput_b91672ccd6e8b071c11142ab941fedfb,

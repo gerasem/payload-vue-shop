@@ -60,8 +60,10 @@ export default defineNuxtConfig({
     // Set PAYLOAD_PRIVATE_URL env var if your backend is on an internal network
     payloadUrl:
       process.env.PAYLOAD_PRIVATE_URL || process.env.PAYLOAD_URL || 'http://localhost:3000',
+    recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY || '',
     public: {
       payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
+      recaptchaSiteKey: process.env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY || '',
       stripeKey: process.env.NUXT_PUBLIC_STRIPE_KEY || '',
       googleAnalyticsId: '',
       shippingCost: 500, // 5.00 EUR in cents

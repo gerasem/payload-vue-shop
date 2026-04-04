@@ -4,5 +4,7 @@ query ShoppingSettings {
       url
       alt
     }
+    phone
+    email
   }
 }

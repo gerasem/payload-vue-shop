@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const ShoppingSettings: GlobalConfig = {
   slug: 'shopping-settings',
-  label: 'Shopping Settings',
+  label: 'Settings',
   access: {
     read: () => true,
   },
@@ -15,6 +15,18 @@ export const ShoppingSettings: GlobalConfig = {
       admin: {
         description: 'Upload a favicon (.ico, .png, .svg) for the website. Recommended size: 32x32px or 64x64px.',
       },
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      label: 'Phone',
+      localized: true,
+    },
+    {
+      name: 'email',
+      type: 'text',
+      label: 'Contact Email',
+      localized: true,
     },
   ],
 }

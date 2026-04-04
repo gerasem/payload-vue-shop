@@ -44,7 +44,7 @@ export default defineEventHandler(async event => {
         value: z.any()
       })
     ),
-    honey: z.string().optional() // Honeypot field (if still used)
+    recaptchaToken: z.string().optional()
   })
 
   // Validate request structure
@@ -58,12 +58,48 @@ export default defineEventHandler(async event => {
     })
   }
 
-  // Spam protection
-  if (result.data.honey) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Spam detected'
-    })
+  // Google reCAPTCHA Verification
+  const recaptchaSecret = config.recaptchaSecretKey
+  if (recaptchaSecret) {
+    if (!result.data.recaptchaToken) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'reCAPTCHA is required'
+      })
+    }
+
+    try {
+      const verifyRes: any = await $fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        params: {
+          secret: recaptchaSecret,
+          response: result.data.recaptchaToken
+        }
+      })
+
+      if (!verifyRes.success) {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'reCAPTCHA verification failed'
+        })
+      }
+
+      // v3 returns a score (0.0 to 1.0). 0.5 is a common threshold.
+      if (typeof verifyRes.score === 'number' && verifyRes.score < 0.5) {
+        console.warn(`Low reCAPTCHA score: ${verifyRes.score} for IP: ${ip}`)
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Bot detection: low score'
+        })
+      }
+    } catch (err: any) {
+      console.error('reCAPTCHA verification error', err)
+      if (err.statusCode) throw err
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to verify reCAPTCHA'
+      })
+    }
   }
 
   try {

@@ -95,3 +95,10 @@ p {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
+
+/* DSGVO: Hidden Google reCAPTCHA Badge globally (requires text disclosure in forms) */
+.grecaptcha-badge { 
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

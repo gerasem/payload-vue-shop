@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default'
-})
-
 const { t } = useI18n()
 const toast = useToast()
 
@@ -10,9 +6,7 @@ const toast = useToast()
 const { data: contactPage } = await useAsyncData('contact-page-content', () =>
   usePayloadPage('contact')
 )
-
-// Fetch Dynamic Form Definition
-const config = useRuntimeConfig()
+const { data: settingsData } = await useAsyncData('payload-settings', () => useShoppingSettings())
 
 const { data: formsData, error: formsError } = await usePayloadFetch<any>('/api/forms', {
   params: {
@@ -59,15 +53,15 @@ async function onSubmit(formData: Record<string, any>) {
       value
     }))
 
-    await $payloadFetch('/api/contact', {
+    await $fetch('/api/contact', {
       method: 'POST',
       body: {
         formId: contactForm.value.id,
-        submissionData
+        submissionData,
+        recaptchaToken: formData.recaptchaToken
       }
     })
 
-    // Show success message instead of toast
     submitted.value = true
     window.scrollTo({ top: 0, behavior: 'smooth' })
   } catch (error: any) {
@@ -96,29 +90,45 @@ usePayloadPageSeo(contactPage)
         <!-- Dynamic Page Content -->
         <div
           v-if="contactPage?.content"
-          class="text-gray-500 text-lg mb-8 prose max-w-none"
+          class="mb-8"
           v-html="richTextToHTML(contactPage.content)"
         ></div>
+
+        <!-- Contact Details -->
+        <div v-if="settingsData?.phone || settingsData?.email" class="space-y-1 text-gray-600">
+          <p v-if="settingsData.phone">{{ t('Phone') }}: {{ settingsData.phone }}</p>
+          <p v-if="settingsData.email">
+            {{ t('Email') }}:
+            <a
+              :href="`mailto:${settingsData.email}`"
+              class="hover:text-primary transition-colors"
+              >{{ settingsData.email }}</a
+            >
+          </p>
+        </div>
       </div>
 
       <!-- Contact Form -->
-      <div class="shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-8 mt-4">
+      <div class="shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] p-8 mt-4">
         <div v-if="formsError" class="text-red-500">
           {{ t('Failed to load contact form.') }}
         </div>
+
         <div v-else-if="!contactForm && !formsError">
           {{ t('Loading form...') }}
         </div>
 
         <!-- Success Message -->
         <div v-else-if="submitted" class="text-center py-8">
-          <div class="mb-4 text-secondary">
-            <UIcon name="i-bi-check-circle" class="w-16 h-16 mx-auto" />
+          <div class="mb-4">
+            <UIcon name="i-bi-check-circle" class="w-16 h-16 mx-auto text-gray-400" />
           </div>
-          <h3 class="text-2xl font-bold mb-4">{{ t('Thank you!') }}</h3>
-          <div class="prose max-w-none text-gray-600" v-html="successMessageHtml"></div>
 
-          <UButton class="mt-8" variant="outline" @click="submitted = false">
+          <h3 class="text-2xl mb-4">{{ t('Thank you!') }}</h3>
+
+          <div class="prose max-w-none" v-html="successMessageHtml"></div>
+
+          <UButton class="mt-8" @click="submitted = false">
             {{ t('Send another message') }}
           </UButton>
         </div>

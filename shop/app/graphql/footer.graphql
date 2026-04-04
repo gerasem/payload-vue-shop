@@ -1,7 +1,6 @@
 query Footer($locale: LocaleInputType!) {
   Footer(locale: $locale) {
     slogan
-    phone
 
     contactLink {
       link {

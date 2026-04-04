@@ -108,6 +108,7 @@
   "Size": "Größe",
   "Sort by:": "Sortieren nach:",
   "Strictly necessary": "Unbedingt erforderlich",
+  "Terms of Service": "Nutzungsbedingungen",
   "Subtotal": "Zwischensumme",
   "Success": "Erfolg",
   "Surname is required": "Nachname ist erforderlich",
@@ -167,5 +168,12 @@
   "Try again": "Erneut versuchen",
   "Germany": "Deutschland",
   "Austria": "Österreich",
-  "Switzerland": "Schweiz"
+  "Switzerland": "Schweiz",
+  "Please complete the reCAPTCHA": "Bitte lösen Sie das reCAPTCHA",
+  "reCAPTCHA is required": "reCAPTCHA ist erforderlich",
+  "reCAPTCHA verification failed": "reCAPTCHA-Verifizierung fehlgeschlagen",
+  "recaptcha_privacy_notice": "Diese Seite ist durch reCAPTCHA geschützt und es gelten die {privacy} und {terms} von Google.",
+  "privacy_consent_label": "Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der {privacy} zu.",
+  "Consent is required": "Zustimmung ist erforderlich",
+  "Required fields": "Pflichtfelder"
 }
