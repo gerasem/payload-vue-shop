@@ -110,7 +110,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
 
             <NuxtLink
               :to="localePath('/favorites')"
-              class="flex items-center gap-1.5 transition hover:text-secondary"
+              class="flex items-center gap-1.5 transition hover:text-secondary mr-1.5"
               aria-label="Favorites"
             >
               <UIcon

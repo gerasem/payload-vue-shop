@@ -138,13 +138,16 @@ export const plugins: Plugin[] = [
                 return {
                   ...baseAdapter,
                   initiatePayment: async (args: any) => {
-                    // Intercept initiatePayment to inject shipping cost
                     const { req, data } = args
-                    const shippingMethodId = req.data?.shippingMethodId
-                    const couponCode = req.data?.couponCode
+                    
+                    try {
+                      // Intercept initiatePayment to inject shipping cost
+                      // In Payload 3.0, the body data is usually passed in 'data'
+                      // but we also check req.data for backward compatibility if applicable.
+                      const shippingMethodId = data?.shippingMethodId || req?.data?.shippingMethodId
+                      const couponCode = data?.couponCode || req?.data?.couponCode
 
-                    if (data.cart?.subtotal) {
-                      try {
+                      if (data.cart?.subtotal) {
                         // 1. Apply Coupon Discount
                         if (couponCode) {
                           const coupons = await req.payload.find({
@@ -186,9 +189,9 @@ export const plugins: Plugin[] = [
                             }
                           }
                         }
-                      } catch (err) {
-                        req.payload.logger.error(err, 'Error calculating shipping/coupon in custom stripe adapter')
                       }
+                    } catch (err) {
+                      req.payload.logger.error(err, 'Error calculating shipping/coupon in custom stripe adapter')
                     }
 
                     return baseAdapter.initiatePayment(args)
