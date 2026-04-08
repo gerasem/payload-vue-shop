@@ -15,7 +15,7 @@ defineProps<{
         class="bg-gray-50 flex h-full"
       >
         <!-- Image Section (Left, 40-50%) -->
-        <div class="w-1/2 md:w-5/12 relative">
+        <div class="w-1/2 sm:w-5/12 relative">
           <img
             v-if="box.image"
             :src="usePayloadImageUrl(box.image.url)"
@@ -25,7 +25,7 @@ defineProps<{
         </div>
 
         <!-- Content Section (Right) -->
-        <div class="w-1/2 md:w-7/12 p-6 flex flex-col justify-center">
+        <div class="w-1/2 sm:w-7/12 p-6 flex flex-col justify-center">
           <h3 class="text-3xl font-serif mb-2">
             {{ box.title }}
           </h3>

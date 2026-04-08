@@ -80,7 +80,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-h2 {
+.text-content h2 {
   font-size: 2.25rem; /* text-2xl */
   color: var(--color-gray-900);
   margin-bottom: 1rem;
@@ -91,13 +91,19 @@ h2 {
   font-weight: 400;
 }
 
-p {
+@media screen and (max-width: 768px) {
+  .text-content h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.text-content p {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
 
 /* DSGVO: Hidden Google reCAPTCHA Badge globally (requires text disclosure in forms) */
-.grecaptcha-badge { 
+.grecaptcha-badge {
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;

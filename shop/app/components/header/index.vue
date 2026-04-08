@@ -90,19 +90,19 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         class="hidden lg:block hover:text-primary transition-colors whitespace-nowrap"
       />
 
-      <!-- User, Favorites & Cart icons - always visible -->
+      <!-- User, Favorites & Cart icons -->
       <div class="flex items-center">
-        <!-- User icon -->
+        <!-- User icon - desktop only -->
         <NuxtLink
           :to="localePath('/cabinet')"
-          class="flex items-center transition-all hover:text-secondary text-gray-400"
+          class="hidden lg:flex items-center transition-all hover:text-secondary text-gray-400"
           aria-label="Account"
         >
           <UIcon name="i-bi-person" class="w-8 h-8" />
         </NuxtLink>
 
-        <!-- Favorites icon -->
-        <div class="flex items-center justify-center min-w-[32px] ml-3">
+        <!-- Favorites icon - desktop only -->
+        <div class="hidden lg:flex items-center justify-center min-w-[32px] ml-3">
           <ClientOnly>
             <template #fallback>
               <UIcon name="i-bi-arrow-repeat" class="w-5 h-5 animate-spin text-gray-400" />
@@ -156,6 +156,28 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
       <div class="space-y-4">
         <!-- Mobile menu with Payload data (combines main links and buttons) -->
         <UNavigationMenu :items="mobileMenuLinks" orientation="vertical" class="-mx-2.5" />
+
+        <!-- User & Favorites links for mobile -->
+        <div class="border-t border-gray-200 pt-4 space-y-1">
+          <NuxtLink
+            :to="localePath('/cabinet')"
+            class="flex items-center gap-3 px-2.5 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+          >
+            <UIcon name="i-bi-person" class="w-5 h-5 text-gray-400" />
+            <span>Benutzerkonto</span>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="localePath('/favorites')"
+            class="flex items-center gap-3 px-2.5 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+          >
+            <UIcon name="i-bi-heart" class="w-5 h-5" :class="(favoritesStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'" />
+            <span>{{ $t('Favorites') }}</span>
+            <span v-if="favoritesStore && favoritesStore.count > 0" class="text-sm text-secondary font-medium">
+              ({{ favoritesStore.count }})
+            </span>
+          </NuxtLink>
+        </div>
 
         <!-- Language switcher in mobile menu -->
         <!-- <div v-if="false" class="pt-4 border-t border-gray-200">

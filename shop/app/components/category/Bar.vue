@@ -7,7 +7,7 @@ const { data: categories } = await useAsyncData('payload-categories', () => useP
 <template>
   <nav class="bg-gray-50 mb-10">
     <BaseContainer>
-      <ul class="flex flex-wrap items-center justify-around py-4 gap-4">
+      <ul class="flex flex-wrap items-center justify-around py-2 md:py-4 gap-2 md:gap-4">
         <li v-for="category in categories" :key="category.id">
           <NuxtLink
             :to="localePath(`/category/${category.slug}`)"

@@ -73,7 +73,6 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true },
-    '/en/**': { prerender: true },
     '/item/**': { prerender: true },
     '/category/**': { prerender: true },
     '/cart': { ssr: false }
@@ -83,6 +82,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/']
+    },
     devStorage: {
       cache: {
         driver: 'memory'

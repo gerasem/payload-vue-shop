@@ -21,21 +21,21 @@ const slogan = computed(() => footerData.value?.slogan || '')
   <footer class="bg-gray-50 mt-8">
     <BaseContainer class="py-8">
       <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-start">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
         <!-- Navigation Links -->
         <div class="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3">
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-x-8">
             <SmartLink
               v-for="link in navLinks"
               :key="link.href"
               :link="link"
-              class="w-fit hover:text-primary transition-colors"
+              class="w-full sm:w-fit text-center sm:text-left hover:text-primary transition-colors"
             />
           </div>
         </div>
 
         <!-- Slogan inline with links -->
-        <div v-if="slogan" class="text-sm text-gray-400 cursor-default">
+        <div v-if="slogan" class="text-sm text-center sm:text-left text-gray-400 cursor-default">
           {{ slogan }}
         </div>
 
@@ -44,7 +44,7 @@ const slogan = computed(() => footerData.value?.slogan || '')
           <a
             v-if="phone"
             :href="`tel:${phone.replace(/\s/g, '')}`"
-            class="w-fit block font-semibold hover:text-primary transition-colors"
+            class="w-full sm:w-fit text-center sm:text-left block font-semibold hover:text-primary transition-colors"
           >
             {{ phone }}
           </a>
@@ -52,13 +52,13 @@ const slogan = computed(() => footerData.value?.slogan || '')
           <SmartLink
             v-if="contactLink"
             :link="contactLink"
-            class="w-fit block hover:text-primary transition-colors"
+            class="w-full sm:w-fit text-center sm:text-left block hover:text-primary transition-colors"
           />
 
           <SmartLink
             v-if="socialLink"
             :link="socialLink"
-            class="w-fit block text-primary hover:text-secondary transition-colors"
+            class="w-full sm:w-fit text-center sm:text-left block text-primary hover:text-secondary transition-colors"
           />
         </div>
       </div>
