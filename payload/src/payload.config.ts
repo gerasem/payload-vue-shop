@@ -150,6 +150,9 @@ export default buildConfig({
     process.env.FRONTEND_URL || '',
   ].filter(Boolean),
   graphQL: {
+    // Both are true by default, but set explicitly to guarantee playground
+    // and introspection are off in production even if NODE_ENV is misconfigured.
     disablePlaygroundInProduction: true,
+    disableIntrospectionInProduction: true,
   },
 })
