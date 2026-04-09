@@ -24,6 +24,7 @@ export const Users: CollectionConfig = {
   },
   auth: {
     tokenExpiration: 1209600,
+    useAPIKey: true,
   },
   fields: [
     {

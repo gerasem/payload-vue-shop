@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { adminOnly } from '@/access/adminOnly'
 
 export const Coupons: CollectionConfig = {
   slug: 'coupons',
@@ -7,8 +8,7 @@ export const Coupons: CollectionConfig = {
     useAsTitle: 'code',
   },
   access: {
-    // Making it public so we can query if a coupon exists and its percentage from the frontend
-    read: () => true,
+    read: adminOnly,
   },
   fields: [
     {

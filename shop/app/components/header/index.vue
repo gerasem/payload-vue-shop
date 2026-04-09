@@ -109,7 +109,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
             </template>
 
             <NuxtLink
-              :to="localePath('/favoriten')"
+              :to="localePath('/favorites')"
               class="flex items-center gap-1.5 transition hover:text-secondary mr-1.5"
               aria-label="Favorites"
             >
@@ -168,7 +168,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
           </NuxtLink>
 
           <NuxtLink
-            :to="localePath('/favoriten')"
+            :to="localePath('/favorites')"
             class="flex items-center gap-3 px-2.5 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
           >
             <UIcon name="i-bi-heart" class="w-5 h-5" :class="(favoritesStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'" />

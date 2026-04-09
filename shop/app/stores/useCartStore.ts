@@ -2,8 +2,6 @@ import { defineStore, skipHydrate } from 'pinia'
 import type { ICartItemRaw, ICartItem } from '@/types'
 import { formatEuro } from '@/utils/price'
 import { usePayloadProductsByIds } from '@/composables/usePayloadProductsByIds'
-import couponByCodeQuery from '@/graphql/coupon.graphql?raw'
-import type { CouponByCodeQuery } from '@/generated/graphql'
 
 export const useCartStore = defineStore('cart', () => {
   // Minimal data stored in localStorage
@@ -115,25 +113,25 @@ export const useCartStore = defineStore('cart', () => {
 
     couponError.value = ''
     try {
-      const data = await usePayloadQuery<CouponByCodeQuery>(couponByCodeQuery, {
-        code: code.toUpperCase()
+      // Validate coupon via server-side endpoint (never exposes full coupon data)
+      const result = await $fetch<{
+        valid: boolean
+        code?: string
+        discountPercentage?: number
+        error?: string
+      }>('/api/validate-coupon', {
+        method: 'POST',
+        body: { code: code.toUpperCase() }
       })
 
-      const coupon = data?.Coupons?.docs?.[0]
-      if (!coupon) {
-        couponError.value = 'Gutschein nicht gefunden'
+      if (!result.valid) {
+        couponError.value = result.error || 'Gutschein nicht gefunden'
         removeCoupon()
         return { success: false }
       }
 
-      if (coupon.expirationDate && new Date(coupon.expirationDate) < new Date()) {
-        couponError.value = 'Gutschein ist abgelaufen'
-        removeCoupon()
-        return { success: false }
-      }
-
-      couponCode.value = coupon.code
-      discountPercentage.value = coupon.discountPercentage
+      couponCode.value = result.code || code.toUpperCase()
+      discountPercentage.value = result.discountPercentage || 0
       return { success: true }
     } catch (e) {
       console.error('Failed to apply coupon', e)

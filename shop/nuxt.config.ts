@@ -61,6 +61,7 @@ export default defineNuxtConfig({
     payloadUrl:
       process.env.PAYLOAD_PRIVATE_URL || process.env.PAYLOAD_URL || 'http://localhost:3000',
     recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY || '',
+    payloadApiKey: process.env.PAYLOAD_API_KEY || '',
     public: {
       payloadUrl: process.env.PAYLOAD_URL || 'http://localhost:3000',
       recaptchaSiteKey: process.env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY || '',
