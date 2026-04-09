@@ -25,6 +25,11 @@ export const Users: CollectionConfig = {
   auth: {
     tokenExpiration: 1209600,
     useAPIKey: true,
+    // Brute-force protection: lock account after 5 failed login attempts for 10 minutes
+    maxLoginAttempts: 5,
+    lockTime: 600 * 1000, // 10 minutes in ms
+    // Require email verification before login (prevents bot registrations)
+    verify: true,
   },
   fields: [
     {
