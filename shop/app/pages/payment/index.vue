@@ -72,14 +72,24 @@ async function handlePayment() {
   paymentProcessing.value = true
   paymentError.value = null
 
-  const successBase = `${window.location.origin}${localePath('/payment/success')}`
-  const params = new URLSearchParams()
-  if (checkoutStore.customerEmail) params.set('customerEmail', checkoutStore.customerEmail)
-  if (cartStore.serverCartId) params.set('cartID', String(cartStore.serverCartId))
-  if (cartStore.cartSecret) params.set('cartSecret', cartStore.cartSecret)
-  const refCookie = useCookie('referral_code').value
-  if (refCookie) params.set('referralCode', refCookie)
-  const returnUrl = `${successBase}?${params.toString()}`
+  // Save checkout session data in a secure httpOnly cookie (server-side)
+  // so we don't need to pass sensitive data via Stripe's return URL
+  try {
+    await $fetch('/api/checkout-session', {
+      method: 'POST',
+      body: {
+        customerEmail: checkoutStore.customerEmail || '',
+        cartID: cartStore.serverCartId ? String(cartStore.serverCartId) : '',
+        cartSecret: cartStore.cartSecret || '',
+        referralCode: useCookie('referral_code').value || ''
+      }
+    })
+  } catch (e) {
+    console.error('Failed to save checkout session:', e)
+  }
+
+  // Return URL is now clean — no sensitive data in query params
+  const returnUrl = `${window.location.origin}${localePath('/payment/success')}`
 
   const { error } = await stripeInstance.value.confirmPayment({
     elements: elements.value,

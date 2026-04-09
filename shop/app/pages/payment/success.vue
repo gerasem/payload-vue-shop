@@ -15,15 +15,10 @@ usePageSeo({
   description: computed(() => t('Thank you for your order!'))
 })
 
-// Stripe redirects here with ?payment_intent=pi_xxx&redirect_status=succeeded&customerEmail=...&cartID=...&cartSecret=...
+// Stripe redirects here with ?payment_intent=pi_xxx&redirect_status=succeeded
+// Sensitive data (email, cart, secret) is stored in a secure httpOnly cookie
 const paymentIntentId = route.query.payment_intent as string | undefined
 const redirectStatus = route.query.redirect_status as string | undefined
-// Email/cart passed via URL because Pinia store is wiped on Stripe's full-page redirect
-const guestEmail = route.query.customerEmail as string | undefined
-const guestCartId = route.query.cartID as string | undefined
-const guestCartSecret = route.query.cartSecret as string | undefined
-const referralCode =
-  (route.query.referralCode as string | undefined) || useCookie('referral_code').value || undefined
 
 const confirming = ref(true)
 const orderId = ref<string | number | null>(null)
@@ -48,6 +43,14 @@ onMounted(async () => {
 
 async function confirmOrder(intentId: string) {
   try {
+    // Read checkout session data from the secure httpOnly cookie (set before Stripe redirect)
+    const session = await $fetch<{
+      customerEmail: string
+      cartID: string
+      cartSecret: string
+      referralCode: string
+    }>('/api/checkout-session')
+
     const response = await $payloadFetch<{
       orderID: number | string
       transactionID: number | string
@@ -56,11 +59,10 @@ async function confirmOrder(intentId: string) {
       method: 'POST',
       body: {
         paymentIntentID: intentId,
-        // Required for guest checkout — all values passed via URL since store is cleared on redirect
-        ...(guestEmail ? { customerEmail: guestEmail } : {}),
-        ...(guestCartId ? { cartID: guestCartId } : {}),
-        ...(guestCartSecret ? { secret: guestCartSecret } : {}),
-        ...(referralCode ? { referralCode } : {})
+        ...(session.customerEmail ? { customerEmail: session.customerEmail } : {}),
+        ...(session.cartID ? { cartID: session.cartID } : {}),
+        ...(session.cartSecret ? { secret: session.cartSecret } : {}),
+        ...(session.referralCode ? { referralCode: session.referralCode } : {})
       }
     })
 
