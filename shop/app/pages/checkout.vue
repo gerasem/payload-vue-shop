@@ -12,15 +12,25 @@ const { data: page } = await useAsyncData('checkout-page-content', () => usePayl
 // SEO
 usePayloadPageSeo(page)
 
-// Guard: redirect to cart if no items
-onMounted(async () => {
-  if (!cartStore.hasItems) {
-    router.replace(localePath('/cart'))
-    return
-  }
+definePageMeta({
+  middleware: [
+    function () {
+      if (import.meta.server) return
 
-  // Ensure we have the latest shipping methods loaded
-  await cartStore.fetchShippingSettings()
+      const cartStore = useCartStore()
+      if (!cartStore.hasItems) {
+        const localePath = useLocalePath()
+        return navigateTo(localePath('/cart'))
+      }
+    }
+  ]
+})
+
+// Ensure we have the latest shipping methods loaded
+onMounted(async () => {
+  if (cartStore.hasItems) {
+    await cartStore.fetchShippingSettings()
+  }
 })
 
 async function handleFormSubmit(formData: any) {

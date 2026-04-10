@@ -123,6 +123,58 @@ export const plugins: Plugin[] = [
     },
     carts: {
       allowGuestCarts: true,
+      cartsCollectionOverride: ({ defaultCollection }) => ({
+        ...defaultCollection,
+        hooks: {
+          ...defaultCollection.hooks,
+          beforeValidate: [
+            ...(defaultCollection.hooks?.beforeValidate || []),
+            async ({ data, req }) => {
+              // Server-side inventory validation
+              if (data?.items && Array.isArray(data.items)) {
+                for (const item of data.items) {
+                  const productId = typeof item.product === 'object' ? item.product.id : item.product
+                  const variantId = typeof item.variant === 'object' ? item.variant?.id : item.variant
+
+                  if (!productId) continue
+
+                  try {
+                    const products = await req.payload.find({
+                      collection: 'products',
+                      where: { id: { equals: productId } },
+                      depth: 0,
+                    })
+
+                    const product = products.docs[0]
+                    if (!product) continue
+
+                    let inventory = product.inventory
+                    if (product.enableVariants && variantId) {
+                      const variants = await req.payload.find({
+                        collection: 'variants',
+                        where: { id: { equals: variantId } },
+                        depth: 0,
+                      })
+                      const variant = variants.docs[0]
+                      if (variant && typeof variant.inventory === 'number') {
+                        inventory = variant.inventory
+                      }
+                    }
+
+                    if (typeof inventory === 'number' && item.quantity > inventory) {
+                      // Cap the quantity at the maximum available inventory to prevent exploits
+                      item.quantity = Math.max(0, inventory)
+                    }
+                  } catch (e) {
+                    req.payload.logger.error(e, 'Error checking inventory during cart update')
+                  }
+                }
+              }
+              return data
+            },
+          ],
+        },
+      }),
     },
     ...(process.env.STRIPE_SECRET_KEY
       ? {
@@ -148,6 +200,9 @@ export const plugins: Plugin[] = [
                       const couponCode = data?.couponCode || req?.data?.couponCode
 
                       if (data.cart?.subtotal) {
+                        // Save original subtotal to check against free shipping threshold later
+                        const originalSubtotal = data.cart.subtotal
+
                         // 1. Apply Coupon Discount
                         if (couponCode) {
                           const coupons = await req.payload.find({
@@ -165,7 +220,7 @@ export const plugins: Plugin[] = [
                             const isExpired = coupon.expirationDate && new Date(coupon.expirationDate) < new Date()
                             if (!isExpired && typeof coupon.discountPercentage === 'number') {
                               // Subtotal is in cents, keep it an integer
-                              const discountAmount = Math.round(data.cart.subtotal * (coupon.discountPercentage / 100))
+                              const discountAmount = Math.round(originalSubtotal * (coupon.discountPercentage / 100))
                               data.cart.subtotal -= discountAmount
                             }
                           }
@@ -183,7 +238,8 @@ export const plugins: Plugin[] = [
                           
                           if (method && typeof method.price === 'number') {
                             const threshold = shippingSettings?.minimumOrderAmount || Infinity
-                            if (data.cart.subtotal < threshold) {
+                            // Check threshold against the ORIGINAL subtotal BEFORE discount
+                            if (originalSubtotal < threshold) {
                               // Add shipping price to the discounted cart subtotal
                               data.cart.subtotal += method.price
                             }

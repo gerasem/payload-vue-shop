@@ -10,6 +10,7 @@ const { t } = useI18n()
 const userStore = useUserStore()
 const toast = useToast()
 const router = useRouter()
+const localePath = useLocalePath()
 
 usePageSeo({
   title: computed(() => t('Sign up')),
@@ -44,7 +45,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       title: t('Success'),
       description: t('Account created successfully')
     })
-    router.push('/cabinet')
+    router.push(localePath('/cabinet'))
   } catch (e: any) {
     toast.add({
       title: t('Error'),
@@ -109,7 +110,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
         <p class="text-sm font-light text-center text-gray-500">
           {{ t('Already have an account?') }}
-          <UButton variant="link" :padded="false" color="primary" to="/cabinet">
+          <UButton variant="link" :padded="false" color="primary" :to="localePath('/cabinet')">
             {{ t('Sign in') }}
           </UButton>
         </p>

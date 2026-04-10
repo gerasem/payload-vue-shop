@@ -3,7 +3,18 @@ import { loadStripe } from '@stripe/stripe-js'
 
 definePageMeta({
   layout: 'default',
-  ssr: false
+  ssr: false,
+  middleware: [
+    function () {
+      if (import.meta.server) return
+
+      const checkoutStore = useCheckoutStore()
+      if (!checkoutStore.clientSecret) {
+        const localePath = useLocalePath()
+        return navigateTo(localePath('/checkout'))
+      }
+    }
+  ]
 })
 
 const { t } = useI18n()
@@ -18,14 +29,10 @@ usePageSeo({
   description: computed(() => t('Complete your payment securely.'))
 })
 
-// Guard: if no clientSecret, user landed here without completing checkout
 onMounted(async () => {
-  if (!checkoutStore.clientSecret) {
-    await router.replace(localePath('/checkout'))
-    return
+  if (checkoutStore.clientSecret) {
+    await initStripe()
   }
-
-  await initStripe()
 })
 
 // Stripe state

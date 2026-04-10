@@ -6,7 +6,7 @@ const toast = useToast()
 const { data: contactPage } = await useAsyncData('contact-page-content', () =>
   usePayloadPage('contact')
 )
-const { data: settingsData } = await useAsyncData('payload-settings', () => useShoppingSettings())
+const { data: settingsData } = await useAsyncData('payload-settings-contact', () => useShoppingSettings())
 
 const { data: formsData, error: formsError } = await usePayloadFetch<any>('/api/forms', {
   params: {

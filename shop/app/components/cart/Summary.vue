@@ -59,7 +59,7 @@ function removeCoupon() {
       </span>
     </div>
 
-    <div v-else-if="showTotal" class="flex bg-green-50 px-6 h-14 justify-center items-center">
+    <div v-else class="flex bg-green-50 px-6 h-14 justify-center items-center">
       <span class="font-medium text-green-700"> {{ t('Free shipping applied!') }} </span>
     </div>
 

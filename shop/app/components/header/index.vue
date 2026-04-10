@@ -164,7 +164,7 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
             class="flex items-center gap-3 px-2.5 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
           >
             <UIcon name="i-bi-person" class="w-5 h-5 text-gray-400" />
-            <span>Benutzerkonto</span>
+            <span>{{ $t('Account') }}</span>
           </NuxtLink>
 
           <NuxtLink

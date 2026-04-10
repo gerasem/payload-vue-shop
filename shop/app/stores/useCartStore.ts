@@ -194,8 +194,18 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  let saveTimeout: ReturnType<typeof setTimeout> | null = null
+
+  function saveToServer() {
+    if (saveTimeout) clearTimeout(saveTimeout)
+    saveTimeout = setTimeout(() => {
+      saveTimeout = null
+      _saveToServer()
+    }, 500)
+  }
+
   // Save cart to server — works for both logged-in users and guests
-  async function saveToServer() {
+  async function _saveToServer() {
     try {
       const cartPayload: Record<string, any> = {
         currency: 'EUR', // Required by ecommerce plugin's beforeChange to compute subtotal
@@ -267,7 +277,7 @@ export const useCartStore = defineStore('cart', () => {
       }
     })
 
-    await saveToServer()
+    saveToServer()
     await hydrate() // Refresh UI
   }
 
@@ -346,7 +356,7 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     // Sync to server (both logged-in and guest)
-    await saveToServer()
+    saveToServer()
 
     await hydrate()
   }
@@ -362,7 +372,7 @@ export const useCartStore = defineStore('cart', () => {
     if (item) {
       item.qty = Math.max(1, qty) // Ensure at least 1
 
-      await saveToServer()
+      saveToServer()
 
       await hydrate()
     }
@@ -374,7 +384,7 @@ export const useCartStore = defineStore('cart', () => {
       item => !(item.productId === productId && item.variantId === variantId)
     )
 
-    await saveToServer()
+    saveToServer()
 
     await hydrate()
   }
@@ -453,7 +463,7 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   const shippingTotal = computed(() => {
-    if (totalWithDiscount.value >= freeShippingThreshold.value) {
+    if (totalInEUR.value >= freeShippingThreshold.value) {
       return 0
     }
     return selectedShippingMethod.value?.price ?? 500 // fallback to 5 EUR
