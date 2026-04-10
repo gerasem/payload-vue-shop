@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { sanitizeSvg } from '@/utils/svg'
+
 const { data: bannerData } = await useAsyncData('payload-info-banner', () =>
   usePayloadInformationBanner()
 )
@@ -13,7 +15,7 @@ const { data: bannerData } = await useAsyncData('payload-info-banner', () =>
           :key="item.id || index"
           class="flex items-center gap-2"
         >
-          <div v-if="item.icon?.svgContent" v-html="item.icon.svgContent" class="w-4 h-4" />
+          <div v-if="item.icon?.svgContent" v-html="sanitizeSvg(item.icon.svgContent)" class="w-4 h-4" />
           <span>{{ item.text }}</span>
         </div>
       </div>

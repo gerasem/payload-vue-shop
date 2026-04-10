@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { MappedLink } from '@/composables/usePayloadLink'
 import { useFavoritesStore } from '@/stores/useFavoritesStore'
+import { sanitizeSvg } from '@/utils/svg'
 
 const localePath = useLocalePath()
 
@@ -36,7 +37,10 @@ const mobileMenuLinks = computed(() => {
 })
 
 const slogan = computed(() => headerData.value?.slogan)
-const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
+const logoSvg = computed(() => {
+  const content = headerData.value?.icon?.svgContent || ''
+  return sanitizeSvg(content)
+})
 </script>
 
 <template>
@@ -60,8 +64,8 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
         :to="localePath('/')"
         class="flex items-center gap-3 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:col-span-3 lg:w-full justify-center"
       >
-        <!-- Render logo from Payload SVG -->
-        <div v-if="logoSvg" v-html="logoSvg" class="header__logo h-12 flex items-center py-1" />
+        <!-- Render inline SVG to allow CSS styling -->
+        <div v-if="logoSvg" v-html="logoSvg" class="header__logo h-16 flex items-center py-1" />
       </NuxtLink>
 
       <!-- Desktop only content -->
@@ -171,9 +175,16 @@ const logoSvg = computed(() => headerData.value?.icon?.svgContent || '')
             :to="localePath('/favorites')"
             class="flex items-center gap-3 px-2.5 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
           >
-            <UIcon name="i-bi-heart" class="w-5 h-5" :class="(favoritesStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'" />
+            <UIcon
+              name="i-bi-heart"
+              class="w-5 h-5"
+              :class="(favoritesStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'"
+            />
             <span>{{ $t('Favorites') }}</span>
-            <span v-if="favoritesStore && favoritesStore.count > 0" class="text-sm text-secondary font-medium">
+            <span
+              v-if="favoritesStore && favoritesStore.count > 0"
+              class="text-sm text-secondary font-medium"
+            >
               ({{ favoritesStore.count }})
             </span>
           </NuxtLink>

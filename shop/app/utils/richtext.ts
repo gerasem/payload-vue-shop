@@ -1,4 +1,14 @@
-type LexicalNode = any
+import DOMPurify from 'isomorphic-dompurify'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type LexicalNode = Record<string, any>
+
+const HTML_PURIFY_CONFIG = {
+  USE_PROFILES: { html: true, svg: false },
+  ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'th'],
+  ALLOWED_ATTR: ['href', 'target', 'rel', 'colspan', 'rowspan'], // Restrict attributes strictly
+  RETURN_DOM: false
+}
 
 const FORMAT = {
   BOLD: 1,
@@ -26,7 +36,8 @@ function wrapFormat(text: string, format: number): string {
 
 /**
  * Convert Lexical rich text JSON to HTML string
- * Supports paragraphs, headings, lists, tables, links, and text formatting
+ * Supports paragraphs, headings, lists, tables, links, and text formatting.
+ * Output is sanitized to prevent XSS.
  */
 export function richTextToHTML(node: LexicalNode): string {
   if (!node) return ''
@@ -51,26 +62,29 @@ export function richTextToHTML(node: LexicalNode): string {
         html += wrapFormat(escapeHTML(n.text), n.format || 0)
         break
 
-      case 'heading':
+      case 'heading': {
         const tag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(n.tag) ? n.tag : 'h2'
         html += `<${tag}>`
         n.children?.forEach(traverse)
         html += `</${tag}>`
         break
+      }
 
-      case 'link':
-        const url = n.fields?.url || '#'
+      case 'link': {
+        const url = escapeHTML(n.fields?.url || '#')
         html += `<a href="${url}" target="_blank" rel="noopener noreferrer">`
         n.children?.forEach(traverse)
         html += '</a>'
         break
+      }
 
-      case 'list':
+      case 'list': {
         const listTag = n.listType === 'number' || n.tag === 'ol' ? 'ol' : 'ul'
         html += `<${listTag}>`
         n.children?.forEach(traverse)
         html += `</${listTag}>`
         break
+      }
 
       case 'listitem':
         html += '<li>'
@@ -90,12 +104,13 @@ export function richTextToHTML(node: LexicalNode): string {
         html += '</tr>'
         break
 
-      case 'tablecell':
+      case 'tablecell': {
         const tagCell = n.headerState && n.headerState > 0 ? 'th' : 'td'
         html += `<${tagCell}${n.colSpan > 1 ? ` colspan="${n.colSpan}"` : ''}${n.rowSpan > 1 ? ` rowspan="${n.rowSpan}"` : ''}>`
         n.children?.forEach(traverse)
         html += `</${tagCell}>`
         break
+      }
 
       default:
         n.children?.forEach(traverse)
@@ -105,5 +120,5 @@ export function richTextToHTML(node: LexicalNode): string {
 
   traverse(node.root || node)
 
-  return html
+  return DOMPurify.sanitize(html, HTML_PURIFY_CONFIG) as string
 }
