@@ -46,22 +46,24 @@ function removeCoupon() {
 
 <template>
   <div class="sticky top-24 shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white">
-    <div
-      class="flex bg-secondary-100 px-6 h-14 justify-center items-center"
-      v-if="cartStore.isHydrating || cartStore.totalInEUR < cartStore.freeShippingThreshold"
-    >
-      <USkeleton v-if="cartStore.isHydrating" class="h-5 w-48 mx-auto" />
+    <template v-if="cartStore.isHydrating || cartStore.freeShippingThreshold > 0">
+      <div
+        class="flex bg-secondary-100 px-6 h-14 justify-center items-center"
+        v-if="cartStore.isHydrating || cartStore.totalInEUR < cartStore.freeShippingThreshold"
+      >
+        <USkeleton v-if="cartStore.isHydrating" class="h-5 w-48 mx-auto" />
 
-      <span v-else class="font-medium text-secondary">
-        {{
-          t('Free shipping over {amount}', { amount: formatEuro(cartStore.freeShippingThreshold) })
-        }}
-      </span>
-    </div>
+        <span v-else class="font-medium text-secondary">
+          {{
+            t('Free shipping over {amount}', { amount: formatEuro(cartStore.freeShippingThreshold) })
+          }}
+        </span>
+      </div>
 
-    <div v-else class="flex bg-green-50 px-6 h-14 justify-center items-center">
-      <span class="font-medium text-green-700"> {{ t('Free shipping applied!') }} </span>
-    </div>
+      <div v-else class="flex bg-green-50 px-6 h-14 justify-center items-center">
+        <span class="font-medium text-green-700"> {{ t('Free shipping applied!') }} </span>
+      </div>
+    </template>
 
     <div class="p-6">
       <div class="mb-3 flex gap-4">

@@ -435,7 +435,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   const freeShippingThreshold = computed(() => {
-    return shippingSettingsData.value?.minimumOrderAmount ?? 5000 // fallback to 50 EUR
+    return shippingSettingsData.value?.minimumOrderAmount ?? 0
   })
 
   // List of all active shipping methods from CMS
@@ -463,10 +463,11 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   const shippingTotal = computed(() => {
-    if (totalInEUR.value >= freeShippingThreshold.value) {
+    // If threshold is 0, it natively treats shipping as completely free (no minimum configured)
+    if (freeShippingThreshold.value > 0 && totalInEUR.value >= freeShippingThreshold.value) {
       return 0
     }
-    return selectedShippingMethod.value?.price ?? 500 // fallback to 5 EUR
+    return selectedShippingMethod.value?.price ?? 0
   })
 
   const grandTotal = computed(() => totalWithDiscount.value + shippingTotal.value)
