@@ -1,6 +1,6 @@
 export default defineEventHandler(async () => {
   const config = useRuntimeConfig()
-  const payloadUrl = config.public.payloadUrl
+  const payloadUrl = config.payloadUrl || config.public.payloadUrl
 
   const routes: string[] = []
 

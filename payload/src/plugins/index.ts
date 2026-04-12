@@ -15,6 +15,9 @@ import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
+import { PayloadRequest } from 'payload'
+
+type ShippingMethod = { id?: string | null; price?: number | null }
 
 const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Ecommerce Template` : 'Payload Ecommerce Template'
@@ -189,15 +192,15 @@ export const plugins: Plugin[] = [
 
                 return {
                   ...baseAdapter,
-                  initiatePayment: async (args: any) => {
+                  initiatePayment: async (args: Parameters<typeof baseAdapter.initiatePayment>[0]) => {
                     const { req, data } = args
                     
                     try {
                       // Intercept initiatePayment to inject shipping cost
                       // In Payload 3.0, the body data is usually passed in 'data'
                       // but we also check req.data for backward compatibility if applicable.
-                      const shippingMethodId = data?.shippingMethodId || req?.data?.shippingMethodId
-                      const couponCode = data?.couponCode || req?.data?.couponCode
+                      const shippingMethodId = (data as any)?.shippingMethodId || (req as any)?.data?.shippingMethodId
+                      const couponCode = (data as any)?.couponCode || (req as any)?.data?.couponCode
 
                       if (data.cart?.subtotal) {
                         // Save original subtotal to check against free shipping threshold later
@@ -234,7 +237,7 @@ export const plugins: Plugin[] = [
                           })
                           
                           const methods = shippingSettings?.shippingMethods || []
-                          const method = methods.find((m: any) => m.id === shippingMethodId)
+                          const method = methods.find((m: ShippingMethod) => m.id === shippingMethodId)
                           
                           if (method && typeof method.price === 'number') {
                             const threshold = shippingSettings?.minimumOrderAmount || Infinity
@@ -253,7 +256,7 @@ export const plugins: Plugin[] = [
                     return baseAdapter.initiatePayment(args)
                   },
 
-                  confirmOrder: async (args: any) => {
+                  confirmOrder: async (args: Parameters<typeof baseAdapter.confirmOrder>[0]) => {
                     const result = await baseAdapter.confirmOrder(args)
 
                     // Attach referral code to the created order (if valid)

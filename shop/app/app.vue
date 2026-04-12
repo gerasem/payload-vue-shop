@@ -7,10 +7,10 @@ const route = useRoute()
 // Initialize stores on client-side only
 onMounted(async () => {
   const cartStore = useCartStore()
-  cartStore.init()
+  await cartStore.init()
 
   const favoritesStore = useFavoritesStore()
-  favoritesStore.init()
+  await favoritesStore.init()
 })
 
 // Check if current page is homepage
@@ -20,7 +20,7 @@ const isHomePage = computed(
 
 const { locale } = useI18n()
 
-const toaster = { position: 'bottom-center', expand: false, progress: false }
+const toaster = { position: 'bottom-center' as const, expand: false, progress: false }
 
 // Fetch global shopping settings for dynamic items like favicon
 const { data: shoppingSettings } = await useAsyncData('shopping-settings', () =>
@@ -78,21 +78,51 @@ injectSchema(() => ({
 <template>
   <UApp :locale="de" :toaster="toaster">
     <NuxtLoadingIndicator color="#dfa44c" />
-    <Header />
+    <NuxtErrorBoundary>
+      <Header />
+      <template #error="{ error }">
+        <div class="h-16 flex items-center justify-center bg-gray-100 text-gray-400 text-xs text-center border-b border-gray-200">
+          Header temporarily unavailable
+        </div>
+      </template>
+    </NuxtErrorBoundary>
 
     <!-- Category bar - shown on all pages (hidden on desktop for homepage to avoid duplicate with sidebar) -->
-    <CategoryBar :class="{ 'lg:hidden': isHomePage }" />
+    <NuxtErrorBoundary>
+      <CategoryBar :class="{ 'lg:hidden': isHomePage }" />
+      <template #error="{ error }">
+        <div class="h-10 bg-gray-50 flex items-center justify-center text-xs text-gray-400 border-b border-gray-200">
+          Categories temporarily unavailable
+        </div>
+      </template>
+    </NuxtErrorBoundary>
 
     <UMain>
-      <NuxtPage
-        :transition="{
-          name: 'page',
-          mode: 'out-in'
-        }"
-      />
+      <NuxtErrorBoundary>
+        <NuxtPage
+          :transition="{
+            name: 'page',
+            mode: 'out-in'
+          }"
+        />
+        <template #error="{ error, clearError }">
+          <div class="p-8 text-center max-w-xl mx-auto mt-10 border border-gray-200 rounded-xl shadow-sm">
+            <h2 class="text-xl font-medium text-gray-900 mb-2">Error Loading Page</h2>
+            <p class="text-gray-500 text-sm mb-4">We encountered an issue while loading this content.</p>
+            <UButton color="neutral" @click="clearError">Try again</UButton>
+          </div>
+        </template>
+      </NuxtErrorBoundary>
     </UMain>
 
-    <Footer />
+    <NuxtErrorBoundary>
+      <Footer />
+      <template #error="{ error }">
+        <div class="h-32 bg-gray-900 flex items-center justify-center text-sm text-gray-500">
+          Footer temporarily unavailable
+        </div>
+      </template>
+    </NuxtErrorBoundary>
 
     <!-- GDPR Cookie Banner -->
     <ClientOnly>
