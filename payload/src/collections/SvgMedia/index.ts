@@ -9,7 +9,6 @@ export const SvgMedia: CollectionConfig = {
   },
   upload: {
     mimeTypes: ['image/svg+xml'],
-    disableLocalStorage: false,
   },
   fields: [
     {

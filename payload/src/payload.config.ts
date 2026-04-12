@@ -106,6 +106,7 @@ export default buildConfig({
           s3Storage({
             collections: {
               media: true,
+              'svg-media': true,
             },
             bucket: process.env.S3_BUCKET || '',
             disableLocalStorage: true, 
