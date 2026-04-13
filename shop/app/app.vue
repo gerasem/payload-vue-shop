@@ -39,8 +39,16 @@ const faviconUrl = computed(() => {
 })
 
 useHead({
-  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-  link: [{ rel: 'icon', href: faviconUrl }],
+  meta: [
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'apple-mobile-web-app-capable', content: 'yes' },
+    { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
+  ],
+  link: [
+    { rel: 'icon', href: faviconUrl },
+    { rel: 'apple-touch-icon', href: faviconUrl },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: faviconUrl }
+  ],
   htmlAttrs: {
     lang: locale
   }
