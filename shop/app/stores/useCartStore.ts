@@ -45,8 +45,12 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // Initialize the cart — call once on app bootstrap (client-side)
-  async function init() {
+  // We call loadFromLS synchronously during store creation so it's ready for middlewares!
+  if (import.meta.client) {
     loadFromLS()
+  }
+
+  async function init() {
     isInitialized.value = true
 
     // If user is already logged in, fetch server cart

@@ -149,6 +149,7 @@ function removeCoupon() {
           block
           :disabled="!cartStore.hasItems"
           class="py-3"
+          data-test="checkout-button"
         >
           {{ t('Proceed to Checkout') }}
         </UButton>

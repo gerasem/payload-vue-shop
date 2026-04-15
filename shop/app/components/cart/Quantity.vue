@@ -20,5 +20,5 @@ const maxQuantity = computed(() => {
 </script>
 
 <template>
-  <UInputNumber v-model="quantity" size="md" variant="ghost" :min="1" :max="maxQuantity" />
+  <UInputNumber v-model="quantity" size="md" variant="ghost" :min="1" :max="maxQuantity" data-test="cart-quantity-input" />
 </template>

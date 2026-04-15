@@ -12,6 +12,14 @@ const { data: page } = await useAsyncData('checkout-page-content', () => usePayl
 // SEO
 usePayloadPageSeo(page)
 
+const checkoutFormRef = ref()
+
+function submitForm() {
+  if (checkoutFormRef.value) {
+    checkoutFormRef.value.submit()
+  }
+}
+
 definePageMeta({
   middleware: [
     function () {
@@ -64,7 +72,11 @@ async function handleFormSubmit(formData: any) {
     <div class="grid gap-8 lg:grid-cols-3">
       <!-- Checkout Form (Left Column) -->
       <div class="lg:col-span-2 space-y-8">
-        <CheckoutForm :loading="checkoutStore.loading" @submit="handleFormSubmit" />
+        <CheckoutForm
+          ref="checkoutFormRef"
+          :loading="checkoutStore.loading"
+          @submit="handleFormSubmit"
+        />
 
         <!-- Shipping Methods Selection -->
         <div
@@ -107,8 +119,6 @@ async function handleFormSubmit(formData: any) {
         <CartSummary :show-checkout-button="false" :show-continue-shopping="false">
           <template #action>
             <UButton
-              type="submit"
-              form="checkout-form"
               class="py-3"
               block
               size="xl"
@@ -116,6 +126,8 @@ async function handleFormSubmit(formData: any) {
               icon="i-bi-lock"
               :loading="checkoutStore.loading"
               :disabled="checkoutStore.loading"
+              data-test="continue-to-payment-button"
+              @click="submitForm"
             >
               {{ checkoutStore.loading ? t('Processing payment...') : t('Continue to Payment') }}
             </UButton>
@@ -125,7 +137,6 @@ async function handleFormSubmit(formData: any) {
     </div>
   </BaseContainer>
 </template>
-
 <style scoped>
 /* Force single column for the text in checkout, matching cart page */
 :deep(.text-content p) {

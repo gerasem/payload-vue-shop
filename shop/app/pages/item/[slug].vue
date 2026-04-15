@@ -299,6 +299,7 @@ injectSchema(() => {
             :min="1"
             :max="maxQuantity"
             class="max-w-36"
+            data-test="product-quantity-input"
           />
 
           <!-- Add to Cart Button -->
@@ -315,6 +316,7 @@ injectSchema(() => {
             class="px-6"
             icon="i-bi-cart"
             @click="addToCart"
+            data-test="add-to-cart-button"
           >
             {{ adding ? t('Adding...') : t('Add to Cart') }}
           </UButton>

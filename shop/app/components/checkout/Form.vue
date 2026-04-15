@@ -77,20 +77,38 @@ const emit = defineEmits(['submit'])
 
 defineProps<{ loading?: boolean }>()
 
+const checkoutFormRef = ref()
+
 function onSubmit(event: FormSubmitEvent<Schema>) {
   emit('submit', event.data)
 }
+
+// Expose submit to parent
+defineExpose({
+  submit: () => {
+    if (checkoutFormRef.value) {
+      checkoutFormRef.value.submit()
+    }
+  }
+})
 </script>
 
 <template>
-  <UForm id="checkout-form" :schema="schema" :state="form" class="space-y-5" @submit="onSubmit">
+  <UForm
+    id="checkout-form"
+    ref="checkoutFormRef"
+    :schema="schema"
+    :state="form"
+    class="space-y-5"
+    @submit="onSubmit"
+  >
     <!-- First Name / Last Name -->
     <div class="grid grid-cols-2 gap-4">
       <UFormField :label="t('First Name')" name="firstName" required>
-        <UInput v-model="form.firstName" class="w-full" size="xl" :placeholder="t('First Name')" />
+        <UInput v-model="form.firstName" class="w-full" size="xl" :placeholder="t('First Name')" data-test="first-name-input" />
       </UFormField>
       <UFormField :label="t('Last Name')" name="lastName" required>
-        <UInput v-model="form.lastName" class="w-full" size="xl" :placeholder="t('Last Name')" />
+        <UInput v-model="form.lastName" class="w-full" size="xl" :placeholder="t('Last Name')" data-test="last-name-input" />
       </UFormField>
     </div>
 
@@ -103,6 +121,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
           class="w-full"
           size="xl"
           :placeholder="t('Email')"
+          data-test="email-input"
         />
       </UFormField>
       <UFormField :label="t('Phone')" name="phone">
@@ -119,7 +138,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
     <!-- Address (2/3) + Country (1/3) -->
     <div class="grid grid-cols-3 gap-4">
       <UFormField :label="t('Address')" name="address" required class="col-span-2">
-        <UInput v-model="form.address" class="w-full" size="xl" :placeholder="t('Address')" />
+        <UInput v-model="form.address" class="w-full" size="xl" :placeholder="t('Address')" data-test="address-input" />
       </UFormField>
       <UFormField :label="t('Country')" name="country" required class="col-span-1">
         <USelectMenu
@@ -144,10 +163,11 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
           class="w-full"
           size="xl"
           :placeholder="t('Postal Code')"
+          data-test="postal-code-input"
         />
       </UFormField>
       <UFormField :label="t('City')" name="city" required>
-        <UInput v-model="form.city" class="w-full" size="xl" :placeholder="t('City')" />
+        <UInput v-model="form.city" class="w-full" size="xl" :placeholder="t('City')" data-test="city-input" />
       </UFormField>
     </div>
 

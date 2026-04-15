@@ -17,7 +17,7 @@ definePageMeta({
   ]
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const router = useRouter()
 const config = useRuntimeConfig()
@@ -57,6 +57,7 @@ async function initStripe() {
 
   elements.value = stripeInstance.value.elements({
     clientSecret: checkoutStore.clientSecret!,
+    locale: locale.value as any, // Sync Stripe with App locale
     appearance: {
       theme: 'stripe',
       variables: {

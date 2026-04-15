@@ -56,7 +56,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 </script>
 
 <template>
-  <div class="flex items-center gap-6 border-b border-gray-50 py-4 mb-0 last:border-0">
+  <div data-test="cart-item" class="flex items-center gap-6 border-b border-gray-50 py-4 mb-0 last:border-0">
     <NuxtLink :to="localePath(`/item/${item.slug}`)" class="group relative block">
       <div
         class="h-24 w-24 overflow-hidden bg-gray-100 sm:h-28 sm:w-28 group-hover:opacity-75 transition-opacity"
@@ -72,7 +72,7 @@ const lineTotal = computed(() => props.item.priceInEUR * quantity.value)
 
     <div class="flex-1 min-w-0">
       <h3 class="font-semibold hover:text-primary transition-colors">
-        <NuxtLink :to="localePath(`/item/${item.slug}`)">
+        <NuxtLink :to="localePath(`/item/${item.slug}`)" data-test="cart-item-title">
           {{ item.title }}
         </NuxtLink>
       </h3>

@@ -141,13 +141,14 @@ const logoSvg = computed(() => {
               class="flex items-center gap-1.5 transition hover:text-secondary"
               :title="cartStore?.totalFormatted || ''"
               aria-label="Shopping Cart"
+              data-test="cart-link"
             >
               <UIcon
                 name="i-bi-bag"
                 class="w-7 h-7 -mt-1"
                 :class="(cartStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'"
               />
-              <span v-if="cartStore && cartStore.count > 0" class="font-normal">
+              <span v-if="cartStore && cartStore.count > 0" class="font-normal" data-test="cart-count">
                 {{ cartStore.count }}
               </span>
             </NuxtLink>
