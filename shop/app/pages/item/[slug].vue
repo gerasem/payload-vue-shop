@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IItem } from '@/types'
+import { useFavoritesStore } from '@/stores/useFavoritesStore'
 
 definePageMeta({
   layout: 'default'
@@ -10,11 +11,24 @@ const localePath = useLocalePath()
 const { t } = useI18n()
 const toast = useToast()
 const cartStore = useCartStore()
+const favoritesStore = useFavoritesStore()
 
 // Fetch product data (SSR)
 const { data: product } = await useAsyncData(`item-${route.params.slug}`, async () => {
   const slug = route.params.slug as string
   return await usePayloadItemBySlug(slug)
+})
+
+// First category for breadcrumb
+const firstCategory = computed(() => {
+  const cats = product.value?.categories
+  if (!cats) return null
+  // categories can be a single object or an array depending on the query
+  const cat = Array.isArray(cats) ? cats[0] : cats
+  if (typeof cat === 'object' && cat?.title && cat?.slug) {
+    return cat
+  }
+  return null
 })
 
 // Handle 404
@@ -245,16 +259,67 @@ injectSchema(() => {
 
 <template>
   <BaseContainer>
+    <!-- Breadcrumb -->
+    <nav v-if="product" class="mb-4 text-sm text-gray-500" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-1">
+        <li v-if="firstCategory">
+          <NuxtLink
+            :to="localePath(`/category/${firstCategory.slug}`)"
+            class="text-secondary hover:underline"
+          >
+            {{ firstCategory.title }}
+          </NuxtLink>
+
+          <span class="mx-1">/</span>
+        </li>
+        
+        <li class="text-gray-400 truncate">
+          {{ product.title }}
+        </li>
+      </ol>
+    </nav>
+
     <article class="grid gap-8 lg:grid-cols-2">
       <!-- Gallery -->
       <ItemGallery :images="product?.gallery" />
 
       <!-- Product Info -->
       <section class="flex flex-col space-y-6">
-        <!-- Title -->
-        <BaseHeader>
-          {{ product?.title }}
-        </BaseHeader>
+        <!-- Title + Favorite -->
+        <div class="flex items-start gap-4">
+          <BaseHeader class="flex-1">
+            {{ product?.title }}
+          </BaseHeader>
+          <button
+            v-if="product"
+            class="mt-1 shrink-0 flex"
+            aria-label="Toggle Favorite"
+            @click.prevent.stop="favoritesStore.toggle(product as unknown as IItem)"
+          >
+            <ClientOnly>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 16 16"
+                class="transition-all overflow-visible hover:text-secondary"
+                :class="favoritesStore.isFavorite(product?.id) ? 'text-primary' : 'text-gray-400'"
+              >
+                <path
+                  fill="white"
+                  stroke="white"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                />
+                <path
+                  fill="currentColor"
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+                />
+              </svg>
+            </ClientOnly>
+          </button>
+        </div>
 
         <!-- Price -->
         <div class="text-4xl font-semibold">
