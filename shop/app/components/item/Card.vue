@@ -41,6 +41,7 @@ const formattedPrice = computed(() => {
           :alt="item.gallery?.[0]?.alt || item.title || ''"
           width="400"
           height="400"
+          loading="lazy"
           class="w-full h-full object-cover transition-transform group-hover:scale-105"
         />
       </div>

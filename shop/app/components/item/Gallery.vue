@@ -55,14 +55,14 @@ onUnmounted(() => {
       :data-pswp-height="image.height"
       target="_blank"
       rel="noreferrer"
-      class="gallery__item min-w-[85vw] md:min-w-0 snap-center"
+      class="gallery__item"
     >
       <img
-        :src="`${config.public.payloadUrl}${image.thumbnailURL || image.url}`"
+        :src="`${config.public.payloadUrl}${image.url}`"
         :alt="image.alt || `Product image ${index + 1}`"
         :width="image.width"
         :height="image.height"
-        class="w-full h-auto object-cover aspect-[3/4] md:aspect-auto rounded-lg"
+        class="w-full h-auto object-cover aspect-3/4 md:aspect-auto rounded-lg"
       />
     </a>
   </div>
