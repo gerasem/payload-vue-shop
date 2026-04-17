@@ -62,70 +62,23 @@ function inventoryStatus(qty: number | null | undefined) {
         :key="variant.id"
         @click="emit('select', variant)"
         :disabled="variant.inventory === 0"
-        class="variant-card"
+        class="flex flex-col gap-1.5 px-3 py-2.5 border border-default cursor-pointer transition-all text-left hover:not-disabled:border-primary hover:not-disabled:bg-(--ui-primary)/5"
         :class="{
-          'variant-card--selected': selectedVariantId === variant.id,
-          'variant-card--disabled': variant.inventory === 0
+          'border-(--ui-primary) bg-(--ui-primary)/5 ring-1 ring-(--ui-primary)': selectedVariantId === variant.id,
+          'opacity-50 cursor-not-allowed': variant.inventory === 0
         }"
       >
         <!-- Title & Price -->
-        <div class="variant-card__header">
-          <span class="variant-card__title">{{ variantLabel(variant) }}</span>
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-medium text-(--ui-text)">{{ variantLabel(variant) }}</span>
+
           <UBadge v-if="variant.inventory === 0" color="error" variant="subtle" size="xs">
             {{ t('Out of stock') }}
           </UBadge>
-          <span class="variant-card__price">{{ formatEuro(variant.priceInEUR ?? basePrice) }}</span>
+
+          <span class="font-semibold text-(--ui-text) whitespace-nowrap">{{ formatEuro(variant.priceInEUR ?? basePrice) }}</span>
         </div>
       </button>
     </div>
   </div>
 </template>
-
-<style scoped>
-.variant-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  padding: 0.625rem 0.75rem;
-  border: 2px solid var(--ui-border);
-  border-radius: 0.5rem;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  text-align: left;
-}
-
-.variant-card:hover:not(.variant-card--disabled) {
-  border-color: var(--ui-primary);
-  background: var(--ui-primary-50, rgba(59, 130, 246, 0.05));
-}
-
-.variant-card--selected {
-  border-color: var(--ui-primary);
-  background: var(--ui-primary-50, rgba(59, 130, 246, 0.05));
-  box-shadow: 0 0 0 1px var(--ui-primary);
-}
-
-.variant-card--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.variant-card__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.variant-card__title {
-  font-weight: 500;
-  color: var(--ui-text);
-}
-
-.variant-card__price {
-  font-weight: 600;
-  color: var(--ui-text);
-  white-space: nowrap;
-}
-</style>

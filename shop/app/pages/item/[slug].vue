@@ -272,7 +272,7 @@ injectSchema(() => {
 
           <span class="mx-1">/</span>
         </li>
-        
+
         <li class="text-gray-400 truncate">
           {{ product.title }}
         </li>
@@ -342,7 +342,7 @@ injectSchema(() => {
         <UAlert
           v-if="product?.enableVariants && !canAddToCart && !isOutOfStock"
           color="warning"
-          variant="subtle"
+          variant="soft"
           :title="t('Please select all product options')"
         />
 
@@ -350,7 +350,7 @@ injectSchema(() => {
         <UAlert
           v-if="product?.enableVariants && isOutOfStock"
           color="error"
-          variant="subtle"
+          variant="soft"
           :title="t('This product is currently out of stock')"
           icon="i-bi-exclamation-circle"
         />
@@ -387,10 +387,12 @@ injectSchema(() => {
           </UButton>
         </div>
 
-        <!-- Shipping Terms (Storefront Replication) -->
+        <!-- Shipping Terms -->
         <div class="pt-4">
           <p class="flex gap-8">
-            {{ t('Free shipping over 50€') }}
+            <span v-if="cartStore.freeShippingThreshold > 0">
+              {{ t('Free shipping over {amount}', { amount: formatEuro(cartStore.freeShippingThreshold) }) }}
+            </span>
 
             <NuxtLink :to="localePath('/page/delivery')" class="text-secondary hover:underline">
               {{ t('Shipping conditions') }}
