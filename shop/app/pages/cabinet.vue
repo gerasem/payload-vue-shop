@@ -198,7 +198,12 @@ function getOrderStatusColor(status: string | null | undefined) {
 
         <div class="flex items-center justify-between">
           <UCheckbox v-model="state.remember" :label="t('Remember me')" />
-          <UButton variant="link" :padded="false" color="primary" :to="localePath('/auth/forgot-password')">
+          <UButton
+            variant="link"
+            :padded="false"
+            color="primary"
+            :to="localePath('/auth/forgot-password')"
+          >
             {{ t('Forgot password?') }}
           </UButton>
         </div>
@@ -209,7 +214,12 @@ function getOrderStatusColor(status: string | null | undefined) {
 
         <p class="text-sm font-light text-center text-gray-500">
           {{ t("Don't have an account yet?") }}
-          <UButton variant="link" :padded="false" color="primary" :to="localePath('/auth/register')">
+          <UButton
+            variant="link"
+            :padded="false"
+            color="primary"
+            :to="localePath('/auth/register')"
+          >
             {{ t('Sign up') }}
           </UButton>
         </p>

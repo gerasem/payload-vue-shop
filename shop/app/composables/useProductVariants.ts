@@ -1,4 +1,4 @@
-import type { IItem, IProductFull } from '@/types'
+import type { IItem, IProductFull, IVariant } from '@/types'
 import { getMinPriceFormatted, areAllPricesEqual, formatEuro } from '@/utils/price'
 
 export function useProductVariants(product: Ref<IItem | IProductFull | null | undefined>) {
@@ -16,7 +16,7 @@ export function useProductVariants(product: Ref<IItem | IProductFull | null | un
   )
 
   // Find selected variant based on options
-  const selectedVariant = computed(() => {
+  const selectedVariant = computed<IVariant | null | undefined>(() => {
     if (!product.value?.enableVariants || !product.value?.variants?.docs) {
       return null
     }
@@ -29,7 +29,7 @@ export function useProductVariants(product: Ref<IItem | IProductFull | null | un
 
       let matches = true
       for (const [, selectedValue] of Object.entries(selectedOptions.value)) {
-        const hasMatchingOption = variant.options.some((opt: any) => opt.value === selectedValue)
+        const hasMatchingOption = variant.options.some(opt => opt.value === selectedValue)
         if (!hasMatchingOption) {
           matches = false
           break

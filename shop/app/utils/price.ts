@@ -20,11 +20,15 @@ const euroFormatter = new Intl.NumberFormat('de-DE', {
 
 export function formatEuro(cents: number | null | undefined): string {
   if (cents === null || cents === undefined) return '—'
-  // Node 18+ uses narrow no-break space (U+202F) for German locale,
-  // some browsers still use regular no-break space (U+00A0).
-  // Replace narrow no-break space with regular no-break space to prevent hydration mismatches.
-  return euroFormatter.format(cents / 100).replace(/\u202f/g, '\u00a0')
+  return euroFormatter.format(cents / 100)
 }
+
+/**
+ * Convert cents to a decimal string for structured data (JSON-LD).
+ * Example: 4999 → "49.99"
+ */
+export const centsToDecimal = (cents: number | null | undefined): string =>
+  ((cents ?? 0) / 100).toFixed(2)
 
 /**
  * Get minimum price from product and its variants (in cents)

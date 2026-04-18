@@ -1,30 +1,17 @@
 <script setup lang="ts">
+import type { IVariant } from '@/types'
 import { formatEuro } from '@/utils/price'
 
 const props = defineProps<{
-  variants:
-    | Array<{
-        id: number
-        title?: string | null
-        priceInEUR?: number | null
-        inventory?: number | null
-        options?: Array<{
-          id: number
-          label: string
-          value: string
-        }> | null
-      }>
-    | null
-    | undefined
+  variants: IVariant[] | null | undefined
   selectedVariantId?: number | null
   basePrice?: number | null
+  canAddToCart?: boolean
+  isOutOfStock?: boolean
 }>()
 
 const emit = defineEmits<{
-  (
-    e: 'select',
-    variant: typeof props.variants extends Array<infer T> | null | undefined ? T : never
-  ): void
+  (e: 'select', variant: IVariant): void
 }>()
 
 const { t } = useI18n()
@@ -64,7 +51,8 @@ function inventoryStatus(qty: number | null | undefined) {
         :disabled="variant.inventory === 0"
         class="flex flex-col gap-1.5 px-3 py-2.5 border border-default cursor-pointer transition-all text-left hover:not-disabled:border-primary hover:not-disabled:bg-(--ui-primary)/5"
         :class="{
-          'border-(--ui-primary) bg-(--ui-primary)/5 ring-1 ring-(--ui-primary)': selectedVariantId === variant.id,
+          'border-(--ui-primary) bg-(--ui-primary)/5 ring-1 ring-(--ui-primary)':
+            selectedVariantId === variant.id,
           'opacity-50 cursor-not-allowed': variant.inventory === 0
         }"
       >
@@ -76,9 +64,28 @@ function inventoryStatus(qty: number | null | undefined) {
             {{ t('Out of stock') }}
           </UBadge>
 
-          <span class="font-semibold text-(--ui-text) whitespace-nowrap">{{ formatEuro(variant.priceInEUR ?? basePrice) }}</span>
+          <span class="font-semibold text-(--ui-text) whitespace-nowrap">{{
+            formatEuro(variant.priceInEUR ?? basePrice)
+          }}</span>
         </div>
       </button>
     </div>
+
+    <!-- Warning if variants not selected -->
+    <UAlert
+      v-if="!canAddToCart && !isOutOfStock"
+      color="warning"
+      variant="soft"
+      :title="t('Please select all product options')"
+    />
+
+    <!-- Out of stock message -->
+    <UAlert
+      v-if="isOutOfStock"
+      color="error"
+      variant="soft"
+      :title="t('This product is currently out of stock')"
+      icon="i-bi-exclamation-circle"
+    />
   </div>
 </template>

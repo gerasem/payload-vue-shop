@@ -21,11 +21,15 @@ async function dismissCookieBanner(page: Page) {
 
 test.describe('E2E Checkout Flow', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear browser state before each test run to ensure isolation
-    await page.goto('/')
+    // Navigate and dismiss cookie banner first to ensure localStorage works
+    await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await dismissCookieBanner(page)
+    // Clear cart/favorites state but preserve cookie consent
     await page.evaluate(() => {
+      const consent = localStorage.getItem('cookie-consent')
       localStorage.clear()
       sessionStorage.clear()
+      if (consent) localStorage.setItem('cookie-consent', consent)
     })
   })
 
@@ -68,12 +72,21 @@ test.describe('E2E Checkout Flow', () => {
     await productLink.click()
 
     await page.waitForURL(/\/item\//)
+    await page.waitForLoadState('networkidle')
     await dismissCookieBanner(page)
     
     // Add product to cart using stable data-test identifier
-    await page.getByTestId('add-to-cart-button').click()
+    const addToCartBtn = page.getByTestId('add-to-cart-button')
+    await expect(addToCartBtn).toBeVisible({ timeout: 10000 })
+    await addToCartBtn.click()
+
+    // Wait for the toast notification confirming the add-to-cart succeeded
+    await expect(
+      page.getByText(/Added to cart|Zum Warenkorb hinzugefügt/i)
+    ).toBeVisible({ timeout: 5000 })
 
     // 3. Navigate to Cart using data-test identifier
+    await dismissCookieBanner(page)
     await page.getByTestId('cart-link').click()
     await page.waitForURL(/\/cart|warenkorb/)
 

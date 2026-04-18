@@ -32,6 +32,13 @@ export type ICategory = NonNullable<NonNullable<CategoriesQuery['Categories']>['
 export type IPage = NonNullable<PageQuery['Pages']>
 
 /**
+ * Variant type alias
+ * Extracted from IProductFull's variants.docs
+ * Used in variant selection and display
+ */
+export type IVariant = NonNullable<NonNullable<IProductFull['variants']>['docs'][number]>
+
+/**
  * Cart Item (Raw) - minimal data stored in localStorage
  */
 export interface ICartItemRaw {

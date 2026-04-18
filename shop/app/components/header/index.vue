@@ -148,7 +148,11 @@ const logoSvg = computed(() => {
                 class="w-7 h-7 -mt-1"
                 :class="(cartStore?.count || 0) > 0 ? 'text-secondary' : 'text-gray-400'"
               />
-              <span v-if="cartStore && cartStore.count > 0" class="font-normal" data-test="cart-count">
+              <span
+                v-if="cartStore && cartStore.count > 0"
+                class="font-normal"
+                data-test="cart-count"
+              >
                 {{ cartStore.count }}
               </span>
             </NuxtLink>

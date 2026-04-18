@@ -113,7 +113,7 @@ const schema = computed(() => {
 
     shape[field.name] = validator
   })
-  
+
   // Mandatory Privacy Consent for DSGVO
   shape.privacyAccepted = z.literal(true, {
     message: t('Consent is required')
@@ -141,7 +141,7 @@ const recaptchaScripts = computed(() => {
   return []
 })
 
-useHead({ 
+useHead({
   script: recaptchaScripts
 })
 
@@ -149,16 +149,16 @@ const isSubmitting = ref(false)
 
 async function onSubmit(event: FormSubmitEvent<any>) {
   if (isSubmitting.value) return
-  
+
   // Ensure reCAPTCHA is loaded even if submit was triggered without focus (unlikely)
   if (recaptchaSiteKey) {
     shouldLoadRecaptcha.value = true
   }
-  
+
   isSubmitting.value = true
-  
+
   let token = ''
-  
+
   if (recaptchaSiteKey) {
     try {
       // Wait for grecaptcha to be available
@@ -180,28 +180,26 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       console.error('reCAPTCHA execution failed', err)
     }
   }
-  
-  emit('submit', { 
-    ...event.data, 
-    recaptchaToken: token 
+
+  emit('submit', {
+    ...event.data,
+    recaptchaToken: token
   })
-  
+
   isSubmitting.value = false
 }
 </script>
 
 <template>
-  <UForm 
-    :schema="schema" 
-    :state="state" 
-    class="flex flex-wrap" 
+  <UForm
+    :schema="schema"
+    :state="state"
+    class="flex flex-wrap"
     @submit="onSubmit"
     @focusin.once="shouldLoadRecaptcha = true"
   >
     <!-- Required fields hint -->
-    <div class="w-full px-2 mb-4 text-sm text-gray-500 italic">
-      * {{ t('Required fields') }}
-    </div>
+    <div class="w-full px-2 mb-4 text-sm text-gray-500 italic">* {{ t('Required fields') }}</div>
 
     <template v-for="field in fields" :key="field.name">
       <UFormField
@@ -282,7 +280,11 @@ async function onSubmit(event: FormSubmitEvent<any>) {
             <span class="text-sm">
               <i18n-t keypath="privacy_consent_label">
                 <template #privacy>
-                  <NuxtLink to="/page/datenschutz" target="_blank" class="underline hover:text-primary transition-colors">
+                  <NuxtLink
+                    to="/page/datenschutz"
+                    target="_blank"
+                    class="underline hover:text-primary transition-colors"
+                  >
                     {{ t('Privacy Policy') }}
                   </NuxtLink>
                 </template>
@@ -302,13 +304,23 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       <div v-if="recaptchaSiteKey" class="mt-4 text-[11px] text-gray-500 leading-tight">
         <i18n-t keypath="recaptcha_privacy_notice" tag="p">
           <template #privacy>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline hover:text-primary"
+            >
               {{ t('Privacy Policy') }}
             </a>
           </template>
-          
+
           <template #terms>
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline hover:text-primary"
+            >
               {{ t('Terms of Service') }}
             </a>
           </template>

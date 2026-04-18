@@ -89,7 +89,9 @@ injectSchema(() => ({
     <NuxtErrorBoundary>
       <Header />
       <template #error="{ error }">
-        <div class="h-16 flex items-center justify-center bg-gray-100 text-gray-400 text-xs text-center border-b border-gray-200">
+        <div
+          class="h-16 flex items-center justify-center bg-gray-100 text-gray-400 text-xs text-center border-b border-gray-200"
+        >
           Header temporarily unavailable
         </div>
       </template>
@@ -99,7 +101,9 @@ injectSchema(() => ({
     <NuxtErrorBoundary>
       <CategoryBar :class="{ 'lg:hidden': isHomePage }" />
       <template #error="{ error }">
-        <div class="h-10 bg-gray-50 flex items-center justify-center text-xs text-gray-400 border-b border-gray-200">
+        <div
+          class="h-10 bg-gray-50 flex items-center justify-center text-xs text-gray-400 border-b border-gray-200"
+        >
           Categories temporarily unavailable
         </div>
       </template>
@@ -114,9 +118,13 @@ injectSchema(() => ({
           }"
         />
         <template #error="{ error, clearError }">
-          <div class="p-8 text-center max-w-xl mx-auto mt-10 border border-gray-200 rounded-xl shadow-sm">
+          <div
+            class="p-8 text-center max-w-xl mx-auto mt-10 border border-gray-200 rounded-xl shadow-sm"
+          >
             <h2 class="text-xl font-medium text-gray-900 mb-2">Error Loading Page</h2>
-            <p class="text-gray-500 text-sm mb-4">We encountered an issue while loading this content.</p>
+            <p class="text-gray-500 text-sm mb-4">
+              We encountered an issue while loading this content.
+            </p>
             <UButton color="neutral" @click="clearError">Try again</UButton>
           </div>
         </template>

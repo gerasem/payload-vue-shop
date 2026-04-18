@@ -5,7 +5,27 @@ type LexicalNode = Record<string, any>
 
 const HTML_PURIFY_CONFIG = {
   USE_PROFILES: { html: true, svg: false },
-  ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'th'],
+  ALLOWED_TAGS: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'strong',
+    'em',
+    'u',
+    's',
+    'a',
+    'ul',
+    'ol',
+    'li',
+    'table',
+    'tr',
+    'td',
+    'th'
+  ],
   ALLOWED_ATTR: ['href', 'target', 'rel', 'colspan', 'rowspan'], // Restrict attributes strictly
   RETURN_DOM: false
 }

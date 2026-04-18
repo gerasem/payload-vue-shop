@@ -44,7 +44,7 @@ export async function usePayloadProductsByIds(ids: number[]): Promise<Map<number
   try {
     const data = await usePayloadQuery<any>(dynamicQuery)
     const docs = data?.Products?.docs || []
-    
+
     for (const product of docs) {
       if (product && product.id) {
         map.set(product.id, product as IProductFull)

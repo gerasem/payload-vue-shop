@@ -65,11 +65,26 @@ onUnmounted(() => {
         :width="image.width"
         :height="image.height"
         class="block w-full h-auto object-cover bg-gray-100 rounded-lg transition-opacity group-hover:opacity-85"
-        :class="images.length === 1 ? 'max-h-[80vh] object-cover w-full' : 'aspect-3/4 md:aspect-auto'"
+        :class="
+          images.length === 1 ? 'max-h-[80vh] object-cover w-full' : 'aspect-3/4 md:aspect-auto'
+        "
       />
       <!-- Zoom icon overlay on hover -->
-      <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-lg">
+      <span
+        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="drop-shadow-lg"
+        >
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
           <line x1="11" y1="8" x2="11" y2="14" />

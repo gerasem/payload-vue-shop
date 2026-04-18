@@ -55,7 +55,9 @@ function removeCoupon() {
 
         <span v-else class="font-medium text-secondary">
           {{
-            t('Free shipping over {amount}', { amount: formatEuro(cartStore.freeShippingThreshold) })
+            t('Free shipping over {amount}', {
+              amount: formatEuro(cartStore.freeShippingThreshold)
+            })
           }}
         </span>
       </div>

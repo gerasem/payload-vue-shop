@@ -66,7 +66,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
   }
 
   // Toggle favorite status
-  async function toggle(product: IItem) {
+  async function toggle(product: { id: number; title?: string | null; [key: string]: any }) {
     if (!product || !product.id) return
 
     const index = itemIds.value.indexOf(product.id)
@@ -77,7 +77,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
     } else {
       // Add
       itemIds.value.push(product.id)
-      items.value.push(product) // Optimistic push
+      items.value.push(product as IItem) // Optimistic push
 
       toast.add({
         title: t('Added to favorites'),
