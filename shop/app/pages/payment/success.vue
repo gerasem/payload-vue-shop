@@ -14,6 +14,7 @@ usePageSeo({
   title: computed(() => t('Order confirmed')),
   description: computed(() => t('Thank you for your order!'))
 })
+useSeoMeta({ robots: 'noindex, nofollow' })
 
 // Stripe redirects here with ?payment_intent=pi_xxx&redirect_status=succeeded
 // Sensitive data (email, cart, secret) is stored in a secure httpOnly cookie

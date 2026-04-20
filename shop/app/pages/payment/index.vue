@@ -28,6 +28,7 @@ usePageSeo({
   title: computed(() => t('Payment')),
   description: computed(() => t('Complete your payment securely.'))
 })
+useSeoMeta({ robots: 'noindex, nofollow' })
 
 onMounted(async () => {
   if (checkoutStore.clientSecret) {
@@ -163,8 +164,9 @@ async function handlePayment() {
             />
 
             <UButton
+              class="py-3"
               block
-              size="lg"
+              size="xl"
               color="primary"
               :loading="paymentProcessing"
               :disabled="paymentProcessing || !checkoutStore.clientSecret"

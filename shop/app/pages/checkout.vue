@@ -11,6 +11,7 @@ const { data: page } = await useAsyncData('checkout-page-content', () => usePayl
 
 // SEO
 usePayloadPageSeo(page)
+useSeoMeta({ robots: 'noindex, nofollow' })
 
 const checkoutFormRef = ref()
 

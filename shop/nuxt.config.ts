@@ -75,7 +75,9 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/item/**': { prerender: true },
     '/category/**': { prerender: true },
-    '/cart': { ssr: false }
+    '/cart': { ssr: false },
+    '/checkout': { ssr: false },
+    '/payment/**': { ssr: false }
   },
   devServer: {
     port: 3001
