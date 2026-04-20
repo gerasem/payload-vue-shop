@@ -24,7 +24,54 @@ const state = reactive({
   remember: false
 })
 
+const config = useRuntimeConfig()
+const recaptchaSiteKey = config.public.recaptchaSiteKey
+
+const shouldLoadRecaptcha = ref(false)
+
+const recaptchaScripts = computed(() => {
+  if (recaptchaSiteKey && shouldLoadRecaptcha.value) {
+    return [
+      {
+        src: `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`,
+        async: true,
+        defer: true
+      }
+    ]
+  }
+  return []
+})
+
+useHead({
+  script: recaptchaScripts
+})
+
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
+  if (recaptchaSiteKey) {
+    shouldLoadRecaptcha.value = true
+  }
+
+  let token = ''
+  if (recaptchaSiteKey) {
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const checkGrecaptcha = () => {
+          if ((window as any).grecaptcha && (window as any).grecaptcha.execute) {
+            resolve()
+          } else {
+            setTimeout(checkGrecaptcha, 100)
+          }
+        }
+        checkGrecaptcha()
+        setTimeout(() => reject(new Error('reCAPTCHA timeout')), 5000)
+      })
+
+      token = await (window as any).grecaptcha.execute(recaptchaSiteKey, { action: 'login_form' })
+    } catch (err) {
+      console.error('reCAPTCHA execution failed', err)
+    }
+  }
+
   try {
     await userStore.login(event.data.email, event.data.password)
   } catch (e) {
@@ -168,22 +215,24 @@ function getOrderStatusColor(status: string | null | undefined) {
       </div>
     </div>
 
-    <UCard v-else class="w-full max-w-md">
-      <template #header>
+    <div v-else class="w-full max-w-2xl mx-auto shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] p-8 mt-4 bg-white">
+      <div class="mb-6">
         <div class="text-center">
-          <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl">
+          <h1 class="text-3xl font-bold leading-tight tracking-tight md:text-4xl">
             {{ t('Sign in to your account') }}
           </h1>
         </div>
-      </template>
+      </div>
 
-      <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
+      <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit" @focusin.once="shouldLoadRecaptcha = true">
         <UFormField :label="t('Email')" name="email" required>
           <UInput
             v-model="state.email"
             type="email"
             placeholder="name@company.com"
             autocomplete="email"
+            size="xl"
+            class="w-full"
           />
         </UFormField>
 
@@ -193,6 +242,8 @@ function getOrderStatusColor(status: string | null | undefined) {
             type="password"
             placeholder="••••••••"
             autocomplete="current-password"
+            size="xl"
+            class="w-full"
           />
         </UFormField>
 
@@ -208,11 +259,40 @@ function getOrderStatusColor(status: string | null | undefined) {
           </UButton>
         </div>
 
-        <UButton type="submit" block color="primary" size="lg" :loading="userStore.loading">
-          {{ t('Sign in') }}
-        </UButton>
+        <div class="w-full">
+          <UButton type="submit" block color="primary" size="xl" :loading="userStore.loading" class="px-8 !py-3">
+            {{ t('Sign in') }}
+          </UButton>
 
-        <p class="text-sm font-light text-center text-gray-500">
+          <!-- DSGVO Privacy Notice -->
+          <div v-if="recaptchaSiteKey" class="mt-4 text-[11px] text-gray-500 leading-tight">
+            <i18n-t keypath="recaptcha_privacy_notice" tag="p">
+              <template #privacy>
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline hover:text-primary"
+                >
+                  {{ t('Privacy Policy') }}
+                </a>
+              </template>
+
+              <template #terms>
+                <a
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline hover:text-primary"
+                >
+                  {{ t('Terms of Service') }}
+                </a>
+              </template>
+            </i18n-t>
+          </div>
+        </div>
+
+        <p class="text-sm font-light text-center text-gray-500 mt-6">
           {{ t("Don't have an account yet?") }}
           <UButton
             variant="link"
@@ -224,6 +304,6 @@ function getOrderStatusColor(status: string | null | undefined) {
           </UButton>
         </p>
       </UForm>
-    </UCard>
+    </div>
   </BaseContainer>
 </template>
