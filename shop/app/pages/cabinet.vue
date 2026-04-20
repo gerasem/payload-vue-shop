@@ -138,17 +138,17 @@ function getOrderStatusColor(status: string | null | undefined) {
 <template>
   <BaseContainer>
     <!-- Dashboard (Logged In) -->
-    <div v-if="userStore.loggedIn" class="w-full max-w-4xl">
+    <div v-if="userStore.loggedIn" class="w-full">
       <BaseHeader>
         {{ t('My Account') }}
       </BaseHeader>
 
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-8 lg:gap-12 md:grid-cols-12">
         <!-- Profile Card -->
-        <UCard class="h-full">
-          <template #header>
-            <h3 class="font-semibold">{{ t('Profile') }}</h3>
-          </template>
+        <div class="md:col-span-5 lg:col-span-4 h-max shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-6 md:p-8">
+          <div class="mb-6">
+            <h3 class="font-semibold text-lg">{{ t('Profile') }}</h3>
+          </div>
 
           <div class="space-y-4">
             <p class="text-sm text-gray-500">{{ t('Email') }}</p>
@@ -169,41 +169,80 @@ function getOrderStatusColor(status: string | null | undefined) {
               </UButton>
             </div>
           </div>
-        </UCard>
+        </div>
 
         <!-- Orders Card -->
-        <UCard class="md:col-span-1 lg:col-span-2 h-full">
-          <template #header>
-            <h3 class="font-semibold">{{ t('Order History') }}</h3>
-          </template>
+        <div class="md:col-span-7 lg:col-span-8">
+          <div class="mb-6">
+            <h3 class="font-semibold text-lg">{{ t('Order History') }}</h3>
+          </div>
 
           <div v-if="loadingOrders" class="flex justify-center py-8">
             <UIcon name="i-bi-arrow-repeat" class="animate-spin text-2xl text-gray-400" />
           </div>
 
-          <div v-else-if="orders.length > 0" class="space-y-4">
+          <div v-else-if="orders.length > 0" class="divide-y divide-gray-200">
             <div
               v-for="order in orders"
               :key="order.id"
-              class="flex items-center justify-between p-4 border rounded-lg border-gray-200"
+              class="py-6 flex flex-col gap-6"
             >
-              <div>
-                <p class="font-medium">{{ t('Order #') }}{{ order.id }}</p>
-                <p class="text-sm text-gray-500">
-                  {{
-                    new Date(order.createdAt).toLocaleDateString('de-DE', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    })
-                  }}
-                </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-medium text-lg">{{ t('Order #') }}{{ order.id }}</p>
+                  <p class="text-sm text-gray-500">
+                    {{
+                      new Date(order.createdAt).toLocaleDateString('de-DE', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                      })
+                    }}
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="font-bold text-lg">{{ formatPrice(order.amount) }}</p>
+                  <UBadge :color="getOrderStatusColor(order.status)" variant="subtle">{{
+                    t(order.status || 'pending')
+                  }}</UBadge>
+                </div>
               </div>
-              <div class="text-right">
-                <p class="font-bold">{{ formatPrice(order.amount) }}</p>
-                <UBadge :color="getOrderStatusColor(order.status)" variant="subtle">{{
-                  t(order.status || 'pending')
-                }}</UBadge>
+
+              <!-- Order composition -->
+              <div v-if="order.items && order.items.length > 0" class="mt-4 border border-gray-100 rounded-lg overflow-hidden">
+                <table class="w-full text-sm text-left">
+                  <thead class="text-xs text-gray-500 bg-gray-50">
+                    <tr>
+                      <th class="px-4 py-2 font-medium">{{ t('Product') }}</th>
+                      <th class="px-4 py-2 font-medium text-right hidden sm:table-cell">{{ t('Price') }}</th>
+                      <th class="px-4 py-2 font-medium text-center">{{ t('Qty') }}</th>
+                      <th class="px-4 py-2 font-medium text-right">{{ t('Total') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100">
+                    <tr v-for="(item, idx) in order.items" :key="idx">
+                      <td class="px-4 py-3">
+                        <NuxtLink 
+                          v-if="item.product?.slug" 
+                          :to="localePath(`/item/${item.product.slug}`)" 
+                          class="font-medium hover:text-primary transition-colors block"
+                        >
+                          {{ item.product?.title || 'Unknown Product' }}
+                        </NuxtLink>
+                        <span v-else class="font-medium text-gray-900">{{ item.product?.title || 'Unknown Product' }}</span>
+                      </td>
+                      <td class="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">
+                        {{ formatPrice(item.product?.priceInEUR) }}
+                      </td>
+                      <td class="px-4 py-3 text-center text-gray-500">
+                        {{ item.quantity }}
+                      </td>
+                      <td class="px-4 py-3 text-right font-medium text-gray-900">
+                        {{ formatPrice((item.product?.priceInEUR || 0) * item.quantity) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -211,7 +250,7 @@ function getOrderStatusColor(status: string | null | undefined) {
           <div v-else class="text-center py-8 text-gray-500">
             {{ t('No orders found.') }}
           </div>
-        </UCard>
+        </div>
       </div>
     </div>
 
