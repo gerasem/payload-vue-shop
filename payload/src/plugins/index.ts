@@ -253,7 +253,17 @@ export const plugins: Plugin[] = [
                       req.payload.logger.error(err, 'Error calculating shipping/coupon in custom stripe adapter')
                     }
 
-                    return baseAdapter.initiatePayment(args)
+                    try {
+                      if (args.data?.cart?.items) {
+                        args.data.cart.items = args.data.cart.items.map((item: any) => {
+                          const { id, ...rest } = item
+                          return rest
+                        })
+                      }
+                      return await baseAdapter.initiatePayment(args)
+                    } catch (e: any) {
+                      throw e
+                    }
                   },
 
                   confirmOrder: async (args: Parameters<typeof baseAdapter.confirmOrder>[0]) => {
