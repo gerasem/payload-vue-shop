@@ -194,7 +194,7 @@ injectSchema(() => {
 
     <!-- Category Description (2 columns) -->
     <section v-if="descriptionHTML" class="prose prose-gray max-w-none">
-      <div class="columns-1 md:columns-2 gap-8" v-html="descriptionHTML" />
+      <div class="columns-1 md:columns-2 gap-8" v-html="descriptionHTML"></div>
     </section>
   </BaseContainer>
 </template>

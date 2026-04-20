@@ -64,7 +64,7 @@ const selectedSort = computed({
 <template>
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-8">
     <!-- Left: Price Range -->
-    <div class="flex gap-2 w-full"">
+    <div class="flex gap-2 w-full">
       <div class="flex items-center gap-2 min-w-96">
         <UInputNumber
           v-model="minPrice"
