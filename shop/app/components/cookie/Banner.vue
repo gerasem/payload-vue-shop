@@ -45,7 +45,7 @@ const saveSettings = () => {
             v-if="!isConsentGiven && isReady"
             class="fixed bottom-0 left-0 right-0 z-[9999] bg-white shadow-[0_-4px_30px_rgba(0,0,0,0.1)] py-6"
           >
-            <BaseContainer>
+            <LazyBaseContainer>
               <div class="flex flex-col gap-8 items-start lg:flex-row">
                 <!-- Text Content -->
                 <div class="flex-1">
@@ -77,15 +77,15 @@ const saveSettings = () => {
 
                 <!-- Actions -->
                 <div class="w-full flex flex-col gap-3 shrink-0 lg:w-80">
-                  <UButton color="primary" block size="xl" @click="acceptAll">
+                  <LazyUButton color="primary" block size="xl" @click="acceptAll">
                     {{ t('Accept all') }}
-                  </UButton>
+                  </LazyUButton>
 
-                  <UButton color="secondary" block size="xl" @click="acceptNecessary">
+                  <LazyUButton color="secondary" block size="xl" @click="acceptNecessary">
                     {{ t('Only necessary') }}
-                  </UButton>
+                  </LazyUButton>
 
-                  <UButton
+                  <LazyUButton
                     color="secondary"
                     variant="outline"
                     block
@@ -93,10 +93,10 @@ const saveSettings = () => {
                     @click="isSettingsOpen = true"
                   >
                     {{ t('Settings') }}
-                  </UButton>
+                  </LazyUButton>
                 </div>
               </div>
-            </BaseContainer>
+            </LazyBaseContainer>
           </div>
         </Transition>
       </template>
@@ -121,7 +121,7 @@ const saveSettings = () => {
                   {{ t('cookie_necessary_desc') }}
                 </p>
               </div>
-              <USwitch :model-value="true" disabled color="primary" />
+              <LazyUSwitch :model-value="true" disabled color="primary" />
             </div>
 
             <!-- Analytics -->
@@ -134,15 +134,15 @@ const saveSettings = () => {
                   {{ t('cookie_analytics_desc') }}
                 </p>
               </div>
-              <USwitch v-model="analyticsConsent" color="primary" />
+              <LazyUSwitch v-model="analyticsConsent" color="primary" />
             </div>
           </div>
         </template>
 
         <template #footer>
-          <UButton block color="primary" size="lg" @click="saveSettings">
+          <LazyUButton block color="primary" size="lg" @click="saveSettings">
             {{ t('Save selection') }}
-          </UButton>
+          </LazyUButton>
         </template>
       </UModal>
     </ClientOnly>

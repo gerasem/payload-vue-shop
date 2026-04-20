@@ -164,7 +164,7 @@ const logoSvg = computed(() => {
     <template #body>
       <div class="space-y-4">
         <!-- Mobile menu with Payload data (combines main links and buttons) -->
-        <UNavigationMenu :items="mobileMenuLinks" orientation="vertical" class="-mx-2.5" />
+        <LazyUNavigationMenu :items="mobileMenuLinks" orientation="vertical" class="-mx-2.5" />
 
         <!-- User & Favorites links for mobile -->
         <div class="border-t border-gray-200 pt-4 space-y-1">

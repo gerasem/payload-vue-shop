@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import type { ICategory } from '@/types'
 
-definePageMeta({
-  layout: 'default'
-})
-
 const route = useRoute()
 const { t } = useI18n()
 const slug = computed(() => route.params.slug as string)
