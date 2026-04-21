@@ -240,5 +240,16 @@ injectSchema(() => {
     <section v-if="product?.description" class="mt-12">
       <ContentText2Columns :text="richTextToHTML(product.description)" />
     </section>
+
+    <!-- Related Products -->
+    <section v-if="product?.relatedProducts && product.relatedProducts.length > 0" class="mt-16 mb-12">
+      <BaseHeader class="mb-6" size="h2">
+        {{ t('Related Products') }}
+      </BaseHeader>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <ItemCard v-for="item in product.relatedProducts" :key="item.id" :item="item as any" />
+      </div>
+    </section>
   </BaseContainer>
 </template>

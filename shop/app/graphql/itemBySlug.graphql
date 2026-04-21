@@ -50,6 +50,28 @@ query ItemBySlug($locale: LocaleInputType!, $slug: String!) {
         title
         description
       }
+      relatedProducts {
+        id
+        title
+        slug
+        priceInEUR
+        description
+        enableVariants
+        variants {
+          docs {
+            id
+            priceInEUR
+          }
+        }
+        gallery {
+          id
+          url
+          thumbnailURL
+          width
+          height
+          alt
+        }
+      }
     }
   }
 }
