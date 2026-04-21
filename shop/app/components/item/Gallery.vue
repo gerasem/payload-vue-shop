@@ -9,7 +9,7 @@ const props = defineProps<{
   images:
     | Array<{
         id: number
-        url: string
+        url?: string
         thumbnailURL?: string
         alt?: string
         width?: number

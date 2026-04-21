@@ -43,7 +43,7 @@ function selectOption(typeName: string, value: string) {
           :key="opt.id"
           @click="selectOption(type.name, opt.value)"
           :variant="modelValue[type.name] === opt.value ? 'solid' : 'outline'"
-          :color="modelValue[type.name] === opt.value ? 'primary' : 'gray'"
+          :color="modelValue[type.name] === opt.value ? 'primary' : 'neutral'"
           size="md"
         >
           {{ opt.label }}
