@@ -8,6 +8,21 @@ import { checkRole } from '@/access/utilities'
 
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 
+const sendWelcomeEmail: any = async ({ doc, operation, req }: any) => {
+  if (operation === 'create' && doc.email) {
+    try {
+      await req.payload.sendEmail({
+        to: doc.email,
+        subject: 'Welcome to our shop!',
+        html: `<h1>Welcome!</h1><p>Thank you for registering an account with us.</p>`,
+      })
+    } catch (err: unknown) {
+      req.payload.logger.error({ err, msg: 'Error sending welcome email' })
+    }
+  }
+  return doc
+}
+
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
@@ -21,6 +36,9 @@ export const Users: CollectionConfig = {
     group: 'Users',
     defaultColumns: ['name', 'email', 'roles'],
     useAsTitle: 'name',
+  },
+  hooks: {
+    afterChange: [sendWelcomeEmail],
   },
   auth: {
     tokenExpiration: 1209600,

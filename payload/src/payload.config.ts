@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { s3Storage } from '@payloadcms/storage-s3'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import sharp from 'sharp'
 
 import {
@@ -95,7 +96,23 @@ export default buildConfig({
       ]
     },
   }),
-  //email: nodemailerAdapter(),
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'info@payload-vue-shop.local',
+    defaultFromName: process.env.SMTP_FROM_NAME || 'Payload Shop',
+    // If SMTP_HOST is provided, configure SMTP. Otherwise, Payload will log emails to console (mock).
+    ...(process.env.SMTP_HOST
+      ? {
+          transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
+            auth: {
+              user: process.env.SMTP_USER,
+              pass: process.env.SMTP_PASS,
+            },
+          },
+        }
+      : {}),
+  }),
   endpoints: [],
   globals: [Header, Footer, InformationBanner, ShopSettings, ShoppingSettings, ShippingSettings],
   plugins: [

@@ -23,6 +23,30 @@ const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Ecommerce Template` : 'Payload Ecommerce Template'
 }
 
+const sendOrderEmail = async ({ doc, operation, req, previousDoc }: any) => {
+  const email = doc.customerEmail || (doc.customer && doc.customer.email)
+  if (!email) return doc
+
+  try {
+    if (operation === 'create') {
+      await req.payload.sendEmail({
+        to: email,
+        subject: `Order #${doc.id} Placed Successfully`,
+        html: `<h1>Thank you for your order!</h1><p>Your order #${doc.id} has been placed and is currently being processed.</p>`,
+      })
+    } else if (operation === 'update' && doc.status && doc.status !== previousDoc?.status) {
+      await req.payload.sendEmail({
+        to: email,
+        subject: `Order #${doc.id} Status Updated`,
+        html: `<h1>Order Status Updated</h1><p>Your order #${doc.id} is now: <strong>${doc.status}</strong></p>`,
+      })
+    }
+  } catch (err: unknown) {
+    req.payload.logger.error({ err, msg: 'Error sending order email' })
+  }
+  return doc
+}
+
 const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
   const url = getServerSideURL()
 
@@ -305,6 +329,13 @@ export const plugins: Plugin[] = [
     orders: {
       ordersCollectionOverride: ({ defaultCollection }) => ({
         ...defaultCollection,
+        hooks: {
+          ...defaultCollection.hooks,
+          afterChange: [
+            ...(defaultCollection.hooks?.afterChange || []),
+            sendOrderEmail,
+          ],
+        },
         fields: [
           ...defaultCollection.fields,
           {
