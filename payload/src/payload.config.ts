@@ -140,7 +140,12 @@ export default buildConfig({
         ]
       : []),
   ],
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: (() => {
+    if (!process.env.PAYLOAD_SECRET) {
+      throw new Error('PAYLOAD_SECRET environment variable is required')
+    }
+    return process.env.PAYLOAD_SECRET
+  })(),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
