@@ -80,7 +80,9 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
         setTimeout(() => reject(new Error('reCAPTCHA timeout')), 5000)
       })
 
-      token = await (window as any).grecaptcha.execute(recaptchaSiteKey, { action: 'register_form' })
+      token = await (window as any).grecaptcha.execute(recaptchaSiteKey, {
+        action: 'register_form'
+      })
     } catch (err) {
       console.error('reCAPTCHA execution failed', err)
     }
@@ -114,7 +116,13 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
         </div>
       </div>
 
-      <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit" @focusin.once="shouldLoadRecaptcha = true">
+      <UForm
+        :schema="schema"
+        :state="state"
+        class="space-y-6"
+        @submit="onSubmit"
+        @focusin.once="shouldLoadRecaptcha = true"
+      >
         <UFormField :label="t('Name')" name="name" required>
           <UInput
             v-model="state.name"
@@ -160,7 +168,14 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
         </UFormField>
 
         <div class="w-full">
-          <UButton type="submit" block color="primary" size="xl" :loading="userStore.loading" class="px-8 !py-3 mt-2">
+          <UButton
+            type="submit"
+            block
+            color="primary"
+            size="xl"
+            :loading="userStore.loading"
+            class="px-8 !py-3 mt-2"
+          >
             {{ t('Sign up') }}
           </UButton>
 

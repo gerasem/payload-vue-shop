@@ -145,7 +145,9 @@ function getOrderStatusColor(status: string | null | undefined) {
 
       <div class="grid gap-8 lg:gap-12 md:grid-cols-12">
         <!-- Profile Card -->
-        <div class="md:col-span-5 lg:col-span-4 h-max shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-6 md:p-8">
+        <div
+          class="md:col-span-5 lg:col-span-4 h-max shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] bg-white p-6 md:p-8"
+        >
           <div class="mb-6">
             <h3 class="font-semibold text-lg">{{ t('Profile') }}</h3>
           </div>
@@ -182,11 +184,7 @@ function getOrderStatusColor(status: string | null | undefined) {
           </div>
 
           <div v-else-if="orders.length > 0" class="divide-y divide-gray-200">
-            <div
-              v-for="order in orders"
-              :key="order.id"
-              class="py-6 flex flex-col gap-6"
-            >
+            <div v-for="order in orders" :key="order.id" class="py-6 flex flex-col gap-6">
               <div class="flex items-center justify-between">
                 <div>
                   <p class="font-medium text-lg">{{ t('Order #') }}{{ order.id }}</p>
@@ -209,12 +207,17 @@ function getOrderStatusColor(status: string | null | undefined) {
               </div>
 
               <!-- Order composition -->
-              <div v-if="order.items && order.items.length > 0" class="mt-4 border border-gray-100 rounded-lg overflow-hidden">
+              <div
+                v-if="order.items && order.items.length > 0"
+                class="mt-4 border border-gray-100 rounded-lg overflow-hidden"
+              >
                 <table class="w-full text-sm text-left">
                   <thead class="text-xs text-gray-500 bg-gray-50">
                     <tr>
                       <th class="px-4 py-2 font-medium">{{ t('Product') }}</th>
-                      <th class="px-4 py-2 font-medium text-right hidden sm:table-cell">{{ t('Price') }}</th>
+                      <th class="px-4 py-2 font-medium text-right hidden sm:table-cell">
+                        {{ t('Price') }}
+                      </th>
                       <th class="px-4 py-2 font-medium text-center">{{ t('Qty') }}</th>
                       <th class="px-4 py-2 font-medium text-right">{{ t('Total') }}</th>
                     </tr>
@@ -222,14 +225,16 @@ function getOrderStatusColor(status: string | null | undefined) {
                   <tbody class="divide-y divide-gray-100">
                     <tr v-for="(item, idx) in order.items" :key="idx">
                       <td class="px-4 py-3">
-                        <NuxtLink 
-                          v-if="item.product?.slug" 
-                          :to="localePath(`/item/${item.product.slug}`)" 
+                        <NuxtLink
+                          v-if="item.product?.slug"
+                          :to="localePath(`/item/${item.product.slug}`)"
                           class="font-medium hover:text-primary transition-colors block"
                         >
                           {{ item.product?.title || 'Unknown Product' }}
                         </NuxtLink>
-                        <span v-else class="font-medium text-gray-900">{{ item.product?.title || 'Unknown Product' }}</span>
+                        <span v-else class="font-medium text-gray-900">{{
+                          item.product?.title || 'Unknown Product'
+                        }}</span>
                       </td>
                       <td class="px-4 py-3 text-right text-gray-500 hidden sm:table-cell">
                         {{ formatPrice(item.product?.priceInEUR) }}
@@ -254,7 +259,10 @@ function getOrderStatusColor(status: string | null | undefined) {
       </div>
     </div>
 
-    <div v-else class="w-full max-w-2xl mx-auto shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] p-8 mt-4 bg-white">
+    <div
+      v-else
+      class="w-full max-w-2xl mx-auto shadow-[0_0_40px_10px_rgba(0,0,0,0.05)] p-8 mt-4 bg-white"
+    >
       <div class="mb-6">
         <div class="text-center">
           <h1 class="text-3xl font-bold leading-tight tracking-tight md:text-4xl">
@@ -263,7 +271,13 @@ function getOrderStatusColor(status: string | null | undefined) {
         </div>
       </div>
 
-      <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit" @focusin.once="shouldLoadRecaptcha = true">
+      <UForm
+        :schema="schema"
+        :state="state"
+        class="space-y-6"
+        @submit="onSubmit"
+        @focusin.once="shouldLoadRecaptcha = true"
+      >
         <UFormField :label="t('Email')" name="email" required>
           <UInput
             v-model="state.email"
@@ -299,7 +313,14 @@ function getOrderStatusColor(status: string | null | undefined) {
         </div>
 
         <div class="w-full">
-          <UButton type="submit" block color="primary" size="xl" :loading="userStore.loading" class="px-8 !py-3">
+          <UButton
+            type="submit"
+            block
+            color="primary"
+            size="xl"
+            :loading="userStore.loading"
+            class="px-8 !py-3"
+          >
             {{ t('Sign in') }}
           </UButton>
 
