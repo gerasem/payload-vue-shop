@@ -40,35 +40,34 @@ This monorepo contains the following main directories:
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- PostgreSQL database
+- Node.js (v20+)
+- PostgreSQL database (e.g., Supabase)
+- **Docker** and **Docker Compose** (recommended for local development)
 
-### Installation
+### Local Development (Docker)
+The easiest way to run both the frontend and backend locally with hot-reloading is using Docker Compose:
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
     ```bash
     git clone https://github.com/your-username/payload-vue-shop.git
     cd payload-vue-shop
     ```
 
-2.  **Setup Backend:**
-    ```bash
-    cd payload
-    cp .env.example .env
-    # Fill in your DATABASE_URI and PAYLOAD_SECRET
-    npm install
-    npm run dev
-    ```
+2. **Configure Environment Variables:**
+    - In the `payload` directory, copy `.env.example` to `.env` and fill in your `DATABASE_URI` and `PAYLOAD_SECRET`.
+    - In the `shop` directory, copy `.env.example` to `.env`.
 
-3.  **Setup Frontend:**
+3. **Start the containers:**
     ```bash
-    # In a new terminal
-    cd ../shop
-    cp .env.example .env
-    # Set NUXT_PUBLIC_PAYLOAD_URL=http://localhost:3000
-    npm install
-    npm run dev
+    docker-compose up --build
     ```
+    - The **Backend (Payload)** will be available at `http://localhost:3000`
+    - The **Frontend (Nuxt)** will be available at `http://localhost:3001`
+
+### Local Development (Manual / Without Docker)
+If you prefer not to use Docker, you can run the applications manually:
+1. Setup Backend: `cd payload && npm install && npm run dev`
+2. Setup Frontend: `cd shop && npm install && npm run dev`
 
 ## Features
 
@@ -81,6 +80,15 @@ This monorepo contains the following main directories:
 
 ## Deployment
 
-The project is deployed on **Vercel** as two separate projects (Backend & Frontend).
+### Coolify (Recommended)
+This project is fully configured for deployment via [Coolify](https://coolify.io/) using Multi-stage Dockerfiles.
+
+1. Create two new Services/Applications in your Coolify dashboard.
+2. **Backend (Payload)**: Set the Build Directory to `./payload`. Coolify will automatically build the `production` stage of the provided `Dockerfile`.
+3. **Frontend (Nuxt)**: Set the Build Directory to `./shop`. Coolify will automatically build the `production` stage of the provided `Dockerfile`.
+4. Ensure you configure all necessary Environment Variables in Coolify for both applications.
+
+### Vercel
+The project can also be deployed on **Vercel** as two separate projects (Backend & Frontend).
 - Backend runs as a Next.js application.
 - Frontend runs as a Nuxt application.

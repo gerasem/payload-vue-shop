@@ -24,7 +24,7 @@ export async function usePayloadQuery<T = any>(
     }
 
     const response = await $fetch<{ data: T; errors?: any[] }>(
-      `${config.public.payloadUrl}/api/graphql`,
+      `${import.meta.server ? config.payloadUrl : config.public.payloadUrl}/api/graphql`,
       {
         method: 'POST',
         credentials: 'include', // Send Payload auth cookie (payload-token) with requests

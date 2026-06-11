@@ -1,0 +1,40 @@
+services:
+  payload:
+    build:
+      context: ./payload
+      target: development
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount the codebase for hot-reloading
+      - ./payload:/app
+      # Exclude node_modules from being overwritten by the host
+      - /app/node_modules
+      - /app/.next
+    env_file:
+      - ./payload/.env
+    environment:
+      - NODE_ENV=development
+
+  shop:
+    build:
+      context: ./shop
+      target: development
+    ports:
+      - "3001:3001"
+    volumes:
+      # Mount the codebase for hot-reloading
+      - ./shop:/app
+      # Exclude node_modules from being overwritten by the host
+      - /app/node_modules
+      - /app/.nuxt
+      - /app/.output
+    env_file:
+      - ./shop/.env
+    environment:
+      - NODE_ENV=development
+      # Tell Nuxt where Payload is reachable from inside the container network
+      # If SSR is used, it should connect via the internal Docker network.
+      - PAYLOAD_PRIVATE_URL=http://payload:3000
+      # Keep the public URL pointing to localhost so the browser can reach it.
+      - PAYLOAD_URL=http://localhost:3000

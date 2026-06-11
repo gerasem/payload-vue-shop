@@ -10,7 +10,7 @@ export async function usePayloadFetch<T>(url: string, options: UseFetchOptions<T
   const headers = useRequestHeaders(['cookie'])
 
   const defaults: UseFetchOptions<T> = {
-    baseURL: config.public.payloadUrl as string,
+    baseURL: (import.meta.server ? config.payloadUrl : config.public.payloadUrl) as string,
     credentials: 'include',
     headers: {
       ...headers,
@@ -36,7 +36,7 @@ export async function $payloadFetch<T>(url: string, options: any = {}) {
   const headers = useRequestHeaders(['cookie'])
 
   const defaults = {
-    baseURL: config.public.payloadUrl as string,
+    baseURL: (import.meta.server ? config.payloadUrl : config.public.payloadUrl) as string,
     credentials: 'include',
     headers: {
       ...headers,
